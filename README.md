@@ -75,3 +75,31 @@ via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilitie
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Deployment commands
+
+docker-compose down --volumes
+
+docker-compose build --no-cache
+
+docker-compose up -d
+
+docker-compose exec laravel.test composer install --optimize-autoloader --no-dev
+
+docker-compose exec laravel.test php artisan storage:link
+
+docker-compose exec laravel.test php artisan migrate --seed
+
+docker-compose exec laravel.test npm install
+
+docker-compose exec laravel.test npm run production
+
+docker-compose exec laravel.test php artisan optimize 
+
+docker-compose exec laravel.test php artisan config:cache
+
+docker-compose exec laravel.test php artisan view:cache
+
+docker-compose exec laravel.test php artisan event:cache
+
