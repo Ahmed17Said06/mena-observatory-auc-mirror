@@ -95,7 +95,9 @@ docker-compose exec laravel.test npm install
 
 docker-compose exec laravel.test npm run production
 
-docker-compose exec laravel.test php artisan optimize 
+docker-compose exec laravel.test php artisan optimize
+
+docker-compose exec laravel.test php artisan route:clear
 
 docker-compose exec laravel.test php artisan config:cache
 
