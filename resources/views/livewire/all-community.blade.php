@@ -157,7 +157,9 @@
                     <div class="post-loop-community position-relative overflow-hidden">
                         <img class="post-img" src="{{Storage::url($n->thumbnail_image)}}">
                         <div class="post-content" lang="en">
-                            <h4 style='color:#FFF;' class='slide_title'>{{$n->name}}</h4>
+                            <h4 style='color:#FFF;' class='slide_title'>
+                            <a href='{{route("community_single", ["id" => $n->id])}}'>{{$n->name}}</a>
+                            </h4>
                             <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 
                             <a href='{{route("community_single", ["id" => $n->id])}}'>
