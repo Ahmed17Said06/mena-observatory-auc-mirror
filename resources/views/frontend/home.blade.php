@@ -197,7 +197,8 @@
                         @endif
                         <img class="post-img" src="{{Storage::url($n->thumbnail_image)}}">
                         <div class="post-content" lang="en">
-                            <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
+                        <a href='{{$n->link}}'>  <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4></a>
+
                             <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 
                             <a href='{{$n->link}}'>
@@ -231,7 +232,9 @@
                     <div class="post-loop position-relative overflow-hidden">
                         <img class="post-img" src="{{Storage::url($n->image)}}">
                         <div class="post-content" lang="en">
-                            <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
+                            <h4 style='color:#FFF;' class='slide_title'>
+                            <a href='{{route("blogs.single", ["id" => $n->id])}}'>{{$n->title}}</a>
+                            </h4>
                             <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
                             <a href='{{route("blogs.single", ["id" => $n->id])}}'>
                                 <button class='btn learn_more'><i class="fas fa-plus"></i> Read More</button>
