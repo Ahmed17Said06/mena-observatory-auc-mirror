@@ -54,28 +54,11 @@ RUN mkdir -p /var/www/html/storage/app/public /var/www/html/storage/framework/ca
     /var/www/html/storage/logs \
     && chmod -R 777 /var/www/html/storage || true
 
-# Install PHP-FPM
-RUN apt-get update && apt-get install -y php8.2-fpm
-
-# Configure PHP-FPM
-RUN mkdir -p /run/php && \
-    sed -i 's/listen = \/run\/php\/php8.2-fpm.sock/listen = 9000/g' /etc/php/8.2/fpm/pool.d/www.conf && \
-    sed -i 's/;listen.allowed_clients = 127.0.0.1/listen.allowed_clients = 0.0.0.0/g' /etc/php/8.2/fpm/pool.d/www.conf
-
 COPY start-container /usr/local/bin/start-container
-COPY start-fpm-container /usr/local/bin/start-fpm-container
-RUN chmod +x /usr/local/bin/start-fpm-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.2/cli/conf.d/99-sail.ini
-COPY php-fpm.conf /etc/php/8.2/fpm/pool.d/www.conf
-COPY start-fpm-container-with-storage /usr/local/bin/start-fpm-container-with-storage
-RUN chmod +x /usr/local/bin/start-fpm-container-with-storage 
-
-# Copy PHP config to FPM after the file exists
-RUN cp /etc/php/8.2/cli/conf.d/99-sail.ini /etc/php/8.2/fpm/conf.d/99-sail.ini
-
 RUN chmod +x /usr/local/bin/start-container
 
 EXPOSE 8000
 
-CMD ["php-fpm", "-F"]
+ENTRYPOINT ["start-container"]
