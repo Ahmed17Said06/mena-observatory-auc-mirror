@@ -27,7 +27,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
     Route::get('/', function () {
-        return redirect('/home');
+        return redirect(LaravelLocalization::localizeUrl('/home'));
     });
     Route::get('/verify', function () {
         return view('auth.verify-email');

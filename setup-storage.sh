@@ -41,3 +41,5 @@ php artisan config:clear
 
 # Start the PHP built-in server
 php artisan serve --host=0.0.0.0 --port=80
+
+echo "Storage setup complete - PHP-FPM will be started by the container entrypoint"
