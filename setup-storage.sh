@@ -7,6 +7,7 @@ echo "Setting up storage directory..."
 mkdir -p /var/www/html/storage/framework/sessions 
 mkdir -p /var/www/html/storage/framework/views 
 mkdir -p /var/www/html/storage/framework/cache
+mkdir -p /var/www/html/storage/logs
 mkdir -p /var/www/html/storage/app/public
 mkdir -p /var/www/html/bootstrap/cache
 
@@ -22,6 +23,11 @@ fi
 
 # Set proper ownership
 chown -R www-data:www-data /var/www/html/storage
+
+# Make all storage directories properly writable with explicit permissions
+chmod -R 775 /var/www/html/storage/framework
+chmod -R 775 /var/www/html/storage/logs
+chmod -R 775 /var/www/html/storage/app
 
 # Create correct symbolic link structure - THIS IS THE FIX FOR THE DOUBLE STORAGE ISSUE
 rm -f /var/www/html/public/storage
@@ -39,6 +45,9 @@ export CACHE_DRIVER=array
 
 # Clear config cache
 php artisan config:clear
+php artisan view:clear
+php artisan cache:clear
+php artisan route:clear
 
 # Start the PHP built-in server
 echo "Storage setup complete - PHP-FPM will be started by the container entrypoint"
