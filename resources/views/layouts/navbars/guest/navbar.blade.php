@@ -182,7 +182,7 @@
                                 <a class="nav-link" href="{{route('news_events')}}">@lang('translation.news-events')</a>
                             </li>
                             <li class="nav-item @if(str(Route::current()->getName())->contains('blogs')) active @endif">
-                                <a class="nav-link" href="{{route('blogs')}}">@lang('translation.posts')</a>
+                                <a class="nav-link" href="{{route('blogs')}}">@lang('translation.recent-posts')</a>
                             </li>
                             <li class="nav-item @if(str(Route::current()->getName())->contains('contact_us')) active @endif">
                                 <a class="nav-link" href="{{route('contact_us')}}">@lang('translation.contact-us')</a>
