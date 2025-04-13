@@ -8,6 +8,11 @@ mkdir -p /var/www/html/storage/framework/sessions
 mkdir -p /var/www/html/storage/framework/views 
 mkdir -p /var/www/html/storage/framework/cache
 mkdir -p /var/www/html/storage/app/public
+mkdir -p /var/www/html/bootstrap/cache
+
+# Set proper bootstrap/cache permissions
+chmod -R 775 /var/www/html/bootstrap/cache  # Add this line
+chown -R www-data:www-data /var/www/html/bootstrap/cache  # Add this line
 
 # If the host has images, copy them to the storage volume directly
 if [ -d "/var/www/html/host-storage" ] && [ "$(ls -A /var/www/html/host-storage)" ]; then
