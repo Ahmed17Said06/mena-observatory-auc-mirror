@@ -146,8 +146,8 @@
             </script>
         </div>
     </div>
-    <div id="blogs">
-    <div class="row g-4" style="padding-bottom: 50px;">
+    <div id="blogs" style="max-height: 670px; overflow-y: auto; padding-bottom: 50px;">
+    <div class="row g-4">
         @foreach($blogs as $n)
             <div class="col-12 col-md-6 col-lg-4 d-flex">
                 <div class="post-container w-100">
@@ -170,6 +170,7 @@
         @endforeach
     </div>
 </div>
+
 
         <div class='row' style='overflow-x: scroll; padding-bottom: 80px; padding-top: 40px;'>
             <h3 hreflang="{{ getLang() }}">@lang('translation.collaborators')</h3>
