@@ -203,7 +203,9 @@
                                                 <img class="post-img" src="{{Storage::url($r->image)}}">
 
                                                 <div class="post-content" lang="en">
-                                                    <h4 style='color:#FFF;' class='slide_title'>{{$r->title}}</h4>
+
+                                                    <h4 style='color:#FFF;' class='slide_title'>
+                                                    <a href='{{$r->data_link}}'>{{$r->title}}</a></h4>
                                                     <p style='color:#FFF;'
                                                        class='slide_description'>{{$r->description}}</p>
 

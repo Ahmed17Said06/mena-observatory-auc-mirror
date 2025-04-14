@@ -23,7 +23,7 @@ class AllCommunity extends Component
     {
         return view('livewire.all-community', [
             'partners' => Partner::all(),
-            'blogs' => Community::where('name', 'like', '%'.$this->search.'%')->orderBy('name', 'asc')->paginate(8),
+            'blogs' => Community::where('name', 'like', '%'.$this->search.'%')->orderBy('name', 'asc')->get(),
         ]);
     }
 }

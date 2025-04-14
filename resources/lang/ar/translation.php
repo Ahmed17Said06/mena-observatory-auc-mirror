@@ -2,6 +2,7 @@
 return [
     "about-us" => "معلومات عنا",
     "posts" => "مقالات",
+    "recent-posts" => "المقالات الأخيرة",
     "news-events" => "أخبار وفعاليات",
     "knowledge-hub" => "مركز المعرفة",
     "community" => "مجتمعنا",

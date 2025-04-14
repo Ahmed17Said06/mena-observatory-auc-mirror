@@ -146,32 +146,32 @@
             </script>
         </div>
     </div>
-    <div id="blogs">
-        <div class="flex-column flex-md-row" style='
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    padding-bottom: 50px;'>
-            @foreach($blogs as $n)
-                <div class="post-container">
-                    <div class="post-loop-community position-relative overflow-hidden">
-                        <img class="post-img" src="{{Storage::url($n->thumbnail_image)}}">
+    <div id="blogs" style="max-height: 670px; overflow-y: auto; padding-bottom: 50px;">
+    <div class="row g-4">
+        @foreach($blogs as $n)
+            <div class="col-12 col-md-6 col-lg-4 d-flex">
+                <div class="post-container w-100">
+                    <div class="post-loop-community position-relative overflow-hidden h-100">
+                        <img class="post-img w-100" src="{{ Storage::url($n->thumbnail_image) }}">
                         <div class="post-content" lang="en">
-                            <h4 style='color:#FFF;' class='slide_title'>{{$n->name}}</h4>
-                            <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
+                            <h4 style="color:#FFF;" class="slide_title">
+                                <a href="{{ route('community_single', ['id' => $n->id]) }}">{{ $n->name }}</a>
+                            </h4>
+                            <p style="color:#FFF;" class="slide_description">{{ $n->description }}</p>
 
-                            <a href='{{route("community_single", ["id" => $n->id])}}'>
-                                <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
+                            <a href="{{ route('community_single', ['id' => $n->id]) }}">
+                                <button class="btn learn_more"><i class="fas fa-plus"></i> Learn More</button>
                             </a>
                         </div>
-
                         <div class="overlay-1"></div>
                     </div>
                 </div>
-            @endforeach
-        </div>
-        {{$blogs->onEachSide(2)->links()}}
+            </div>
+        @endforeach
     </div>
+</div>
+
+
         <div class='row' style='overflow-x: scroll; padding-bottom: 80px; padding-top: 40px;'>
             <h3 hreflang="{{ getLang() }}">@lang('translation.collaborators')</h3>
             <div class="d-flex flex-wrap align-items-center partners-imgs justify-content-center">
