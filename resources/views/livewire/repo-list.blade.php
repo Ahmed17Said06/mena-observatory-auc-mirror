@@ -14,6 +14,9 @@
                 <button wire:click="setType('{{ $type->id }}')"
                         class="btn btn-mena-4 {{ in_array($type->id, $repo_type_ids) ? 'active' : 'btn-mena-4' }}">
                     {{ $type->name }}
+                    <script>
+    console.log("Type name: {{ $type}}");
+</script>
                 </button>
             @endforeach
             <div class="search-box event">

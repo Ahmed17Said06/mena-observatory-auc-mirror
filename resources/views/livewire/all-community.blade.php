@@ -146,7 +146,7 @@
             </script>
         </div>
     </div>
-    <div id="blogs" style="max-height: 670px; overflow-y: auto; padding-bottom: 50px;">
+    <div id="blogs" style=" overflow-y: auto; padding-bottom: 50px;">
     <div class="row g-4">
         @foreach($blogs as $n)
             <div class="col-12 col-md-6 col-lg-4 d-flex">
@@ -185,8 +185,8 @@
                 @endif
                 <div class="col-12 col-lg-3">
                     <div class="square-holder">
-                        <a href='{{$p->url}}'>
-                            <img src='{{Storage::url($p->logo)}}'></a>
+                     
+                            <img class="w-100" src='{{Storage::url($p->logo)}}'>
                     </div>
                 </div>
                 @php $counter++; @endphp

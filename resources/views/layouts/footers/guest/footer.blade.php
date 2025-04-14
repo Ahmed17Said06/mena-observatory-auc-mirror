@@ -24,7 +24,7 @@
 
     <div style='width:100%;text-align:center;'>
         <div >
-            <img src="{{ asset('/img/AUCLogo_BUS_A2K4D_blueCMYK_High-01 (1).png') }}" height='102px;'>
+            <img src="{{ asset('/img/newLogo.png') }}" height='215;'>
             <img src="{{ asset('/img/BZU_CCE_Logo.jpg') }}" height='105px;' style='margin-left:20px;margin-right:20px;'>
         </div>
         <div>

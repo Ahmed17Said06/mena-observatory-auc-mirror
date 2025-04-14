@@ -231,7 +231,7 @@
                 <div class="d-grid column partners-imgs">
                     <div class="square-holder">
                         <a href="https://business.aucegypt.edu/research/centers/a2k4d">
-                            <img src="{{ asset('/img/AUCLogo_BUS_A2K4D_blueCMYK_High-01 (1).png') }}">
+                            <img src="{{ asset('/img/newLogo.png') }}">
                         </a>
                     </div>
                     <div class="square-holder">

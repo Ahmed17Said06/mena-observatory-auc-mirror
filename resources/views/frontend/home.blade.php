@@ -43,26 +43,17 @@
             </svg>
         </a>
     </div>
-    <div class="container mt-3" id="Regional">
-        <div class='row'>
-            {{--	<h3 class='' style='margin-top:30px;'>REGIONAL REPOSITORY</h3>--}}
-            <div class='col-lg-9'>
-                <div class="position-relative map_content">
-                    <div class="map_container">
-                        <div style='margin-top:10%;' id="map">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class='col-lg-3 featured mt-3 mt-lg-0'>
-                <h3 class='title' hreflang="{{ getLang() }}"
+    <div class="mt-3" id="Regional">
+
+      <div class='container mt-3 mt-lg-0'>
+                <h3 hreflang="{{ getLang() }}"
                     @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif >@lang('translation.featured')</h3>
-                <div class="d-lg-block d-sm-flex d-md-flex d- gap-3">
+                <div class="d-flex gap-3">
                     @foreach($featuredPosts as $n)
                         @if($loop->index>=3)
                             @break
                         @endif
-                        <div class="post-loop-featured
+                        <div class="post-loop-featured m-3
                          @if($loop->index===2)
                          research-border-border
                          @endif
@@ -80,7 +71,9 @@
                                 </div>
                             @endif
                             <div class="post-content " lang="en">
-                                <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
+                                <h4 style='color:#FFF;' class='slide_title'>
+                                <a href='{{$n->url}}'>{{$n->title}}</a>    
+                                </h4>
                                 <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 
                                 <a href='{{$n->url}}'>
@@ -92,76 +85,14 @@
                             </div>
 
                             <div class="overlay-1"></div>
-                            @if($loop->index<2)
-                                <div
-                                    class="@if($n->tag == "Research" ) overlay-research
-                                 @elseif($n->tag == "Webinar") overlay-webinar
-                                 @elseif($n->tag == "Post") overlay-news
-                                  @else overlay-podcast @endif"></div>
-                            @endif
+                           
                         </div>
 
                     @endforeach
                 </div>
-            </div>
         </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <div class="d-none container mt-5">
-        <h3>NEWS & EVENTS</h3>
-        <div class="flex-column flex-md-row" style='
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    padding-bottom: 50px;'>
 
-            @foreach($news_events as $n)
-
-                <div class="post-container">
-                    <div class="post-loop-news position-relative overflow-hidden">
-                        <img class="post-img" src="{{Storage::url($n->image)}}">
-                        @if ($n instanceof App\Models\News)
-                            <div class="category-stamp news">
-                                <span>NEWS</span>
-                                @else
-                                    <div class="category-stamp events">
-                                        <span>EVENTS</span>
-                                        @endif            </div>
-                                    <div class="post-content" lang="en">
-                                        <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
-                                        <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
-
-                                    @if ($n instanceof App\Models\News)
-
-                                            <a href='{{route("news", ["id" => $n->id])}}'>
-                                                @else
-                                                    <a href='{{route("events.single", ["id" => $n->id])}}'>
-
-                                                        @endif
-                                                        <button class='btn learn_more'><i class="fas fa-plus"></i> Read
-                                                            More
-                                                        </button>
-                                                    </a>
-
-                                    </div>
-
-                                    <div class="overlay-1"></div>
-                                    @if ($n instanceof App\Models\News)
-
-                                        <div class="overlay-news"></div>
-                                    @else
-                                        <div class="overlay-event"></div>
-                                    @endif
-                            </div>
-                    </div>
-                    @endforeach
-                </div>
-        </div>
-    </div>
-    </div>
-    <div class="container gender">
+        <div class="container gender">
         <h3 hreflang="{{ getLang() }}"
             @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif >@lang('translation.gender-ai')</h3>
         <div style='
@@ -213,6 +144,77 @@
             @endforeach
         </div>
     </div>
+
+        <div class='row'>
+            <div class="container"><h3 class='' style='margin-top:5px; padding-left:13px;'>MENA AI Indices</h3></div>
+            	
+            <div class='container-lg'>
+                <div class="position-relative map_content">
+                    <div class="map_container">
+                        <div style='margin-top:2%;' id="map">
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+
+  
+    <div class="d-none container mt-5">
+        <h3>NEWS & EVENTS</h3>
+        <div class="flex-column flex-md-row" style='
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    padding-bottom: 50px;'>
+
+            @foreach($news_events as $n)
+
+                <div class="post-container">
+                    <div class="post-loop-news position-relative overflow-hidden">
+                        <img class="post-img" src="{{Storage::url($n->image)}}">
+                        @if ($n instanceof App\Models\News)
+                            <div class="category-stamp news">
+                                <span>NEWS</span>
+                                @else
+                                    <div class="category-stamp events">
+                                        <span>EVENTS</span>
+                                        @endif            </div>
+                                    <div class="post-content" lang="en">
+                                        <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
+                                        <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
+
+                                    @if ($n instanceof App\Models\News)
+
+                                            <a href='{{route("news", ["id" => $n->id])}}'>
+                                                @else
+                                                    <a href='{{route("events.single", ["id" => $n->id])}}'>
+
+                                                        @endif
+                                                        <button class='btn learn_more'><i class="fas fa-plus"></i> Read
+                                                            More
+                                                        </button>
+                                                    </a>
+
+                                    </div>
+
+                                    <div class="overlay-1"></div>
+                                    @if ($n instanceof App\Models\News)
+
+                                        <div class="overlay-news"></div>
+                                    @else
+                                        <div class="overlay-event"></div>
+                                    @endif
+                            </div>
+                    </div>
+                    @endforeach
+                </div>
+        </div>
+
+
+
+
     <livewire:aswats/>
     <div class="container">
         <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
@@ -225,8 +227,11 @@
     padding-bottom: 50px;'>
             <?php $i = 0; ?>
             @foreach($blogs as $n)
-                    <?php $i += 1;
-                    if ($i == 4) break;
+                    <?php
+                    $i += 1;
+                    if ($i == 4) {
+                        break;
+                    }
                     ?>
                 <div class="post-container">
                     <div class="post-loop position-relative overflow-hidden">
