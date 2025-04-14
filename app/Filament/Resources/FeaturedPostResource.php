@@ -42,13 +42,6 @@ class FeaturedPostResource extends Resource
                                 . '.' . $file->getClientOriginalExtension());
                             return $file->storeAs('', $imgName, 'public');
                         }),
-                Select::make('tag')
-                    ->options([
-                        'Research' => 'Research',
-                        'Webinar' => 'Webinar',
-                        'Podcast' => "Podcast",
-                        'Post' => 'Post'
-                    ])->required(),
                 TextInput::make('url')->url(),
 
             ]);
