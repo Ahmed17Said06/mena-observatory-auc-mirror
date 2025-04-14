@@ -65,11 +65,5 @@ class DatabaseSeeder extends Seeder
         
         DB::table('statics')->insert($statics);
 
-        DB::table('repo_type')->insert([
-            ['name' => 'research'],
-            ['name' => 'paper'],
-            ['name' => 'podcast'],
-            ['name' => 'webinar']
-        ]);
     }
 }
