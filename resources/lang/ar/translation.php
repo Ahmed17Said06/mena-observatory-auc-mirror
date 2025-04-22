@@ -51,6 +51,6 @@ return [
     "submit_event"=>"ارسل حدث",
     "submit_work"=>"شارك عملك",
     "want_share_work"=>"هل تريد مشاركة عملك؟",
-
+    "data-depository" => "مستودع البيانات",
 
 ];

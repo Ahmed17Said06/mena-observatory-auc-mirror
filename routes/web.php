@@ -63,6 +63,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
     Route::get('/regional/html_list', [RegionalController::class, 'js_list_view'])->name('regional.html_list');
     Route::get('/regional/{id}', [RegionalController::class, 'country'])->name('regional.country');
     Route::get('/regional-repository/{id}', [RegionalController::class, 'single'])->name('repo.single');
+    Route::get('/data_repo', [RegionalController::class, 'dataRepo'])->name('data_repo');
 
     Route::get('/additional-resources/{id}', [AdditionalResourcesController::class, 'single'])->name('resources.single');
 

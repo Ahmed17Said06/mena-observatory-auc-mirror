@@ -37,10 +37,24 @@ class RepoList extends Component
     public $allCountries = [];
     public $selectedCountryIds = [];
 
+    public $is_data_repo_page = false;
+
     public function mount()
     {
-        $this->repo_types = Repo_type::all();
-        $this->repo_type_ids = [$this->repo_types[0]->id];
+        // Only load repo types 1 (RESEARCH OUTPUTS) and 2 (EDUCATIONAL RESOURCES)
+        // Exclude type 3 (DATA DEPOSITORY) for the Knowledge Hub page
+        if (request()->route()->getName() === 'data_repo') {
+            // For Data Depository page, only get type 3
+            $this->repo_types = Repo_type::where('id', 3)->get();
+            $this->is_data_repo_page = true;
+            $this->repo_type_ids = [3]; // Pre-select Data Depository (ID 3)
+        } else {
+            // For Knowledge Hub page, exclude type 3 (DATA DEPOSITORY)
+            $this->repo_types = Repo_type::whereNotIn('id', [3])->get();
+            // Default to RESEARCH OUTPUTS (ID 1)
+            $this->repo_type_ids = [1];
+        }
+        
         $this->authors = Author::all();
         $this->fields = Repo::whereNotNull('field')->pluck('field')->unique()->toArray();
         $this->subjects = Repo::whereNotNull('subject')->pluck('subject')->unique()->toArray();

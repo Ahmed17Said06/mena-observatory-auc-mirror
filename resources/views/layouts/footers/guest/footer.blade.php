@@ -3,6 +3,7 @@
     <div class="mb-4 mt-3" hreflang="{{ getLang() }}" id='footer-menu'>
         <a class="btn-footer" href="{{route('about_us')}}">@lang('translation.about-us')</a>
         <a class="btn-footer" href="{{route('regional')}}">@lang('translation.knowledge-hub')</a>
+        <a class="btn-footer" href="{{route('data_repo')}}">@lang('translation.data-depository')</a>
 {{--        <a class="btn-footer" href="{{route('news_events')}}">NEWS & EVENTS</a>--}}
         <a class="btn-footer" href="{{route('community')}}">@lang('translation.community')</a>
         <a class="btn-footer" href="{{route('blogs')}}">@lang('translation.posts')</a>
