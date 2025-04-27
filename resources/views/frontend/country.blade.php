@@ -219,7 +219,6 @@
                                                 </div>
 
                                                 <div class="overlay-1"></div>
-                                                <div class="overlay-news"></div>
                                             </div>
                                         </div>
                                     @endforeach
@@ -260,7 +259,6 @@
                     {{--                                        </a>--}}
                     {{--                                    </div>--}}
                     {{--                                    <div class="overlay-1"></div>--}}
-                    {{--                                    <div class="overlay-news"></div>--}}
                     {{--                                </div>--}}
                     {{--                            </div>--}}
                     {{--                        @endforeach--}}
