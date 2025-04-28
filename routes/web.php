@@ -23,7 +23,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 */
 
 
-Route::group(['prefix' => LaravelLocalization::setLocale(),
+Route::group([
+    'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
     Route::get('/', function () {
@@ -70,9 +71,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
     Route::get('/community', [CommunityController::class, 'index'])->name('community');
     Route::get('/community/{id}', [CommunityController::class, 'show'])->name('community_single');
     Route::get('/profile', [CommunityController::class, 'profile'])->name('profile');
+    // Community page
+    // Route::get('/communites', function () {
+    //     return view('components.frontend.component.communites');
+    // })->name('communites');
+    Route::get('/communities', [CommunityController::class, 'communities'])->name('communities');
+    
+    // Collaborators page
+    Route::get('/collaborators', [CommunityController::class, 'collaborators'])->name('collaborators');
 
     Route::group(['middleware' => 'auth'], function () {
-//    Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
+        //    Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 //    Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 //    Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
 //    Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');

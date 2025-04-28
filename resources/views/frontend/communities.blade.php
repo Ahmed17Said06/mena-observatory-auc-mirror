@@ -17,7 +17,7 @@
             {!! $intro->content !!}
             @endif
         </div>
-        <livewire:all-community />
+        <livewire:communities />
     </div>
 </div>
 @include('layouts.footers.guest.footer')

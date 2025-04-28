@@ -30,11 +30,46 @@
                             </a>
                         @endforeach
                     </div>
-                    <div class="col-lg-2 col-12 d-flex pt-3 pt-lg-0 justify-content-end" style="gap: 20px">
-                        <div class="d-flex align-items-center">
+                    <div class="col-lg-2 col-12 pt-3 pt-lg-0">
+                        <!-- Views counter - center aligned -->
+                        <div class="d-flex align-items-center justify-content-center">
                             <img style="object-fit: contain;max-width: 29px; margin-right: 15px"
                                  src="/img/Views_Icon.svg">
                             <span style="white-space: nowrap;">{{$blog->views}} Views</span>
+                        </div>
+
+                        <!-- Social Share Buttons - increased vertical spacing and centered -->
+                        <div class="social-share-buttons d-flex flex-column align-items-center mt-5" style="margin-left: 0;">
+                            <!-- Share title above the logos, centered -->
+                            <span class="text-center" style="margin-bottom: 8px; white-space: nowrap;">Share</span>
+                            
+                            <!-- Icons in their own row with center alignment -->
+                            <div class="d-flex justify-content-center">
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}"
+                                   target="_blank" class="fa-brands fa-facebook-f" aria-label="Share on Facebook"
+                                   style="background: #3b5998; font-size: 14px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; margin-right: 8px; border-radius: 50%; color: white;"></a>
+                                
+                                <!-- X (Twitter) -->
+                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" 
+                                   target="_blank" class="fa-brands fa-x-twitter" aria-label="Share on X"
+                                   style="background: #000000; font-size: 14px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; margin-right: 8px; border-radius: 50%; color: white;"></a>
+                                
+                                <!-- LinkedIn -->
+                                <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(url()->current()) }}"
+                                   target="_blank" class="fa-brands fa-linkedin-in" aria-label="Share on LinkedIn"
+                                   style="background: #0077b5; font-size: 14px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; margin-right: 8px; border-radius: 50%; color: white;"></a>
+                                
+                                <!-- WhatsApp -->
+                                <a href="https://api.whatsapp.com/send?text={{ urlencode($blog->title) }}%20{{ urlencode(url()->current()) }}" 
+                                   target="_blank" class="fa-brands fa-whatsapp" aria-label="Share on WhatsApp"
+                                   style="background: #25D366; font-size: 14px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; margin-right: 8px; border-radius: 50%; color: white;"></a>
+                                   
+                                <!-- Copy Link -->
+                                <a href="#" id="copy-link-button" class="fa-solid fa-link" aria-label="Copy link"
+                                   style="background: #6c757d; font-size: 14px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: white; cursor: pointer;"
+                                   data-url="{{ url()->current() }}"></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,4 +99,30 @@
         </div>
     </div>
     @include('layouts.footers.guest.footer')
+
+    <!-- Add JavaScript for copy link functionality -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const copyButton = document.getElementById('copy-link-button');
+        
+        copyButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = this.getAttribute('data-url');
+            
+            navigator.clipboard.writeText(url).then(() => {
+                // Show success feedback
+                const originalBackground = this.style.background;
+                const originalIcon = this.className;
+                
+                this.style.background = '#28a745';
+                this.className = 'fa-solid fa-check';
+                
+                setTimeout(() => {
+                    this.style.background = originalBackground;
+                    this.className = originalIcon;
+                }, 1500);
+            });
+        });
+    });
+    </script>
 @endsection
