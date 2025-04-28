@@ -126,8 +126,9 @@
                 </div>
                 <button wire:click="applyFilters" id="applyButton" class="btn btn-mena-2">Apply</button>
             </dialog>
-            <a id="showDialog" style="cursor: pointer" wire:click="showPopup">
-                <img src="/img/filter-icon.svg">
+            <a id="showDialog" style="cursor: pointer; opacity: 1 !important; transform: translateY(0) !important;" wire:click="showPopup" class="FadeInUp">
+                <span style="padding-right: 0.5rem; color: var(--menablue); font-weight: bold; opacity: 1 !important; transform: translateY(0) !important;">Filters</span>
+                <img style="opacity: 1 !important; transform: translateY(0) !important;" src="/img/filter-icon.svg">
             </a>
 {{--            <script>--}}
 {{--                (() => {--}}
