@@ -2645,7 +2645,7 @@ h1:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):no
 h3:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
 h4:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
 button:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(.search-box *):not(#subscribe-popup *):not(#repos *):not(.btn-mena-4):not(.filter-container):not(#blogs *) {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(20px);
     transition: background 0.3s, color 0.3s, opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
