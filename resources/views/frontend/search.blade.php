@@ -136,7 +136,8 @@
                                     <img class="post-img" src="{{Storage::url($n->image)}}">
 
                                     <div class="post-content" lang="en">
-                                        <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
+                                    <a href='{{route("repo.single", ["id" => $n->id])}}'><h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4></a>
+                                        
                                         <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 
                                         <a href='{{route("repo.single", ["id" => $n->id])}}'><button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button></a>

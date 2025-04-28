@@ -49,7 +49,8 @@
                          style='background-image:url({{Storage::url($post->image)}});'>
 
                         <div class="post-content" lang="en">
-                            <h4 style='color:#FFF;' class='slide_title'>{{$post->title}}</h4>
+                        <a href='{{route("blogs.single", ["id" => $post->id])}}'><h4 style='color:#FFF;' class='slide_title'>{{$post->title}}</h4></a>
+                            
                             <p style='color:#FFF;' class='slide_description'>{{$post->description}}</p>
                             <a href='{{route("blogs.single", ["id" => $post->id])}}'>
                                 <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
@@ -57,7 +58,6 @@
                         </div>
 
                         <div class="overlay-1"></div>
-                        <div class="overlay-news"></div>
                     </div>
                 @endforeach
             </div>

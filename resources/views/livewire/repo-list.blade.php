@@ -1,31 +1,23 @@
 <div class='row my-3 my-lg-5'>
     <div class='col-lg-9'>
         <div class="d-lg-flex d-none justify-content-between align-items-center flex-column flex-lg-row mb-3 gap-2">
-            {{--            <a hreflang="{{ getLang() }}" class="btn btn-mena-2">--}}
-            {{--                RESEARCH OUTPUTS--}}
-            {{--            </a>--}}
-            {{--            <a hreflang="{{ getLang() }}" class="btn btn-mena-2">--}}
-            {{--                EDUCATIONAL RESOURCES--}}
-            {{--            </a>--}}
-            {{--            <a hreflang="{{ getLang() }}" class="btn btn-mena-2">--}}
-            {{--                DATA DEPOSITORY--}}
-            {{--            </a>--}}
-            @foreach($repo_types as $type)
-                <button wire:click="setType('{{ $type->id }}')"
-                        class="btn btn-mena-4 {{ in_array($type->id, $repo_type_ids) ? 'active' : 'btn-mena-4' }}">
-                    {{ $type->name }}
-                    <script>
-    console.log("Type name: {{ $type}}");
-</script>
-                </button>
-            @endforeach
+            <!-- Only show type buttons on Knowledge Hub page, not on Data Depository page -->
+            @if(!$is_data_repo_page)
+                @foreach($repo_types as $type)
+                    <button wire:click="setType('{{ $type->id }}')"
+                            class="btn btn-mena-4 {{ in_array($type->id, $repo_type_ids) ? 'active' : 'btn-mena-4' }}">
+                        {{ $type->name }}
+                    </button>
+                @endforeach
+            @endif
+            
+            <!-- Search box appears on both pages -->
             <div class="search-box event">
                 <div class="d-flex">
                     <input class="search" wire:model.defer="search"
                            wire:keydown.enter="filterUpdated()"
                            placeholder="Search">
                     @if($search)
-                        {{--TODO: need restyle the clear button showed after apply search--}}
                         <button type="submit" wire:click="clearSearch()">
                             Clear
                         </button>
@@ -55,134 +47,11 @@
                     </button>
                 </div>
             </div>
-            {{--            <div style="margin: 0px 10px">--}}
-            {{--                <div class="dropdown">--}}
-            {{--                    <a class="dropbtn">--}}
-            {{--                        <img src="/img/sort-icon.svg">--}}
-            {{--                        <span class="d-none d-lg-inline"--}}
-            {{--                              style="font-size: 14px;color: #2E2E2E;font-weight: bold;margin-left: 10px">--}}
-            {{--                            SORT BY--}}
-            {{--                        </span>--}}
-            {{--                    </a>--}}
-            {{--                    <div class="dropdown-content">--}}
-            {{--                        <a class="active">Newest</a>--}}
-            {{--                        <a>Oldest</a>--}}
-            {{--                        <a>Alphabetical (A -> Z)</a>--}}
-            {{--                        <a>Alphabetical (Z -> A</a>--}}
-            {{--                    </div>--}}
-            {{--                </div>--}}
-            {{--                <script>--}}
-            {{--                    $(document).ready(function () {--}}
-            {{--                        $(".dropbtn").click(function (event) {--}}
-            {{--                            event.stopPropagation(); // Prevent click event from propagating to document--}}
-            {{--                            $(".dropdown-content").show();--}}
-            {{--                        });--}}
-
-            {{--                        $(".dropdown-content").click(function (event) {--}}
-            {{--                            event.stopPropagation(); // Prevent click event from propagating to document--}}
-            {{--                        });--}}
-
-            {{--                        $(document).click(function (event) {--}}
-            {{--                            if (!$(event.target).closest(".dropdown-content").length && !$(event.target).is(".dropbtn")) {--}}
-            {{--                                $(".dropdown-content").hide();--}}
-            {{--                            }--}}
-            {{--                        });--}}
-            {{--                    });--}}
-            {{--                </script>--}}
-            {{--            </div>--}}
-            {{--            <div class="d-inline" style="margin-left: 10px">--}}
-            {{--                <div style="">--}}
-            {{--                    <dialog id="filters-popup">--}}
-            {{--                        <div class="popup-header">--}}
-            {{--                            <h3>Filters</h3>--}}
-            {{--                            <a id="closebtn" class="closebtn">×</a>--}}
-            {{--                        </div>--}}
-            {{--                        <div class="popup-content mb-3">--}}
-            {{--                            <div class="d-flex justify-content-between">--}}
-            {{--                                <h6>Applied filters</h6>--}}
-            {{--                                <p class="clear-filter">Clear all</p>--}}
-            {{--                            </div>--}}
-            {{--                            <div class="d-flex flex-wrap" style="gap: 10px;flex-shrink: 0;">--}}
-            {{--                                <a class="filter-option active">--}}
-            {{--                                    Science--}}
-            {{--                                    <i>x</i>--}}
-            {{--                                </a>--}}
-            {{--                                <a class="filter-option">--}}
-            {{--                                    Science--}}
-            {{--                                    <i>+</i>--}}
-            {{--                                </a>--}}
-            {{--                                <a class="filter-option">--}}
-            {{--                                    Science--}}
-            {{--                                    <i>+</i>--}}
-            {{--                                </a>--}}
-            {{--                            </div>--}}
-            {{--                            <div class="d-flex justify-content-between mt-3">--}}
-            {{--                                <h6>Date</h6>--}}
-            {{--                            </div>--}}
-            {{--                            <div class="d-flex flex-wrap" style="gap: 10px;flex-shrink: 0;">--}}
-            {{--                                <input type="date" class="start-date">--}}
-            {{--                                <input type="date" class="end-date">--}}
-            {{--                            </div>--}}
-            {{--                            <div class="d-flex justify-content-between mt-3">--}}
-            {{--                                <h6>Category</h6>--}}
-            {{--                            </div>--}}
-            {{--                            <div class="d-flex flex-wrap" style="gap: 10px;flex-shrink: 0;">--}}
-            {{--                                <a class="filter-option active">--}}
-            {{--                                    Science--}}
-            {{--                                    <i>x</i>--}}
-            {{--                                </a>--}}
-            {{--                                <a class="filter-option">--}}
-            {{--                                    Science--}}
-            {{--                                    <i>+</i>--}}
-            {{--                                </a>--}}
-            {{--                                <a class="filter-option">--}}
-            {{--                                    Science--}}
-            {{--                                    <i>+</i>--}}
-            {{--                                </a>--}}
-            {{--                            </div>--}}
-            {{--                            <div class="d-flex justify-content-between mt-3">--}}
-            {{--                                <h6>Author</h6>--}}
-            {{--                            </div>--}}
-            {{--                            <div class="d-flex" style="gap: 10px;flex-shrink: 0;">--}}
-            {{--                                <select class="form-select" aria-label="Any">--}}
-            {{--                                    <option selected>Any</option>--}}
-            {{--                                    <option value="1">One</option>--}}
-            {{--                                    <option value="2">Two</option>--}}
-            {{--                                    <option value="3">Three</option>--}}
-            {{--                                </select>--}}
-            {{--                            </div>--}}
-            {{--                        </div>--}}
-            {{--                        <button class="btn btn-mena-2">Apply</button>--}}
-            {{--                    </dialog>--}}
-            {{--                    <a id="showDialog" style="cursor: pointer">--}}
-            {{--                        <img src="/img/filter-icon.svg">--}}
-            {{--                    </a>--}}
-            {{--                    <script>--}}
-            {{--                        (() => {--}}
-            {{--                            const updateButton = document.getElementById("showDialog");--}}
-            {{--                            const closeButton = document.getElementById("closebtn");--}}
-            {{--                            const dialog = document.getElementById("filters-popup");--}}
-
-            {{--                            // Update button opens a modal dialog--}}
-            {{--                            updateButton.addEventListener("click", () => {--}}
-            {{--                                dialog.showModal();--}}
-            {{--                                openCheck(dialog);--}}
-            {{--                            });--}}
-
-            {{--                            // Form close button closes the dialog box--}}
-            {{--                            closeButton.addEventListener("click", () => {--}}
-            {{--                                dialog.close();--}}
-            {{--                            });--}}
-            {{--                        })();--}}
-            {{--                    </script>--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
         </div>
         <div id='repos' style='margin-bottom: 40px;'>
             @foreach($repos as $r)
                 <div class='row' style='margin-bottom:30px;'>
                     <div class='col-lg-3'>
-                        {{--                        <a href="{{route('resources.single',$r->id)}}" >--}}
                         <a href="{{$r->data_link}}">
                             <img class="event_img" src='{{Storage::url($r->image)}}' width='100%;'> </a>
                     </div>
@@ -190,9 +59,6 @@
                         <div>
                             <a href="{{$r->data_link}}" class="event-title">
                                 {{$r->title}}
-                                {{--                                <span style='float:right;' class="country_tag">{{$r->country->name}}--}}
-                                {{--                        <img style="object-fit: contain;max-width: 46px;margin-left: 10px" src="/img/egypt.svg">--}}
-                                {{--                    </span>--}}
                             </a>
                             <p class="event-description">
                                 {{$r->description}}
@@ -207,11 +73,6 @@
                         </div>
                         <div class="d-flex pt-3 pt-lg-0" style="gap: 20px;
     justify-content: right;">
-                            {{--                            @isset($r->file)--}}
-                            {{--                                <a href="{{Storage::url($r->file)}}" target="_blank" class="d-flex">--}}
-                            {{--                                    <img style="object-fit: contain;max-width: 29px;" src="/img/download.svg">--}}
-                            {{--                                </a>--}}
-                            {{--                            @endisset--}}
                             @if($r->ar_pdf)
                                 <a class="download-btn" href="{{Storage::url($r->ar_pdf)}}" target="_blank"
                                    class="d-flex">
@@ -319,7 +180,8 @@
                     @endforeach
                 </div>
             @endif
-            @if(count($repo_types)>0)
+            <!-- Only show Type filter on Knowledge Hub page -->
+            @if(!$is_data_repo_page && count($repo_types)>0)
                 <p class="filter-title">TYPE</p>
                 <div class='filter'>
                     @foreach($repo_types as $type)
@@ -349,37 +211,6 @@
                     @endforeach
                 </div>
             @endif
-            {{--            <p class="filter-title">TAGS</p>--}}
-            {{--            <div class='filter'>--}}
-
-            {{--                @foreach($repo_tags as $tag)--}}
-
-            {{--                    <div class="form-check">--}}
-            {{--                        <input class="form-check-input" wire:model.defer="tags" name='tags' type="checkbox"--}}
-            {{--                               value='{{$tag->name}}' id="{{$tag->name}}">--}}
-            {{--                        <label class="form-check-label" for="{{$tag->name}}">--}}
-            {{--                            {{$tag->name}}--}}
-            {{--                        </label>--}}
-            {{--                    </div>--}}
-
-            {{--                @endforeach--}}
-            {{--            </div>--}}
-
-            {{--            @if(count($repo_themes)>0)--}}
-            {{--                <p class="filter-title">THEMES</p>--}}
-            {{--                <div class='filter'>--}}
-            {{--                    @foreach($repo_themes as $theme)--}}
-            {{--                        <div class="form-check">--}}
-            {{--                            <input class="form-check-input " wire:model.defer="repo_theme_ids" name='themes'--}}
-            {{--                                   type="checkbox"--}}
-            {{--                                   value='{{$theme->id}}' id="{{$theme->name}}">--}}
-            {{--                            <label class="form-check-label" for="{{$theme->name}}">--}}
-            {{--                                {{$theme->name}}--}}
-            {{--                            </label>--}}
-            {{--                        </div>--}}
-            {{--                    @endforeach--}}
-            {{--                </div>--}}
-            {{--            @endif--}}
             <div class="m-lg-3 my-sm-2" style='float:right;'>
                 <button class="btn login" style='background-color:transparent;border:0;box-shadow: none'
                         wire:click="clear">CLEAR

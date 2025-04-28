@@ -175,6 +175,9 @@
                                         <span class="sr-only">(current)</span></a>
                                 </div>
                             </li>
+                            <li class="nav-item @if(str(Route::current()->getName())->contains('data_repo')) active @endif">
+                                <a class="nav-link" href="{{route('data_repo')}}">@lang('translation.data-depository')</a>
+                            </li>
                             <li class="nav-item @if(str(Route::current()->getName())->contains('community')) active @endif">
                                 <a class="nav-link" href="{{route('community')}}">@lang('translation.community')</a>
                             </li>
@@ -239,6 +242,9 @@
                         </li>
                         <li class="nav-item @if(str(Route::current()->getName())->contains('regional')) active @endif">
                             <a class="nav-link" href="{{route('regional')}}">@lang('translation.knowledge-hub')</a>
+                        </li>
+                        <li class="nav-item @if(str(Route::current()->getName())->contains('data_repo')) active @endif">
+                            <a class="nav-link" href="{{route('data_repo')}}">@lang('translation.data-depository')</a>
                         </li>
                         <li class="nav-item @if(str(Route::current()->getName())->contains('community')) active @endif">
                             <a class="nav-link" href="{{route('community')}}">@lang('translation.community')</a>
