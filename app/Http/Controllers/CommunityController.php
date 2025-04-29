@@ -34,4 +34,20 @@ class CommunityController extends Controller
 
         return view('frontend.profile', ['repos' => $repos]);
     }
+
+    public function communities()
+    {
+
+        return view('frontend.communities', [
+            'intro' => static_content::where('key', 'community')->first(),
+        ]);
+    }
+
+    public function collaborators()
+    {
+
+        return view('frontend.collaborators', [
+            'intro' => static_content::where('key', 'community')->first(),
+        ]);
+    }
 }

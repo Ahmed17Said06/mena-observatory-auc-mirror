@@ -2,6 +2,7 @@
 return [
     "about-us" => "About Us",
     "posts" => "Posts",
+    "researchers" => "Researchers",
     "recent-posts" => "Recent Posts",
     "news-events" => "News & Events",
     "knowledge-hub" => "Knowledge Hub",

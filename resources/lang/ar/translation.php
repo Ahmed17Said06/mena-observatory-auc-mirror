@@ -6,6 +6,7 @@ return [
     "news-events" => "أخبار وفعاليات",
     "knowledge-hub" => "مركز المعرفة",
     "community" => "مجتمعنا",
+    "researchers" => "الباحثون",
     "contact-us" => "تواصل معنا",
     "subscribe" => "اشترِك في نشرتنا الإخبارية",
     "project" => "المشروع",
