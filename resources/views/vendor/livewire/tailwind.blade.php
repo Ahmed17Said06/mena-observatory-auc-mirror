@@ -15,7 +15,7 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a wire:click="previousPage" wire:loading.attr="disabled" class="page-link prev">
+                            <a wire:click="previousPage('{{ $paginator->getPageName() }}')" wire:loading.attr="disabled" class="page-link prev">
                                 <i class="fa fas fa-chevron-left"></i>
                                 Prev
                             </a>
@@ -27,7 +27,7 @@
                             @foreach ($element as $page => $url)
                                 @if (($page == $paginator->currentPage())&&$page>2&&$page<=$paginator->lastPage() - 2)
                                     <li class="page-item active">
-                                        <a wire:click="gotoPage({{$page}})" wire:loading.attr="disabled"
+                                        <a wire:click="gotoPage({{$page}}, '{{ $paginator->getPageName() }}')" wire:loading.attr="disabled"
                                            class="page-link">
                                             {{$page}}
                                         </a>
@@ -35,7 +35,7 @@
                                 @endif
                                 @if ($page <= 2)
                                     <li class="page-item @if($page === $paginator->currentPage()) active @endif">
-                                        <a wire:click="gotoPage({{$page}})" wire:loading.attr="disabled"
+                                        <a wire:click="gotoPage({{$page}}, '{{ $paginator->getPageName() }}')" wire:loading.attr="disabled"
                                            class="page-link">
                                             {{$page}}
                                         </a>
@@ -46,7 +46,7 @@
                                     </li>
                                 @elseif ($page > $paginator->lastPage() - 2)
                                     <li class="page-item @if($page === $paginator->currentPage()) active @endif">
-                                        <a wire:click="gotoPage({{$page}})" wire:loading.attr="disabled"
+                                        <a wire:click="gotoPage({{$page}}, '{{ $paginator->getPageName() }}')" wire:loading.attr="disabled"
                                            class="page-link">
                                             {{$page}}
                                         </a>
@@ -57,7 +57,7 @@
                     @endforeach
                     @if ($paginator->hasMorePages())
                         <li class="page-item">
-                            <a wire:click="nextPage" wire:loading.attr="disabled" class="page-link">
+                            <a wire:click="nextPage('{{ $paginator->getPageName() }}')" wire:loading.attr="disabled" class="page-link">
                                 Next
                                 <i class="fa fas fa-chevron-right"></i>
                             </a>

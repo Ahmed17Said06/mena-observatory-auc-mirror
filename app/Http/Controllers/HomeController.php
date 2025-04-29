@@ -39,11 +39,11 @@ class HomeController extends Controller
         return view('frontend.home')->with([
             'news_events' => $news_events,
             'event',
-            'featuredPosts' => $featuredPosts,
+            // 'featuredPosts' => $featuredPosts,
             'intro' => static_content::where('key', 'Intro')->first(),
-            'blogs' => Blogs::latest()->take(3)->get(),
-//            'aswats' => Aswat::latest()->paginate(3),
-            'gender_ai' => GenderAi::latest()->take(3)->get()
+            // 'blogs' => Blogs::latest()->take(3)->get(),
+        //    'aswats' => Aswat::latest()->paginate(3),
+            // 'gender_ai' => GenderAi::latest()->take(3)->get()
         ]);
     }
 

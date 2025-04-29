@@ -43,107 +43,10 @@
             </svg>
         </a>
     </div>
-    <div class="mt-3" id="Regional">
+    
+    <livewire:featured-page />
 
-      <div class='container mt-3 mt-lg-0'>
-                <h3 hreflang="{{ getLang() }}"
-                    @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif >@lang('translation.featured')</h3>
-                <div class="d-flex gap-3">
-                    @foreach($featuredPosts as $n)
-                        @if($loop->index>=3)
-                            @break
-                        @endif
-                        <div class="post-loop-featured m-3
-                         @if($loop->index===2)
-                         research-border-border
-                         @endif
-                           position-relative overflow-hidden">
-                            @if($loop->index<2)
-                                <div class="category-stamp {{$n->tag}}">
-                                    <span>{{$n->tag}}</span>
-                                </div>
-                            @endif
-                            <img class="post-img" src="{{Storage::url($n->image)}}">
-                            @if($loop->index===2)
-                                <div class="research-border">
-                                    <p>Platform Work MENA</p>
-                                    <p class="sub-title">(PW-MENA)</p>
-                                </div>
-                            @endif
-                            <div class="post-content " lang="en">
-                                <h4 style='color:#FFF;' class='slide_title'>
-                                <a href='{{$n->url}}'>{{$n->title}}</a>    
-                                </h4>
-                                <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
-
-                                <a href='{{$n->url}}'>
-                                    <button class='btn learn_more'>
-                                        <i class="fas fa-plus">
-                                        </i> Read More
-                                    </button>
-                                </a>
-                            </div>
-
-                            <div class="overlay-1"></div>
-                           
-                        </div>
-
-                    @endforeach
-                </div>
-        </div>
-
-        <div class="container gender">
-        <h3 hreflang="{{ getLang() }}"
-            @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif >@lang('translation.gender-ai')</h3>
-        <div style='
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    padding-bottom: 50px;'>
-
-            @foreach($gender_ai as $n)
-                @if($loop->index>3)
-                    @break
-                @endif
-                <div class="post-container
-                 @if($n->featured_type==='feminist_ai')
-                 feminist-ai-border
-                 @elseif($n->featured_type==='pw_mena')
-                 research-border-border
-                 @endif">
-                    <div class="post-loop position-relative overflow-hidden ">
-                        @if($n->featured_type=='feminist_ai')
-                            <div class="feminist-ai">
-                                <p>Feminist AI</p>
-                                <a href="https://aplusalliance.org/fair-middle-east-and-north-africa/">
-                                    <img src="{{ asset('/img/Feminist_AI_Logo.png') }}">
-                                </a>
-                            </div>
-                        @elseif($n->featured_type=='pw_mena')
-                            <div class="research-border">
-                                <p>(PW-MENA)</p>
-                                <p class="sub-title">Platform Work MENA</p>
-                            </div>
-                        @endif
-                        <img class="post-img" src="{{Storage::url($n->thumbnail_image)}}">
-                        <div class="post-content" lang="en">
-                        <a href='{{$n->link}}'>  <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4></a>
-
-                            <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
-
-                            <a href='{{$n->link}}'>
-
-                                <button class='btn learn_more'><i class="fas fa-plus"></i> Read More</button>
-                            </a>
-                        </div>
-
-                        <div class="overlay-1"></div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
+    <livewire:genderai-page />
 
         <div class='row'>
             <div class="container"><h3 class='' style='margin-top:5px; padding-left:13px;'>MENA AI Indices</h3></div>
@@ -216,43 +119,9 @@
 
 
     <livewire:aswats/>
-    <div class="container">
-        <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
-            @endif hreflang="{{ getLang() }}">@lang('translation.posts')</h3>
-        <div style='
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    padding-bottom: 50px;'>
-            <?php $i = 0; ?>
-            @foreach($blogs as $n)
-                    <?php
-                    $i += 1;
-                    if ($i == 4) {
-                        break;
-                    }
-                    ?>
-                <div class="post-container">
-                    <div class="post-loop position-relative overflow-hidden">
-                        <img class="post-img" src="{{Storage::url($n->image)}}">
-                        <div class="post-content" lang="en">
-                            <h4 style='color:#FFF;' class='slide_title'>
-                            <a href='{{route("blogs.single", ["id" => $n->id])}}'>{{$n->title}}</a>
-                            </h4>
-                            <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
-                            <a href='{{route("blogs.single", ["id" => $n->id])}}'>
-                                <button class='btn learn_more'><i class="fas fa-plus"></i> Read More</button>
-                            </a>
-                        </div>
+    
+    <livewire:blogs-page />
 
-                        <div class="overlay-1"></div>
-                        {{--            <div class="overlay-news"></div>--}}
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
     {{--<div class='subs'>--}}
     {{--    <dotlottie-player autoplay loop src="/img/top_right.lottie" class="lottie_top_right"></dotlottie-player>--}}
 
