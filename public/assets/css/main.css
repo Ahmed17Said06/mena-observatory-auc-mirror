@@ -2575,15 +2575,16 @@ dotlottie-player {
 
 .map_content {
     width: 100%;
-    min-height: 900px;
+    /* min-height: 900px;    */
     overflow: visible;
 }
 
 .map_container {
-    position: absolute;
+    /* position: absolute; */
     width: 1250px;
     top: -4%;
     right: -1%;
+    margin-bottom: 2rem;
 }
 
 .language-switcher a {
@@ -2668,7 +2669,7 @@ video {
 
 @media (max-width: 1850px) {
     .map_container {
-        position: absolute;
+        position: relative;
         width: 80vw;
         top: 0%;
         right: -8%;
@@ -2676,7 +2677,7 @@ video {
 
     .map_content {
         width: 100%;
-        min-height: 600px;
+        min-height: fit-content;
         overflow: visible;
     }
 }
