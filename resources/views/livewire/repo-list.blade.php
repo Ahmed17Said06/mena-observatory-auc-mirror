@@ -93,6 +93,11 @@
                 <hr class="my-3">
             @endforeach
         </div>
+
+        <!-- Add Pagination -->
+        <div class="d-flex justify-content-center mt-4">
+            {{ $repos->links() }}
+        </div>
     </div>
     <div class='col-lg-3 filter-container py-2'>
         <div class="d-flex justify-content-between">

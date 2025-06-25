@@ -14,9 +14,12 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class RepoList extends Component
 {
+    use WithPagination;
+
     public $repo_type_ids = [];
     public $search = '';
     public $authors = [];
@@ -38,6 +41,8 @@ class RepoList extends Component
     public $selectedCountryIds = [];
 
     public $is_data_repo_page = false;
+
+    protected $paginationTheme = 'bootstrap';
 
     public function mount()
     {
@@ -77,11 +82,13 @@ class RepoList extends Component
     {
         $this->repo_type_ids = [];
         $this->repo_type_ids[] = $typeName;
+        $this->resetPage(); // Reset pagination when type changes
     }
 
     public function clearSearch(): void
     {
         $this->search = '';
+        $this->resetPage(); // Reset pagination when search is cleared
         $this->filterUpdated();
     }
 
@@ -115,15 +122,15 @@ class RepoList extends Component
                 $query->whereIn('country_id', $this->selectedCountryIds);
             })
             ->with('tags')
-            ->take(6)
             ->latest()
-            ->get();
+            ->paginate(6); // Change from take(6)->get() to paginate(6)
 
         return view('livewire.repo-list', ['repos' => $repos]);
     }
 
     public function filterUpdated()
     {
+        $this->resetPage(); // Reset pagination when filters change
         $this->render();
     }
 
@@ -131,5 +138,41 @@ class RepoList extends Component
     {
         $this->reset('repo_type_ids', 'search', 'selectedAuthorsIds',
             'selectedFields', 'selectedSubjects', 'selectedProjects', 'selectedPublishDates', 'selectedCountryIds');
+        $this->resetPage(); // Reset pagination when clearing filters
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage(); // Reset pagination when search is updated
+    }
+
+    public function updatingSelectedAuthorsIds()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSelectedFields()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSelectedSubjects()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSelectedProjects()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSelectedPublishDates()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSelectedCountryIds()
+    {
+        $this->resetPage();
     }
 }

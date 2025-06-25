@@ -181,148 +181,14 @@
                 </script>
 
                 <div class="container my-3 my-lg-5">
-                    @if(count($repos))
-                        <div class='row my-3 my-lg-5'>
-                            <div class='col-lg-12'>
-                                <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
-                                    @endif hreflang="{{ getLang() }}">@lang('translation.additional-resources')</h3>
-                                <div style='
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    padding-bottom: 50px;'>
-                                        <?php $i = 0; ?>
-
-                                    @foreach($repos as $r)
-                                            <?php $i += 1;
-                                            if ($i == 4) break;
-                                            ?>
-                                        <div class="post-container">
-                                            <div class="post-loop position-relative overflow-hidden">
-                                                <img class="post-img" src="{{Storage::url($r->image)}}">
-
-                                                <div class="post-content" lang="en">
-
-                                                    <h4 style='color:#FFF;' class='slide_title'>
-                                                    <a href='{{$r->data_link}}'>{{$r->title}}</a></h4>
-                                                    <p style='color:#FFF;'
-                                                       class='slide_description'>{{$r->description}}</p>
-
-                                                    {{--                                        <a href='{{route('repo.single',$r->id)}}'>--}}
-                                                    <a href='{{$r->data_link}}'>
-
-                                                        <button class='btn learn_more'><i class="fas fa-plus"></i> Read
-                                                            More
-                                                        </button>
-                                                    </a>
-                                                </div>
-
-                                                <div class="overlay-1"></div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    {{--        @if(count($resources))--}}
-                    {{--            <div class='row my-3 my-lg-5'>--}}
-                    {{--                <div class='col-lg-12'>--}}
-                    {{--                    <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"--}}
-                    {{--                        @endif hreflang="{{ getLang() }}">@lang('translation.additional-resources')</h3>--}}
-                    {{--                    <div style='--}}
-                    {{--    display: flex;--}}
-                    {{--    flex-direction: row;--}}
-                    {{--    flex-wrap: wrap;--}}
-                    {{--    align-content: center;--}}
-                    {{--    padding-bottom: 50px;'>--}}
-                    {{--                            <?php $i = 0; ?>--}}
-
-                    {{--                        @foreach($resources as $r)--}}
-                    {{--                                <?php $i += 1;--}}
-                    {{--                                if ($i == 4) break;--}}
-                    {{--                                ?>--}}
-                    {{--                            <div class="post-container">--}}
-                    {{--                                <div class="post-loop position-relative overflow-hidden">--}}
-                    {{--                                    <img class="post-img" src="{{Storage::url($r->image)}}">--}}
-                    {{--                                    <div class="post-content" lang="en">--}}
-                    {{--                                        <h4 style='color:#FFF;' class='slide_title'>{{$r->title}}</h4>--}}
-                    {{--                                        <p style='color:#FFF;' class='slide_description'>{{$r->description}}</p>--}}
-
-                    {{--                                        --}}{{--                                            <a href='{{route('resources.single',$r->id)}}'>--}}
-                    {{--                                        <a href='{{$r->data_link}}'>--}}
-
-                    {{--                                            <button class='btn learn_more'><i class="fas fa-plus"></i> Read More--}}
-                    {{--                                            </button>--}}
-                    {{--                                        </a>--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="overlay-1"></div>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        @endforeach--}}
-                    {{--                    </div>--}}
-                    {{--                </div>--}}
-                    {{--            </div>--}}
-                    {{--        @endif--}}
-
-                    {{--        @if(count($resources))--}}
-                    {{--            <div class='row my-3 my-lg-5'>--}}
-                    {{--                <div class='col-lg-12'>--}}
-                    {{--                    <h3>Additional Resources</h3>--}}
-                    {{--                    <div style='margin-bottom: 40px;'>--}}
-                    {{--                        @foreach($resources as $r)--}}
-                    {{--                            <div class='row' style='margin-bottom:30px;'>--}}
-                    {{--                                <div class='col-lg-3'>--}}
-                    {{--                                    <a href="{{route('resources.single',$r->id)}}">--}}
-                    {{--                                        <img class="event_img" src='{{Storage::url($r->image)}}' width='100%;'></a>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class='col-lg-9 d-flex justify-content-between flex-column'>--}}
-                    {{--                                    <div>--}}
-                    {{--                                        <a href="{{route('resources.single',$r->id)}}" class="event-title">{{$r->title}}--}}
-                    {{--                                            <span style='float:right;' class="country_tag">{{$r->country->name}}--}}
-                    {{--                        <img style="object-fit: contain;max-width: 46px;margin-left: 10px" src="/img/egypt.svg">--}}
-                    {{--                    </span>--}}
-                    {{--                                        </a>--}}
-                    {{--                                        <p class="event-description">--}}
-                    {{--                                            {{$r->description}}--}}
-                    {{--                                        </p>--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="d-flex flex-column flex-lg-row">--}}
-                    {{--                                        <div class="col-lg-11">--}}
-                    {{--                                            @foreach($r->tags as $tag)--}}
-                    {{--                                                <a class="tag" href="/search?tag={{$tag->name}}">--}}
-                    {{--                                                    {{$tag->name}}--}}
-                    {{--                                                </a>--}}
-                    {{--                                            @endforeach--}}
-                    {{--                                        </div>--}}
-                    {{--                                        <div class="col-lg-1 d-flex pt-3 pt-lg-0" style="gap: 20px;--}}
-                    {{--    justify-content: right;">--}}
-                    {{--                                            <div class="col-lg-1 d-flex pt-3 pt-lg-0" style="gap: 20px;--}}
-                    {{--    justify-content: right;">--}}
-                    {{--                                                @isset($r->file)--}}
-                    {{--                                                    <a href="{{Storage::url($r->file)}}" target="_blank" class="d-flex">--}}
-                    {{--                                                        <img style="object-fit: contain;max-width: 29px;"--}}
-                    {{--                                                             src="/img/download.svg">--}}
-                    {{--                                                    </a>--}}
-                    {{--                                                @endisset--}}
-                    {{--                                            </div>--}}
-                    {{--                                        </div>--}}
-                    {{--                                    </div>--}}
-
-                    {{--                                </div>--}}
-                    {{--                                <hr class="my-3">--}}
-                    {{--                            </div>--}}
-                    {{--                        @endforeach--}}
-                    {{--                    </div>--}}
-                    {{--                </div>--}}
-                    {{--            </div>--}}
-                    {{--        @endif--}}
+                    <!-- Replace the existing repos section with Livewire component -->
+                    <livewire:country-repo-list :country_id="$country->id" />
                 </div>
+
                 @include('layouts.footers.guest.footer')
 
-
+                <!-- Remove the old AJAX script -->
+                {{-- 
                 <script>
                     function repos_page_change(page = 0) {
                         $.ajax('{{route("regional.html_list", ["country_id" => $country->id])}}', {
@@ -335,4 +201,5 @@
 
                     repos_page_change();
                 </script>
+                --}}
             @endsection

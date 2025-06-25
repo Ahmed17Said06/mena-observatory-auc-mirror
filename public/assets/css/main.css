@@ -1741,6 +1741,9 @@ h1 {
 .page-item {
     cursor: pointer;
     user-select: none;
+    display: inline-flex !important;
+    align-items: center !important;
+    vertical-align: baseline !important;
 }
 
 .pagination a {
@@ -1748,11 +1751,18 @@ h1 {
     float: left;
     padding: 8px 16px;
     text-decoration: none;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    vertical-align: baseline !important;
+    line-height: 1 !important;
 }
 
 .pagination {
     gap: 10px;
     justify-content: center;
+    display: flex !important;
+    align-items: center !important;
 }
 
 .pagination a.active {
@@ -2124,6 +2134,11 @@ a.save_to_calandar:hover {
 
 .page-item .page-link {
     min-width: max-content;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    vertical-align: baseline !important;
+    line-height: 1 !important;
 }
 
 .page-item.active .page-link {
@@ -2137,6 +2152,11 @@ a.save_to_calandar:hover {
 .page-item span {
     border-radius: 2px !important;
     border: none;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    vertical-align: baseline !important;
+    line-height: 1 !important;
 }
 
 li.page-item {}
@@ -2145,6 +2165,8 @@ li.page-item {}
     margin: 0px 15px;
     font-size: 24px;
     color: var(--menaorange);
+    line-height: 1 !important;
+    vertical-align: middle !important;
 }
 
 .pagination a:hover:not(.active) {
