@@ -53,7 +53,7 @@
                 <div class='row' style='margin-bottom:30px;'>
                     <div class='col-lg-3'>
                         <a href="{{$r->data_link}}">
-                            <img class="event_img" src='{{Storage::url($r->image)}}' width='100%;'> </a>
+                            <img class="event_img" src='{{Storage::url($r->image)}}'> </a>
                     </div>
                     <div class='col-lg-9 d-flex justify-content-between flex-column'>
                         <div>
