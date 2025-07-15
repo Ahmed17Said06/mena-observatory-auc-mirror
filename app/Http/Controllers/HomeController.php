@@ -126,6 +126,13 @@ class HomeController extends Controller
         ]);
     }
 
+    public function new_work()
+    {
+        return view('frontend.new_work')->with([
+            'new_work' => News::all(),
+        ]);
+    }
+
     public function search(Request $request)
     {
         $search = $request->input('search');

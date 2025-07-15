@@ -8,6 +8,7 @@ use App\Http\Controllers\FormsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\RegionalController;
+use App\Http\Controllers\NewWorkController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -59,6 +60,13 @@ Route::group([
     Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs');
     Route::get('/blogs/html_list', [BlogsController::class, 'js_list_view'])->name('blogs.html_list');
     Route::get('/blogs/{id}', [BlogsController::class, 'single'])->name('blogs.single');
+
+    // NEW WORK routes
+    Route::get('/new_work', [NewWorkController::class, 'index'])->name('new_work');
+    Route::get('/new_work/reports', [NewWorkController::class, 'reports'])->name('new_work.reports');
+    Route::get('/new_work/reports/html_list', [NewWorkController::class, 'reportsHtmlList'])->name('new_work.reports.html_list');
+    Route::get('/new_work/policy-briefs', [NewWorkController::class, 'policyBriefs'])->name('new_work.policy-briefs');
+    Route::get('/new_work/policy-briefs/html_list', [NewWorkController::class, 'policyBriefsHtmlList'])->name('new_work.policy-briefs.html_list');
 
     Route::get('/regional', [RegionalController::class, 'index'])->name('regional');
     Route::get('/regional/html_list', [RegionalController::class, 'js_list_view'])->name('regional.html_list');

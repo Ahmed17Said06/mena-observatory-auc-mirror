@@ -202,6 +202,11 @@
                             <li class="nav-item @if(str(Route::current()->getName())->contains('blogs')) active @endif">
                                 <a class="nav-link" href="{{route('blogs')}}">@lang('translation.recent-posts')</a>
                             </li>
+                            
+                            <li class="nav-item @if(str(Route::current()->getName())->contains('new_work')) active @endif">
+                                <a class="nav-link" href="{{route('new_work')}}">@lang('new-work')</a>
+                            </li>
+
                             <li
                                 class="nav-item @if(str(Route::current()->getName())->contains('contact_us')) active @endif">
                                 <a class="nav-link" href="{{route('contact_us')}}">@lang('translation.contact-us')</a>

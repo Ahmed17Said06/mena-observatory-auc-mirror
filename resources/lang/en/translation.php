@@ -4,6 +4,9 @@ return [
     "posts" => "Posts",
     "researchers" => "Researchers",
     "recent-posts" => "Recent Posts",
+    "new_work" => "New Work",
+    "reports" => "Reports",  // ✅ ADD THIS
+    "policy-briefs" => "Policy Briefs",  // ✅ ADD THIS
     "news-events" => "News & Events",
     "knowledge-hub" => "Knowledge Hub",
     "community" => "Community",
@@ -14,7 +17,7 @@ return [
     "your-email" => "Your email",
     "your-message" => "Your message",
     "submit" => "Submit",
-    "looking-for-more-information" => "Looking for more information? Let us know what you’re looking for below and someone from our team will get in touch with you soon.",
+    "looking-for-more-information" => "Looking for more information? Let us know what you're looking for below and someone from our team will get in touch with you soon.",
     "mena-ai-bbservatory" => 'MENA OBSERVATORY<br class="d-none d-lg-block"> ON RESPONSIBLE AI',
     "learn-more" => "LEARN MORE",
     "our-story" => "OUR STORY",
