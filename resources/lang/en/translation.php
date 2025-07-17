@@ -10,6 +10,7 @@ return [
     "news-events" => "News & Events",
     "knowledge-hub" => "Knowledge Hub",
     "community" => "Community",
+    "community-title" => "Researchers",
     "contact-us" => "Contact Us",
     "subscribe" => "Subscribe",
     "project" => "Project",

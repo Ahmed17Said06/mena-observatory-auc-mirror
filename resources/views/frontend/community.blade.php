@@ -9,7 +9,7 @@
 <div class="container my-3 my-lg-5">
     <div class='row'>
         <h3 hreflang="{{ getLang() }}" @if(LaravelLocalization::getCurrentLocale()==='ar' ) dir="rtl" @endif>
-            @lang('translation.community')</h3>
+            @lang('translation.community-title')</h3>
         <div class="col-lg-10" hreflang="{{ getLang() }}">
             @if(LaravelLocalization::getCurrentLocale()=='ar')
             {!! $intro->ar_content !!}
