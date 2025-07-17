@@ -179,12 +179,12 @@
                                     href="{{route('data_repo')}}">@lang('translation.data-depository')</a>
                             </li>
                             <li
-                                class="d-flex align-items-center nav-item dropdown @if(str(Route::current()->getName())->contains('researchers')) active @endif">
-                                <a class="nav-link" href="{{route('community')}}">@lang('translation.researchers')</a>
+                                class="d-flex align-items-center nav-item dropdown @if(str(Route::current()->getName())->contains('community')) active @endif">
+                                <a class="nav-link" href="{{route('community')}}">@lang('translation.community')</a>
                                 <i class="dropbtn fa fa-caret-down"></i>
                                 <div class="dropdown-content" @if(LaravelLocalization::getCurrentLocale()==='ar' )
                                     dir="rtl" @endif>
-                                    <a class="nav-link" href="{{ route('communities') }}">@lang('translation.community')
+                                    <a class="nav-link" href="{{ route('communities') }}">@lang('translation.researchers')
                                         <span class="sr-only">(current)</span></a>
 
 
