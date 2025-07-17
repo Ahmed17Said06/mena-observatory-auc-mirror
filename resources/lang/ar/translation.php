@@ -56,4 +56,5 @@ return [
     "want_share_work"=>"تريد مشاركة عملك؟",
     "collaborate" => "تعاون",
     "data-depository" => "مستودع البيانات",
+    "blogs" => "المدونات",
 ];

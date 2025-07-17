@@ -42,7 +42,7 @@
         <hr style="border: none; border-top: 2px solid #ccc; margin: 3rem 0; width: 100%; opacity: 1;">
 
         {{-- Use Livewire components --}}
-        @livewire('new-work-reports')
+        @livewire('new-work-blogs')
         
         @livewire('new-work-policy-briefs')
         

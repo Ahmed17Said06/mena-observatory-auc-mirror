@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Report;
 use App\Models\PolicyBrief;
 use App\Models\static_content;
+use App\Models\NewWorkBlog;
 use Illuminate\Http\Request;
 
 class NewWorkController extends Controller
@@ -20,25 +20,22 @@ class NewWorkController extends Controller
 
     public function reports()
     {
-        // Dedicated reports page shows 6 items per page
-        $reports = Report::published()->orderBy('published_at', 'desc')->paginate(6);
+        $newWorkBlogs = NewWorkBlog::published()->orderBy('published_at', 'desc')->paginate(6);
         $description = static_content::where('key', 'new_work_description')->first();
 
         return view('frontend.new-work-reports')->with([
-            'reports' => $reports,
+            'newWorkBlogs' => $newWorkBlogs,
             'description' => $description
         ]);
     }
 
-    public function reportsHtmlList(Request $request)
+    public function reportsHtmlList()
     {
-        $reports = Report::published()->orderBy('published_at', 'desc')->paginate(6);
+        $newWorkBlogs = NewWorkBlog::published()->orderBy('published_at', 'desc')->paginate(3);
         
-        return response()->json([
-            'success' => true,
-            'html' => view('frontend.components.reports', compact('reports'))->render(),
-            'pagination' => view('components.frontend.news-pagination', ['paginator' => $reports])->render()
-        ]);
+        return view('livewire.new-work-reports', [
+            'newWorkBlogs' => $newWorkBlogs
+        ])->render();
     }
 
     public function policyBriefs()

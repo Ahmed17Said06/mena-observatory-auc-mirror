@@ -56,4 +56,5 @@ return [
     "want_share_work"=>"Want to share your work?",
     "collaborate" => "Collaborate",
     "data-depository" => "Data Depository",
+    "blogs" => "Blogs",
 ];
