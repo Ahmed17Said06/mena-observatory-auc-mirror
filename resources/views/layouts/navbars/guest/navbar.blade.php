@@ -184,7 +184,8 @@
                                 <i class="dropbtn fa fa-caret-down"></i>
                                 <div class="dropdown-content" @if(LaravelLocalization::getCurrentLocale()==='ar' )
                                     dir="rtl" @endif>
-                                    <a class="nav-link" href="{{ route('communities') }}">@lang('translation.researchers')
+                                    <a class="nav-link"
+                                        href="{{ route('communities') }}">@lang('translation.researchers')
                                         <span class="sr-only">(current)</span></a>
 
 
@@ -199,7 +200,8 @@
                                 class="d-none nav-item @if(str(Route::current()->getName())->contains('news_events')) active @endif">
                                 <a class="nav-link" href="{{route('news_events')}}">@lang('translation.news-events')</a>
                             </li>
-                            <li class="nav-item @if(str(Route::current()->getName())->startsWith('blogs')) active @endif">
+                            <li
+                                class="nav-item @if(str(Route::current()->getName())->startsWith('blogs')) active @endif">
                                 <a class="nav-link" href="{{route('blogs')}}">@lang('translation.recent-posts')</a>
                             </li>
                             <li

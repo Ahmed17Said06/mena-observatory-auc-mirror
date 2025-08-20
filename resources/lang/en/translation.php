@@ -5,8 +5,8 @@ return [
     "researchers" => "Researchers",
     "recent-posts" => "Recent Posts",
     "new_work" => "New Work",
-    "reports" => "Reports",  // ✅ ADD THIS
-    "policy-briefs" => "Policy Briefs",  // ✅ ADD THIS
+    "reports" => "Reports",
+    "policy-briefs" => "Policy Briefs",
     "news-events" => "News & Events",
     "knowledge-hub" => "Knowledge Hub",
     "community" => "Community",
@@ -58,4 +58,8 @@ return [
     "collaborate" => "Collaborate",
     "data-depository" => "Data Depository",
     "blogs" => "Blogs",
+    "download" => "Download",
+    "filter-by" => "Filter By",
+    "search" => "Search",
+    "year" => "Year",
 ];

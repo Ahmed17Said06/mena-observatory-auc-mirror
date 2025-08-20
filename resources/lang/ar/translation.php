@@ -58,4 +58,8 @@ return [
     "collaborate" => "تعاون",
     "data-depository" => "مستودع البيانات",
     "blogs" => "المدونات",
+    "download" => "تحميل",
+    "filter-by" => "فلتر",
+    "search" => "بحث",
+    "year" => "السنة",
 ];
