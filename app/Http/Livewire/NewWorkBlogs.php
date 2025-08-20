@@ -15,7 +15,7 @@ class NewWorkBlogs extends Component
     public function render()
     {
         $newWorkBlogs = NewWorkBlog::published()
-            ->orderBy('published_at', 'desc')
+            ->orderBy('publish_date', 'desc')
             ->paginate(3, ['*'], 'newWorkBlogsPage');
 
         return view('livewire.new-work-blogs', [

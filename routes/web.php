@@ -63,11 +63,14 @@ Route::group([
 
     // NEW WORK routes
     Route::get('/new_work', [NewWorkController::class, 'index'])->name('new_work');
-    Route::get('/new_work/reports', [NewWorkController::class, 'reports'])->name('new_work.reports');
-    Route::get('/new_work/reports/html_list', [NewWorkController::class, 'reportsHtmlList'])->name('new_work.reports.html_list');
+    // Replace reports routes with blogs routes
+    Route::get('/new_work/blogs', [NewWorkController::class, 'blogs'])->name('new_work.blogs');
+    Route::get('/new_work/blogs/html_list', [NewWorkController::class, 'blogsHtmlList'])->name('new_work.blogs.html_list');
     Route::get('/new_work/policy-briefs', [NewWorkController::class, 'policyBriefs'])->name('new_work.policy-briefs');
     Route::get('/new_work/policy-briefs/html_list', [NewWorkController::class, 'policyBriefsHtmlList'])->name('new_work.policy-briefs.html_list');
-
+    
+    // Add the new work blogs single view route
+    Route::get('/new_work/blogs/{id}', [NewWorkController::class, 'newWorkBlogSingle'])->name('new-work-blogs.single');
     Route::get('/regional', [RegionalController::class, 'index'])->name('regional');
     Route::get('/regional/html_list', [RegionalController::class, 'js_list_view'])->name('regional.html_list');
     Route::get('/regional/{id}', [RegionalController::class, 'country'])->name('regional.country');

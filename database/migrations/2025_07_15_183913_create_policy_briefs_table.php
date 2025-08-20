@@ -13,17 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('policy_briefs', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('ar_title')->nullable();
-            $table->text('description');
-            $table->text('ar_description')->nullable();
-            $table->string('file_path')->nullable();
-            $table->string('image_path')->nullable();
-            $table->timestamp('published_at')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('policy_briefs')) {
+            Schema::create('policy_briefs', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('ar_title')->nullable();
+                $table->text('description');
+                $table->text('ar_description')->nullable();
+                $table->string('file_path')->nullable();
+                $table->string('image_path')->nullable();
+                $table->timestamp('published_at')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

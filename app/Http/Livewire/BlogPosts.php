@@ -26,14 +26,6 @@ class BlogPosts extends Component
     {
         $this->resetPage();
     }
-//    public function updated($propertyName){
-//        $this->validateOnly($propertyName,[
-//            'selectedCountryId' => 'required',
-//            'startDate' => 'required|date',
-//            'endDate' => 'required|date|after:startDate',
-//        ]);
-//        $this->applyFilters();
-//    }
 
     public function applyFilters()
     {
@@ -75,9 +67,9 @@ class BlogPosts extends Component
         })->get();
     }
 
-
     public function render(): View|Factory|Application
     {
+        // Show the blog listing
         $query = Blogs::where('title', 'like', '%' . $this->search . '%')
             ->orderBy('created_at', 'desc');
 

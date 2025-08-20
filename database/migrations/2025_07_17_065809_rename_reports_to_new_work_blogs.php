@@ -13,7 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::rename('reports', 'new_work_blogs');
+        if (Schema::hasTable('reports')) {
+            Schema::rename('reports', 'new_work_blogs');
+        }
     }
 
     /**
@@ -23,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::rename('new_work_blogs', 'reports');
+        if (Schema::hasTable('new_work_blogs')) {
+            Schema::rename('new_work_blogs', 'reports');
+        }
     }
 };
