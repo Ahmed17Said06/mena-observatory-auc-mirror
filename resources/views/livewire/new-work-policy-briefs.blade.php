@@ -85,10 +85,11 @@
                         </div>
 
                         <div class="d-flex pt-3 pt-lg-0" style="gap: 20px; justify-content: right;">
-                            @if($brief->en_pdf)
+                            @if($brief->en_pdf || $brief->ar_pdf)
                             <a class="download-btn"
                                 style="background-color: #F1C268; padding-block: 16px; color: var(--menablue) !important; border-radius: 6px; font-weight: bold;"
-                                href="{{ asset('storage/' . $brief->en_pdf) }}" target="_blank">
+                                href="{{ $brief->en_pdf ? asset('storage/' . $brief->en_pdf) : asset('storage/' . $brief->ar_pdf )}}"
+                                target="_blank">
                                 <span>@lang('translation.download')</span>
                                 <img style="object-fit: contain;max-width: 20px;" src="/img/download.svg">
                             </a>
