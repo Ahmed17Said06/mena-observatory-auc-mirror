@@ -54,4 +54,9 @@ class NewsController extends Controller
         return view('frontend.news');
     }
 
+    public function raiCup()
+    {
+        return view('frontend.news-rai-cup');
+    }
+
 }

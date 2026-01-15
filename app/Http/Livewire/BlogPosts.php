@@ -8,12 +8,11 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class BlogPosts extends Component
 {
-    use WithPagination;
-
+    // Store only IDs to avoid Livewire hydration issues with model objects
+    public array $blogIds = [];
     public $search = '';
     public $allCountries = [];
     public $selectedCountryId = '';
@@ -21,10 +20,28 @@ class BlogPosts extends Component
     public $endDate = '';
     public $filterApplied = false;
     public $showPopup = false;
+    
+    // Lazy loading properties
+    public $pageNumber = 1;
+    public $perPage = 6;
+    public $hasMorePages = true;
+
+    public function mount()
+    {
+        $this->blogIds = [];
+        $this->allCountries = countries::whereExists(function ($query) {
+            $query->select()
+                ->from('blogs')
+                ->whereColumn('countries.id', 'blogs.country_id');
+        })->get();
+        
+        // Initial load
+        $this->loadMore();
+    }
 
     public function updateSearch()
     {
-        $this->resetPage();
+        $this->resetItems();
     }
 
     public function applyFilters()
@@ -42,6 +59,7 @@ class BlogPosts extends Component
             $this->showPopup = false;
         }
         $this->filterApplied = true;
+        $this->resetItems();
     }
 
     public function clearAllFilters()
@@ -49,27 +67,18 @@ class BlogPosts extends Component
         $this->selectedCountryId = '';
         $this->startDate = '';
         $this->endDate = '';
+        $this->filterApplied = false;
         $this->showPopup();
-        $this->resetPage();
+        $this->resetItems();
     }
 
     public function showPopup()
     {
         $this->showPopup = !$this->showPopup;
     }
-
-    public function mount()
+    
+    private function getQuery()
     {
-        $this->allCountries = countries::whereExists(function ($query) {
-            $query->select()
-                ->from('blogs')
-                ->whereColumn('countries.id', 'blogs.country_id');
-        })->get();
-    }
-
-    public function render(): View|Factory|Application
-    {
-        // Show the blog listing
         $query = Blogs::where('title', 'like', '%' . $this->search . '%')
             ->orderBy('created_at', 'desc');
 
@@ -77,13 +86,46 @@ class BlogPosts extends Component
             $query->when($this->selectedCountryId, function ($query) {
                 $query->where('country_id', $this->selectedCountryId);
             })
-                ->when($this->startDate && $this->endDate, function ($query) {
-                    $query->whereBetween('publish_date', [$this->startDate, $this->endDate]);
-                });
+            ->when($this->startDate && $this->endDate, function ($query) {
+                $query->whereBetween('publish_date', [$this->startDate, $this->endDate]);
+            });
         }
+        
+        return $query;
+    }
+    
+    public function loadMore(): void
+    {
+        $paginated = $this->getQuery()->paginate($this->perPage, ['*'], 'page', $this->pageNumber);
+        
+        $this->pageNumber++;
+        $this->hasMorePages = $paginated->hasMorePages();
+        
+        // Store only IDs to avoid Livewire hydration issues
+        $newIds = collect($paginated->items())->pluck('id')->toArray();
+        $this->blogIds = array_merge($this->blogIds, $newIds);
+    }
+    
+    private function resetItems(): void
+    {
+        $this->blogIds = [];
+        $this->pageNumber = 1;
+        $this->hasMorePages = true;
+        $this->loadMore();
+    }
 
+    public function render(): View|Factory|Application
+    {
+        // Query fresh data using stored IDs - this ensures proper model objects
+        $blogs = collect();
+        if (!empty($this->blogIds)) {
+            $blogs = Blogs::whereIn('id', $this->blogIds)
+                ->orderByRaw('FIELD(id, ' . implode(',', $this->blogIds) . ')')
+                ->get();
+        }
+        
         return view('livewire.blog-posts', [
-            'blogs' => $query->paginate(6),
+            'blogs' => $blogs
         ]);
     }
 }

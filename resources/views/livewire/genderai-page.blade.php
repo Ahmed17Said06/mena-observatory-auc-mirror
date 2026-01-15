@@ -1,18 +1,15 @@
 <div class="container gender">
     <h3 hreflang="{{ getLang() }}"
         @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif >@lang('translation.gender-ai')</h3>
-    <div style='
+    <div class="lazy-items-container" style='
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;
 align-content: center;
 padding-bottom: 50px;'>
 
-        @foreach($gender_ai as $n)
-            @if($loop->index>3)
-                @break
-            @endif
-            <div class="post-container
+        @foreach($gender_ai as $index => $n)
+            <div class="post-container lazy-item
              @if($n->featured_type==='feminist_ai')
              feminist-ai-border
              @elseif($n->featured_type==='pw_mena')
@@ -49,7 +46,22 @@ padding-bottom: 50px;'>
             </div>
         @endforeach
     </div>
-    <div id='news_pagination'>
-        {!! $gender_ai->links() !!}
-    </div>
+    
+    <!-- Load More Button -->
+    @if($hasMorePages)
+        <div class="load-more-container">
+            <button 
+                class="btn-load-more"
+                wire:click="loadMore"
+                wire:loading.attr="disabled"
+                wire:loading.class="loading"
+            >
+                <span wire:loading.remove wire:target="loadMore">Load More</span>
+                <span wire:loading wire:target="loadMore" class="loading-state">
+                    <span class="spinner"></span>
+                    Loading...
+                </span>
+            </button>
+        </div>
+    @endif
 </div>

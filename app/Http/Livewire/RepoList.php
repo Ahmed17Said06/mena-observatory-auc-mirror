@@ -12,14 +12,14 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection as BaseCollection; // Alias Illuminate\Support\Collection
+use Illuminate\Database\Eloquent\Collection; // Use Illuminate\Database\Eloquent\Collection directly
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class RepoList extends Component
 {
-    use WithPagination;
-
+    public Collection $repos; // Now refers to Illuminate\Database\Eloquent\Collection
     public $repo_type_ids = [];
     public $search = '';
     public $authors = [];
@@ -41,11 +41,16 @@ class RepoList extends Component
     public $selectedCountryIds = [];
 
     public $is_data_repo_page = false;
-
-    protected $paginationTheme = 'bootstrap';
+    
+    // Lazy loading properties
+    public $pageNumber = 1;
+    public $perPage = 6;
+    public $hasMorePages = true;
 
     public function mount()
     {
+        $this->repos = new Collection();
+        
         // Only load repo types 1 (RESEARCH OUTPUTS) and 2 (EDUCATIONAL RESOURCES)
         // Exclude type 3 (DATA DEPOSITORY) for the Knowledge Hub page
         if (request()->route()->getName() === 'data_repo') {
@@ -76,25 +81,27 @@ class RepoList extends Component
             })
             ->unique()
             ->toArray();
+            
+        // Initial load
+        $this->loadMore();
     }
 
     public function setType($typeName): void
     {
         $this->repo_type_ids = [];
         $this->repo_type_ids[] = $typeName;
-        $this->resetPage(); // Reset pagination when type changes
+        $this->resetItems();
     }
 
     public function clearSearch(): void
     {
         $this->search = '';
-        $this->resetPage(); // Reset pagination when search is cleared
-        $this->filterUpdated();
+        $this->resetItems();
     }
-
-    public function render(): View|Factory|Application
+    
+    private function getQuery()
     {
-        $repos = Repo::query()
+        return Repo::query()
             ->when($this->search, function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%');
             })
@@ -122,57 +129,85 @@ class RepoList extends Component
                 $query->whereIn('country_id', $this->selectedCountryIds);
             })
             ->with('tags')
-            ->latest()
-            ->paginate(6); // Change from take(6)->get() to paginate(6)
+            ->latest();
+    }
+    
+    public function loadMore(): void
+    {
+        $paginated = $this->getQuery()->paginate($this->perPage, ['*'], 'page', $this->pageNumber);
+        
+        $this->pageNumber++;
+        $this->hasMorePages = $paginated->hasMorePages();
+        
+        // Append new items to the collection
+        $this->repos = $this->repos->merge($paginated->items());
+    }
+    
+    private function resetItems(): void
+    {
+        $this->repos = new Collection();
+        $this->pageNumber = 1;
+        $this->hasMorePages = true;
+        $this->loadMore();
+    }
 
-        return view('livewire.repo-list', ['repos' => $repos]);
+    public function render(): View|Factory|Application
+    {
+        return view('livewire.repo-list');
     }
 
     public function filterUpdated()
     {
-        $this->resetPage(); // Reset pagination when filters change
-        $this->render();
+        $this->resetItems();
     }
 
     public function clear()
     {
         $this->reset('repo_type_ids', 'search', 'selectedAuthorsIds',
             'selectedFields', 'selectedSubjects', 'selectedProjects', 'selectedPublishDates', 'selectedCountryIds');
-        $this->resetPage(); // Reset pagination when clearing filters
+        
+        // Re-set default type
+        if ($this->is_data_repo_page) {
+            $this->repo_type_ids = [3];
+        } else {
+            $this->repo_type_ids = [1];
+        }
+        
+        $this->resetItems();
     }
 
     public function updatingSearch()
     {
-        $this->resetPage(); // Reset pagination when search is updated
+        $this->resetItems();
     }
 
     public function updatingSelectedAuthorsIds()
     {
-        $this->resetPage();
+        $this->resetItems();
     }
 
     public function updatingSelectedFields()
     {
-        $this->resetPage();
+        $this->resetItems();
     }
 
     public function updatingSelectedSubjects()
     {
-        $this->resetPage();
+        $this->resetItems();
     }
 
     public function updatingSelectedProjects()
     {
-        $this->resetPage();
+        $this->resetItems();
     }
 
     public function updatingSelectedPublishDates()
     {
-        $this->resetPage();
+        $this->resetItems();
     }
 
     public function updatingSelectedCountryIds()
     {
-        $this->resetPage();
+        $this->resetItems();
     }
 }

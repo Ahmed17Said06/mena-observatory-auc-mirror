@@ -5,15 +5,15 @@
                 <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
                     @endif hreflang="{{ getLang() }}">@lang('translation.additional-resources')</h3>
                 
-                <div style='
+                <div class="lazy-items-container" style='
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: center;
     padding-bottom: 20px;'>
 
-                    @foreach($repos as $r)
-                        <div class="post-container">
+                    @foreach($repos as $index => $r)
+                        <div class="post-container lazy-item">
                             <div class="post-loop position-relative overflow-hidden">
                                 <img class="post-img" src="{{Storage::url($r->image)}}">
 
@@ -36,10 +36,29 @@
                     @endforeach
                 </div>
 
-                <!-- Add Pagination -->
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $repos->links() }}
-                </div>
+                <!-- Load More Button -->
+                @if($hasMorePages)
+                    <div class="load-more-container">
+                        <button 
+                            class="btn-load-more"
+                            wire:click="loadMore"
+                            wire:loading.attr="disabled"
+                            wire:loading.class="loading"
+                        >
+                            <span wire:loading.remove wire:target="loadMore">Load More</span>
+                            <span wire:loading wire:target="loadMore" class="loading-state">
+                                <span class="spinner"></span>
+                                Loading...
+                            </span>
+                        </button>
+                    </div>
+                @else
+                    @if($repos->count() > 0)
+                        <div class="end-of-list">
+                            You've reached the end
+                        </div>
+                    @endif
+                @endif
             </div>
         </div>
     @endif

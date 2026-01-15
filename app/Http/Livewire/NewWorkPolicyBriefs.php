@@ -3,9 +3,10 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\PolicyBrief;
+use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 
 // If you have these models, import them; otherwise remove and use distinct() from PolicyBrief
 use App\Models\Author;
@@ -16,10 +17,12 @@ use App\Models\RepoType; // only if PolicyBriefs have a type; else remove
 
 class NewWorkPolicyBriefs extends Component
 {
-    use WithPagination;
-
-    protected $paginationTheme = 'bootstrap';
-    protected string $pageName = 'briefsPage';
+    public Collection $policyBriefs;
+    
+    // Lazy loading properties
+    public $pageNumber = 1;
+    public $perPage = 3;
+    public $hasMorePages = true;
 
     // Search
     public string $search = '';
@@ -47,6 +50,8 @@ class NewWorkPolicyBriefs extends Component
 
     public function mount(): void
     {
+        $this->policyBriefs = new Collection();
+        
         // ===== Build filter lists =====
         // Authors (if you have an Author model + relation)
         $this->authors = class_exists(Author::class)
@@ -63,7 +68,7 @@ class NewWorkPolicyBriefs extends Component
             ->get()
             ->toArray();
 
-        // Repo Types (optional; remove if PolicyBrief doesn’t have types)
+        // Repo Types (optional; remove if PolicyBrief doesn't have types)
         $this->repo_types = class_exists(Repo_type::class)
             ? Repo_Type::query()->select('id','name')->orderBy('name')->get()->toArray()
             : [];
@@ -90,6 +95,9 @@ class NewWorkPolicyBriefs extends Component
             ->whereNotNull(DB::raw('COALESCE(publish_date, created_at)'))
             ->distinct()->orderByDesc('y')
             ->pluck('y')->toArray();
+            
+        // Initial load
+        $this->loadMore();
     }
 
     public function setType(string $typeId): void
@@ -100,10 +108,10 @@ class NewWorkPolicyBriefs extends Component
         } else {
             $this->repo_type_ids[] = $typeId;
         }
-        $this->filterUpdated();
+        $this->resetItems();
     }
-
-    public function render()
+    
+    private function getQuery()
     {
         $q = PolicyBrief::query();
 
@@ -171,11 +179,31 @@ class NewWorkPolicyBriefs extends Component
         $q->orderByRaw('publish_date IS NULL')
           ->orderBy('publish_date', 'desc')
           ->orderBy('created_at', 'desc');
+          
+        return $q;
+    }
+    
+    public function loadMore(): void
+    {
+        $paginated = $this->getQuery()->paginate($this->perPage, ['*'], 'page', $this->pageNumber);
+        
+        $this->pageNumber++;
+        $this->hasMorePages = $paginated->hasMorePages();
+        
+        $this->policyBriefs = $this->policyBriefs->merge($paginated->items());
+    }
+    
+    private function resetItems(): void
+    {
+        $this->policyBriefs = new Collection();
+        $this->pageNumber = 1;
+        $this->hasMorePages = true;
+        $this->loadMore();
+    }
 
-        $policyBriefs = $q->paginate(3, ['*'], $this->pageName); // show more per page if you like
-
+    public function render()
+    {
         return view('livewire.new-work-policy-briefs', [
-            'policyBriefs'   => $policyBriefs,
             // pass datasets the Blade expects
             'authors'        => $this->authors,
             'fields'         => $this->fields,
@@ -191,7 +219,7 @@ class NewWorkPolicyBriefs extends Component
 
     public function filterUpdated(): void
     {
-        $this->resetPage($this->pageName);
+        $this->resetItems();
     }
 
     public function clear(): void
@@ -204,12 +232,12 @@ class NewWorkPolicyBriefs extends Component
         $this->selectedPublishDates = [];
         $this->repo_type_ids        = [];
         $this->selectedCountryIds   = [];
-        $this->resetPage($this->pageName);
+        $this->resetItems();
     }
 
     public function clearSearch(): void
     {
         $this->search = '';
-        $this->resetPage($this->pageName);
+        $this->resetItems();
     }
 }

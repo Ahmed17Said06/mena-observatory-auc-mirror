@@ -3,10 +3,10 @@
         @lang('translation.blogs')
     </h3>
 
-    <div style='overflow: hidden; display: flex; flex-wrap: wrap; justify-content: center;'>
+    <div class="lazy-items-container" style='overflow: hidden; display: flex; flex-wrap: wrap; justify-content: center;'>
         @if($newWorkBlogs && $newWorkBlogs->count() > 0)
-        @foreach($newWorkBlogs as $blog)
-        <div class="post-container">
+        @foreach($newWorkBlogs as $index => $blog)
+        <div class="post-container lazy-item">
             <div class="post-loop position-relative overflow-hidden">
                 <img class="post-img" src="{{Storage::url($blog->image)}}">
                 <div class="post-content" lang="en">
@@ -41,9 +41,27 @@
     @endif
 </div>
 
-@if($newWorkBlogs->hasPages())
-<div class="d-flex justify-content-center">
-    {{ $newWorkBlogs->links() }}
-</div>
+<!-- Load More Button -->
+@if($hasMorePages)
+    <div class="load-more-container">
+        <button 
+            class="btn-load-more"
+            wire:click="loadMore"
+            wire:loading.attr="disabled"
+            wire:loading.class="loading"
+        >
+            <span wire:loading.remove wire:target="loadMore">Load More</span>
+            <span wire:loading wire:target="loadMore" class="loading-state">
+                <span class="spinner"></span>
+                Loading...
+            </span>
+        </button>
+    </div>
+@else
+    @if($newWorkBlogs->count() > 0)
+        <div class="end-of-list">
+            You've reached the end
+        </div>
+    @endif
 @endif
 </div>

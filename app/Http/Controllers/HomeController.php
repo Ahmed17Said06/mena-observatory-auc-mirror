@@ -110,6 +110,18 @@ class HomeController extends Controller
         ]);
     }
 
+    public function aiIndices()
+    {
+        return view('frontend.ai_indices')->with([
+            'intro' => static_content::where('key', 'AI Indices Intro')->first(),
+        ]);
+    }
+
+    public function podcasts()
+    {
+        return view('frontend.podcasts');
+    }
+
 
     public function news_events()
     {
@@ -175,5 +187,16 @@ class HomeController extends Controller
         $request->flash();
 
         return view('frontend.search', compact('blogs', 'news', 'events', 'count', 'projects'));
+    }
+
+    public function subscribe(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:subscribers,email',
+        ]);
+
+        \App\Models\Subscriber::create(['email' => $request->email]);
+
+        return redirect()->back()->with('subscribe_success', 'Thank you for subscribing!');
     }
 }

@@ -11,9 +11,7 @@
     <script src="https://unpkg.com/@dotlottie/player-component@1.0.0/dist/dotlottie-player.js"></script>
     <div class="hero-home">
         <div class="bg-images home">
-            <dotlottie-player autoplay loop src="/img/bot_left.lottie" class="lottie_bot_left"></dotlottie-player>
-            <dotlottie-player autoplay loop src="/img/bot_right.lottie" class="lottie_bot_right"></dotlottie-player>
-            <dotlottie-player autoplay loop src="/img/mid_left.lottie" class="lottie_mid_left"></dotlottie-player>
+            <!-- Optimized: Reduced from 5 to 2 Lottie animations for better performance -->
             <dotlottie-player autoplay loop src="/img/top_left.lottie" class="lottie_top_left"></dotlottie-player>
             <dotlottie-player autoplay loop src="/img/top_right.lottie" class="lottie_top_right"></dotlottie-player>
         </div>
@@ -28,7 +26,7 @@
                     {!!  $intro->content !!}
                 @endif
             </div>
-            <a hreflang="{{ getLang() }}" class="btn btn-mena-2" href='{{route("about_us")}}'>
+            <a hreflang="{{ getLang() }}" class="btn btn-mena-hero" href='{{route("about_us")}}'>
                 @lang('translation.learn-more')
             </a>
         </div>
@@ -47,21 +45,6 @@
     <livewire:featured-page />
 
     <livewire:genderai-page />
-
-        <div class='row'>
-            <div class="container"><h3 class='' style='margin-top:5px; padding-left:13px;'>MENA AI Indices</h3></div>
-            	
-            <div class='container-lg'>
-                <div class="position-relative map_content">
-                    <div class="map_container">
-                        <div style='margin-top:2%;' id="map">
-                        </div>
-                    </div>
-                </div>
-            </div>
-          
-        </div>
-    </div>
 
   
     <div class="d-none container mt-5">
@@ -122,24 +105,24 @@
     
     <livewire:blogs-page />
 
-    {{--<div class='subs'>--}}
-    {{--    <dotlottie-player autoplay loop src="/img/top_right.lottie" class="lottie_top_right"></dotlottie-player>--}}
-
-    {{--    <div class="container">--}}
-    {{--        <h3>RECEIVE NEWS AND UPDATES</h3>--}}
-    {{--	<div class='row'>--}}
-    {{--		<div class='col-md-7'>--}}
-    {{--			<form style="--}}
-    {{--    display: flex;--}}
-    {{--    gap: 20px;--}}
-    {{--">--}}
-    {{--				<input name='email' placeholder='Your email'>--}}
-    {{--				<button class='btn btn-mena-2'>SUBSCRIBE</button>--}}
-    {{--			</form>--}}
-    {{--		</div>--}}
-    {{--    </div>--}}
-    {{--    </div>--}}
-    {{--</div>--}}
+    <div class='subs'>
+        <dotlottie-player autoplay loop src="/img/top_right.lottie" class="lottie_top_right"></dotlottie-player>
+        <div class="container">
+            <h3 hreflang="{{ getLang() }}">@lang('translation.subscribe-newsletter')</h3>
+            <div class='row'>
+                <div class='col-md-7'>
+                    <form method="POST" action="{{ route('subscribe') }}" style="display: flex; gap: 20px;" class="newsletter-form">
+                        @csrf
+                        <input type="email" name="email" placeholder="@lang('translation.your-email')" required class="newsletter-input">
+                        <button type="submit" class="btn btn-mena-2">@lang('translation.subscribe')</button>
+                    </form>
+                    @if(session('subscribe_success'))
+                        <div class="alert alert-success mt-3">{{ session('subscribe_success') }}</div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
     <style>
         .footer-divider {
             border: 0px

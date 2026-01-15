@@ -149,19 +149,19 @@
         </div>
     </div>
     <div id="blogs">
-        <div class="flex-column flex-md-row" style='
+        <div class="flex-column flex-md-row lazy-items-container" style='
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     padding-bottom: 50px;'>
-            @foreach($blogs as $n)
-                <div class="post-container community">
+            @foreach($blogs as $index => $n)
+                <div class="post-container community lazy-item">
                     <div class="post-loop-events position-relative overflow-hidden">
                         <div class="overlay-1"></div>
                         <img class="post-img" src="{{Storage::url($n->image)}}">
                         <div class="post-content" lang="en">
                             <h4 style='color:#FFF;' class='slide_title'>
-                            <a href='{{route("blogs.single", ["id" => $n->id])}}'> {{$n->title}}</a>
+                            <a href='{{route("blogs.single", ["id" => $n->id])}}'>{{$n->title}}</a>
                            </h4>
                             <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 
@@ -175,8 +175,31 @@
                 </div>
             @endforeach
         </div>
-        {{$blogs->links()}}
-
+        
+        <!-- Load More Button -->
+        @if($hasMorePages)
+            <div class="load-more-container">
+                <button 
+                    class="btn-load-more"
+                    wire:click="loadMore"
+                    wire:loading.attr="disabled"
+                    wire:loading.class="loading"
+                    wire:target="loadMore"
+                >
+                    <span wire:loading.remove wire:target="loadMore">Load More</span>
+                    <span wire:loading wire:target="loadMore" style="display: none;">
+                        <span class="spinner"></span>
+                        Loading...
+                    </span>
+                </button>
+            </div>
+        @else
+            @if($blogs->count() > 0)
+                <div class="end-of-list">
+                    You've reached the end
+                </div>
+            @endif
+        @endif
 
     </div>
 </div>

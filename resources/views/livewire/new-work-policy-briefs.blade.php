@@ -49,10 +49,10 @@
                 <div class="spinner-border" role="status" aria-label="Loading"></div>
             </div>
             <!-- Policy Briefs Listing -->
-            <div wire:loading.remove id='policy-briefs' style='margin-bottom: 40px;'>
+            <div wire:loading.remove id='policy-briefs' class="lazy-items-container" style='margin-bottom: 40px;'>
                 @if($policyBriefs && $policyBriefs->count() > 0)
-                @foreach($policyBriefs as $brief)
-                <div class='row mb-4'>
+                @foreach($policyBriefs as $index => $brief)
+                <div class='row mb-4 lazy-item'>
                     <div class='col-lg-3'>
                         <a href="{{ $brief->en_pdf ? asset('storage/' . $brief->en_pdf) : '#' }}" target="_blank">
                             <img class="event_img"
@@ -72,11 +72,6 @@
                         </div>
 
                         <div class="d-flex flex-row flex-wrap">
-                            <!-- Year pill -->
-                            <!-- <span class="tag">
-                                {{ \Carbon\Carbon::parse($brief->publish_date ?? $brief->created_at)->format('Y') }}
-                            </span> -->
-
                             @foreach($brief->tags as $tag)
                             <a class="tag" href="/search?tag={{ $tag->name }}">
                                 {{ $tag->name }}
@@ -101,7 +96,7 @@
                         </div>
                     </div>
                 </div>
-                <hr class="my-3">
+                <hr class="my-3 lazy-item">
                 @endforeach
                 @else
                 <div class="text-center py-5">
@@ -113,11 +108,28 @@
                 @endif
             </div>
 
-            <!-- Pagination -->
-            @if($policyBriefs->hasPages())
-            <div class="d-flex justify-content-center mt-4">
-                {{ $policyBriefs->links() }}
-            </div>
+            <!-- Load More Button -->
+            @if($hasMorePages)
+                <div class="load-more-container">
+                    <button 
+                        class="btn-load-more"
+                        wire:click="loadMore"
+                        wire:loading.attr="disabled"
+                        wire:loading.class="loading"
+                    >
+                        <span wire:loading.remove wire:target="loadMore">Load More</span>
+                        <span wire:loading wire:target="loadMore" class="loading-state">
+                            <span class="spinner"></span>
+                            Loading...
+                        </span>
+                    </button>
+                </div>
+            @else
+                @if($policyBriefs->count() > 0)
+                    <div class="end-of-list">
+                        You've reached the end
+                    </div>
+                @endif
             @endif
         </div>
 

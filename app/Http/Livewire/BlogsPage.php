@@ -3,15 +3,41 @@
 namespace App\Http\Livewire;
 
 use App\Models\Blogs;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class BlogsPage extends Component
 {
-    use WithPagination;
+    public Collection $blogs;
+    
+    // Lazy loading properties
+    public $pageNumber = 1;
+    public $perPage = 3;
+    public $hasMorePages = true;
+
+    public function mount()
+    {
+        $this->blogs = new Collection();
+        $this->loadMore();
+    }
+    
+    private function getQuery()
+    {
+        return Blogs::latest();
+    }
+    
+    public function loadMore(): void
+    {
+        $paginated = $this->getQuery()->paginate($this->perPage, ['*'], 'page', $this->pageNumber);
+        
+        $this->pageNumber++;
+        $this->hasMorePages = $paginated->hasMorePages();
+        
+        $this->blogs = $this->blogs->merge($paginated->items());
+    }
 
     public function render()
     {
-        return view('livewire.blogs-page', ['blogs' => Blogs::latest()->paginate(3, ['*'], 'blogsPage'),]);
+        return view('livewire.blogs-page');
     }
 }
