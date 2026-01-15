@@ -3,46 +3,85 @@
     <div class='container mt-3 mt-lg-0'>
               <h3 hreflang="{{ getLang() }}"
                   @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif >@lang('translation.featured')</h3>
-              <div class="d-flex gap-3 flex-wrap lazy-items-container">
-                  @foreach($featuredPosts as $index => $n)
-                      <div class="post-loop-featured m-3 lazy-item
-                       @if($index % 3 === 2)
-                       research-border-border
-                       @endif
-                         position-relative overflow-hidden">
-                          @if($index % 3 < 2)
-                              <div class="category-stamp {{$n->tag}}">
-                                  <span>{{$n->tag}}</span>
-                              </div>
-                          @endif
-                          <img class="post-img" src="{{Storage::url($n->image)}}">
-                          @if($index % 3 === 2)
-                              <div class="research-border">
-                                  <p>Future of Work MENA</p>
-                                  <p class="sub-title">(Future of Work)</p>
-                              </div>
-                          @endif
-                          <div class="post-content " lang="en">
-                              <h4 style='color:#FFF;' class='slide_title'>
-                              <a href='{{$n->url}}'>{{$n->title}}</a>    
-                              </h4>
-                              <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
-
-                              <a href='{{$n->url}}'>
-                                  <button class='btn learn_more'>
-                                      <i class="fas fa-plus">
-                                      </i> Read More
-                                  </button>
-                              </a>
-                          </div>
-
-                          <div class="overlay-1"></div>
-                         
-                      </div>
-
-                  @endforeach
+              <div class="d-flex gap-3 flex-wrap lazy-items-container justify-content-center">
                   
-                  <!-- Global Index on Responsible AI - Static Card -->
+                  <!-- Safe AI for Children - MENA Chapter -->
+                  <div class="post-loop-featured m-3 research-border-border position-relative overflow-hidden">
+                      <img class="post-img" src="/img/safe-ai-children.jpg" onerror="this.src='/img/placeholder-featured.jpg'">
+                      <div class="research-border">
+                          <p>Safe AI for Children</p>
+                          <p class="sub-title">(MENA Chapter)</p>
+                      </div>
+                      <div class="post-content" lang="en">
+                          <h4 style='color:#FFF;' class='slide_title'>
+                              <a href='{{ route("coming-soon") }}'>
+                                  @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                                      الذكاء الاصطناعي الآمن للأطفال - فرع منطقة الشرق الأوسط وشمال أفريقيا
+                                  @else
+                                      Safe AI for Children - MENA Chapter
+                                  @endif
+                              </a>
+                          </h4>
+                          <p style='color:#FFF;' class='slide_description'>
+                              @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                                  التحالف الدولي لسلامة الذكاء الاصطناعي للأطفال (i-raise)
+                              @else
+                                  The International Coalition for AI Safety for Children (i-raise)
+                              @endif
+                          </p>
+                          <a href='{{ route("coming-soon") }}'>
+                              <button class='btn learn_more'>
+                                  <i class="fas fa-clock"></i>
+                                  @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                                      قريباً
+                                  @else
+                                      Coming Soon
+                                  @endif
+                              </button>
+                          </a>
+                      </div>
+                      <div class="overlay-1"></div>
+                  </div>
+
+                  <!-- RAI Cup Awards Ceremony -->
+                  <div class="post-loop-featured m-3 research-border-border position-relative overflow-hidden">
+                      <img class="post-img" src="/img/rai-cup-featured.jpg" onerror="this.src='/img/placeholder-featured.jpg'">
+                      <div class="research-border">
+                          <p>Responsible AI Cup</p>
+                          <p class="sub-title">(Awards Ceremony)</p>
+                      </div>
+                      <div class="post-content" lang="en">
+                          <h4 style='color:#FFF;' class='slide_title'>
+                              <a href='{{ route("news.rai-cup") }}'>
+                                  @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                                      حفل ختام كأس الذكاء الاصطناعي المسؤول
+                                  @else
+                                      Responsible AI Cup Awards Ceremony
+                                  @endif
+                              </a>
+                          </h4>
+                          <p style='color:#FFF;' class='slide_description'>
+                              @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                                  تحت رعاية وزارة الاتصالات وتكنولوجيا المعلومات - 18 يناير 2026
+                              @else
+                                  Under the Patronage of MCIT - January 18, 2026
+                              @endif
+                          </p>
+                          <a href='{{ route("news.rai-cup") }}'>
+                              <button class='btn learn_more'>
+                                  <i class="fas fa-plus"></i>
+                                  @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                                      اقرأ المزيد
+                                  @else
+                                      Read More
+                                  @endif
+                              </button>
+                          </a>
+                      </div>
+                      <div class="overlay-1"></div>
+                  </div>
+
+                  <!-- Global Index on Responsible AI -->
                   <div class="post-loop-featured m-3 research-border-border position-relative overflow-hidden">
                       <img class="post-img" src="/img/girai-featured.jpg" onerror="this.src='/img/placeholder-featured.jpg'">
                       <div class="research-border">
@@ -63,23 +102,5 @@
                       <div class="overlay-1"></div>
                   </div>
               </div>
-              
-              <!-- Load More Button -->
-              @if($hasMorePages)
-                  <div class="load-more-container">
-                      <button 
-                          class="btn-load-more"
-                          wire:click="loadMore"
-                          wire:loading.attr="disabled"
-                          wire:loading.class="loading"
-                      >
-                          <span wire:loading.remove wire:target="loadMore">Load More</span>
-                          <span wire:loading wire:target="loadMore" class="loading-state">
-                              <span class="spinner"></span>
-                              Loading...
-                          </span>
-                      </button>
-                  </div>
-              @endif
       </div>
 </div>
