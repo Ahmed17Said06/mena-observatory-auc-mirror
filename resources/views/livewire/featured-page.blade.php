@@ -18,8 +18,8 @@
                           <img class="post-img" src="{{Storage::url($n->image)}}">
                           @if($index % 3 === 2)
                               <div class="research-border">
-                                  <p>Platform Work MENA</p>
-                                  <p class="sub-title">(PW-MENA)</p>
+                                  <p>Future of Work MENA</p>
+                                  <p class="sub-title">(Future of Work)</p>
                               </div>
                           @endif
                           <div class="post-content " lang="en">
@@ -44,7 +44,7 @@
                   
                   <!-- Global Index on Responsible AI - Static Card -->
                   <div class="post-loop-featured m-3 research-border-border position-relative overflow-hidden">
-                      <img class="post-img" src="/img/girai-featured.jpg">
+                      <img class="post-img" src="/img/girai-featured.jpg" onerror="this.src='/img/placeholder-featured.jpg'">
                       <div class="research-border">
                           <p>Global Index on Responsible AI</p>
                           <p class="sub-title">(GIRAI)</p>

@@ -51,19 +51,10 @@ class RepoList extends Component
     {
         $this->repos = new Collection();
         
-        // Only load repo types 1 (RESEARCH OUTPUTS) and 2 (EDUCATIONAL RESOURCES)
-        // Exclude type 3 (DATA DEPOSITORY) for the Knowledge Hub page
-        if (request()->route()->getName() === 'data_repo') {
-            // For Data Depository page, only get type 3
-            $this->repo_types = Repo_type::where('id', 3)->get();
-            $this->is_data_repo_page = true;
-            $this->repo_type_ids = [3]; // Pre-select Data Depository (ID 3)
-        } else {
-            // For Knowledge Hub page, exclude type 3 (DATA DEPOSITORY)
-            $this->repo_types = Repo_type::whereNotIn('id', [3])->get();
-            // Default to RESEARCH OUTPUTS (ID 1)
-            $this->repo_type_ids = [1];
-        }
+        // Load all repo types including Data Depository
+        $this->repo_types = Repo_type::All();
+        // Default to RESEARCH OUTPUTS (ID 1)
+        $this->repo_type_ids = [1];
         
         $this->authors = Author::all();
         $this->fields = Repo::whereNotNull('field')->pluck('field')->unique()->toArray();
@@ -166,12 +157,8 @@ class RepoList extends Component
         $this->reset('repo_type_ids', 'search', 'selectedAuthorsIds',
             'selectedFields', 'selectedSubjects', 'selectedProjects', 'selectedPublishDates', 'selectedCountryIds');
         
-        // Re-set default type
-        if ($this->is_data_repo_page) {
-            $this->repo_type_ids = [3];
-        } else {
-            $this->repo_type_ids = [1];
-        }
+        // Re-set default type to RESEARCH OUTPUTS
+        $this->repo_type_ids = [1];
         
         $this->resetItems();
     }

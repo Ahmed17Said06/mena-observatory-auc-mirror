@@ -2694,7 +2694,6 @@ dotlottie-player {
     opacity: 0;
     transform: translateY(0px);
     animation: FadeInUp 1s ease-in-out forwards;
-    color: #ffffff;
 }
 
 span:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),

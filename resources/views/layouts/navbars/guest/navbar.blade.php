@@ -557,10 +557,14 @@
             z-index: 1000;
         }
 
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
+        .dropdown:hover .dropdown-menu,
+        .nav-item.dropdown:hover .dropdown-menu {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) scale(1) !important;
+            animation: none !important;
+            pointer-events: auto !important;
         }
 
         .dropdown-menu a {
@@ -847,21 +851,14 @@
                             <a href="{{ route('regional.country', 3) }}">@lang('translation.mena-regions')</a>
                         </div>
                     </li>
-                    <li class="@if(str(Route::current()->getName())->contains('data_repo')) active @endif">
-                        <a href="{{ route('data_repo') }}">@lang('translation.data-depository')</a>
-                    </li>
+
                     <li class="@if(str(Route::current()->getName())->contains('ai_indices')) active @endif">
                         <a href="{{ route('ai_indices') }}">@lang('translation.ai-indices', ['default' => 'AI Indices'])</a>
                     </li>
                     <li class="@if(str(Route::current()->getName())->contains('pw_mena')) active @endif">
-                        <a href="{{ route('pw_mena') }}">@lang('translation.pw-mena', ['default' => 'PW-MENA'])</a>
+                        <a href="{{ route('pw_mena') }}">Future of Works MENA</a>
                     </li>
-                    <li class="@if(str(Route::current()->getName())->contains('news')) active @endif">
-                        <a href="{{ route('news.index') }}">@lang('translation.news', ['default' => 'News'])</a>
-                    </li>
-                    <li class="@if(str(Route::current()->getName())->contains('podcasts')) active @endif">
-                        <a href="{{ route('podcasts') }}">@lang('translation.podcasts', ['default' => 'Podcasts'])</a>
-                    </li>
+                    {{-- News tab hidden --}}
                     <li class="dropdown @if(str(Route::current()->getName())->contains('community')) active @endif">
                         <a href="{{ route('community') }}" class="dropdown-toggle">@lang('translation.community')</a>
                         <div class="dropdown-menu">
@@ -905,21 +902,14 @@
                 <li class="@if(str(Route::current()->getName())->contains('regional')) active @endif">
                     <a href="{{ route('regional') }}">@lang('translation.knowledge-hub')</a>
                 </li>
-                <li class="@if(str(Route::current()->getName())->contains('data_repo')) active @endif">
-                    <a href="{{ route('data_repo') }}">@lang('translation.data-depository')</a>
-                </li>
+
                 <li class="@if(str(Route::current()->getName())->contains('ai_indices')) active @endif">
                     <a href="{{ route('ai_indices') }}">@lang('translation.ai-indices', ['default' => 'AI Indices'])</a>
                 </li>
                 <li class="@if(str(Route::current()->getName())->contains('pw_mena')) active @endif">
-                    <a href="{{ route('pw_mena') }}">@lang('translation.pw-mena', ['default' => 'PW-MENA'])</a>
+                    <a href="{{ route('pw_mena') }}">Future of Works MENA</a>
                 </li>
-                <li class="@if(str(Route::current()->getName())->contains('news')) active @endif">
-                    <a href="{{ route('news.index') }}">@lang('translation.news', ['default' => 'News'])</a>
-                </li>
-                <li class="@if(str(Route::current()->getName())->contains('podcasts')) active @endif">
-                    <a href="{{ route('podcasts') }}">@lang('translation.podcasts', ['default' => 'Podcasts'])</a>
-                </li>
+                {{-- News tab hidden --}}
                 <li class="@if(str(Route::current()->getName())->contains('community')) active @endif">
                     <a href="{{ route('community') }}">@lang('translation.community')</a>
                 </li>
@@ -1104,3 +1094,4 @@
     </script>
 </body>
 </html>
+

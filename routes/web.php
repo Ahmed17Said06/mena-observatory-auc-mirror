@@ -54,7 +54,7 @@ Route::group([
     Route::post('/subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 
     Route::get('/news_events', [HomeController::class, 'news_events'])->name('news_events');
-    Route::get('/news', [NewsController::class, 'news'])->name('news.index');
+    //Route::get('/news', [NewsController::class, 'news'])->name('news.index');
     Route::get('/podcasts', [HomeController::class, 'podcasts'])->name('podcasts');
 
     Route::get('/news/html_list', [NewsController::class, 'js_list_view'])->name('news.html_list');
@@ -77,14 +77,13 @@ Route::group([
     // Add the new work blogs single view route
     Route::get('/new_work/blogs/{id}', [NewWorkController::class, 'newWorkBlogSingle'])->name('new-work-blogs.single');
     
-    // PW-MENA (Platform Work - MENA) route
+    // Future of Work MENA route
     Route::get('/pw-mena', [PwMenaController::class, 'index'])->name('pw_mena');
     
     Route::get('/regional', [RegionalController::class, 'index'])->name('regional');
     Route::get('/regional/html_list', [RegionalController::class, 'js_list_view'])->name('regional.html_list');
     Route::get('/regional/{id}', [RegionalController::class, 'country'])->name('regional.country');
     Route::get('/regional-repository/{id}', [RegionalController::class, 'single'])->name('repo.single');
-    Route::get('/data_repo', [RegionalController::class, 'dataRepo'])->name('data_repo');
 
     Route::get('/additional-resources/{id}', [AdditionalResourcesController::class, 'single'])->name('resources.single');
 

@@ -25,8 +25,8 @@ padding-bottom: 50px;'>
                         </div>
                     @elseif($n->featured_type=='pw_mena')
                         <div class="research-border">
-                            <p>(PW-MENA)</p>
-                            <p class="sub-title">Platform Work MENA</p>
+                            <p>(Future of Work)</p>
+                            <p class="sub-title">Future of Work MENA</p>
                         </div>
                     @endif
                     <img class="post-img" src="{{Storage::url($n->thumbnail_image)}}">

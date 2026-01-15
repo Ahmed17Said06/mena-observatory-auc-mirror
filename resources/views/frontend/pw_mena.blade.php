@@ -3,7 +3,7 @@
 @section('title', trans('translation.pw-mena'))
 
 @section('content')
-@include('layouts.navbars.guest.navbar', ['title' => 'PW-MENA'])
+@include('layouts.navbars.guest.navbar', ['title' => 'Future of Work MENA'])
 
 <div class="container" style="min-height: 60vh;">
     <!-- Main Title Section -->
@@ -14,7 +14,7 @@
         <div class="d-flex justify-content-between align-items-start gap-5 flex-wrap">
             <div class="text-start flex-grow-1" style="max-width: calc(100% - 30rem);">
                 @if($description)
-                <p @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+                <p @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif style="color: #333333 !important;">
                     @if(LaravelLocalization::getCurrentLocale() === 'ar')
                     {!! $description->ar_content !!}
                     @else
@@ -22,13 +22,13 @@
                     @endif
                 </p>
                 @else
-                <p @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+                <p @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif style="color: #333333 !important;">
                     Fast and wide-ranging developments in technology have redefined employment relationships around the
                     globe, giving rise to many new forms of work. Platform-mediated work emerged as a way to connect
                     workers to buyers of a labor service— and indeed it has provided millions of individuals around the
                     world with access to work, especially in developing countries— although often at a cost.
                 </p>
-                <p @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+                <p @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif style="color: #333333 !important;">
                     Our research on platform work in the MENA region aims to influence the global narrative on platform
                     work by giving perspectives from MENA and the larger Global South. By identifying regional
                     opportunities and challenges, we aim to promote inclusive policy making with regards to work and
@@ -37,7 +37,7 @@
                 @endif
             </div>
             <div class="flex-shrink-0" style="margin-left: auto;">
-                <img src="{{ asset('img/new_work.png') }}" alt="Platform Work MENA"
+                <img src="{{ asset('img/new_work.png') }}" alt="Future of Work MENA"
                     style="width: 25rem; height: auto; object-fit: contain;">
             </div>
         </div>

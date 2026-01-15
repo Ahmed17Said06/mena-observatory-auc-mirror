@@ -124,7 +124,7 @@
                 // Add your static HTML content with the specified styles
                 const staticHTML = `
                 <style>
-span:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
+span:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *):not(.slide_title):not(.slide_description),
 form:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
 ul:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
 img:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(.post-img):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
@@ -139,6 +139,7 @@ button:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *
     opacity: 1!important;
     transform: translateY(0px)!important;
     transition: background 0.3s, color 0.3s, opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    color: #333333!important;
 }
                 </style>
             `;

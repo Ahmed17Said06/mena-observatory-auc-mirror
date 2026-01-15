@@ -11,31 +11,23 @@
     <div class='row' @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>
         <div class="col-lg-8">
             <h1 class="page-title">
-                @if(isset($is_data_repo_page) && $is_data_repo_page)
-                    @lang('translation.data-depository', ['default' => 'Data Depository'])
-                @else
-                    @lang('translation.knowledge-hub')
-                @endif
+                @lang('translation.knowledge-hub')
             </h1>
             
-            @if(!isset($is_data_repo_page) || !$is_data_repo_page)
-                <div class="knowledge-text" hreflang="{{ getLang() }}">
-                    @if(LaravelLocalization::getCurrentLocale()=='ar')
-                        {!!  $intro->ar_content !!}
-                    @else
-                        {!!  $intro->content !!}
-                    @endif
-                </div>
-            @endif
+            <div class="knowledge-text" hreflang="{{ getLang() }}" style="color: #333333 !important;">
+                @if(LaravelLocalization::getCurrentLocale()=='ar')
+                    {!!  $intro->ar_content !!}
+                @else
+                    {!!  $intro->content !!}
+                @endif
+            </div>
             {{--		<div  style='' id="map"></div>--}}
         </div>
-        @if(!isset($is_data_repo_page) || !$is_data_repo_page)
         <div class="col-lg-4">
             <div class="countries-map">
                 <img src="{{asset('/img/Group 2070.png')}}">
             </div>
         </div>
-        @endif
     </div>
 
 <livewire:repo-list/>
