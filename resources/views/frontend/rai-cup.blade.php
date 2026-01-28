@@ -69,7 +69,7 @@
 
 <div class="rai-cup-hero">
     <div class="container text-center">
-        <h1 class="mb-4" style="font-size: 2.5rem;">
+        <h1 class="mb-4" style="font-size: 2.5rem; color: #fff !important;">
             @if(LaravelLocalization::getCurrentLocale() === 'ar')
                 حفل ختام كأس الذكاء الاصطناعي المسؤول
             @else

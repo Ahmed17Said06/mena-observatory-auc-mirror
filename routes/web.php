@@ -54,7 +54,7 @@ Route::group([
     Route::post('/subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 
     Route::get('/news_events', [HomeController::class, 'news_events'])->name('news_events');
-    //Route::get('/news', [NewsController::class, 'news'])->name('news.index');
+    Route::get('/news', [NewsController::class, 'news'])->name('news.index');
     Route::get('/podcasts', [HomeController::class, 'podcasts'])->name('podcasts');
 
     Route::get('/news/html_list', [NewsController::class, 'js_list_view'])->name('news.html_list');

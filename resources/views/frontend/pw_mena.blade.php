@@ -121,6 +121,16 @@
                 style="color: #FAAF1C; font-weight: 600; border-left: 4px solid #FAAF1C; padding-left: 1rem;">
                 @lang('translation.pw-mena-reports')
             </h3>
+            <!-- Disclaimer -->
+            <div class="disclaimer-box mb-4" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
+                style="background: #fff8e6; border-left: 4px solid #FAAF1C; padding: 1rem 1.5rem; border-radius: 0 8px 8px 0; font-size: 0.9rem; color: #666;">
+                <i class="fas fa-info-circle" style="color: #FAAF1C; margin-right: 0.5rem;"></i>
+                @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                    <strong>ملاحظة:</strong> تم إجراء العمل الميداني لهذه التقارير في خريف/شتاء 2023. يستند التحليل والتوصيات إلى هذا الجدول الزمني.
+                @else
+                    <strong>Note:</strong> Fieldwork for these reports was conducted in Fall/Winter 2023. Analysis and recommendations are based on that timeline.
+                @endif
+            </div>
             <ul class="resource-list" style="list-style: none; padding: 0;" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
                     <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
@@ -156,6 +166,17 @@
                     <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-file-pdf" style="color: #FAAF1C;"></i>
                         The perils of digital work in Lebanon: lessons from taxi and delivery workers
+                    </a>
+                </li>
+                <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
+                    <a href="{{ asset('docs/lebanon/lebanon-platform-workers-report-' . (LaravelLocalization::getCurrentLocale() === 'ar' ? 'ar' : 'en') . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-file-pdf" style="color: #FAAF1C;"></i>
+                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                            العمل الجديد - عمال المنصات الرقمية - حالة لبنان
+                        @else
+                            New Work: Platform Workers - Case of Lebanon
+                        @endif
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
@@ -220,6 +241,17 @@
                     <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-file-alt" style="color: #022248;"></i>
                         Precarious freelancing: Lebanon's grim future of work
+                    </a>
+                </li>
+                <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
+                    <a href="{{ asset('docs/lebanon/lebanon-platform-workers-policy-brief-' . (LaravelLocalization::getCurrentLocale() === 'ar' ? 'ar' : 'en') . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-file-alt" style="color: #022248;"></i>
+                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                            موجز سياسات - عمال المنصات الرقمية - حالة لبنان
+                        @else
+                            Policy Brief: Platform Workers - Case of Lebanon
+                        @endif
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">

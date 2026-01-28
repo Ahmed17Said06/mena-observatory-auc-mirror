@@ -14,7 +14,7 @@
                       </div>
                       <div class="post-content" lang="en">
                           <h4 style='color:#FFF;' class='slide_title'>
-                              <a href='{{ route("coming-soon") }}'>
+                              <a href='https://i-raise.org/' target='_blank' rel='noopener noreferrer'>
                                   @if(LaravelLocalization::getCurrentLocale() === 'ar')
                                       الذكاء الاصطناعي الآمن للأطفال - فرع منطقة الشرق الأوسط وشمال أفريقيا
                                   @else
@@ -29,13 +29,13 @@
                                   The International Coalition for AI Safety for Children (i-raise)
                               @endif
                           </p>
-                          <a href='{{ route("coming-soon") }}'>
+                          <a href='https://i-raise.org/' target='_blank' rel='noopener noreferrer'>
                               <button class='btn learn_more'>
-                                  <i class="fas fa-clock"></i>
+                                  <i class="fas fa-external-link-alt"></i>
                                   @if(LaravelLocalization::getCurrentLocale() === 'ar')
-                                      قريباً
+                                      زيارة الموقع
                                   @else
-                                      Coming Soon
+                                      Visit Website
                                   @endif
                               </button>
                           </a>
