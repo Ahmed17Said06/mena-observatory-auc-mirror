@@ -101,6 +101,44 @@
                       </div>
                       <div class="overlay-1"></div>
                   </div>
+
+                  <!-- Future of Work MENA -->
+                  <div class="post-loop-featured m-3 research-border-border position-relative overflow-hidden">
+                      <img class="post-img" src="/img/new_work.png" onerror="this.src='/img/placeholder-featured.jpg'">
+                      <div class="research-border">
+                          <p>Future of Work MENA</p>
+                          <p class="sub-title">(Platform Workers)</p>
+                      </div>
+                      <div class="post-content" lang="en">
+                          <h4 style='color:#FFF;' class='slide_title'>
+                              <a href='{{ route("pw_mena") }}'>
+                                  @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                                      مستقبل العمل في منطقة الشرق الأوسط وشمال أفريقيا
+                                  @else
+                                      Future of Work MENA
+                                  @endif
+                              </a>
+                          </h4>
+                          <p style='color:#FFF;' class='slide_description'>
+                              @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                                  بحثنا حول عمال المنصات الرقمية في منطقة الشرق الأوسط وشمال أفريقيا
+                              @else
+                                  Our research on platform work in the MENA region
+                              @endif
+                          </p>
+                          <a href='{{ route("pw_mena") }}'>
+                              <button class='btn learn_more'>
+                                  <i class="fas fa-plus"></i>
+                                  @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                                      اقرأ المزيد
+                                  @else
+                                      Read More
+                                  @endif
+                              </button>
+                          </a>
+                      </div>
+                      <div class="overlay-1"></div>
+                  </div>
               </div>
       </div>
 </div>

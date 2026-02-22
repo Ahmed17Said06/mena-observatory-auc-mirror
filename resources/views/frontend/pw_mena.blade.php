@@ -139,9 +139,10 @@
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
-                    <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                    <a href="{{ asset('docs/egypt/egypt-delivery-workers-policy-paper.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-file-pdf" style="color: #FAAF1C;"></i>
                         Platform work, social protection and representation: a case of delivery workers in Egypt
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
@@ -157,9 +158,14 @@
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
-                    <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                    <a href="{{ asset('docs/jordan/jordan-platform-workers-policy-paper-' . (LaravelLocalization::getCurrentLocale() === 'ar' ? 'ar' : 'en') . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-file-pdf" style="color: #FAAF1C;"></i>
-                        New Work, Data and Inclusion in the Digital Economy: A Middle East and North Africa Perspective Case Study Jordan
+                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                            العمل الجديد - عمال المنصات الرقمية - حالة الأردن
+                        @else
+                            New Work, Data and Inclusion in the Digital Economy: A Middle East and North Africa Perspective Case Study Jordan
+                        @endif
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
@@ -180,16 +186,38 @@
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
-                    <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                    @php
+                        $moroccoLang = LaravelLocalization::getCurrentLocale() === 'ar' ? 'ar' : 'en';
+                    @endphp
+                    <a href="{{ asset('docs/morocco/morocco-platform-workers-policy-paper-' . $moroccoLang . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-file-pdf" style="color: #FAAF1C;"></i>
-                        Platform Workers: a Morocco Case Study
+                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                            عمال المنصات الرقمية: دراسة حالة المغرب
+                        @else
+                            Platform Workers: a Morocco Case Study
+                        @endif
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
                     </a>
+                    <span style="font-size: 0.75rem; margin-left: 1.5rem;">
+                        <a href="{{ asset('docs/morocco/morocco-platform-workers-policy-paper-fr.pdf') }}" target="_blank" style="color: #999; text-decoration: none;">[FR]</a>
+                    </span>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
-                    <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                    @php
+                        $tunisiaLang = LaravelLocalization::getCurrentLocale() === 'ar' ? 'ar' : 'en';
+                    @endphp
+                    <a href="{{ asset('docs/tunisia/tunisia-platform-workers-policy-paper-' . $tunisiaLang . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-file-pdf" style="color: #FAAF1C;"></i>
-                        New Forms of Work, Old Forms of Exploitation: An Analysis of Tunisia's Platform and Informal Economies
+                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                            أشكال جديدة من العمل، أشكال قديمة من الاستغلال: تحليل اقتصاد المنصات والاقتصاد غير الرسمي في تونس
+                        @else
+                            New Forms of Work, Old Forms of Exploitation: An Analysis of Tunisia's Platform and Informal Economies
+                        @endif
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
                     </a>
+                    <span style="font-size: 0.75rem; margin-left: 1.5rem;">
+                        <a href="{{ asset('docs/tunisia/tunisia-platform-workers-policy-paper-fr.pdf') }}" target="_blank" style="color: #999; text-decoration: none;">[FR]</a>
+                    </span>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
                     <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
@@ -209,6 +237,28 @@
                         Fairwork Egypt 2022: Platform Workers Amidst Egypt's Economic Crisis
                     </a>
                 </li>
+                <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
+                    <a href="{{ asset('docs/egypt/egypt-platform-workers-policy-brief-' . (LaravelLocalization::getCurrentLocale() === 'ar' ? 'ar' : 'en') . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-file-pdf" style="color: #FAAF1C;"></i>
+                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                            العمل الجديد - عمال المنصات الرقمية - حالة مصر
+                        @else
+                            New Work: Platform Workers - Case of Egypt
+                        @endif
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
+                    </a>
+                </li>
+                <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
+                    <a href="{{ asset('docs/egypt/egypt-2025-platform-workers-policy-paper-' . (LaravelLocalization::getCurrentLocale() === 'ar' ? 'ar' : 'en') . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-file-pdf" style="color: #FAAF1C;"></i>
+                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                            العمل الجديد: عمال المنصات الرقمية في مصر 2025
+                        @else
+                            New Work: Platform Workers in Egypt 2025
+                        @endif
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -220,9 +270,10 @@
             </h3>
             <ul class="resource-list" style="list-style: none; padding: 0;" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
-                    <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                    <a href="{{ asset('docs/egypt/egypt-delivery-workers-policy-brief.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-file-alt" style="color: #022248;"></i>
                         Social protection and representation for delivery workers in Egypt
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
@@ -232,9 +283,14 @@
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
-                    <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                    <a href="{{ asset('docs/jordan/jordan-platform-workers-policy-brief-' . (LaravelLocalization::getCurrentLocale() === 'ar' ? 'ar' : 'en') . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-file-alt" style="color: #022248;"></i>
-                        Navigating the Digital Frontier: Policy Reforms for Platform Workers in Jordan
+                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                            التنقل في الحدود الرقمية: إصلاحات السياسات لعمال المنصات في الأردن
+                        @else
+                            Navigating the Digital Frontier: Policy Reforms for Platform Workers in Jordan
+                        @endif
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
@@ -261,10 +317,45 @@
                     </a>
                 </li>
                 <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
-                    <a href="#" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                    @php
+                        $moroccoBriefLang = LaravelLocalization::getCurrentLocale() === 'ar' ? 'en' : (LaravelLocalization::getCurrentLocale() === 'fr' ? 'fr' : 'en');
+                    @endphp
+                    <a href="{{ asset('docs/morocco/morocco-platform-workers-policy-brief-' . $moroccoBriefLang . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-file-alt" style="color: #022248;"></i>
                         Platform Workers in Morocco: a Policy Brief
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
                     </a>
+                    <span style="font-size: 0.75rem; margin-left: 1.5rem;">
+                        <a href="{{ asset('docs/morocco/morocco-platform-workers-policy-brief-fr.pdf') }}" target="_blank" style="color: #999; text-decoration: none;">[FR]</a>
+                    </span>
+                </li>
+                <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
+                    <a href="{{ asset('docs/egypt/egypt-platform-workers-policy-brief-' . (LaravelLocalization::getCurrentLocale() === 'ar' ? 'ar' : 'en') . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-file-alt" style="color: #022248;"></i>
+                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                            موجز سياسات - عمال المنصات الرقمية - حالة مصر
+                        @else
+                            Policy Brief: Platform Workers - Case of Egypt
+                        @endif
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
+                    </a>
+                </li>
+                <li style="padding: 0.75rem 0; border-bottom: 1px solid #eee;">
+                    @php
+                        $tunisiaBriefLang = LaravelLocalization::getCurrentLocale() === 'ar' ? 'ar' : 'en';
+                    @endphp
+                    <a href="{{ asset('docs/tunisia/tunisia-platform-workers-policy-brief-' . $tunisiaBriefLang . '.pdf') }}" target="_blank" style="color: #022248; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-file-alt" style="color: #022248;"></i>
+                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+                            موجز سياسات - عمال المنصات الرقمية - حالة تونس
+                        @else
+                            Policy Brief: Platform Workers - Case of Tunisia
+                        @endif
+                        <i class="fas fa-external-link-alt" style="font-size: 0.7rem; color: #999;"></i>
+                    </a>
+                    <span style="font-size: 0.75rem; margin-left: 1.5rem;">
+                        <a href="{{ asset('docs/tunisia/tunisia-platform-workers-policy-brief-fr.pdf') }}" target="_blank" style="color: #999; text-decoration: none;">[FR]</a>
+                    </span>
                 </li>
             </ul>
         </div>

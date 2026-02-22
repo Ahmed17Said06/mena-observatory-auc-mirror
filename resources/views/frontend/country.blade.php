@@ -181,6 +181,64 @@
                 </script>
 
                 <div class="container my-3 my-lg-5">
+                    {{-- Static Egypt Knowledge Hub Entries (only for Egypt, country_id = 5) --}}
+                    @if($country->id == 5)
+                    <div class='row my-3'>
+                        <div class='col-lg-9'>
+                            <h4 class="mb-4" style="color: #1a1a2e;">Featured Policy Briefs</h4>
+                            
+                            {{-- Entry 1: Women Informal Digital Entrepreneurs 2025 --}}
+                            <article class='result-card' style="background: #fff; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid #f3f4f6;">
+                                <div class='row g-3'>
+                                    <div class='col-lg-12'>
+                                        <div class="result-content">
+                                            <a href="{{ asset('storage/UruWZb5OPVKOk88XSU7KzQbp2Gswyg-metaQTJLNEQgeCBGRVMgUG9saWN5IEJyaWVmLSBBdWd1c3QgMjAyNS5wZGY=-.pdf') }}" target="_blank" rel="noopener noreferrer" class="result-title" style="font-size: 1.25rem; font-weight: 700; color: #111827; text-decoration: none; display: block; margin-bottom: 0.75rem;">
+                                                Women Informal Digital Entrepreneurs in Egypt - Skills Development and Capacity Building
+                                            </a>
+                                            <p class="result-description" style="color: #6b7280; font-size: 0.938rem; line-height: 1.6;">
+                                                Policy Brief (2025) - A2K4D x FES. This policy brief explores skills development and capacity building for women informal digital entrepreneurs in Egypt.
+                                            </p>
+                                        </div>
+                                        <div class="result-actions" style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+                                            <a class="download-button" href="{{ asset('storage/UruWZb5OPVKOk88XSU7KzQbp2Gswyg-metaQTJLNEQgeCBGRVMgUG9saWN5IEJyaWVmLSBBdWd1c3QgMjAyNS5wZGY=-.pdf') }}" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.125rem; background: #fff; border: 2px solid #e5e7eb; border-radius: 8px; color: #374151; font-weight: 600; font-size: 0.875rem; text-decoration: none;">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span>Download PDF</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            
+                            {{-- Entry 2: Women and Work Policy Brief 2023 --}}
+                            <article class='result-card' style="background: #fff; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid #f3f4f6;">
+                                <div class='row g-3'>
+                                    <div class='col-lg-12'>
+                                        <div class="result-content">
+                                            <a href="https://egypt.fes.de/fileadmin/user_upload/documents/publication/A2K4DxFES_Policy_Brief_2023_EN.pdf" target="_blank" rel="noopener noreferrer" class="result-title" style="font-size: 1.25rem; font-weight: 700; color: #111827; text-decoration: none; display: block; margin-bottom: 0.75rem;">
+                                                Women and Work in Egypt's Informal Digital Economy
+                                            </a>
+                                            <p class="result-description" style="color: #6b7280; font-size: 0.938rem; line-height: 1.6;">
+                                                Policy Brief (2023) - A2K4D x FES. This policy brief examines women's participation and work conditions in Egypt's informal digital economy.
+                                            </p>
+                                        </div>
+                                        <div class="result-actions" style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+                                            <a class="download-button" href="https://egypt.fes.de/fileadmin/user_upload/documents/publication/A2K4DxFES_Policy_Brief_2023_EN.pdf" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.125rem; background: #fff; border: 2px solid #e5e7eb; border-radius: 8px; color: #374151; font-weight: 600; font-size: 0.875rem; text-decoration: none;">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span>Download PDF</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    @endif
+                    {{-- End Static Egypt Knowledge Hub Entries --}}
+                    
                     <!-- Replace the existing repos section with Livewire component -->
                     <livewire:country-repo-list :country_id="$country->id" />
                 </div>

@@ -38,7 +38,7 @@ return [
     "featured" => "FEATURED",
     "search-posts" => "Search posts",
     "privacy" => "2024 | <span style='font-weight: 700'>PRIVACY - TERMS</span>",
-    "gender-ai" => "GENDER & AI",
+    "gender-ai" => "GENDER AND AI",
     "aswat" => "ASWAT: VOICES FROM MENA",
     "projects" => "PROJECTS",
     "articles" => "articles",

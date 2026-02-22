@@ -58,8 +58,14 @@ Route::group([
     Route::get('/podcasts', [HomeController::class, 'podcasts'])->name('podcasts');
 
     Route::get('/news/html_list', [NewsController::class, 'js_list_view'])->name('news.html_list');
-    Route::get('/news/rai-cup-2026', function() { return view('frontend.rai-cup'); })->name('news.rai-cup');
-    Route::get('/safe-ai-children', function() { return view('frontend.coming-soon'); })->name('safe_ai_children');
+    Route::get('/news/rai-cup-2026', function () {
+        return view('frontend.rai-cup'); })->name('news.rai-cup');
+    Route::get('/news/open-call-ai-solutions', function () {
+        return view('frontend.news.open-call-ai-solutions'); })->name('news.open-call-ai-solutions');
+    Route::get('/news/open-call-rai-use-cases', function () {
+        return view('frontend.news.open-call-rai-use-cases'); })->name('news.open-call-rai-use-cases');
+    Route::get('/safe-ai-children', function () {
+        return view('frontend.coming-soon'); })->name('safe_ai_children');
     Route::get('/news/{id}', [NewsController::class, 'single'])->name('news');
     Route::get('/events/{id}', [EventsController::class, 'single'])->name('events.single');
 
@@ -74,13 +80,13 @@ Route::group([
     Route::get('/new_work/blogs/html_list', [NewWorkController::class, 'blogsHtmlList'])->name('new_work.blogs.html_list');
     Route::get('/new_work/policy-briefs', [NewWorkController::class, 'policyBriefs'])->name('new_work.policy-briefs');
     Route::get('/new_work/policy-briefs/html_list', [NewWorkController::class, 'policyBriefsHtmlList'])->name('new_work.policy-briefs.html_list');
-    
+
     // Add the new work blogs single view route
     Route::get('/new_work/blogs/{id}', [NewWorkController::class, 'newWorkBlogSingle'])->name('new-work-blogs.single');
-    
+
     // Future of Work MENA route
     Route::get('/pw-mena', [PwMenaController::class, 'index'])->name('pw_mena');
-    
+
     Route::get('/regional', [RegionalController::class, 'index'])->name('regional');
     Route::get('/regional/html_list', [RegionalController::class, 'js_list_view'])->name('regional.html_list');
     Route::get('/regional/{id}', [RegionalController::class, 'country'])->name('regional.country');
@@ -96,7 +102,7 @@ Route::group([
     //     return view('components.frontend.component.communites');
     // })->name('communites');
     Route::get('/communities', [CommunityController::class, 'communities'])->name('communities');
-    
+
     // Collaborators page
     Route::get('/collaborators', [CommunityController::class, 'collaborators'])->name('collaborators');
 
