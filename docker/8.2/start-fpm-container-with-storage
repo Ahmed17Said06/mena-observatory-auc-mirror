@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Run storage setup first
+echo "Running storage setup script..."
+if [ -f /setup-storage.sh ]; then
+    bash /setup-storage.sh
+else
+    echo "WARNING: /setup-storage.sh not found!"
+fi
+
+# Start PHP-FPM with the correct path
+echo "Starting PHP-FPM..."
+if [ -x /usr/sbin/php-fpm8.2 ]; then
+    exec /usr/sbin/php-fpm8.2 --nodaemonize
+elif [ -x /usr/bin/php-fpm8.2 ]; then
+    exec /usr/bin/php-fpm8.2 --nodaemonize
+else
+    # Try to find the PHP-FPM executable
+    FPM_PATH=$(find /usr -name 'php-fpm*' -executable | grep '8.2' | head -1)
+    if [ -n "$FPM_PATH" ]; then
+        exec $FPM_PATH --nodaemonize
+    else
+        echo "ERROR: Cannot find php-fpm8.2 executable!"
+        exit 1
+    fi
+fi
