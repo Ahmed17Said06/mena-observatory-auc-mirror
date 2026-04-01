@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Filament\Resources\YoutubeVideoResource\Pages;
+
+use App\Filament\Resources\YoutubeVideoResource;
+use Filament\Resources\Pages\CreateRecord;
+
+class CreateYoutubeVideo extends CreateRecord
+{
+    protected static string $resource = YoutubeVideoResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
+    protected function afterCreate(): void
+    {
+        $this->record->tags()->sync($this->data['tags'] ?? []);
+    }
+}

@@ -1,0 +1,8 @@
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="Assets/Play button" opacity="0.8">
+        <circle id="Ellipse" cx="30" cy="30" r="29.5" fill="#F2F4F7" stroke="#344054"/>
+        <path id="Polygon"
+              d="M42.4306 29.6263C43.1154 30.0075 43.1154 30.9925 42.4306 31.3737L24.4864 41.3638C23.8199 41.7349 23 41.253 23 40.4901V20.5099C23 19.747 23.8199 19.2651 24.4864 19.6362L42.4306 29.6263Z"
+              fill="#344054"/>
+    </g>
+</svg>
