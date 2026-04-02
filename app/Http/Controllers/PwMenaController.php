@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blogs;
+use App\Models\PwMenaPublication;
 use App\Models\static_content;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,21 @@ class PwMenaController extends Controller
 {
     public function index()
     {
-        // Get description from static content (can be managed via admin)
-        $description = static_content::where('key', 'pw_mena_description')->first();
-        
+        // Batch-load all static content for this page
+        $keys = [
+            'pw_mena_description',
+            'pw_mena_disclaimer',
+            'pw_mena_inst_auc_name', 'pw_mena_inst_auc_org',
+            'pw_mena_inst_policy_hub_name', 'pw_mena_inst_policy_hub_org',
+            'pw_mena_inst_phenix_name', 'pw_mena_inst_phenix_org',
+            'pw_mena_inst_tunisia_name', 'pw_mena_inst_tunisia_org',
+            'pw_mena_inst_solidarity_name', 'pw_mena_inst_solidarity_org',
+        ];
+        $sc = static_content::whereIn('key', $keys)->get()->keyBy('key');
+
+        // Keep $description for backward compatibility with existing blade code
+        $description = $sc->get('pw_mena_description');
+
         // Get related blogs tagged with platform work (if available)
         $relatedPosts = Blogs::whereHas('tags', function ($query) {
             $query->where('name', 'like', '%platform%')
@@ -20,9 +33,23 @@ class PwMenaController extends Controller
                 ->orWhere('name', 'like', '%gig%');
         })->latest()->take(3)->get();
 
+        try {
+            $reports = PwMenaPublication::reports()->orderBy('sort_order')->get();
+            $briefs  = PwMenaPublication::briefs()->orderBy('sort_order')->get();
+            $blogs   = PwMenaPublication::blogs()->orderBy('sort_order')->get();
+        } catch (\Exception $e) {
+            $reports = collect();
+            $briefs  = collect();
+            $blogs   = collect();
+        }
+
         return view('frontend.pw_mena')->with([
-            'description' => $description,
-            'relatedPosts' => $relatedPosts
+            'description'  => $description,
+            'sc'           => $sc,
+            'relatedPosts' => $relatedPosts,
+            'reports'      => $reports,
+            'briefs'       => $briefs,
+            'blogs'        => $blogs,
         ]);
     }
 }

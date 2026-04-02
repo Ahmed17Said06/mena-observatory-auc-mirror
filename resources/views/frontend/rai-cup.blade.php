@@ -70,14 +70,18 @@
 <div class="rai-cup-hero">
     <div class="container text-center">
         <h1 class="mb-4" style="font-size: 2.5rem; color: #fff !important;">
-            @if(LaravelLocalization::getCurrentLocale() === 'ar')
+            @if(isset($rai_cup_hero_title) && $rai_cup_hero_title)
+                {{ LaravelLocalization::getCurrentLocale() === 'ar' && $rai_cup_hero_title->ar_content ? $rai_cup_hero_title->ar_content : $rai_cup_hero_title->content }}
+            @elseif(LaravelLocalization::getCurrentLocale() === 'ar')
                 حفل ختام كأس الذكاء الاصطناعي المسؤول
             @else
                 Responsible AI Cup Awards Ceremony
             @endif
         </h1>
         <p class="lead" style="opacity: 0.9; color: #fff !important;">
-            @if(LaravelLocalization::getCurrentLocale() === 'ar')
+            @if(isset($rai_cup_hero_subtitle) && $rai_cup_hero_subtitle)
+                {{ LaravelLocalization::getCurrentLocale() === 'ar' && $rai_cup_hero_subtitle->ar_content ? $rai_cup_hero_subtitle->ar_content : $rai_cup_hero_subtitle->content }}
+            @elseif(LaravelLocalization::getCurrentLocale() === 'ar')
                 تحت رعاية وزارة الاتصالات وتكنولوجيا المعلومات
             @else
                 Under the Patronage of the Ministry of Communications and Information Technology (MCIT)
@@ -92,27 +96,29 @@
         <div class="event-details">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <h3><i class="fas fa-calendar-alt me-2"></i> 
-                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
-                            الأحد 18 يناير 2026
-                        @else
-                            Sunday, January 18, 2026
+                    <h3><i class="fas fa-calendar-alt me-2"></i>
+                        @if(isset($rai_cup_event_date) && $rai_cup_event_date)
+                            {{ LaravelLocalization::getCurrentLocale() === 'ar' && $rai_cup_event_date->ar_content ? $rai_cup_event_date->ar_content : $rai_cup_event_date->content }}
+                        @elseif(LaravelLocalization::getCurrentLocale() === 'ar')الأحد 18 يناير 2026
+                        @else Sunday, January 18, 2026
                         @endif
                     </h3>
                 </div>
                 <div class="col-md-6">
-                    <h3><i class="fas fa-map-marker-alt me-2"></i> 
-                        @if(LaravelLocalization::getCurrentLocale() === 'ar')
-                            مساحة فاوندَرْز، وسط القاهرة
-                        @else
-                            Founders Spaces, Downtown Cairo
+                    <h3><i class="fas fa-map-marker-alt me-2"></i>
+                        @if(isset($rai_cup_event_location) && $rai_cup_event_location)
+                            {{ LaravelLocalization::getCurrentLocale() === 'ar' && $rai_cup_event_location->ar_content ? $rai_cup_event_location->ar_content : $rai_cup_event_location->content }}
+                        @elseif(LaravelLocalization::getCurrentLocale() === 'ar')مساحة فاوندَرْز، وسط القاهرة
+                        @else Founders Spaces, Downtown Cairo
                         @endif
                     </h3>
                 </div>
             </div>
         </div>
 
-        @if(LaravelLocalization::getCurrentLocale() === 'ar')
+        @if(isset($rai_cup_body) && $rai_cup_body)
+            {!! LaravelLocalization::getCurrentLocale() === 'ar' && $rai_cup_body->ar_content ? $rai_cup_body->ar_content : $rai_cup_body->content !!}
+        @elseif(LaravelLocalization::getCurrentLocale() === 'ar')
             <p>سيستضيف مركز إتاحة المعرفة من أجل التنمية (A2K4D) بكلية أنسي ساويرس لإدارة الأعمال بالجامعة الأمريكية بالقاهرة حفل ختام النسخة الأولى من مسابقة كأس الذكاء الاصطناعي المسؤول يوم الأحد 18 يناير 2026 في مساحة فاوندَرْز، وسط القاهرة (وسط البلد)، تحت رعاية وزارة الاتصالات وتكنولوجيا المعلومات. ويأتي هذا الحدث ليختتم منافسات كأس الذكاء الاصطناعي المسؤول (Responsible AI Cup)، كما يتزامن مع الاحتفال بالذكرى السادسة عشر لتأسيس مركز إتاحة المعرفة من أجل التنمية (A2K4D). مسابقة كأس الذكاء الاصطناعي المسؤول هي إحدى مبادرات مرصد الشرق الأوسط وشمال أفريقيا للذكاء الاصطناعي المسؤول التابع للمركز. تهدف المسابقة إلى تعزيز السياسات والممارسات المسؤولة للذكاء الاصطناعي في المنطقة.</p>
 
             <p>أُطلقت مسابقة كأس الذكاء الاصطناعي المسؤول في أكتوبر 2025 باعتبارها أول مسابقة من نوعها في مصر تستهدف الشركات الصغيرة والمتوسطة والشركات الناشئة التي تقوم بتطوير أو استخدام حلول قائمة على الذكاء الاصطناعي، مع التركيز بشكل أساسي على ترسيخ مبادئ وممارسات الذكاء الاصطناعي المسؤول. شارك في المسابقة 41 شركة قدمت نماذج أعمال تعكس التزامها بتطبيق الذكاء الاصطناعي المسؤول عبر تسعة محاور رئيسية، تشمل: الخصوصية، والمساءلة، والسلامة، والشفافية، والعدالة، والإشراف البشري، والمسؤولية المهنية، والقيم الإنسانية.</p>

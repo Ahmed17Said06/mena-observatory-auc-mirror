@@ -65,5 +65,8 @@ class DatabaseSeeder extends Seeder
         
         DB::table('statics')->insert($statics);
 
+        $this->call([
+            StaticContentSeeder::class,
+        ]);
     }
 }
