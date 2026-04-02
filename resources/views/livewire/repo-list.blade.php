@@ -1,1046 +1,1137 @@
-<div class='row my-3 my-lg-5'>
-    <div class='col-lg-9'>
-        <!-- Enhanced Search and Filter Section -->
-        <div class="search-filter-section mb-4">
-            <!-- Type Buttons (Knowledge Hub only) -->
-            @if(!$is_data_repo_page)
-                <div class="type-buttons-container d-none d-lg-flex gap-2 mb-3 flex-wrap">
-                    @foreach($repo_types as $type)
-                        <button wire:click="setType('{{ $type->id }}')"
-                                class="btn-type {{ in_array($type->id, $repo_type_ids) ? 'active' : '' }}">
-                            {{ $type->name }}
-                        </button>
-                    @endforeach
-                </div>
-            @endif
-            
-            <!-- Enhanced Search Box -->
-            <div class="search-box-enhanced">
-                <div class="search-input-wrapper">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_703_6664)">
-                            <path d="M5.80292 11.413C2.62774 11.413 0 8.91304 0 5.76087C0 2.6087 2.62774 0 5.80292 0C8.9781 0 11.6058 2.6087 11.6058 5.76087C11.6058 8.91304 8.9781 11.413 5.80292 11.413ZM5.80292 1.08696C3.17518 1.08696 1.09489 3.15217 1.09489 5.76087C1.09489 8.36957 3.17518 10.4348 5.80292 10.4348C8.43066 10.4348 10.5109 8.36957 10.5109 5.76087C10.5109 3.15217 8.32117 1.08696 5.80292 1.08696Z" fill="currentColor"/>
-                            <path d="M9.68313 8.99118L8.90894 9.75977L14.2509 15.063L15.0251 14.2944L9.68313 8.99118Z" fill="currentColor"/>
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_703_6664">
-                                <rect width="15" height="15" fill="white"/>
-                            </clipPath>
-                        </defs>
-                    </svg>
-                    <input class="search-input" 
-                           wire:model.defer="search"
-                           wire:keydown.enter="filterUpdated()"
-                           placeholder="Search publications, reports, and data..."
-                           type="text">
-                    @if($search)
-                        <button type="button" class="clear-search-btn" wire:click="clearSearch()">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </button>
-                    @endif
-                    <button type="button" class="search-submit-btn" wire:click="filterUpdated()">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="d-none d-sm-inline">
-                            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
-                            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<div class='rl-wrap'>
+    <div class='row g-3 g-lg-4'>
+        <div class='col-lg-9'>
+
+            {{-- ═══ SEARCH BAR ═══ --}}
+            <div class="rl-search-bar">
+                <div class="rl-search-row">
+                    <div class="rl-search-field">
+                        <svg class="rl-search-ico" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="M21 21l-4.35-4.35" />
                         </svg>
-                        Search
-                    </button>
+                        <input class="rl-search-input" wire:model.defer="search" wire:keydown.enter="filterUpdated()"
+                            placeholder="Search publications, reports, and data..." type="text">
+                        @if ($search)
+                            <button type="button" class="rl-search-clear" wire:click="clearSearch()">
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </button>
+                        @endif
+                        <button type="button" class="rl-search-btn" wire:click="filterUpdated()">Search</button>
+                    </div>
                 </div>
-                
-                <!-- Quick Search Suggestions -->
-                <div class="quick-search-tags mt-2 d-none d-md-flex flex-wrap gap-2">
-                    <span class="quick-tag-label">Popular:</span>
-                    <button type="button" class="quick-tag" wire:click="$set('search', 'AI Policy')">AI Policy</button>
-                    <button type="button" class="quick-tag" wire:click="$set('search', 'Ethics')">Ethics</button>
-                    <button type="button" class="quick-tag" wire:click="$set('search', 'Governance')">Governance</button>
-                    <button type="button" class="quick-tag" wire:click="$set('search', 'Research')">Research</button>
+
+                {{-- Type pills + active filter count --}}
+                <div class="rl-toolbar">
+                    @if (!$is_data_repo_page && count($repo_types) > 0)
+                        <div class="rl-pills d-none d-lg-flex">
+                            @foreach ($repo_types as $type)
+                                <button wire:click="setType('{{ $type->id }}')"
+                                    class="rl-pill {{ in_array($type->id, $repo_type_ids) ? 'active' : '' }}">
+                                    {{ $type->name }}
+                                </button>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <div class="rl-toolbar-right">
+                        @php
+                            $activeCount =
+                                count($selectedAuthorsIds ?? []) +
+                                count($selectedFields ?? []) +
+                                count($selectedSubjects ?? []) +
+                                count($selectedProjects ?? []) +
+                                count($selectedPublishDates ?? []) +
+                                count($selectedCountryIds ?? []);
+                        @endphp
+                        @if ($activeCount > 0)
+                            <button class="rl-active-tag" wire:click="clear">
+                                <span>{{ $activeCount }} filter{{ $activeCount > 1 ? 's' : '' }} active</span>
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </button>
+                        @endif
+
+                        {{-- Mobile filter toggle --}}
+                        <button class="rl-filter-toggle d-lg-none"
+                            onclick="document.querySelector('.rl-sidebar').classList.add('open')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" />
+                            </svg>
+                            Filters
+                            @if ($activeCount > 0)
+                                <span class="rl-filter-badge">{{ $activeCount }}</span>
+                            @endif
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Results Container -->
-        <div id='repos' class="results-container">
-            @foreach($repos as $index => $r)
-                @php
-                    $linkUrl = $r->data_link ?: (
-                        $r->en_pdf ? Storage::url($r->en_pdf) : (
-                            $r->ar_pdf ? Storage::url($r->ar_pdf) : '#'
-                        )
-                    );
-                @endphp
-                <article class='result-card lazy-item'>
-                    <div class='row g-3'>
-                        <div class='col-lg-3 col-md-4'>
-                            <a href="{{$linkUrl}}" target="_blank" rel="noopener noreferrer" class="image-link">
-                                <div class="image-wrapper">
-                                    <img class="result-image" src='{{Storage::url($r->image)}}' alt="{{$r->title}}">
-                                    <div class="image-overlay">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
+            {{-- ═══ RESULTS ═══ --}}
+            <div id='repos' class="rl-results">
+                @forelse($repos as $index => $r)
+                    @php
+                        $detailUrl = route('repo.single', $r->id);
+                    @endphp
+                    <article class='rl-card' style="animation-delay: {{ $index * 40 }}ms">
+                        <div class='row g-0'>
+                            <div class='col-md-3'>
+                                <a href="{{ $detailUrl }}"
+                                    class="rl-card-img-link">
+                                    <div class="rl-card-img">
+                                        @if($r->image && Storage::exists($r->image))
+                                            <img src='{{ Storage::url($r->image) }}' alt="{{ $r->title }}"
+                                                loading="lazy">
+                                        @else
+                                            <div class="rl-card-img-placeholder">
+                                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                                    <polyline points="14 2 14 8 20 8"/>
+                                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                                    <polyline points="10 9 9 9 8 9"/>
+                                                </svg>
+                                            </div>
+                                        @endif
+                                        <div class="rl-card-img-hover">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class='col-md-9'>
+                                <div class="rl-card-body">
+                                    <a href="{{ $detailUrl }}"
+                                        class="rl-card-title">
+                                        {{ $r->title }}
+                                    </a>
+                                    <p class="rl-card-desc">{{ $r->description }}</p>
+
+                                    @if (count($r->tags) > 0)
+                                        <div class="rl-card-tags">
+                                            @foreach ($r->tags as $tag)
+                                                <a class="rl-tag"
+                                                    href="/search?tag={{ $tag->name }}">{{ $tag->name }}</a>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    <div class="rl-card-actions">
+                                        @if ($r->data_link)
+                                            <a class="rl-dl" href="{{ $r->data_link }}" target="_blank">
+                                                <svg width="15" height="15" viewBox="0 0 24 24"
+                                                    fill="none" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                                                    <polyline points="15 3 21 3 21 9" />
+                                                    <line x1="10" y1="14" x2="21" y2="3" />
+                                                </svg>
+                                                Link
+                                            </a>
+                                        @endif
+                                        @if ($r->ar_pdf)
+                                            <a class="rl-dl" href="{{ Storage::url($r->ar_pdf) }}" target="_blank">
+                                                <svg width="15" height="15" viewBox="0 0 24 24"
+                                                    fill="none" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                                                    <polyline points="7 10 12 15 17 10" />
+                                                    <line x1="12" y1="15" x2="12"
+                                                        y2="3" />
+                                                </svg>
+                                                Arabic
+                                            </a>
+                                        @endif
+                                        @if ($r->en_pdf)
+                                            <a class="rl-dl" href="{{ Storage::url($r->en_pdf) }}" target="_blank">
+                                                <svg width="15" height="15" viewBox="0 0 24 24"
+                                                    fill="none" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                                                    <polyline points="7 10 12 15 17 10" />
+                                                    <line x1="12" y1="15" x2="12"
+                                                        y2="3" />
+                                                </svg>
+                                                English
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-                        <div class='col-lg-9 col-md-8 d-flex flex-column'>
-                            <div class="result-content">
-                                <a href="{{$linkUrl}}" target="_blank" rel="noopener noreferrer" class="result-title">
-                                    {{$r->title}}
-                                </a>
-                                <p class="result-description">
-                                    {{$r->description}}
-                                </p>
-                            </div>
-                            
-                            @if(count($r->tags) > 0)
-                                <div class="tags-container">
-                                    @foreach($r->tags as $tag)
-                                        <a class="tag-badge" href="/search?tag={{$tag->name}}">
-                                            {{$tag->name}}
-                                        </a>
-                                    @endforeach
-                                </div>
-                            @endif
-                            
-                            <div class="result-actions">
-                                @if($r->ar_pdf)
-                                    <a class="download-button" href="{{Storage::url($r->ar_pdf)}}" target="_blank">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                        <span>Arabic</span>
-                                    </a>
-                                @endif
-                                @if($r->en_pdf)
-                                    <a class="download-button" href="{{Storage::url($r->en_pdf)}}" target="_blank">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                        <span>English</span>
-                                    </a>
-                                @endif
                             </div>
                         </div>
+                    </article>
+                @empty
+                    <div class="rl-empty">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="M21 21l-4.35-4.35" />
+                            <path d="M8 8l6 6" />
+                        </svg>
+                        <p>No results found</p>
+                        <span>Try adjusting your search or filters</span>
                     </div>
-                </article>
-            @endforeach
-        </div>
-
-        <!-- Load More / End of List -->
-        @if($hasMorePages)
-            <div class="load-more-section">
-                <button 
-                    type="button"
-                    class="load-more-btn"
-                    wire:click="loadMore"
-                    wire:loading.attr="disabled"
-                    wire:loading.class="is-loading"
-                >
-                    <span class="btn-text">Load More Results</span>
-                    <span class="btn-loading">
-                        <span class="spinner-border spinner-border-sm"></span>
-                        Loading...
-                    </span>
-                </button>
+                @endforelse
             </div>
-        @else
-            @if($repos->count() > 0)
-                <div class="end-message">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+            {{-- Load More --}}
+            @if ($hasMorePages)
+                <div class="rl-loadmore">
+                    <button type="button" class="rl-loadmore-btn" wire:click="loadMore"
+                        wire:loading.attr="disabled" wire:loading.class="loading">
+                        <span class="rl-lm-text">Load More</span>
+                        <span class="rl-lm-spin">
+                            <span class="spinner-border spinner-border-sm"></span>
+                            Loading…
+                        </span>
+                    </button>
+                </div>
+            @elseif($repos->count() > 0)
+                <div class="rl-end">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 6L9 17l-5-5" />
                     </svg>
-                    <span>You've reached the end</span>
+                    You've reached the end
                 </div>
             @endif
-        @endif
-    </div>
+        </div>
 
-    <!-- Enhanced Sidebar Filters -->
-    <div class='col-lg-3'>
-        <div class="filters-sidebar">
-            <div class="filters-header">
-                <h6 class="filters-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        {{-- ═══ SIDEBAR — DYNAMIC FILTERS ═══ --}}
+        <div class='col-lg-3'>
+            <div class="rl-sidebar">
+                {{-- Mobile close --}}
+                <button class="rl-sidebar-close d-lg-none"
+                    onclick="document.querySelector('.rl-sidebar').classList.remove('open')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6L6 18" />
+                        <path d="M6 6l12 12" />
                     </svg>
-                    Filters
-                </h6>
-            </div>
-
-            <div class="filters-content">
-                @if(count($authors)>0)
-                    <div class="filter-group">
-                        <p class="filter-group-title">Author</p>
-                        <div class='filter-options'>
-                            @foreach($authors as $author)
-                                <label class="filter-checkbox">
-                                    <input wire:model.defer="selectedAuthorsIds" 
-                                           type="checkbox"
-                                           value='{{$author->id}}'>
-                                    <span class="checkmark"></span>
-                                    <span class="label-text">{{ $author->name }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-
-                @if(count($fields) > 0)
-                    <div class="filter-group">
-                        <p class="filter-group-title">Field</p>
-                        <div class='filter-options'>
-                            @foreach($fields as $field)
-                                <label class="filter-checkbox">
-                                    <input wire:model.defer="selectedFields" 
-                                           type="checkbox"
-                                           value='{{$field}}'>
-                                    <span class="checkmark"></span>
-                                    <span class="label-text">{{ $field }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-
-                @if(count($subjects) > 0)
-                    <div class="filter-group">
-                        <p class="filter-group-title">Subject</p>
-                        <div class='filter-options'>
-                            @foreach($subjects as $subject)
-                                <label class="filter-checkbox">
-                                    <input wire:model.defer="selectedSubjects" 
-                                           type="checkbox"
-                                           value='{{$subject}}'>
-                                    <span class="checkmark"></span>
-                                    <span class="label-text">{{ $subject }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-
-                @if(count($projects) > 0)
-                    <div class="filter-group">
-                        <p class="filter-group-title">Project</p>
-                        <div class='filter-options'>
-                            @foreach($projects as $project)
-                                <label class="filter-checkbox">
-                                    <input wire:model.defer="selectedProjects" 
-                                           type="checkbox"
-                                           value='{{$project}}'>
-                                    <span class="checkmark"></span>
-                                    <span class="label-text">{{ $project }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-
-                @if(count($publish_dates) > 0)
-                    <div class="filter-group">
-                        <p class="filter-group-title">Year</p>
-                        <div class='filter-options'>
-                            @foreach($publish_dates as $publish_date)
-                                <label class="filter-checkbox">
-                                    <input wire:model.defer="selectedPublishDates" 
-                                           type="checkbox"
-                                           value='{{$publish_date}}'>
-                                    <span class="checkmark"></span>
-                                    <span class="label-text">{{ $publish_date }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-
-                @if(!$is_data_repo_page && count($repo_types)>0)
-                    <div class="filter-group">
-                        <p class="filter-group-title">Type</p>
-                        <div class='filter-options'>
-                            @foreach($repo_types as $type)
-                                <label class="filter-checkbox">
-                                    <input wire:model.defer="repo_type_ids" 
-                                           type="checkbox"
-                                           value='{{$type->id}}'>
-                                    <span class="checkmark"></span>
-                                    <span class="label-text">{{$type->name}}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-
-                @if(count($allCountries)>0)
-                    <div class="filter-group">
-                        <p class="filter-group-title">Country</p>
-                        <div class='filter-options'>
-                            @foreach($allCountries as $country)
-                                <label class="filter-checkbox">
-                                    <input wire:model.defer="selectedCountryIds" 
-                                           type="checkbox"
-                                           value='{{$country->id}}'>
-                                    <span class="checkmark"></span>
-                                    <span class="label-text">{{$country->name}}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-            </div>
-
-            <div class="filters-actions">
-                <button class="btn-clear" wire:click="clear">
-                    Clear All
                 </button>
-                <button class="btn-apply" wire:click="filterUpdated()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    Apply
-                </button>
+
+                <div class="rl-sidebar-head">
+                    <span class="rl-sidebar-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" />
+                        </svg>
+                        Filters
+                    </span>
+                    @if ($activeCount > 0)
+                        <button class="rl-sidebar-clear" wire:click="clear">Clear all</button>
+                    @endif
+                </div>
+
+                <div class="rl-sidebar-body">
+
+                    {{-- Each filter group is collapsible via pure CSS --}}
+
+                    @if (count($authors) > 0)
+                        <details class="rl-fg" open>
+                            <summary class="rl-fg-title">Author</summary>
+                            <div class="rl-fg-opts">
+                                @foreach ($authors as $author)
+                                    <label class="rl-check">
+                                        <input type="checkbox" wire:model.live="selectedAuthorsIds"
+                                            wire:change="filterUpdated()" value='{{ $author->id }}'>
+                                        <span class="rl-check-box"></span>
+                                        <span class="rl-check-label">{{ $author->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </details>
+                    @endif
+
+                    @if (count($fields) > 0)
+                        <details class="rl-fg" open>
+                            <summary class="rl-fg-title">Field</summary>
+                            <div class="rl-fg-opts">
+                                @foreach ($fields as $field)
+                                    <label class="rl-check">
+                                        <input type="checkbox" wire:model.live="selectedFields"
+                                            wire:change="filterUpdated()" value='{{ $field }}'>
+                                        <span class="rl-check-box"></span>
+                                        <span class="rl-check-label">{{ $field }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </details>
+                    @endif
+
+                    @if (count($subjects) > 0)
+                        <details class="rl-fg">
+                            <summary class="rl-fg-title">Subject</summary>
+                            <div class="rl-fg-opts">
+                                @foreach ($subjects as $subject)
+                                    <label class="rl-check">
+                                        <input type="checkbox" wire:model.live="selectedSubjects"
+                                            wire:change="filterUpdated()" value='{{ $subject }}'>
+                                        <span class="rl-check-box"></span>
+                                        <span class="rl-check-label">{{ $subject }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </details>
+                    @endif
+
+                    @if (count($projects) > 0)
+                        <details class="rl-fg">
+                            <summary class="rl-fg-title">Project</summary>
+                            <div class="rl-fg-opts">
+                                @foreach ($projects as $project)
+                                    <label class="rl-check">
+                                        <input type="checkbox" wire:model.live="selectedProjects"
+                                            wire:change="filterUpdated()" value='{{ $project }}'>
+                                        <span class="rl-check-box"></span>
+                                        <span class="rl-check-label">{{ $project }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </details>
+                    @endif
+
+                    @if (count($publish_dates) > 0)
+                        <details class="rl-fg" open>
+                            <summary class="rl-fg-title">Year</summary>
+                            <div class="rl-fg-opts">
+                                @foreach ($publish_dates as $publish_date)
+                                    <label class="rl-check">
+                                        <input type="checkbox" wire:model.live="selectedPublishDates"
+                                            wire:change="filterUpdated()" value='{{ $publish_date }}'>
+                                        <span class="rl-check-box"></span>
+                                        <span class="rl-check-label">{{ $publish_date }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </details>
+                    @endif
+
+                    @if (!$is_data_repo_page && count($repo_types) > 0)
+                        <details class="rl-fg">
+                            <summary class="rl-fg-title">Type</summary>
+                            <div class="rl-fg-opts">
+                                @foreach ($repo_types as $type)
+                                    <label class="rl-check">
+                                        <input type="checkbox" wire:model.live="repo_type_ids"
+                                            wire:change="filterUpdated()" value='{{ $type->id }}'>
+                                        <span class="rl-check-box"></span>
+                                        <span class="rl-check-label">{{ $type->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </details>
+                    @endif
+
+                    @if (count($allCountries) > 0)
+                        <details class="rl-fg">
+                            <summary class="rl-fg-title">Country</summary>
+                            <div class="rl-fg-opts">
+                                @foreach ($allCountries as $country)
+                                    <label class="rl-check">
+                                        <input type="checkbox" wire:model.live="selectedCountryIds"
+                                            wire:change="filterUpdated()" value='{{ $country->id }}'>
+                                        <span class="rl-check-box"></span>
+                                        <span class="rl-check-label">{{ $country->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </details>
+                    @endif
+
+                </div>
             </div>
+            {{-- Mobile overlay --}}
+            <div class="rl-sidebar-overlay d-lg-none"
+                onclick="document.querySelector('.rl-sidebar').classList.remove('open')"></div>
         </div>
     </div>
 </div>
 
 <style>
-/* Search and Filter Section */
-.search-filter-section {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-/* Search Header - Results Count & Filters */
-.search-header {
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.results-info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.results-count {
-    color: #374151;
-    font-size: 0.95rem;
-}
-
-.results-count strong {
-    color: #FAAF1C;
-    font-weight: 700;
-}
-
-.search-term {
-    color: #6b7280;
-    font-size: 0.9rem;
-}
-
-.search-term em {
-    color: #FAAF1C;
-    font-style: normal;
-    font-weight: 600;
-}
-
-/* Active Filters Badge */
-.active-filters-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    border: 1px solid #fbbf24;
-    border-radius: 20px;
-    font-size: 0.813rem;
-    font-weight: 600;
-    color: #1f2937;
-}
-
-.active-filters-badge svg {
-    width: 14px;
-    height: 14px;
-    color: #92400e;
-}
-
-.clear-filters-btn {
-    background: #1f2937;
-    border: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    font-size: 14px;
-    line-height: 1;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    transition: all 0.2s ease;
-    margin-left: 0.25rem;
-}
-
-.clear-filters-btn:hover {
-    background: #dc2626;
-    transform: scale(1.1);
-}
-
-/* Mobile Filter Toggle */
-.mobile-filter-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.625rem 1rem;
-    background: #fff;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: #374151;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.mobile-filter-toggle:hover {
-    border-color: #FAAF1C;
-    color: #FAAF1C;
-}
-
-.filter-count-badge {
-    background: #FAAF1C;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.125rem 0.5rem;
-    border-radius: 10px;
-    min-width: 20px;
-    text-align: center;
-}
-
-/* Quick Search Tags */
-.quick-search-tags {
-    align-items: center;
-}
-
-.quick-tag-label {
-    color: #9ca3af;
-    font-size: 0.813rem;
-    font-weight: 500;
-}
-
-.quick-tag {
-    padding: 0.375rem 0.75rem;
-    background: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    font-size: 0.813rem;
-    color: #4b5563;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.quick-tag:hover {
-    background: #FAAF1C;
-    border-color: #FAAF1C;
-    color: #fff;
-    transform: translateY(-1px);
-}
-
-
-.type-buttons-container {
-    gap: 0.75rem;
-}
-
-.btn-type {
-    padding: 0.625rem 1.25rem;
-    border-radius: 8px;
-    border: 2px solid #e5e7eb;
-    background: #fff;
-    color: #374151;
-    font-weight: 500;
-    font-size: 0.875rem;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
-.btn-type:hover {
-    border-color: #FAAF1C;
-    color: #FAAF1C;
-    transform: translateY(-1px);
-}
-
-.btn-type.active {
-    background: #FAAF1C;
-    border-color: #FAAF1C;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(250, 175, 28, 0.3);
-}
-
-/* Enhanced Search Box */
-.search-box-enhanced {
-    width: 100%;
-}
-
-.search-input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: #f9fafb;
-    border: 2px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 0.5rem;
-    transition: all 0.2s ease;
-}
-
-.search-input-wrapper:focus-within {
-    background: #fff;
-    border-color: #FAAF1C;
-    box-shadow: 0 0 0 3px rgba(250, 175, 28, 0.1);
-}
-
-.search-icon {
-    color: #9ca3af;
-    margin: 0 0.75rem;
-    flex-shrink: 0;
-}
-
-.search-input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    padding: 0.5rem;
-    font-size: 1rem;
-    color: #111827;
-    outline: none;
-}
-
-.search-input::placeholder {
-    color: #9ca3af;
-}
-
-.clear-search-btn {
-    background: none;
-    border: none;
-    color: #6b7280;
-    padding: 0.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-}
-
-.clear-search-btn:hover {
-    background: #f3f4f6;
-    color: #374151;
-}
-
-.search-submit-btn {
-    background: #FAAF1C;
-    color: #fff;
-    border: none;
-    padding: 0.625rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-left: 0.5rem;
-}
-
-.search-submit-btn:hover {
-    background: #e89d0f;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(250, 175, 28, 0.3);
-}
-
-/* Results Container */
-.results-container {
-    margin-bottom: 2rem;
-}
-
-.result-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    transition: all 0.3s ease;
-    border: 1px solid #f3f4f6;
-}
-
-.result-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    transform: translateY(-2px);
-}
-
-.image-link {
-    display: block;
-    text-decoration: none;
-}
-
-.image-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 75%;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #f3f4f6;
-}
-
-.result-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.image-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.image-wrapper:hover .image-overlay {
-    opacity: 1;
-}
-
-.image-wrapper:hover .result-image {
-    transform: scale(1.05);
-}
-
-.result-content {
-    flex: 1;
-    margin-bottom: 1rem;
-}
-
-.result-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #111827;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 0.75rem;
-    line-height: 1.4;
-    transition: color 0.2s ease;
-}
-
-.result-title:hover {
-    color: #FAAF1C;
-}
-
-.result-description {
-    color: #6b7280;
-    font-size: 0.938rem;
-    line-height: 1.6;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.tag-badge {
-    display: inline-block;
-    padding: 0.375rem 0.875rem;
-    background: #f3f4f6;
-    color: #374151;
-    border-radius: 6px;
-    font-size: 0.813rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.tag-badge:hover {
-    background: #FAAF1C;
-    color: #fff;
-    transform: translateY(-1px);
-}
-
-.result-actions {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-}
-
-.download-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.625rem 1.125rem;
-    background: #fff;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    color: #374151;
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.download-button:hover {
-    border-color: #FAAF1C;
-    color: #FAAF1C;
-    background: #fffbf0;
-    transform: translateY(-1px);
-}
-
-/* Load More Section */
-.load-more-section {
-    display: flex;
-    justify-content: center;
-    padding: 2rem 0;
-}
-
-.load-more-btn {
-    padding: 0.875rem 2.5rem;
-    background: #fff !important;
-    border: 2px solid #FAAF1C;
-    color: #000000 !important;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.load-more-btn .btn-text,
-.load-more-btn .btn-loading,
-.load-more-btn .btn-loading span,
-.load-more-btn span {
-    color: #000000 !important;
-}
-
-.load-more-btn .btn-text {
-    display: inline;
-}
-
-.load-more-btn .btn-loading {
-    display: none;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.load-more-btn.is-loading .btn-text {
-    display: none;
-}
-
-.load-more-btn.is-loading .btn-loading {
-    display: inline-flex;
-}
-
-.load-more-btn:hover:not(:disabled):not(.is-loading) {
-    background: #FAAF1C;
-    color: #1f2937;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(250, 175, 28, 0.3);
-}
-
-.load-more-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-.end-message {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 2rem;
-    color: #6b7280;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.end-message svg {
-    color: #10b981;
-}
-
-/* Filters Sidebar */
-.filters-sidebar {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    position: sticky;
-    top: 2rem;
-    max-height: calc(100vh - 4rem);
-    display: flex;
-    flex-direction: column;
-}
-
-.filters-header {
-    padding: 1.5rem;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.filters-title {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: #111827;
-    margin: 0;
-}
-
-.filters-title svg {
-    color: #FAAF1C;
-}
-
-.filters-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1rem 1.5rem;
-}
-
-.filter-group {
-    margin-bottom: 1.5rem;
-}
-
-.filter-group:last-child {
-    margin-bottom: 0;
-}
-
-.filter-group-title {
-    font-size: 0.813rem;
-    font-weight: 700;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.875rem;
-}
-
-.filter-options {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-}
-
-.filter-checkbox {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    padding-left: 2rem;
-    user-select: none;
-}
-
-.filter-checkbox input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.checkmark {
-    position: absolute;
-    left: 0;
-    height: 1.25rem;
-    width: 1.25rem;
-    background-color: #fff;
-    border: 2px solid #d1d5db;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-}
-
-.filter-checkbox:hover input ~ .checkmark {
-    border-color: #FAAF1C;
-}
-
-.filter-checkbox input:checked ~ .checkmark {
-    background-color: #FAAF1C;
-    border-color: #FAAF1C;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-    left: 6px;
-    top: 3px;
-    width: 4px;
-    height: 8px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
-
-.filter-checkbox input:checked ~ .checkmark:after {
-    display: block;
-}
-
-.label-text {
-    color: #374151;
-    font-size: 0.938rem;
-    line-height: 1.4;
-}
-
-.filters-actions {
-    display: flex;
-    gap: 0.75rem;
-    padding: 1.5rem;
-    border-top: 1px solid #e5e7eb;
-}
-
-.btn-clear {
-    flex: 1;
-    padding: 0.75rem;
-    background: #fff;
-    border: 2px solid #e5e7eb;
-    color: #6b7280;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.btn-clear:hover {
-    border-color: #d1d5db;
-    color: #374151;
-    background: #f9fafb;
-}
-
-.btn-apply {
-    flex: 1;
-    padding: 0.75rem;
-    background: #FAAF1C;
-    border: 2px solid #FAAF1C;
-    color: #fff;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.btn-apply:hover {
-    background: #e89d0f;
-    border-color: #e89d0f;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(250, 175, 28, 0.3);
-}
-
-/* Responsive Design */
-@media (max-width: 991px) {
-    .filters-sidebar {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 320px;
-        max-width: 85vw;
-        height: 100vh;
-        max-height: 100vh;
-        margin-top: 0;
-        z-index: 9999;
-        border-radius: 0;
-        box-shadow: -4px 0 24px rgba(0,0,0,0.15);
-        transition: right 0.3s ease;
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700;800&display=swap');
+
+    /* ══════ TOKENS ══════ */
+    .rl-wrap {
+        --rl-navy: #022448;
+        --rl-gold: #FAAF1C;
+        --rl-gold-dk: #d4940a;
+        --rl-text: #111827;
+        --rl-muted: #6b7280;
+        --rl-light: #f5f6f8;
+        --rl-border: #eef0f3;
+        --rl-surface: #ffffff;
+        --rl-radius: 10px;
+        --rl-serif: 'Instrument Serif', Georgia, serif;
+        --rl-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: var(--rl-sans);
+        padding-bottom: 2rem;
     }
-    
-    .filters-sidebar.show {
-        right: 0;
+
+    /* ══════ SEARCH BAR ══════ */
+    .rl-search-bar {
+        background: var(--rl-surface);
+        border: 1px solid var(--rl-border);
+        border-radius: var(--rl-radius);
+        padding: 1rem 1.15rem;
+        margin-bottom: 1rem;
     }
-    
-    .filters-sidebar::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: -100vw;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0,0,0,0.5);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease;
-        z-index: -1;
+
+    .rl-search-field {
+        display: flex;
+        align-items: center;
+        background: var(--rl-light);
+        border: 1.5px solid var(--rl-border);
+        border-radius: 8px;
+        padding: .25rem .35rem;
+        transition: border-color .2s, box-shadow .2s;
     }
-    
-    .filters-sidebar.show::before {
-        opacity: 1;
-        visibility: visible;
+
+    .rl-search-field:focus-within {
+        border-color: var(--rl-gold);
+        box-shadow: 0 0 0 3px rgba(250, 175, 28, .08);
+        background: #fff;
     }
-    
-    .filters-header {
-        position: relative;
+
+    .rl-search-ico {
+        color: #b0b7c3;
+        margin: 0 .55rem;
+        flex-shrink: 0;
     }
-    
-    .filters-sidebar.show .filters-header::after {
-        content: '×';
-        position: absolute;
-        right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 1.5rem;
+
+    .rl-search-input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        padding: .45rem .3rem;
+        font-size: .88rem;
+        color: var(--rl-text);
+        outline: none;
+        font-family: var(--rl-sans);
+    }
+
+    .rl-search-input::placeholder {
+        color: #b0b7c3;
+    }
+
+    .rl-search-clear {
+        background: none;
+        border: none;
+        color: #9ca3af;
+        padding: .3rem;
         cursor: pointer;
-        color: #6b7280;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        transition: all .2s;
+    }
+
+    .rl-search-clear:hover {
+        background: #fef2f2;
+        color: #ef4444;
+    }
+
+    .rl-search-btn {
+        background: var(--rl-gold);
+        color: #fff;
+        border: none;
+        padding: .5rem 1.15rem;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: .8rem;
+        cursor: pointer;
+        transition: all .2s;
+        margin-inline-start: .3rem;
+        font-family: var(--rl-sans);
+        letter-spacing: .01em;
+    }
+
+    .rl-search-btn:hover {
+        background: var(--rl-gold-dk);
+    }
+
+    /* ── Toolbar (pills + active tag) ── */
+    .rl-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .75rem;
+        margin-top: .75rem;
+        flex-wrap: wrap;
+    }
+
+    .rl-toolbar-right {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        margin-inline-start: auto;
+    }
+
+    .rl-pills {
+        display: flex;
+        gap: .4rem;
+        flex-wrap: wrap;
+    }
+
+    .rl-pill {
+        padding: .35rem .85rem;
+        border-radius: 20px;
+        border: 1.5px solid var(--rl-border);
+        background: #fff;
+        color: #4b5563;
+        font-weight: 600;
+        font-size: .76rem;
+        cursor: pointer;
+        transition: all .2s;
+        font-family: var(--rl-sans);
+    }
+
+    .rl-pill:hover {
+        border-color: var(--rl-gold);
+        color: var(--rl-gold);
+    }
+
+    .rl-pill.active {
+        background: var(--rl-gold);
+        border-color: var(--rl-gold);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(250, 175, 28, .25);
+    }
+
+    .rl-active-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        padding: .3rem .65rem;
+        background: #fef9ee;
+        border: 1px solid #fde68a;
+        border-radius: 20px;
+        font-size: .74rem;
+        font-weight: 600;
+        color: #92400e;
+        cursor: pointer;
+        transition: all .2s;
+        font-family: var(--rl-sans);
+    }
+
+    .rl-active-tag:hover {
+        background: #fef2f2;
+        border-color: #fca5a5;
+        color: #dc2626;
+    }
+
+    .rl-active-tag svg {
+        opacity: .6;
+    }
+
+    .rl-filter-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        padding: .4rem .85rem;
+        background: #fff;
+        border: 1.5px solid var(--rl-border);
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: .8rem;
+        color: var(--rl-text);
+        cursor: pointer;
+        transition: all .2s;
+        font-family: var(--rl-sans);
+    }
+
+    .rl-filter-toggle:hover {
+        border-color: var(--rl-gold);
+        color: var(--rl-gold);
+    }
+
+    .rl-filter-badge {
+        background: var(--rl-gold);
+        color: #fff;
+        font-size: .65rem;
+        font-weight: 700;
+        padding: .1rem .4rem;
+        border-radius: 10px;
+        min-width: 18px;
+        text-align: center;
+    }
+
+    /* ══════ RESULT CARDS ══════ */
+    .rl-results {
+        margin-bottom: 1rem;
+    }
+
+    .rl-card {
+        background: var(--rl-surface);
+        border: 1px solid var(--rl-border);
+        border-radius: var(--rl-radius);
+        overflow: hidden;
+        margin-bottom: .75rem;
+        transition: all .3s cubic-bezier(.22, .61, .36, 1);
+        position: relative;
+        animation: rl-fadeIn .4s ease both;
+    }
+
+    @keyframes rl-fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .rl-card::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: transparent;
+        transition: background .25s;
+    }
+
+    .rl-card:hover {
+        box-shadow: 0 6px 24px rgba(2, 36, 72, .06);
+        transform: translateY(-2px);
+        border-color: #e0e2e6;
+    }
+
+    .rl-card:hover::after {
+        background: var(--rl-gold);
+    }
+
+    /* Card image */
+    .rl-card-img-link {
+        display: block;
+        text-decoration: none;
+        height: 100%;
+    }
+
+    .rl-card-img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 140px;
+        overflow: hidden;
+        background: var(--rl-light);
+    }
+
+    .rl-card-img-placeholder {
+        width: 100%;
+        height: 100%;
+        min-height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f0f2f5 0%, #e8ebf0 100%);
+        color: #b0b7c3;
+    }
+
+    .rl-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .4s cubic-bezier(.22, .61, .36, 1);
+    }
+
+    .rl-card-img-hover {
+        position: absolute;
+        inset: 0;
+        background: rgba(2, 36, 72, .5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity .25s;
+        color: #fff;
+    }
+
+    .rl-card-img:hover .rl-card-img-hover {
+        opacity: 1;
+    }
+
+    .rl-card-img:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Card body */
+    .rl-card-body {
+        padding: 1.1rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .rl-card-title {
+        font-family: var(--rl-sans);
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--rl-text);
+        text-decoration: none;
+        line-height: 1.4;
+        margin-bottom: .4rem;
+        transition: color .2s;
+        display: block;
+    }
+
+    .rl-card-title:hover {
+        color: var(--rl-gold);
+        text-decoration: none;
+    }
+
+    .rl-card-desc {
+        font-size: .82rem;
+        color: var(--rl-muted);
+        line-height: 1.6;
+        margin: 0 0 .6rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        flex: 1;
+    }
+
+    .rl-card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .3rem;
+        margin-bottom: .6rem;
+    }
+
+    .rl-tag {
+        padding: .2rem .55rem;
+        background: var(--rl-light);
+        border: 1px solid var(--rl-border);
+        border-radius: 16px;
+        font-size: .7rem;
+        font-weight: 600;
+        color: #4b5563;
+        text-decoration: none;
+        transition: all .2s;
+    }
+
+    .rl-tag:hover {
+        background: var(--rl-navy);
+        border-color: var(--rl-navy);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .rl-card-actions {
+        display: flex;
+        gap: .4rem;
+        flex-wrap: wrap;
+        margin-top: auto;
+    }
+
+    .rl-dl {
+        display: inline-flex;
+        align-items: center;
+        gap: .3rem;
+        padding: .35rem .7rem;
+        background: var(--rl-light);
+        border: 1px solid var(--rl-border);
+        border-radius: 6px;
+        color: #374151;
+        font-weight: 600;
+        font-size: .76rem;
+        text-decoration: none;
+        transition: all .2s;
+    }
+
+    .rl-dl:hover {
+        border-color: var(--rl-gold);
+        color: var(--rl-gold-dk);
+        background: #fffdf5;
+        text-decoration: none;
+    }
+
+    /* ── Empty state ── */
+    .rl-empty {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--rl-muted);
+    }
+
+    .rl-empty svg {
+        color: #d1d5db;
+        margin-bottom: .75rem;
+    }
+
+    .rl-empty p {
+        font-weight: 600;
+        font-size: 1rem;
+        color: var(--rl-text);
+        margin: 0 0 .25rem;
+    }
+
+    .rl-empty span {
+        font-size: .85rem;
+    }
+
+    /* ── Load more ── */
+    .rl-loadmore {
+        display: flex;
+        justify-content: center;
+        padding: 1.25rem 0;
+    }
+
+    .rl-loadmore-btn {
+        padding: .6rem 2rem;
+        background: #fff;
+        border: 1.5px solid var(--rl-navy);
+        color: var(--rl-navy);
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: .85rem;
+        cursor: pointer;
+        transition: all .25s;
+        font-family: var(--rl-sans);
+    }
+
+    .rl-loadmore-btn .rl-lm-text {
+        display: inline;
+    }
+
+    .rl-loadmore-btn .rl-lm-spin {
+        display: none;
+        align-items: center;
+        gap: .4rem;
+    }
+
+    .rl-loadmore-btn.loading .rl-lm-text {
+        display: none;
+    }
+
+    .rl-loadmore-btn.loading .rl-lm-spin {
+        display: inline-flex;
+    }
+
+    .rl-loadmore-btn:hover:not(:disabled):not(.loading) {
+        background: var(--rl-navy);
+        color: #fff;
+    }
+
+    .rl-loadmore-btn:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+
+    .rl-end {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        padding: 1.25rem;
+        color: #9ca3af;
+        font-size: .82rem;
+        font-weight: 500;
+    }
+
+    .rl-end svg {
+        color: #10b981;
+    }
+
+    /* ══════ SIDEBAR ══════ */
+    .rl-sidebar {
+        background: var(--rl-surface);
+        border: 1px solid var(--rl-border);
+        border-radius: var(--rl-radius);
+        position: sticky;
+        top: 1rem;
+        max-height: calc(100vh - 2rem);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .rl-sidebar-close {
+        position: absolute;
+        top: .75rem;
+        right: .75rem;
+        z-index: 2;
+        background: var(--rl-light);
+        border: none;
+        border-radius: 6px;
         width: 32px;
         height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
-        background: #f3f4f6;
+        cursor: pointer;
+        color: var(--rl-muted);
+        transition: all .2s;
     }
-    
-    .result-card {
-        padding: 1.25rem;
-    }
-    
-    .search-filter-section {
-        padding: 1rem;
-    }
-    
-    .search-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
 
-@media (max-width: 767px) {
-    .result-title {
-        font-size: 1.125rem;
+    .rl-sidebar-close:hover {
+        background: #fef2f2;
+        color: #ef4444;
     }
-    
-    .download-button {
-        font-size: 0.813rem;
-        padding: 0.5rem 0.875rem;
+
+    .rl-sidebar-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .85rem 1.1rem;
+        border-bottom: 1px solid var(--rl-border);
+        background: #fafbfc;
     }
-    
-    .search-submit-btn {
-        padding: 0.625rem 1rem;
-        font-size: 0.813rem;
+
+    .rl-sidebar-title {
+        display: flex;
+        align-items: center;
+        gap: .45rem;
+        font-size: .85rem;
+        font-weight: 700;
+        color: var(--rl-text);
     }
-}
+
+    .rl-sidebar-title svg {
+        color: var(--rl-gold);
+    }
+
+    .rl-sidebar-clear {
+        background: none;
+        border: none;
+        font-size: .74rem;
+        font-weight: 600;
+        color: #ef4444;
+        cursor: pointer;
+        padding: .2rem .4rem;
+        border-radius: 4px;
+        transition: all .2s;
+        font-family: var(--rl-sans);
+    }
+
+    .rl-sidebar-clear:hover {
+        background: #fef2f2;
+    }
+
+    .rl-sidebar-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: .75rem 1.1rem;
+    }
+
+    /* Thin scrollbar */
+    .rl-sidebar-body::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .rl-sidebar-body::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .rl-sidebar-body::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 4px;
+    }
+
+    /* ── Filter group (collapsible) ── */
+    .rl-fg {
+        border-bottom: 1px solid #f3f4f6;
+        padding-bottom: .65rem;
+        margin-bottom: .65rem;
+    }
+
+    .rl-fg:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .rl-fg-title {
+        font-size: .7rem;
+        font-weight: 800;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        cursor: pointer;
+        list-style: none;
+        padding: .35rem 0;
+        display: flex;
+        align-items: center;
+        user-select: none;
+        transition: color .2s;
+    }
+
+    .rl-fg-title:hover {
+        color: var(--rl-text);
+    }
+
+    .rl-fg-title::after {
+        content: '';
+        margin-inline-start: auto;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid #d1d5db;
+        transition: transform .2s;
+    }
+
+    .rl-fg[open]>.rl-fg-title::after {
+        transform: rotate(180deg);
+    }
+
+    .rl-fg-title::-webkit-details-marker {
+        display: none;
+    }
+
+    .rl-fg-opts {
+        display: flex;
+        flex-direction: column;
+        gap: .35rem;
+        padding-top: .4rem;
+        max-height: 180px;
+        overflow-y: auto;
+    }
+
+    .rl-fg-opts::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    .rl-fg-opts::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 3px;
+    }
+
+    /* ── Checkbox ── */
+    .rl-check {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        cursor: pointer;
+        position: relative;
+        user-select: none;
+        padding: .2rem 0;
+    }
+
+    .rl-check input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .rl-check-box {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        border: 1.5px solid #d1d5db;
+        border-radius: 3px;
+        background: #fff;
+        transition: all .15s;
+        position: relative;
+    }
+
+    .rl-check:hover .rl-check-box {
+        border-color: var(--rl-gold);
+    }
+
+    .rl-check input:checked~.rl-check-box {
+        background: var(--rl-gold);
+        border-color: var(--rl-gold);
+    }
+
+    .rl-check input:checked~.rl-check-box::after {
+        content: '';
+        position: absolute;
+        left: 4.5px;
+        top: 1.5px;
+        width: 4px;
+        height: 7px;
+        border: solid #fff;
+        border-width: 0 1.5px 1.5px 0;
+        transform: rotate(45deg);
+    }
+
+    .rl-check-label {
+        font-size: .8rem;
+        color: #4b5563;
+        line-height: 1.3;
+        transition: color .15s;
+    }
+
+    .rl-check:hover .rl-check-label {
+        color: var(--rl-text);
+    }
+
+    /* ══════ MOBILE SIDEBAR ══════ */
+    @media (max-width: 991px) {
+        .rl-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            max-width: 85vw;
+            height: 100vh;
+            max-height: 100vh;
+            z-index: 9999;
+            border-radius: 0;
+            border: none;
+            box-shadow: -4px 0 24px rgba(0, 0, 0, .12);
+            transform: translateX(100%);
+            transition: transform .3s cubic-bezier(.22, .61, .36, 1);
+        }
+
+        .rl-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .rl-sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(0, 0, 0, .4);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s;
+        }
+
+        .rl-sidebar.open~.rl-sidebar-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    /* ══════ SMALL SCREENS ══════ */
+    @media (max-width: 767px) {
+        .rl-search-bar {
+            padding: .75rem;
+        }
+
+        .rl-card-body {
+            padding: .85rem 1rem;
+        }
+
+        .rl-card-title {
+            font-size: .92rem;
+        }
+
+        .rl-card-img {
+            min-height: 120px;
+        }
+
+        .rl-dl {
+            font-size: .72rem;
+            padding: .3rem .55rem;
+        }
+    }
 </style>

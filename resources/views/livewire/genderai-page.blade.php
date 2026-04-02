@@ -19,7 +19,7 @@ padding-bottom: 50px;'>
                     @if($n->featured_type=='feminist_ai')
                         <div class="feminist-ai">
                             <p>Feminist AI</p>
-                            <a href="https://aplusalliance.org/fair-middle-east-and-north-africa/">
+                            <a href="{{ route('feminist_ai') }}">
                                 <img src="{{ asset('/img/Feminist_AI_Logo.png') }}">
                             </a>
                         </div>
@@ -31,11 +31,12 @@ padding-bottom: 50px;'>
                     @endif
                     <img class="post-img" src="{{Storage::url($n->thumbnail_image)}}">
                     <div class="post-content" lang="en">
-                    <a href='{{$n->link}}'>  <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4></a>
+                    @php $cardLink = $n->featured_type === 'feminist_ai' ? route('feminist_ai') : $n->link; @endphp
+                    <a href='{{ $cardLink }}'>  <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4></a>
 
                         <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 
-                        <a href='{{$n->link}}'>
+                        <a href='{{ $cardLink }}'>
 
                             <button class='btn learn_more'><i class="fas fa-plus"></i> Read More</button>
                         </a>

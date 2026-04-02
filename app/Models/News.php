@@ -18,5 +18,5 @@ class News extends Model
     {
         return $this->morphToMany(Community::class, 'commutable');
     }
-    protected $fillable = ['title', 'content', 'date', 'description', 'image', 'featured', 'country_id'];
+    protected $fillable = ['title', 'content', 'date', 'description', 'image', 'data_link', 'featured', 'country_id'];
 }

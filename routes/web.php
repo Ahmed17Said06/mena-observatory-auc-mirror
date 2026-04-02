@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdditionalResourcesController;
+use App\Http\Controllers\BrochureController;
+use App\Models\Repo;
+use App\Models\YoutubeVideo;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\EventsController;
@@ -10,6 +13,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\RegionalController;
 use App\Http\Controllers\NewWorkController;
 use App\Http\Controllers\PwMenaController;
+use App\Models\static_content;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -59,11 +63,28 @@ Route::group([
 
     Route::get('/news/html_list', [NewsController::class, 'js_list_view'])->name('news.html_list');
     Route::get('/news/rai-cup-2026', function () {
-        return view('frontend.rai-cup'); })->name('news.rai-cup');
+        return view('frontend.rai-cup', [
+            'rai_cup_hero_title'     => static_content::where('key', 'rai_cup_hero_title')->first(),
+            'rai_cup_hero_subtitle'  => static_content::where('key', 'rai_cup_hero_subtitle')->first(),
+            'rai_cup_event_date'     => static_content::where('key', 'rai_cup_event_date')->first(),
+            'rai_cup_event_location' => static_content::where('key', 'rai_cup_event_location')->first(),
+            'rai_cup_body'           => static_content::where('key', 'rai_cup_body')->first(),
+        ]);
+    })->name('news.rai-cup');
     Route::get('/news/open-call-ai-solutions', function () {
-        return view('frontend.news.open-call-ai-solutions'); })->name('news.open-call-ai-solutions');
+        return view('frontend.news.open-call-ai-solutions', [
+            'ocais_hero_title'    => static_content::where('key', 'ocais_hero_title')->first(),
+            'ocais_hero_subtitle' => static_content::where('key', 'ocais_hero_subtitle')->first(),
+            'ocais_body'          => static_content::where('key', 'ocais_body')->first(),
+        ]);
+    })->name('news.open-call-ai-solutions');
     Route::get('/news/open-call-rai-use-cases', function () {
-        return view('frontend.news.open-call-rai-use-cases'); })->name('news.open-call-rai-use-cases');
+        return view('frontend.news.open-call-rai-use-cases', [
+            'ocruc_hero_title'    => static_content::where('key', 'ocruc_hero_title')->first(),
+            'ocruc_hero_subtitle' => static_content::where('key', 'ocruc_hero_subtitle')->first(),
+            'ocruc_body'          => static_content::where('key', 'ocruc_body')->first(),
+        ]);
+    })->name('news.open-call-rai-use-cases');
     Route::get('/safe-ai-children', function () {
         return view('frontend.coming-soon'); })->name('safe_ai_children');
     Route::get('/news/{id}', [NewsController::class, 'single'])->name('news');
@@ -87,12 +108,67 @@ Route::group([
     // Future of Work MENA route
     Route::get('/pw-mena', [PwMenaController::class, 'index'])->name('pw_mena');
 
+    // Feminist AI route
+    Route::get('/feminist-ai', function () {
+        $keys = [
+            'fai_subtitle', 'fai_about', 'fai_partnership',
+            'fai_pillar_1_title', 'fai_pillar_1_desc',
+            'fai_pillar_2_title', 'fai_pillar_2_desc',
+            'fai_pillar_3_title', 'fai_pillar_3_desc',
+            'fai_pillar_4_title', 'fai_pillar_4_desc',
+            'fai_cta_title', 'fai_cta_text',
+        ];
+        $fai = static_content::whereIn('key', $keys)->get()->keyBy('key');
+        $genderResources = Repo::whereHas('tags', fn($q) => $q->where('name', 'Gender'))
+            ->with('tags')
+            ->latest('publish_date')
+            ->limit(6)
+            ->get();
+        return view('frontend.feminist_ai', [
+            'fai_subtitle'     => $fai->get('fai_subtitle'),
+            'fai_about'        => $fai->get('fai_about'),
+            'fai_partnership'  => $fai->get('fai_partnership'),
+            'fai'              => $fai,
+            'genderResources'  => $genderResources,
+        ]);
+    })->name('feminist_ai');
+
     Route::get('/regional', [RegionalController::class, 'index'])->name('regional');
+    Route::get('/regional/our-work', [RegionalController::class, 'ourWork'])->name('regional.our_work');
+    Route::get('/regional/regional-other-work', [RegionalController::class, 'regionalOtherWork'])->name('regional.regional_other_work');
+    Route::get('/regional/global-other-work', [RegionalController::class, 'globalOtherWork'])->name('regional.global_other_work');
+    // Keep old route as redirect to avoid broken links
+    Route::get('/regional/other-work', function() { return redirect()->route('regional.regional_other_work'); })->name('regional.other_work');
+    Route::get('/regional/videos', [RegionalController::class, 'videos'])->name('regional.videos');
     Route::get('/regional/html_list', [RegionalController::class, 'js_list_view'])->name('regional.html_list');
     Route::get('/regional/{id}', [RegionalController::class, 'country'])->name('regional.country');
     Route::get('/regional-repository/{id}', [RegionalController::class, 'single'])->name('repo.single');
 
     Route::get('/additional-resources/{id}', [AdditionalResourcesController::class, 'single'])->name('resources.single');
+
+    Route::get('/brochures', function () {
+        $brochures = \App\Models\Brochure::where('is_published', true)->latest()->get();
+        return view('frontend.brochures-list', compact('brochures'));
+    })->name('brochures.index');
+
+    Route::get('/brochure/{slug}', [BrochureController::class, 'show'])->name('brochure.show');
+
+    Route::get('/publications', function () {
+        return view('frontend.publications');
+    })->name('publications');
+
+    Route::get('/webinars', function () {
+        $videos = YoutubeVideo::published()
+            ->whereHas('tags', fn($q) => $q->where('name', 'Webinar'))
+            ->orderBy('sort_order')
+            ->latest()
+            ->get();
+        $repoWebinars = Repo::whereHas('tags', fn($q) => $q->where('name', 'Webinar'))
+            ->with('tags')
+            ->latest('publish_date')
+            ->get();
+        return view('frontend.webinars', compact('videos', 'repoWebinars'));
+    })->name('webinars');
 
     Route::get('/community', [CommunityController::class, 'index'])->name('community');
     Route::get('/community/{id}', [CommunityController::class, 'show'])->name('community_single');
@@ -120,3 +196,4 @@ Route::group([
 
     });
 });
+

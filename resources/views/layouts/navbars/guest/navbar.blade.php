@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,27 +29,56 @@
 
         /* Pulse Animation */
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         /* Float Animation */
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
         }
 
         /* Glow Animation */
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 5px rgba(250, 175, 28, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(250, 175, 28, 0.6); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px rgba(250, 175, 28, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(250, 175, 28, 0.6);
+            }
         }
 
         /* Gradient Shift */
         @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         /* Bounce In */
@@ -57,13 +87,16 @@
                 opacity: 0;
                 transform: scale(0.3) translateY(-50px);
             }
+
             50% {
                 opacity: 1;
                 transform: scale(1.05);
             }
+
             70% {
                 transform: scale(0.9);
             }
+
             100% {
                 transform: scale(1);
             }
@@ -71,9 +104,26 @@
 
         /* Shake */
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-            20%, 40%, 60%, 80% { transform: translateX(2px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-2px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(2px);
+            }
         }
 
         /* Rotate In */
@@ -82,6 +132,7 @@
                 opacity: 0;
                 transform: rotate(-200deg) scale(0);
             }
+
             100% {
                 opacity: 1;
                 transform: rotate(0) scale(1);
@@ -94,6 +145,7 @@
                 opacity: 0;
                 transform: translateX(30px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateX(0);
@@ -106,6 +158,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0);
@@ -139,7 +192,9 @@
         }
 
         @keyframes shimmer {
-            100% { left: 100%; }
+            100% {
+                left: 100%;
+            }
         }
 
         @keyframes slideDown {
@@ -147,6 +202,7 @@
                 transform: translateY(-100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -258,14 +314,25 @@
             height: 44px;
         }
 
-        .header-actions > * {
+        .header-actions>* {
             animation: slideInRight 0.6s ease backwards;
         }
 
-        .header-actions > *:nth-child(1) { animation-delay: 0.1s; }
-        .header-actions > *:nth-child(2) { animation-delay: 0.2s; }
-        .header-actions > *:nth-child(3) { animation-delay: 0.3s; }
-        .header-actions > *:nth-child(4) { animation-delay: 0.4s; }
+        .header-actions>*:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .header-actions>*:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .header-actions>*:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .header-actions>*:nth-child(4) {
+            animation-delay: 0.4s;
+        }
 
         /* Search Box */
         .search-box {
@@ -291,7 +358,7 @@
             transition: all 0.3s ease;
             background: var(--light-bg);
         }
-        
+
         .search-box input::placeholder {
             color: #999;
             font-size: 14px;
@@ -303,7 +370,7 @@
             background: #fff;
             box-shadow: 0 4px 12px rgba(250, 175, 28, 0.15);
         }
-        
+
         .search-box form:focus-within {
             width: 320px;
         }
@@ -463,12 +530,37 @@
             animation: fadeInUp 0.6s ease backwards;
         }
 
-        .nav-menu li:nth-child(1) { animation-delay: 0.1s; }
-        .nav-menu li:nth-child(2) { animation-delay: 0.15s; }
-        .nav-menu li:nth-child(3) { animation-delay: 0.2s; }
-        .nav-menu li:nth-child(4) { animation-delay: 0.25s; }
-        .nav-menu li:nth-child(5) { animation-delay: 0.3s; }
-        .nav-menu li:nth-child(6) { animation-delay: 0.35s; }
+        .nav-menu li:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .nav-menu li:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .nav-menu li:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .nav-menu li:nth-child(4) {
+            animation-delay: 0.25s;
+        }
+
+        .nav-menu li:nth-child(5) {
+            animation-delay: 0.3s;
+        }
+
+        .nav-menu li:nth-child(6) {
+            animation-delay: 0.35s;
+        }
+
+        .nav-menu li:nth-child(7) {
+            animation-delay: 0.4s;
+        }
+
+        .nav-menu li:nth-child(8) {
+            animation-delay: 0.45s;
+        }
 
         .nav-menu a {
             color: var(--menablue);
@@ -536,8 +628,15 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: rotate(180deg) translateY(0); }
-            50% { transform: rotate(180deg) translateY(-3px); }
+
+            0%,
+            100% {
+                transform: rotate(180deg) translateY(0);
+            }
+
+            50% {
+                transform: rotate(180deg) translateY(-3px);
+            }
         }
 
         .dropdown-menu {
@@ -674,12 +773,37 @@
             animation: slideInRight 0.5s ease backwards;
         }
 
-        .mobile-nav-menu li:nth-child(1) { animation-delay: 0.1s; }
-        .mobile-nav-menu li:nth-child(2) { animation-delay: 0.15s; }
-        .mobile-nav-menu li:nth-child(3) { animation-delay: 0.2s; }
-        .mobile-nav-menu li:nth-child(4) { animation-delay: 0.25s; }
-        .mobile-nav-menu li:nth-child(5) { animation-delay: 0.3s; }
-        .mobile-nav-menu li:nth-child(6) { animation-delay: 0.35s; }
+        .mobile-nav-menu li:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .mobile-nav-menu li:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .mobile-nav-menu li:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .mobile-nav-menu li:nth-child(4) {
+            animation-delay: 0.25s;
+        }
+
+        .mobile-nav-menu li:nth-child(5) {
+            animation-delay: 0.3s;
+        }
+
+        .mobile-nav-menu li:nth-child(6) {
+            animation-delay: 0.35s;
+        }
+
+        .mobile-nav-menu li:nth-child(7) {
+            animation-delay: 0.4s;
+        }
+
+        .mobile-nav-menu li:nth-child(8) {
+            animation-delay: 0.45s;
+        }
 
         .mobile-nav-menu a {
             display: block;
@@ -781,12 +905,15 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Announcement Bar -->
     <div id="announcementBar" class="announcement-bar">
         <div class="announcement-content">
-        <img src="https://www.aieverythingegypt.com/wp-content/uploads/2023/02/ai-everything-logo-white-retina.png" alt="AI Everything" style="height: 28px; margin-right: 8px; vertical-align: middle; filter: brightness(1.1);" onerror="this.style.display='none'"><span>Exciting News: Visit AI Everything Middle East and Africa 2026 for the latest in AI innovation!</span>
-            <a href="https://www.aieverythingegypt.com/home" target="_blank" rel="noopener noreferrer" class="announcement-link" onclick="triggerConfetti(event)">VISIT NOW →</a>
+            <svg style="height:16px;width:16px;margin-right:8px;flex-shrink:0;color:var(--mena-gold);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Anah Exhibition at the AUC Tahrir Culture Fest — April 2 (6:00–10:00 PM) &amp; April 3–4 (10:00 AM–8:00 PM) | Future Gallery, Tahrir Campus</span>
+            <a href="https://tahrirculturefest.aucegypt.edu/?utm_source=several&utm_medium=partners&utm_campaign=tcf26" target="_blank" rel="noopener noreferrer"
+                class="announcement-link">For more information →</a>
         </div>
         <button class="announcement-close" onclick="closeAnnouncement()">×</button>
     </div>
@@ -805,8 +932,12 @@
                             <input type="text" placeholder="@lang('translation.search', ['default' => 'Search...'])" name="search">
                             <button type="submit">
                                 <svg width="16" height="16" viewBox="0 0 15 15" fill="none">
-                                    <path d="M5.80292 11.413C2.62774 11.413 0 8.91304 0 5.76087C0 2.6087 2.62774 0 5.80292 0C8.9781 0 11.6058 2.6087 11.6058 5.76087C11.6058 8.91304 8.9781 11.413 5.80292 11.413ZM5.80292 1.08696C3.17518 1.08696 1.09489 3.15217 1.09489 5.76087C1.09489 8.36957 3.17518 10.4348 5.80292 10.4348C8.43066 10.4348 10.5109 8.36957 10.5109 5.76087C10.5109 3.15217 8.32117 1.08696 5.80292 1.08696Z" fill="#fff"/>
-                                    <path d="M9.68313 8.99118L8.90894 9.75977L14.2509 15.063L15.0251 14.2944L9.68313 8.99118Z" fill="#fff"/>
+                                    <path
+                                        d="M5.80292 11.413C2.62774 11.413 0 8.91304 0 5.76087C0 2.6087 2.62774 0 5.80292 0C8.9781 0 11.6058 2.6087 11.6058 5.76087C11.6058 8.91304 8.9781 11.413 5.80292 11.413ZM5.80292 1.08696C3.17518 1.08696 1.09489 3.15217 1.09489 5.76087C1.09489 8.36957 3.17518 10.4348 5.80292 10.4348C8.43066 10.4348 10.5109 8.36957 10.5109 5.76087C10.5109 3.15217 8.32117 1.08696 5.80292 1.08696Z"
+                                        fill="#fff" />
+                                    <path
+                                        d="M9.68313 8.99118L8.90894 9.75977L14.2509 15.063L15.0251 14.2944L9.68313 8.99118Z"
+                                        fill="#fff" />
                                 </svg>
                             </button>
                         </form>
@@ -818,11 +949,10 @@
                         @php
                             $locales = LaravelLocalization::getSupportedLocales();
                         @endphp
-                        @foreach($locales as $localeCode => $properties)
-                            <a rel="alternate" 
-                               @if(LaravelLocalization::getCurrentLocale() === $localeCode) class="active" @endif
-                               hreflang="{{ $localeCode }}"
-                               href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        @foreach ($locales as $localeCode => $properties)
+                            <a rel="alternate" @if (LaravelLocalization::getCurrentLocale() === $localeCode) class="active" @endif
+                                hreflang="{{ $localeCode }}"
+                                href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                 {{ $localeCode === 'en' ? 'EN' : 'عربي' }}
                             </a>
                         @endforeach
@@ -836,39 +966,38 @@
 
             <nav class="main-nav">
                 <ul class="nav-menu">
-                    <li class="@if(str(Route::current()->getName())->contains('about_us')) active @endif">
+                    <li class="@if (str(Route::current()->getName())->contains('about_us')) active @endif">
                         <a href="{{ route('about_us') }}">@lang('translation.about-us')</a>
                     </li>
-                    <li class="dropdown @if(str(Route::current()->getName())->contains('regional')) active @endif">
+                    <li class="dropdown @if (str(Route::current()->getName())->contains('regional')) active @endif">
                         <a href="{{ route('regional') }}" class="dropdown-toggle">@lang('translation.knowledge-hub')</a>
                         <div class="dropdown-menu">
-                            <a href="{{ route('regional.country', 5) }}">@lang('translation.egypt')</a>
-                            <a href="{{ route('regional.country', 7) }}">@lang('translation.jordan')</a>
-                            <a href="{{ route('regional.country', 9) }}">@lang('translation.lebanon')</a>
-                            <a href="{{ route('regional.country', 20) }}">@lang('translation.tunisia')</a>
-                            <a href="{{ route('regional.country', 11) }}">@lang('translation.morocco')</a>
-                            <a href="{{ route('regional.country', 14) }}">@lang('translation.palestine')</a>
-                            <a href="{{ route('regional.country', 3) }}">@lang('translation.mena-regions')</a>
+                            <a href="{{ route('regional.our_work') }}">@lang('translation.our-work')</a>
+                            <a href="{{ route('regional.regional_other_work') }}">Regional Other Work</a>
+                            <a href="{{ route('regional.global_other_work') }}">Global Other Work</a>
                         </div>
                     </li>
 
-                    <li class="@if(str(Route::current()->getName())->contains('ai_indices')) active @endif">
+                    <li class="@if (str(Route::current()->getName())->contains('ai_indices')) active @endif">
                         <a href="{{ route('ai_indices') }}">@lang('translation.ai-indices', ['default' => 'AI Indices'])</a>
                     </li>
-                    <li class="@if(str(Route::current()->getName())->contains('pw_mena')) active @endif">
+                    <li class="@if (str(Route::current()->getName())->contains('pw_mena')) active @endif">
                         <a href="{{ route('pw_mena') }}">Future of Work MENA</a>
                     </li>
-                    <li class="@if(str(Route::current()->getName())->contains('news')) active @endif">
+                    <li class="@if (str(Route::current()->getName())->contains('inclusive_ai')) active @endif">
+                        <a href="{{ route('coming-soon') }}">Inclusive AI Research Network</a>
+                    </li>
+                    <li class="@if (str(Route::current()->getName())->contains('news')) active @endif">
                         <a href="{{ route('news.index') }}">@lang('translation.news', ['default' => 'News'])</a>
                     </li>
-                    <li class="dropdown @if(str(Route::current()->getName())->contains('community')) active @endif">
+                    <li class="dropdown @if (str(Route::current()->getName())->contains('community')) active @endif">
                         <a href="{{ route('community') }}" class="dropdown-toggle">@lang('translation.community')</a>
                         <div class="dropdown-menu">
                             <a href="{{ route('communities') }}">@lang('translation.community-title')</a>
                             <a href="{{ route('collaborators') }}">@lang('translation.partners')</a>
                         </div>
                     </li>
-                    <li class="@if(str(Route::current()->getName())->contains('contact_us')) active @endif">
+                    <li class="@if (str(Route::current()->getName())->contains('contact_us')) active @endif">
                         <a href="{{ route('contact_us') }}">@lang('translation.contact-us')</a>
                     </li>
                 </ul>
@@ -890,50 +1019,66 @@
                     <input type="text" placeholder="@lang('translation.search', ['default' => 'Search...'])" name="search">
                     <button type="submit">
                         <svg width="18" height="18" viewBox="0 0 15 15" fill="none">
-                            <path d="M5.80292 11.413C2.62774 11.413 0 8.91304 0 5.76087C0 2.6087 2.62774 0 5.80292 0C8.9781 0 11.6058 2.6087 11.6058 5.76087C11.6058 8.91304 8.9781 11.413 5.80292 11.413ZM5.80292 1.08696C3.17518 1.08696 1.09489 3.15217 1.09489 5.76087C1.09489 8.36957 3.17518 10.4348 5.80292 10.4348C8.43066 10.4348 10.5109 8.36957 10.5109 5.76087C10.5109 3.15217 8.32117 1.08696 5.80292 1.08696Z" fill="#fff"/>
-                            <path d="M9.68313 8.99118L8.90894 9.75977L14.2509 15.063L15.0251 14.2944L9.68313 8.99118Z" fill="#fff"/>
+                            <path
+                                d="M5.80292 11.413C2.62774 11.413 0 8.91304 0 5.76087C0 2.6087 2.62774 0 5.80292 0C8.9781 0 11.6058 2.6087 11.6058 5.76087C11.6058 8.91304 8.9781 11.413 5.80292 11.413ZM5.80292 1.08696C3.17518 1.08696 1.09489 3.15217 1.09489 5.76087C1.09489 8.36957 3.17518 10.4348 5.80292 10.4348C8.43066 10.4348 10.5109 8.36957 10.5109 5.76087C10.5109 3.15217 8.32117 1.08696 5.80292 1.08696Z"
+                                fill="#fff" />
+                            <path d="M9.68313 8.99118L8.90894 9.75977L14.2509 15.063L15.0251 14.2944L9.68313 8.99118Z"
+                                fill="#fff" />
                         </svg>
                     </button>
                 </form>
             </div>
 
             <ul class="mobile-nav-menu">
-                <li class="@if(str(Route::current()->getName())->contains('about_us')) active @endif">
+                <li class="@if (str(Route::current()->getName())->contains('about_us')) active @endif">
                     <a href="{{ route('about_us') }}">@lang('translation.about-us')</a>
                 </li>
-                <li class="@if(str(Route::current()->getName())->contains('regional')) active @endif">
+                <li class="@if (str(Route::current()->getName())->contains('regional')) active @endif">
                     <a href="{{ route('regional') }}">@lang('translation.knowledge-hub')</a>
                 </li>
+                <li class="@if (Route::current()->getName() === 'regional.our_work') active @endif" style="padding-left: 1rem;">
+                    <a href="{{ route('regional.our_work') }}">@lang('translation.our-work')</a>
+                </li>
+                <li class="@if (Route::current()->getName() === 'regional.regional_other_work') active @endif" style="padding-left: 1rem;">
+                    <a href="{{ route('regional.regional_other_work') }}">Regional Other Work</a>
+                </li>
+                <li class="@if (Route::current()->getName() === 'regional.global_other_work') active @endif" style="padding-left: 1rem;">
+                    <a href="{{ route('regional.global_other_work') }}">Global Other Work</a>
+                </li>
 
-                <li class="@if(str(Route::current()->getName())->contains('ai_indices')) active @endif">
+
+                <li class="@if (str(Route::current()->getName())->contains('ai_indices')) active @endif">
                     <a href="{{ route('ai_indices') }}">@lang('translation.ai-indices', ['default' => 'AI Indices'])</a>
                 </li>
-                <li class="@if(str(Route::current()->getName())->contains('pw_mena')) active @endif">
+                <li class="@if (str(Route::current()->getName())->contains('pw_mena')) active @endif">
                     <a href="{{ route('pw_mena') }}">Future of Work MENA</a>
                 </li>
-                <li class="@if(str(Route::current()->getName())->contains('news')) active @endif">
+                <li class="@if (str(Route::current()->getName())->contains('inclusive_ai')) active @endif">
+                    <a href="{{ route('coming-soon') }}">Inclusive AI Research Network</a>
+                </li>
+                <li class="@if (str(Route::current()->getName())->contains('news')) active @endif">
                     <a href="{{ route('news.index') }}">@lang('translation.news', ['default' => 'News'])</a>
                 </li>
-                <li class="@if(str(Route::current()->getName())->contains('community')) active @endif">
+                <li class="@if (str(Route::current()->getName())->contains('community')) active @endif">
                     <a href="{{ route('community') }}">@lang('translation.community')</a>
                 </li>
-                <li class="@if(str(Route::current()->getName())->contains('contact_us')) active @endif">
+                <li class="@if (str(Route::current()->getName())->contains('contact_us')) active @endif">
                     <a href="{{ route('contact_us') }}">@lang('translation.contact-us')</a>
                 </li>
             </ul>
 
             <div class="mobile-actions">
                 <div class="language-switcher" style="display: flex; justify-content: center;">
-                    @foreach($locales as $localeCode => $properties)
-                        <a rel="alternate" 
-                           @if(LaravelLocalization::getCurrentLocale() === $localeCode) class="active" @endif
-                           hreflang="{{ $localeCode }}"
-                           href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    @foreach ($locales as $localeCode => $properties)
+                        <a rel="alternate" @if (LaravelLocalization::getCurrentLocale() === $localeCode) class="active" @endif
+                            hreflang="{{ $localeCode }}"
+                            href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                             {{ $localeCode === 'en' ? 'EN' : 'عربي' }}
                         </a>
                     @endforeach
                 </div>
-                <a href="{{ route('collaborate') }}" class="btn-collaborate" style="text-align: center;"><span>@lang('translation.collaborate')</span></a>
+                <a href="{{ route('collaborate') }}" class="btn-collaborate"
+                    style="text-align: center;"><span>@lang('translation.collaborate')</span></a>
             </div>
         </div>
     </div>
@@ -944,7 +1089,12 @@
             // Don't prevent default - let the link work
             const duration = 2 * 1000;
             const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
+            const defaults = {
+                startVelocity: 30,
+                spread: 360,
+                ticks: 60,
+                zIndex: 10000
+            };
 
             function randomInRange(min, max) {
                 return Math.random() * (max - min) + min;
@@ -962,12 +1112,18 @@
                 // Burst confetti from multiple points
                 confetti(Object.assign({}, defaults, {
                     particleCount,
-                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+                    origin: {
+                        x: randomInRange(0.1, 0.3),
+                        y: Math.random() - 0.2
+                    },
                     colors: ['#022248', '#FAAF1C', '#fbbf24', '#60a5fa', '#ffffff']
                 }));
                 confetti(Object.assign({}, defaults, {
                     particleCount,
-                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+                    origin: {
+                        x: randomInRange(0.7, 0.9),
+                        y: Math.random() - 0.2
+                    },
                     colors: ['#022248', '#FAAF1C', '#fbbf24', '#60a5fa', '#ffffff']
                 }));
             }, 250);
@@ -989,7 +1145,7 @@
             const dismissed = localStorage.getItem('announcementDismissed');
             const dismissedTime = localStorage.getItem('announcementDismissedTime');
             const twentyFourHours = 24 * 60 * 60 * 1000;
-            
+
             if (dismissed && dismissedTime && (Date.now() - parseInt(dismissedTime)) < twentyFourHours) {
                 document.getElementById('announcementBar').style.display = 'none';
             }
@@ -1011,10 +1167,10 @@
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
             const currentScroll = window.scrollY;
-            
+
             if (currentScroll > 50) {
                 header.classList.add('scrolled');
-                
+
                 // Add bounce effect when scrolling down
                 if (currentScroll > lastScroll) {
                     header.style.transform = 'translateY(-5px)';
@@ -1025,7 +1181,7 @@
             } else {
                 header.classList.remove('scrolled');
             }
-            
+
             lastScroll = currentScroll;
         });
 
@@ -1037,7 +1193,7 @@
                 const size = Math.max(rect.width, rect.height);
                 const x = e.clientX - rect.left - size / 2;
                 const y = e.clientY - rect.top - size / 2;
-                
+
                 ripple.style.width = ripple.style.height = size + 'px';
                 ripple.style.left = x + 'px';
                 ripple.style.top = y + 'px';
@@ -1047,9 +1203,9 @@
                 ripple.style.transform = 'scale(0)';
                 ripple.style.animation = 'ripple 0.6s ease-out';
                 ripple.style.pointerEvents = 'none';
-                
+
                 this.appendChild(ripple);
-                
+
                 setTimeout(() => ripple.remove(), 600);
             });
         });
@@ -1084,7 +1240,8 @@
                     items.forEach((item, index) => {
                         item.style.animation = 'none';
                         setTimeout(() => {
-                            item.style.animation = `slideInRight 0.5s ease ${index * 0.05}s backwards`;
+                            item.style.animation =
+                                `slideInRight 0.5s ease ${index * 0.05}s backwards`;
                         }, 10);
                     });
                 }
@@ -1093,9 +1250,12 @@
 
         const mobileMenu = document.getElementById('mobileMenu');
         if (mobileMenu) {
-            mobileMenuObserver.observe(mobileMenu, { attributes: true, attributeFilter: ['class'] });
+            mobileMenuObserver.observe(mobileMenu, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
         }
     </script>
 </body>
-</html>
 
+</html>

@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\News;
+use App\Models\static_content;
 
 class NewsController extends Controller
 {
     public function single($id)
     {
         $news = News::query()->with('tags')->findOrFail($id);
-        $news->views+=1;
+        $news->views += 1;
         $news->save();
+
+        // If the entry has an external link, redirect straight there
+        if ($news->data_link) {
+            return redirect()->away($news->data_link);
+        }
         $tagIds = $news->tags->pluck('id');
 
         $relatedNews = News::whereHas('tags', function ($query) use ($tagIds) {
@@ -51,7 +57,13 @@ class NewsController extends Controller
 
     public function news()
     {
-        return view('frontend.news');
+        $keys = [
+            'news_card_1_title', 'news_card_1_desc',
+            'news_card_2_title', 'news_card_2_desc',
+            'news_card_3_title', 'news_card_3_desc', 'news_card_3_link', 'news_card_3_btn',
+        ];
+        $sc = static_content::whereIn('key', $keys)->get()->keyBy('key');
+        return view('frontend.news', ['sc' => $sc]);
     }
 
     public function raiCup()
