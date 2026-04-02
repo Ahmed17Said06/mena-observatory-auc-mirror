@@ -65,11 +65,19 @@
     <div class="news-hero">
         <div class="container text-center">
             <h1 class="mb-4" style="font-size: 2.5rem; color: #fff !important;">
-                Final Call for Submissions<br>
-                Open Call for Applied Inclusive AI Solutions – MENA Region
+                @if(isset($ocais_hero_title) && $ocais_hero_title)
+                    {!! $ocais_hero_title->content !!}
+                @else
+                    Final Call for Submissions<br>
+                    Open Call for Applied Inclusive AI Solutions – MENA Region
+                @endif
             </h1>
             <p class="lead" style="opacity: 0.9; color: #fff !important;">
-                MENA Observatory on Responsible AI at A2K4D
+                @if(isset($ocais_hero_subtitle) && $ocais_hero_subtitle)
+                    {{ $ocais_hero_subtitle->content }}
+                @else
+                    MENA Observatory on Responsible AI at A2K4D
+                @endif
             </p>
         </div>
     </div>
@@ -90,6 +98,9 @@
                 </div>
             </div>
 
+            @if(isset($ocais_body) && $ocais_body)
+                {!! $ocais_body->content !!}
+            @else
             <p>This is the final reminder to submit proposals to the Open Call launched by the MENA Observatory on
                 Responsible AI at A2K4D, the MENA Hub of the Global Catalyzing Inclusive AI Research Network (CIARN).</p>
 
@@ -100,6 +111,7 @@
 
             <p><strong>If your work aims to make AI fairer, safer, more inclusive, and locally relevant, this is your last
                     chance to apply.</strong></p>
+            @endif
 
             <div class="info-box">
                 <h3 style="color: #1a1a2e;">How to Apply</h3>

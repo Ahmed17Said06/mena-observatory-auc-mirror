@@ -1899,7 +1899,7 @@ h6 {
     padding: 8px;
     text-decoration: none;
     font-size: 28px;
-    color: white !important;
+    color: var(--menablue) !important;
     display: block;
     transition: 0.3s;
     line-height: 36px;
@@ -4785,3 +4785,4 @@ h3::after {
         font-size: 0.65rem;
     }
 }
+

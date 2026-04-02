@@ -65,11 +65,19 @@
     <div class="news-hero">
         <div class="container text-center">
             <h1 class="mb-4" style="font-size: 2.5rem; color: #fff !important;">
-                Open Call for Responsible AI Use Cases<br>
-                MENA Region
+                @if(isset($ocruc_hero_title) && $ocruc_hero_title)
+                    {!! $ocruc_hero_title->content !!}
+                @else
+                    Open Call for Responsible AI Use Cases<br>
+                    MENA Region
+                @endif
             </h1>
             <p class="lead" style="opacity: 0.9; color: #fff !important;">
-                MENA Observatory on Responsible AI at A2K4D, Onsi Sawiris School of Business, AUC
+                @if(isset($ocruc_hero_subtitle) && $ocruc_hero_subtitle)
+                    {{ $ocruc_hero_subtitle->content }}
+                @else
+                    MENA Observatory on Responsible AI at A2K4D, Onsi Sawiris School of Business, AUC
+                @endif
             </p>
         </div>
     </div>
@@ -90,12 +98,16 @@
                 </div>
             </div>
 
+            @if(isset($ocruc_body) && $ocruc_body)
+                {!! $ocruc_body->content !!}
+            @else
             <p>The MENA Observatory on Responsible AI: a flagship initiative by A2K4D at the Onsi Sawiris School of
                 Business, AUC is seeking proposals for practical, responsible AI solutions that advance inclusion, reduce
                 inequalities, and address sector-specific challenges in the region.</p>
 
             <p><strong>If you are developing an early-stage or prototype AI solution aligned with Responsible AI principles,
                     this call is for you.</strong></p>
+            @endif
 
             <div class="info-box">
                 <h3 style="color: #1a1a2e;">How to Submit</h3>

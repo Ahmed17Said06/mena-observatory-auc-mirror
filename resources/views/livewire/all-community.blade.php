@@ -152,7 +152,12 @@
             <div class="col-12 col-md-6 col-lg-4 d-flex">
                 <div class="post-container w-100">
                     <div class="post-loop-community position-relative overflow-hidden h-100">
-                        <img class="post-img w-100" src="{{ Storage::url($n->thumbnail_image) }}">
+                        @php
+                            $thumbSrc = ($n->thumbnail_image && str_contains($n->thumbnail_image, '/'))
+                                ? Storage::url($n->thumbnail_image)
+                                : '/img/' . ($n->thumbnail_image ?: 'placeholder-featured.jpg');
+                        @endphp
+                        <img class="post-img w-100" src="{{ $thumbSrc }}">
                         <div class="post-content" lang="en">
                             <h4 style="color:#FFF;" class="slide_title">
                                 <a href="{{ route('community_single', ['id' => $n->id]) }}">{{ $n->name }}</a>

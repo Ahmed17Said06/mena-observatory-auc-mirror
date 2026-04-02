@@ -45,15 +45,20 @@
                     style="display: flex; flex-wrap: wrap; align-content: center; padding-bottom: 20px;">
 
                     {{-- News 1: Final Call for Submissions --}}
+                    @php
+                        $c1 = $sc->get('news_card_1_title');
+                        $c1img = ($c1 && $c1->media) ? url($c1->media) : '/img/placeholder-featured.jpg';
+                    @endphp
                     <div class="post-container lazy-item">
                         <div class="post-loop-events position-relative overflow-hidden">
-                            <img class="post-img" src="/img/placeholder-featured.jpg"
-                                alt="Open Call for Applied Inclusive AI Solutions">
+                            <img class="post-img" src="{{ $c1img }}" alt="Open Call for Applied Inclusive AI Solutions">
                             <div class="post-content" lang="en">
-                                <h4 style='color:#FFF;' class='slide_title'>Final Call for Submissions Open Call for Applied
-                                    Inclusive AI Solutions – MENA Region</h4>
-                                <p style='color:#FFF;' class='slide_description'>This is the final reminder to submit
-                                    proposals to the Open Call launched by the MENA Observatory on Responsible AI at A2K4D.
+                                <h4 style='color:#FFF;' class='slide_title'>
+                                    @if($c1){{ $c1->content }}@else Final Call for Submissions Open Call for Applied Inclusive AI Solutions – MENA Region @endif
+                                </h4>
+                                <p style='color:#FFF;' class='slide_description'>
+                                    @php $v = $sc->get('news_card_1_desc') @endphp
+                                    @if($v){{ $v->content }}@else This is the final reminder to submit proposals to the Open Call launched by the MENA Observatory on Responsible AI at A2K4D. @endif
                                 </p>
                                 <a href='{{route("news.open-call-ai-solutions")}}'>
                                     <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
@@ -65,15 +70,21 @@
                     </div>
 
                     {{-- News 2: Open Call for Responsible AI Use Cases --}}
+                    @php
+                        $c2 = $sc->get('news_card_2_title');
+                        $c2img = ($c2 && $c2->media) ? url($c2->media) : '/img/placeholder-featured.jpg';
+                    @endphp
                     <div class="post-container lazy-item">
                         <div class="post-loop-events position-relative overflow-hidden">
-                            <img class="post-img" src="/img/placeholder-featured.jpg"
-                                alt="Open Call for Responsible AI Use Cases">
+                            <img class="post-img" src="{{ $c2img }}" alt="Open Call for Responsible AI Use Cases">
                             <div class="post-content" lang="en">
-                                <h4 style='color:#FFF;' class='slide_title'>Open Call for Responsible AI Use Cases - MENA
-                                    Region</h4>
-                                <p style='color:#FFF;' class='slide_description'>The MENA Observatory on Responsible AI is
-                                    seeking proposals for practical, responsible AI solutions.</p>
+                                <h4 style='color:#FFF;' class='slide_title'>
+                                    @if($c2){{ $c2->content }}@else Open Call for Responsible AI Use Cases - MENA Region @endif
+                                </h4>
+                                <p style='color:#FFF;' class='slide_description'>
+                                    @php $v = $sc->get('news_card_2_desc') @endphp
+                                    @if($v){{ $v->content }}@else The MENA Observatory on Responsible AI is seeking proposals for practical, responsible AI solutions. @endif
+                                </p>
                                 <a href='{{route("news.open-call-rai-use-cases")}}'>
                                     <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
                                 </a>
@@ -84,17 +95,26 @@
                     </div>
 
                     {{-- News 3: Nagla Rizk Le Monde Article --}}
+                    @php
+                        $n3title = $sc->get('news_card_3_title');
+                        $n3desc  = $sc->get('news_card_3_desc');
+                        $n3link  = $sc->get('news_card_3_link');
+                        $n3btn   = $sc->get('news_card_3_btn');
+                        $c3img   = ($n3title && $n3title->media) ? url($n3title->media) : '/img/placeholder-featured.jpg';
+                    @endphp
                     <div class="post-container lazy-item">
                         <div class="post-loop-events position-relative overflow-hidden">
-                            <img class="post-img" src="/img/placeholder-featured.jpg" alt="Nagla Rizk Le Monde Article">
+                            <img class="post-img" src="{{ $c3img }}" alt="Nagla Rizk Le Monde Article">
                             <div class="post-content" lang="en">
-                                <h4 style='color:#FFF;' class='slide_title'>Nagla Rizk Contributes to Le Monde article on
-                                    Education and AI Equity</h4>
-                                <p style='color:#FFF;' class='slide_description'>AI could be a powerful lever to reduce
-                                    inequalities between different socio-cultural backgrounds.</p>
-                                <a href='https://www.lemonde.fr/idees/article/2025/10/29/l-ia-pourrait-representer-un-puissant-levier-pour-reduire-les-inegalites-entre-differents-milieux-socioculturels_6650132_3232.html'
+                                <h4 style='color:#FFF;' class='slide_title'>
+                                    @if($n3title){{ $n3title->content }}@else Nagla Rizk Contributes to Le Monde article on Education and AI Equity @endif
+                                </h4>
+                                <p style='color:#FFF;' class='slide_description'>
+                                    @if($n3desc){{ $n3desc->content }}@else AI could be a powerful lever to reduce inequalities between different socio-cultural backgrounds. @endif
+                                </p>
+                                <a href='@if($n3link && $n3link->content){{ $n3link->content }}@else https://www.lemonde.fr/idees/article/2025/10/29/l-ia-pourrait-representer-un-puissant-levier-pour-reduire-les-inegalites-entre-differents-milieux-socioculturels_6650132_3232.html @endif'
                                     target="_blank">
-                                    <button class='btn learn_more'><i class="fas fa-plus"></i> Read Article</button>
+                                    <button class='btn learn_more'><i class="fas fa-plus"></i> @if($n3btn){{ $n3btn->content }}@else Read Article @endif</button>
                                 </a>
                             </div>
                             <div class="overlay-1"></div>
@@ -107,6 +127,15 @@
             {{-- End Static News Items --}}
 
             <livewire:all-news />
+
+            {{-- ─────────────── EVENTS SECTION ─────────────── --}}
+            <div class="col-12 mt-5">
+                <h3 style="color:#022448; font-weight:700; border-bottom:2px solid #e5e7eb; padding-bottom:.5rem; margin-bottom:1.5rem;">
+                    Events
+                </h3>
+                <livewire:events-section />
+            </div>
+
         </div>
     </div>
 

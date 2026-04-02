@@ -41,6 +41,8 @@ class RepoList extends Component
     public $selectedCountryIds = [];
 
     public $is_data_repo_page = false;
+    public $isOurWork = null;
+    public $isGlobal = null;
     
     // Lazy loading properties
     public $pageNumber = 1;
@@ -50,29 +52,42 @@ class RepoList extends Component
     public function mount()
     {
         $this->repos = new Collection();
-        
+
         // Load all repo types including Data Depository
         $this->repo_types = Repo_type::All();
         // Default to RESEARCH OUTPUTS (ID 1)
         $this->repo_type_ids = [1];
-        
-        $this->authors = Author::all();
-        $this->fields = Repo::whereNotNull('field')->pluck('field')->unique()->toArray();
-        $this->subjects = Repo::whereNotNull('subject')->pluck('subject')->unique()->toArray();
-        $this->projects = Repo::whereNotNull('project')->pluck('project')->unique()->toArray();
-        $this->allCountries = countries::whereExists(function ($query) {
+
+        // Scope filter options to the current page context (isOurWork / isGlobal)
+        $base = Repo::query()
+            ->when(!is_null($this->isOurWork), fn($q) => $q->where('is_our_work', $this->isOurWork))
+            ->when(!is_null($this->isGlobal),  fn($q) => $q->where('is_global',   $this->isGlobal));
+
+        $this->authors = Author::whereHas('repos', function ($q) use ($base) {
+            $q->when(!is_null($this->isOurWork), fn($q) => $q->where('is_our_work', $this->isOurWork))
+              ->when(!is_null($this->isGlobal),  fn($q) => $q->where('is_global',   $this->isGlobal));
+        })->get();
+
+        $this->fields = (clone $base)->whereNotNull('field')->pluck('field')->unique()->values()->toArray();
+        $this->subjects = (clone $base)->whereNotNull('subject')->pluck('subject')->unique()->values()->toArray();
+        $this->projects = (clone $base)->whereNotNull('project')->pluck('project')->unique()->values()->toArray();
+
+        $contextRepoIds = (clone $base)->pluck('id');
+        $this->allCountries = countries::whereExists(function ($query) use ($contextRepoIds) {
             $query->select()
                 ->from('repo')
-                ->whereColumn('countries.id', 'repo.country_id');
+                ->whereColumn('countries.id', 'repo.country_id')
+                ->whereIn('repo.id', $contextRepoIds);
         })->get();
-        $this->publish_dates = Repo::whereNotNull('publish_date')
+
+        $this->publish_dates = (clone $base)->whereNotNull('publish_date')
             ->pluck('publish_date')
-            ->map(function ($date) {
-                return Carbon::parse($date)->format('Y');
-            })
+            ->map(fn($date) => Carbon::parse($date)->format('Y'))
             ->unique()
+            ->sort()
+            ->values()
             ->toArray();
-            
+
         // Initial load
         $this->loadMore();
     }
@@ -118,6 +133,12 @@ class RepoList extends Component
             })
             ->when(count($this->selectedCountryIds), function ($query) {
                 $query->whereIn('country_id', $this->selectedCountryIds);
+            })
+            ->when(!is_null($this->isOurWork), function ($query) {
+                $query->where('is_our_work', $this->isOurWork);
+            })
+            ->when(!is_null($this->isGlobal), function ($query) {
+                $query->where('is_global', $this->isGlobal);
             })
             ->with('tags')
             ->latest();

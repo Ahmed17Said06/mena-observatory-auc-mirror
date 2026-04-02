@@ -657,6 +657,84 @@
                 width: 100%;
             }
         }
+
+        /* Index Explanation Links */
+        .index-links-section {
+            margin-bottom: 25px;
+        }
+
+        .index-links-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--ai-menablue);
+            margin-bottom: 12px;
+        }
+
+        .index-links-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .index-link-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 14px 16px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--ai-menablue);
+            position: relative;
+            transition: all 0.3s ease;
+            border-left: 3px solid var(--ai-accent);
+        }
+
+        .index-link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: var(--ai-menablue);
+            border-left-color: var(--ai-menablue);
+        }
+
+        .index-link-card__name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .index-link-card__org {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .index-link-card__arrow {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.65rem;
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+
+        .index-link-card:hover .index-link-card__arrow {
+            color: var(--ai-accent);
+        }
+
+        @media (max-width: 992px) {
+            .index-links-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .index-links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -705,6 +783,38 @@
                 </div>
                 <div class="control-group">
                     <button onclick="resetMap()">Reset View</button>
+                </div>
+            </div>
+
+            <!-- Index Explanation Links -->
+            <div class="index-links-section">
+                <h4 class="index-links-title">Learn More About Each Index</h4>
+                <div class="index-links-grid">
+                    <a href="https://www.tortoisemedia.com/intelligence/global-ai/" target="_blank" class="index-link-card">
+                        <div class="index-link-card__name">The Global AI Index</div>
+                        <div class="index-link-card__org">Tortoise Media</div>
+                        <span class="index-link-card__arrow"><i class="fas fa-external-link-alt"></i></span>
+                    </a>
+                    <a href="https://oxfordinsights.com/ai-readiness/ai-readiness-index/" target="_blank" class="index-link-card">
+                        <div class="index-link-card__name">Government AI Readiness Index</div>
+                        <div class="index-link-card__org">Oxford Insights</div>
+                        <span class="index-link-card__arrow"><i class="fas fa-external-link-alt"></i></span>
+                    </a>
+                    <a href="https://www.responsible-ai-index.com/" target="_blank" class="index-link-card">
+                        <div class="index-link-card__name">Global Index on Responsible AI (GIRAI)</div>
+                        <div class="index-link-card__org">Responsible AI Index</div>
+                        <span class="index-link-card__arrow"><i class="fas fa-external-link-alt"></i></span>
+                    </a>
+                    <a href="https://www.imf.org/en/Publications/Staff-Discussion-Notes/Issues/2024/01/14/Gen-AI-Artificial-Intelligence-and-the-Future-of-Work-542379" target="_blank" class="index-link-card">
+                        <div class="index-link-card__name">AI Preparedness Index (AIPI)</div>
+                        <div class="index-link-card__org">International Monetary Fund (IMF)</div>
+                        <span class="index-link-card__arrow"><i class="fas fa-external-link-alt"></i></span>
+                    </a>
+                    <a href="https://www.caidp.org/reports/" target="_blank" class="index-link-card">
+                        <div class="index-link-card__name">AI and Democratic Values Index (AIDV)</div>
+                        <div class="index-link-card__org">Center for AI and Digital Policy (CAIDP)</div>
+                        <span class="index-link-card__arrow"><i class="fas fa-external-link-alt"></i></span>
+                    </a>
                 </div>
             </div>
 

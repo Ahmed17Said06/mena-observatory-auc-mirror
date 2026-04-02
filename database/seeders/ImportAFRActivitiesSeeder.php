@@ -1,0 +1,448 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\Repo;
+use Carbon\Carbon;
+
+class ImportAFRActivitiesSeeder extends Seeder
+{
+    /**
+     * Seed the repo table with Activities & Research Output from the AFR document.
+     */
+    public function run(): void
+    {
+        // Country IDs from the countries table
+        $egypt = 8;
+
+        // Repo type: 1 = RESEARCH OUTPUTS
+        $researchOutputs = 1;
+
+        // Default placeholder image for seeded entries
+        $defaultImage = 'storage/placeholder.png';
+
+        $entries = [
+            // ===== OTHER (is_our_work = false) =====
+            [
+                'title' => 'Talk to Lebanese American University - What is Feminist Artificial Intelligence',
+                'description' => 'May 14, 2025: A talk on growing the feminist AI research network\'s MENA Hub. Co-organized by the Arab Institute for Women, the Center for Innovative Learning, and the Department of Communications, Mobility and Identity at the Lebanese American University.',
+                'content' => '<p>Co-organized by the Arab Institute for Women, the Center for Innovative Learning, and the Department of Communications, Mobility and Identity, The Lebanese American University, the webinar featured a talk presenting the principles and politics that inform feminist Artificial Intelligence and discussed the work being done to promote the inclusive development of AI technologies in the region. The session covered the interdisciplinary aims and activities of the Feminist AI Research (fr) network\'s MENA research hub, established for investigating the role of digital technologies and innovation in promoting inclusive development across Egypt, the Arab World, and Africa.</p>',
+                'publish_date' => '2025-05-14',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => 'https://youtu.be/U5dSlgsdPD4?t=10',
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Al Arabiya TV Interview on AI in the MENA Region',
+                'description' => 'Interview with Dr. Nagla Rizk on AI opportunities and challenges in MENA, during the Paris Peace Forum\'s 2025 AI Action Summit. The MENA Observatory was selected as one of the top 50 projects from 770 applicants across 111 countries.',
+                'content' => '<p>The first interview conducted with Dr. Nagla Rizk, Founding Director of A2K4D and the MENA Observatory on Responsible AI, sheds light on the opportunities and challenges presented by AI in the MENA region. This conversation comes hand-in-hand with the on-going Paris Peace Forum\'s 2025 AI Action Summit, where the MENA Observatory on Responsible AI has been selected as one of the top 50 projects. The second interview featured Nagham ElHoussamy, Associate Director for Research Middle East and North Africa at the MENA Observatory on Responsible AI, who contributed key interventions on the major trends in the AI landscape in the MENA region.</p>',
+                'publish_date' => '2025-02-01',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => 'https://youtu.be/nspp99x4fls?t=19',
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'The Impact of AI in the MENA Region on France 24',
+                'description' => 'A2K4D\'s Director, Dr. Nagla Rizk, on the impact of AI in the MENA Region on France 24.',
+                'content' => '<p>A2K4D\'s Director, Dr. Nagla Rizk, discussed the impact of AI in the MENA Region on France 24.</p>',
+                'publish_date' => '2025-02-01',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => 'https://www.youtube.com/watch?v=XEdWltC6X_g',
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Paris Peace Forum Presentation',
+                'description' => 'Presentation at the Paris Peace Forum in October 2025 representing the MENA Observatory on Responsible AI.',
+                'content' => '<p>Presentation at the Paris Peace Forum in October 2025.</p>',
+                'publish_date' => '2025-10-01',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => 'https://www.youtube.com/watch?v=Hkeco_f1KjE',
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Le Monde Article on Education and AI Equity',
+                'description' => 'Featured in Le Monde newspaper article during "Forging the Future: A Dialogue on Beneficial AI for Children, Starting with Principles" hosted by IRaise in Paris, October 2025.',
+                'content' => '<p>This was during the "Forging the Future: A Dialogue on Beneficial AI for Children, Starting with Principles" hosted by the International Research-driven Alliance for AI Serving Every Child (IRaise) in Paris.</p>',
+                'publish_date' => '2025-10-29',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => 'https://www.lemonde.fr/idees/article/2025/10/29/l-ia-pourrait-representer-un-puissant-levier-pour-reduire-les-inegalites-entre-differents-milieux-socioculturels_6650132_3232.html',
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'UNESCO National Stakeholder Consultation on Ethics of AI: Assessing AI Readiness in Egypt',
+                'description' => 'Attended Egypt\'s National Stakeholder Consultation on Ethics of AI discussing readiness assessment, AI principles, ecosystem, risks, ethics, responsible AI and more. February 16, 2025.',
+                'content' => '<p>Attended Egypt\'s National Stakeholder Consultation on Ethics of AI, between the Ministry of Communications and Information Technology (MCIT), UNESCO and the European Union. The discussion was around readiness assessment, AI principles, ecosystem, risks, ethics, responsible AI and more.</p>',
+                'publish_date' => '2025-02-16',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'ILO Global Alliance on Social Justice - Platform Economy in Egypt',
+                'description' => 'Participated as a panelist on the Platform Economy in Egypt at the ILO Global Alliance on Social Justice event in cooperation with the Ministry of Labor. March 6, 2025.',
+                'content' => '<p>Joined the discussion as a panelist on the Platform Economy in Egypt at an in-person event organized by the ILO Global Alliance on Social Justice in cooperation with the Ministry of Labor.</p>',
+                'publish_date' => '2025-03-06',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Gender and the Future of Work: Pathways for Inclusive Economic Transformation',
+                'description' => 'Virtual workshop by ERF and UNDP presenting research on gender and the future of work in the Arab States region. March 10, 2025.',
+                'content' => '<p>Within the context of ERF and UNDP Arab States cooperation under "Research on Gender and the Future of Work in the Arab States region" project, this virtual workshop presented and discussed key findings from six research studies focusing on gender and the future of work in the Arab States region. Contributed as a commentator on the paper, "Gender Dynamics in the Digital Economy: Opportunities and Barriers to Women\'s Employment in the Arab Region."</p>',
+                'publish_date' => '2025-03-10',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Gender Rights in AI Governance: Insights from the Global Index on Responsible AI',
+                'description' => 'Online webinar organised by the Global Center on AI Governance exploring global commitments and policies addressing AI-driven gender disparities. March 11, 2025.',
+                'content' => '<p>On the 11th of March 2025, invited as a panellist speaker to the online webinar "Gender Rights in AI Governance: Insights from the Global Index on Responsible AI," organised by the Global Center on AI Governance. The session explored global commitments and policies addressing AI-driven gender disparities. The event reflected on the findings of the Global Index on Responsible AI in relation to gender equality, with a particular focus on the experiences of countries across the Majority World.</p>',
+                'publish_date' => '2025-03-11',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'How Prepared Are MENA Countries for Digital Transformation and Decarbonization - Chatham House',
+                'description' => 'Session at the Royal Institute of International Affairs Chatham House on economic reform, technology and the future of work in the MENA region. April 14, 2025.',
+                'content' => '<p>Invited to speak in a session titled: "How prepared are MENA countries for the digital transformation and decarbonization?" The session offered a general assessment of how AI, new technologies and decarbonization are transforming different MENA states and their economies. The session examined the readiness of regional and national institutions in facilitating and supporting a just and inclusive transition.</p>',
+                'publish_date' => '2025-04-14',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'AI in Research Management: Ethical Implications and Responsible Solutions',
+                'description' => 'Participated in a webinar as part of the Equity, Diversity, and Inclusion Working Group sessions during the Global Research Council\'s Annual Meeting. May 18, 2025.',
+                'content' => '<p>Participated in a webinar titled "AI in Research Management: Ethical Implications and Responsible Solutions" as part of the Equity, Diversity, and Inclusion (EDI) Working Group sessions during the Global Research Council\'s (GRC) Annual Meeting. Underscored AI\'s dual role: while it holds significant promise for advancing inclusive development and supporting the SDGs, it also poses serious risks related to inequality, exclusion, and bias.</p>',
+                'publish_date' => '2025-05-18',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'The IPX Summit at Harvard Law School',
+                'description' => 'Participated at the IPX Summit at Harvard Law School discussing CopyrightX teaching experience and issues around AI, IP, and global perspectives on copyright. June 11, 2025.',
+                'content' => '<p>Participated at the IPX Summit at Harvard Law School organized by Professors William (Terry) Fisher & Ruth Okediji. Spoke about the experience teaching CopyrightX for 10 years at the Department of Economics at AUC Onsi Sawiris School of Business. Among issues presented & discussed at the Summit: The Music Industry in the age of AI, lessons learned from the Napster experience, The New WIPO IP Treaties, Care Ethics, Feminism & copyright, Stem cells, organoids, AI & IP & Global Perspectives on Copyright & AI.</p>',
+                'publish_date' => '2025-06-11',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'AI for Good Summit - Geneva',
+                'description' => 'The MENA Observatory was represented at the AI for Good Summit held July 8-11, 2025 in Geneva.',
+                'content' => '<p>The MENA Observatory on Responsible AI was represented by Maha Bali, Professor of Practice at the Center for Learning and Teaching at The American University in Cairo and Khadiga Hassan, Research Associate at Access to Knowledge for Development Center at the AI for Good Summit 8-11 July 2025 in Geneva.</p>',
+                'publish_date' => '2025-07-08',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Meta\'s Llama Design Drive Pitchathon at Techne Summit',
+                'description' => 'Served as a judge at Meta\'s Llama Design Drive Pitchathon during the Techne Summit in Cairo on September 30, 2025.',
+                'content' => '<p>Served as a judge at Meta\'s Llama Design Drive Pitchathon during the Techne Summit in Cairo on September 30, 2025, evaluating AI-driven startup pitches and providing guidance to founders. Assessed innovation, scalability, technical execution, and market impact, helping to identify the most transformative Llama-powered solutions emerging from the MENA region.</p>',
+                'publish_date' => '2025-09-30',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Forging the Future: A Dialogue on Beneficial AI for Children, Starting with Principles',
+                'description' => 'Roundtable presenting Design Principles for adolescent-AI interaction co-developed by industry leaders, researchers, and youth advocates. October 29, 2025.',
+                'content' => '<p>This roundtable presented and built upon a set of Design Principles co-developed by industry leaders, researchers, and youth advocates during the iRAISE Lab. Centered on the foundational belief that AI should not manipulate children, these principles address critical concerns in adolescent-AI interaction—particularly sycophancy, anthropomorphism, and relational reliance. The goal was to align design with adolescent rights and wellbeing, while fostering accountability and integrity in the AI systems shaping their daily lives.</p>',
+                'publish_date' => '2025-10-29',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Paris Peace Forum 2025 - New Coalitions for Peace, People and the Planet',
+                'description' => 'Attended and represented the MENA Observatory on Responsible AI at the Paris Peace Forum 2025, building new coalitions for peace, people, and the planet. October 29, 2025.',
+                'content' => '<p>Along with the A2K4D Associate Director for Research, attended and represented the MENA Observatory on Responsible AI at the Paris Peace Forum 2025. Global conflict, climate crises, rapid AI advancement, and cuts to development aid are straining international cooperation at a time when it is most needed. The Paris Peace Forum 2025 brought together global leaders from government, civil society, business, and academia to build new coalitions and advance solutions for peace, people, and the planet.</p>',
+                'publish_date' => '2025-10-29',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'META AI Summit London - MENA Policy Summit 2025',
+                'description' => 'Attended the MENA Policy Summit 2025 in London focusing on AI governance, data privacy, content risks and safety, and AI adoption. November 17, 2025.',
+                'content' => '<p>Attended the MENA Policy Summit 2025 in London, UK. This summit was an important gathering of policy stakeholders shaping the future of regulation, innovation, and integrity in the MENA region. The summit focused on critical issues including AI governance, data privacy, content risks and safety, and the adoption of AI technologies. It brought together diverse stakeholders from industry bodies, academia, civil society organizations, digital rights groups, and think tanks.</p>',
+                'publish_date' => '2025-11-17',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Feminist Roundtable: Just Transition (FES Egypt)',
+                'description' => 'Participated in a roundtable hosted by Friedrich Ebert Stiftung (FES) Egypt to discuss the concept of a just transition. December 6, 2025.',
+                'content' => '<p>Participated in a roundtable hosted by Friedrich Ebert Stiftung (FES) Egypt to discuss the concept of a just transition. The space was dedicated to bringing together diverse feminists for rich dialogues, critical analyses, and relationship building.</p>',
+                'publish_date' => '2025-12-06',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'UN Working Group on Discrimination Against Women & Girls - Regional Consultation on AI & Gender Equality',
+                'description' => 'Virtual regional consultation on the impact of digital technologies and AI on gender equality in the Middle East, North, Central and West Africa regions. December 16, 2025.',
+                'content' => '<p>Invited to participate in a virtual regional consultation on the impact of digital technologies and artificial intelligence (AI) on gender equality in the Middle East and North, Central and West Africa regions.</p>',
+                'publish_date' => '2025-12-16',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Utilising AI and ML to Optimise Humanitarian Aid Performance - Egyptian Food Bank',
+                'description' => 'Participated as a speaker in a webinar hosted by the Egyptian Food Bank on using AI and ML for humanitarian aid performance. December 18, 2025.',
+                'content' => '<p>Participated as a speaker in a webinar hosted by the Egyptian Food Bank. The topics highlighted that AI in humanitarian aid is not about technology adoption, but about governance, dignity, and human outcomes. When aligned with SDGs, particularly poverty, hunger, and health, AI can help move humanitarian systems from reactive response to anticipatory and inclusive action. Emphasized the evolving role of AI and the role of the MENA Observatory on Responsible AI in achieving responsible and ethical AI use.</p>',
+                'publish_date' => '2025-12-18',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'AI India Impact Summit 2026 - Cairo Outreach',
+                'description' => 'Panelist at the India AI Impact Summit 2026–Cairo Outreach event, convened by the Embassy of India in Cairo, advancing discussions on human-centric AI. December 23, 2025.',
+                'content' => '<p>Invited as a panelist at the India AI Impact Summit 2026–Cairo Outreach event, convened by the Embassy of India in Cairo. The summit brought together leading voices from India and Egypt to advance discussions on human-centric, forward-looking AI, fostering cross-country collaboration and knowledge exchange.</p>',
+                'publish_date' => '2025-12-23',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'AI and Economic Development Pathways in Africa - Global Center on AI Governance',
+                'description' => 'Talk at the Global Center on AI Governance on key concepts of AI and economic relevance, productivity, innovation, and policy choices in Africa. March 2, 2026.',
+                'content' => '<p>In this talk Dr Nagla described the key concepts underpinning artificial intelligence and its economic relevance. She also identified the main channels through which AI contributes to productivity and innovation and explained how AI functions as a general-purpose technology in global economic systems. Finally, Dr Rizk analyzed how economic theories of technological change can inform AI policy choices in Africa.</p>',
+                'publish_date' => '2026-03-02',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'What is Feminist Artificial Intelligence? Perspectives from the MENA - Johns Hopkins Berman Institute',
+                'description' => 'Seminar at the Johns Hopkins Berman Institute of Bioethics exploring the meaning and need for a feminist lens in addressing AI and Inclusion. February 9, 2026.',
+                'content' => '<p>This talk explored with the audience the meaning and need for a feminist lens in addressing issues related to Artificial Intelligence and Inclusion. Included examples from work within the Middle East and North Africa Observatory on Responsible AI at the Access to Knowledge for Development Center, the American University in Cairo Onsi Sawiris School of Business. Based on research and teaching a course titled: "Feminist AI, Technology, Gender and Development" at AUC\'s Department of Economics.</p>',
+                'publish_date' => '2026-02-09',
+                'is_our_work' => false,
+                'is_global' => true,
+                'data_link' => 'https://bioethics.jhu.edu/events/seminar-series-virtual-talk-with-nagla-rizk-phd/',
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+
+            // ===== OUR WORK (is_our_work = true) =====
+            [
+                'title' => 'Participating in the AI Action Summit, Paris Summit for Action on Artificial Intelligence',
+                'description' => 'The A2K4D team attended the AI Action Summit in Paris on February 10-11, 2025, presenting the MENA Observatory as one of 50 innovative projects selected by the Paris Peace Forum.',
+                'content' => '<p>The A2K4D team attended the AI Action Summit as part of the Paris Summit for Action on Artificial Intelligence to present the MENA Observatory on Responsible AI as one of the 50 innovative projects selected by the Forum. Presented the MENA Observatory as a regional hub for responsible AI research, underlining its focus on knowledge translation, influencing policy by engaging with policymakers, and building networks with diverse stakeholders including researchers, policymakers, civil society organizations, businesses, journalists, local communities, students, and international entities. Highlighted achievements including hosting successful webinars, publishing resources in Arabic & English, creating a dynamic video series, and participating in conferences on AI governance.</p>',
+                'publish_date' => '2025-02-10',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Round Table Discussion on AI Regulations and Governance - Egypt\'s Draft AI Bill',
+                'description' => 'First high-level roundtable discussion on Egypt\'s draft AI Bill hosted at AUC New Cairo Campus. January 14, 2025.',
+                'content' => '<p>On January 14th, A2K4D and the MENA Observatory on Responsible AI hosted the first high-level roundtable discussion on Egypt\'s draft AI Bill, led by Sahar Al Bazar, MP, Deputy Chair of the Foreign Relations Committee of the Egyptian Parliament. The roundtable brought together leaders from the tech sector, multinational corporations, local entrepreneurs, civil society and academia to explore key themes surrounding AI such as balancing innovation with risk mitigation, strengthening data governance frameworks, and defining accountability for AI-driven decisions. Topics discussed included the definition of AI, relevant stakeholders and their responsibilities, data protection and privacy, intellectual property rights, liability, and the role of regulatory authorities.</p>',
+                'publish_date' => '2025-01-14',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'The Role of Research in Impacting Policy and Practice - A2K4D Fifteenth Anniversary Workshop',
+                'description' => 'A2K4D\'s Fifteenth Anniversary Workshop on AI, the Future of Work, and Development in the MENA Region at AUC\'s Tahrir Campus. February 3, 2025.',
+                'content' => '<p>On the 3rd of February, 2025, A2K4D held its Fifteenth Anniversary Workshop titled "The Role of Research in Impacting Policy and Practice: AI, the Future of Work, and Development in the MENA Region" at AUC\'s Tahrir Campus in the Oriental Hall. Invitees included A2K4D\'s global community of researchers, academics, civil society, international organizations, and entrepreneurs. The roundtable discussion covered the latest developments in AI and sustainable development, with recommendations for A2K4D\'s future research and advocacy.</p>',
+                'publish_date' => '2025-02-03',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Extending Social Protection to Platform Workers: Applications in Egypt',
+                'description' => 'Webinar on extending social protection to platform workers as part of the "New Work, Data, and Inclusion in the Digital Economy: A MENA Perspective" project. February 25, 2025.',
+                'content' => '<p>The Observatory hosted a webinar on "Extending Social Protection to Platform Workers: Applications in Egypt." The webinar comes as part of the center\'s project on "New Work, Data, and Inclusion in the Digital Economy: A MENA Perspective" in partnership with regional research partners and support from Ford Foundation, building on earlier work within the Fairwork project with Oxford Internet Institute, University of Oxford.</p>',
+                'publish_date' => '2025-02-25',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'AI for Beginners / Practical Session: AI for the Cairo Community',
+                'description' => 'AI session at Kasr El-Dobara Evangelical Church covering core AI concepts, potential benefits, challenges and risks, led by MENA Observatory Consultant Marwa Soudi. April 6, 2025.',
+                'content' => '<p>Kasr El-Dobara Evangelical Church (KDEC) hosted an event that examined both the opportunities and risks associated with Artificial Intelligence (AI). The event was held as part of the church\'s ongoing "Khatwa" initiative, which offers educational sessions designed to support individuals in making well-informed decisions across different aspects of life. The session, led by Marwa Soudi, delivered a comprehensive introduction to AI, covering its core concepts, potential benefits, and the challenges and risks it presents.</p>',
+                'publish_date' => '2025-04-06',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'AI, Gender and Work: Perspectives from the Middle East and Africa',
+                'description' => 'Third webinar in the Collaborative Series between MENA & African Observatories on Responsible AI examining AI\'s transformative impact on the future of work. April 9, 2025.',
+                'content' => '<p>As part of the Collaborative Webinar Series between MENA & African Observatories on Responsible AI, a third webinar was organized on the 9th of April 2025 titled "AI, Gender and Work: Perspectives from the Middle East and Africa." The webinar examined the transformative impact of artificial intelligence on the future of work, highlighting both opportunities for economic growth and innovation, and risks posed by automation. Discussions focused on the digital divide, access, skills gaps, and the importance of education, reskilling, and upskilling to ensure workforce readiness. The session emphasized the need for inclusive and gender-responsive approaches to AI adoption.</p>',
+                'publish_date' => '2025-04-09',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Towards a Toolkit for Policy and Practice for Responsible AI in Egypt - Multi-Stakeholder Roundtable',
+                'description' => 'Multi-stakeholder meeting on Responsible AI in Egypt held on May 4, 2025, developing a collective understanding of responsible AI and guidelines for policy and practice.',
+                'content' => '<p>The "Multistakeholder Meeting on Responsible AI in Egypt" was held on May 4th 2025 as part of a series of information sessions organized by the MENA Observatory. The roundtable brought together different stakeholders to explore and develop a collective understanding of responsible AI in Egypt, share existing responsible AI practices, and identify priority pillars for guidelines. A policy brief titled "Advancing Responsible AI in Egypt: A Multistakeholder Approach for Policy, People, and Practice" was produced following this meeting.</p>',
+                'publish_date' => '2025-05-04',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'AI Business Models for Application in Business',
+                'description' => 'Webinar by GIZ Egypt in partnership with MENA Observatory providing an overview of AI application in businesses. September 8, 2025.',
+                'content' => '<p>A webinar implemented by GIZ Egypt in partnership with MENA Observatory on Responsible AI and Sustainability and AI Business Action Centre. The webinar titled "AI Business Models for Application in Business" provided the Egyptian business community with an overview of AI application in businesses, including foundational and proprietary AI models, practical strategies for productivity and efficiency, and ethical considerations including fairness and accountability.</p>',
+                'publish_date' => '2025-09-08',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'AI Ethics in Policy: Perspectives from MENA',
+                'description' => 'Regional seminar in collaboration with UNESCO IFAP Working Group on Information Ethics advancing ethical AI in policymaking across the MENA region. October 22, 2025.',
+                'content' => '<p>The Observatory in collaboration with the Information for All Programme (IFAP) Working Group on Information Ethics, UNESCO organized a regional seminar dedicated to advancing ethical AI in policymaking across the MENA region. The webinar examined the evolving landscape of AI ethics and policy, emphasizing alignment of global ethical principles with local legal frameworks, cultural norms, and developmental priorities. Through regional case studies (Egypt, Qatar, Lebanon, and Morocco) and institutional perspectives, speakers highlighted both progress and persistent gaps.</p>',
+                'publish_date' => '2025-10-22',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Responsible Artificial Intelligence and Civil Society Roundtable',
+                'description' => 'Roundtable exploring opportunities and challenges of AI use within Egyptian civil society organizations, hosted November 11, 2025.',
+                'content' => '<p>On November 11th 2025, the MENA Observatory on Responsible AI hosted the "Responsible Artificial Intelligence and Civil Society Roundtable." A dialogue dedicated to exploring the opportunities and challenges surrounding the use of AI within Egyptian civil society organizations (CSOs). The roundtable aimed to raise awareness about responsible AI and foster collaboration between policy and community stakeholders. As an outcome, the MENA Observatory is collaborating with the Civil Society Support Fund on their annual Sociathon event.</p>',
+                'publish_date' => '2025-11-11',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Digital Labor in the Middle East and Africa: INDL-MEA 2 Conference',
+                'description' => 'Second edition of the International Network on Digital Labor conference in partnership with INDL, Université d\'Angers, ILO, and DiPLab. November 25-26, 2025.',
+                'content' => '<p>The MENA Observatory, in partnership with the International Network on Digital Labor (INDL), and the Université d\'Angers, hosted the second edition of the INDL-MEA 2 2025 Conference. Organized in collaboration with the ILO and DiPLab research program. Dr. Nagla Rizk presented a keynote titled "Women, AI and Work in the ME & Africa: Feminist Perspectives from the MENA Observatory" exploring how AI is impacting women\'s work and advocating for the adoption of a feminist lens to harness the transformative power of Feminist AI.</p>',
+                'publish_date' => '2025-11-25',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Toward AI Governance Alignment in Africa, Middle East, and Türkiye (AMET) Region - Report',
+                'description' => 'Report analyzing AI governance approaches across the AMET region, identifying four main approaches: security-driven, innovation-led, rights-based and developmental.',
+                'content' => '<p>This report identifies four main approaches shaping national AI strategies: security-driven, innovation-led, rights-based and developmental. These reflect different priorities, capacities and risk perceptions. Across regions, common challenges include data protection, interoperability, accountability and sector-specific regulation. The report translates these dynamics into practical guidance, outlining ways to balance innovation with safety, manage cross-border data and strengthen digital infrastructure. It emphasises flexible alignment, standards-based cooperation and shared mechanisms to reduce fragmentation.</p><p>Authors: Emma Ruttkamp-Bloem, Fola Adeleke, Jake Effoduh, Kebene Wodajo, Prof Nagla Rizk, Dr. Olubayo Adekanmbi, Rachel Adams, Rami Alkarmi, Seani Rananga, Seydina Ndiaye, Shikoh Gitau and Tami Koroye</p>',
+                'publish_date' => '2026-01-01',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => 'https://www.globalcenter.ai/research/toward-ai-governance-alignment-in-africa-middle-east-and-tuerkiye-amet-region',
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+            [
+                'title' => 'Al Khwarizmi AI Event - Cairo Convening',
+                'description' => 'Upcoming closed one-day discussion on the current state of AI in Egypt, covering uses, social impacts, public policies, legal frameworks, and future prospects. April 27, 2026.',
+                'content' => '<p>Al-Khwarizmi Initiative for Artificial Intelligence, in collaboration with the American University in Cairo\'s Executive Education Program at GAPP Exec Ed, and the MENA Observatory on Responsible AI at A2K4D, is holding the Cairo Convening, a closed one-day discussion on the current state of artificial intelligence (AI) in Egypt. The discussion will cover the uses of AI, social impacts, public policies, legal and regulatory frameworks, public literacy, and future prospects. The event will be held on Monday 27 April, 2026 at Oriental Hall, AUC Tahrir Campus, Cairo.</p>',
+                'publish_date' => '2026-04-27',
+                'is_our_work' => true,
+                'is_global' => false,
+                'data_link' => null,
+                'country_id' => $egypt,
+                'repo_type_id' => $researchOutputs,
+            ],
+        ];
+
+        $created = 0;
+        $updated = 0;
+
+        foreach ($entries as $entry) {
+            $entry['image'] = $defaultImage;
+
+            $title = $entry['title'];
+            $existing = Repo::where('title', $title)->first();
+            if ($existing) {
+                $existing->update($entry);
+                $updated++;
+                $this->command->warn("Updated: {$title}");
+            } else {
+                Repo::create($entry);
+                $created++;
+                $this->command->info("Created: {$title}");
+            }
+        }
+
+        $this->command->info("Done! Created: {$created}, Updated: {$updated}");
+    }
+}

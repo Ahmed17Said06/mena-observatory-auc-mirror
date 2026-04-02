@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -30,7 +31,9 @@ class Repo extends Model
         'author',
         'field',
         'subject',
-        'project'
+        'project',
+        'is_our_work',
+        'is_global'
     ];
 
     protected $table = 'repo';
@@ -38,6 +41,11 @@ class Repo extends Model
     public function country()
     {
         return $this->belongsTo(countries::class);
+    }
+
+    public function repoType()
+    {
+        return $this->belongsTo(Repo_type::class, 'repo_type_id');
     }
 
     public function tags()

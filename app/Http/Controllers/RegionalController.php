@@ -10,6 +10,7 @@ use App\Models\Repo_tags;
 use App\Models\Repo_theme;
 use App\Models\Repo_type;
 use App\Models\static_content;
+use App\Models\YoutubeVideo;
 use Illuminate\Http\Request;
 
 class RegionalController extends Controller
@@ -21,13 +22,62 @@ class RegionalController extends Controller
                 'intro' => static_content::where('key', 'regional intro')->first(),
                 'repo_types' => Repo_type::All(),
                 'repo_tags' => Repo_tags::All(),
-                'repo_themes' => Repo_theme::All()
+                'repo_themes' => Repo_theme::All(),
+                'isOurWork' => null,
+                'isGlobal' => null,
+            ]);
+    }
+
+    public function ourWork()
+    {
+        return view('frontend.regional')
+            ->with([
+                'intro' => static_content::where('key', 'regional intro')->first(),
+                'repo_types' => Repo_type::All(),
+                'repo_tags' => Repo_tags::All(),
+                'repo_themes' => Repo_theme::All(),
+                'isOurWork' => true,
+                'isGlobal' => null,
+            ]);
+    }
+
+    public function regionalOtherWork()
+    {
+        return view('frontend.regional')
+            ->with([
+                'intro' => static_content::where('key', 'regional intro')->first(),
+                'repo_types' => Repo_type::All(),
+                'repo_tags' => Repo_tags::All(),
+                'repo_themes' => Repo_theme::All(),
+                'isOurWork' => false,
+                'isGlobal' => false,
+            ]);
+    }
+
+    public function globalOtherWork()
+    {
+        return view('frontend.regional')
+            ->with([
+                'intro' => static_content::where('key', 'regional intro')->first(),
+                'repo_types' => Repo_type::All(),
+                'repo_tags' => Repo_tags::All(),
+                'repo_themes' => Repo_theme::All(),
+                'isOurWork' => false,
+                'isGlobal' => true,
+            ]);
+    }
+
+    public function videos()
+    {
+        return view('frontend.videos')
+            ->with([
+                'videos' => YoutubeVideo::published()->orderBy('sort_order')->latest()->get(),
             ]);
     }
 
     public function single($id)
     {
-        $repo = Repo::with('tags', 'pdfFiles')->findOrFail($id);
+        $repo = Repo::with('tags', 'pdfFiles', 'authors', 'country')->findOrFail($id);
         $repo->views+=1;
         $repo->save();
 
