@@ -19,17 +19,6 @@
                 MENA Observatory<br>on Responsible AI
             </h1>
             <div class="ab-hero__rule js-reveal"></div>
-            <div class="ab-hero__sub js-reveal">
-                @if(isset($intro) && $intro)
-                    @if(LaravelLocalization::getCurrentLocale() === 'ar' && $intro->ar_content)
-                        {!! $intro->ar_content !!}
-                    @else
-                        {!! $intro->content !!}
-                    @endif
-                @else
-                    Advancing responsible AI for development and inclusion across the MENA region.
-                @endif
-            </div>
             <div class="ab-hero__scroll-cue js-reveal">
                 <span></span>
             </div>
@@ -63,7 +52,7 @@
     <section class="ab-section ab-story" id="our-story">
         <div class="container">
             <div class="ab-section__label js-reveal">Our Story</div>
-            <h2 class="ab-section__title js-reveal-up">Building the Observatory</h2>
+            <h2 class="ab-section__title js-reveal-up">Our Story</h2>
 
             <div class="ab-timeline">
                 <div class="ab-timeline__line"></div>
@@ -71,21 +60,21 @@
                 <div class="ab-timeline__item js-tl-item">
                     <div class="ab-timeline__dot"><span>2010</span></div>
                     <div class="ab-timeline__card">
-                        <p>The <strong>Access to Knowledge for Development Center (A2K4D)</strong> at The American University in Cairo's Onsi Sawiris School of Business is established, building a history of advancing knowledge, technology and data for development in the region.</p>
+                        <p>The <strong>Access to Knowledge for Development Center (A2K4D)</strong> based at The American University in Cairo's Onsi Sawiris School of Business operates the MENA Observatory on Responsible AI building on its history of advancing knowledge, technology and data for development in the region since inception in February 2010.</p>
                     </div>
                 </div>
 
                 <div class="ab-timeline__item js-tl-item">
                     <div class="ab-timeline__dot"><span>Feb 2024</span></div>
                     <div class="ab-timeline__card">
-                        <p>A2K4D launches the <strong>"MENA AI Observatory"</strong> at the Center's 14th anniversary — an output within the project <em>"Governing Responsible AI in the MENA Region"</em>, held in partnership with BirZeit University's Center for Continuing Education and supported by Canada's <strong>IDRC</strong>.</p>
+                        <p>The Observatory was initially developed by A2K4D and launched at the Center's 14th anniversary in February 2024 as the <strong>"MENA AI Observatory"</strong>. A2K4D established the Observatory as one of its outputs within the project <em>"Governing Responsible AI in the MENA Region"</em>, held in partnership with BirZeit University's Center for Continuing Education in Palestine and support from Canada's <strong>International Development Research Centre (IDRC)</strong>.</p>
                     </div>
                 </div>
 
                 <div class="ab-timeline__item js-tl-item">
                     <div class="ab-timeline__dot"><span>Dec 2024</span></div>
                     <div class="ab-timeline__card">
-                        <p>The Observatory becomes a standalone project at A2K4D with continued IDRC support, adopting its current name: <strong>"The MENA Observatory on Responsible AI"</strong>. A2K4D now works through the Observatory on initiatives that capitalize on responsible data and AI for inclusion and achievement of the SDGs across MENA — in collaboration with local, regional, and global partners.</p>
+                        <p>In December 2024, the Observatory became a standalone project at A2K4D, with support from IDRC, carrying its current name, <strong>"The MENA Observatory on Responsible AI"</strong>. Since then, A2K4D has been working through Observatory on initiatives that capitalize on responsible data and AI for inclusion and achievement of the sustainable development goals in MENA, in collaboration with a host of local, regional and global partners.</p>
                     </div>
                 </div>
             </div>
@@ -99,6 +88,7 @@
         <div class="container">
             <div class="ab-section__label js-reveal">Our Purpose</div>
             <h2 class="ab-section__title js-reveal-up">Why a MENA Observatory<br>on Responsible AI?</h2>
+            <p class="ab-why__intro js-reveal-up">The Observatory was developed to address the following:</p>
 
             <div class="ab-why__grid">
 
@@ -109,7 +99,7 @@
                         </svg>
                     </div>
                     <h4>Bottom-Up Approach</h4>
-                    <p>Highlighting local experiences, community engagement, and inclusive practices — addressing regional nuances, prioritizing gender perspectives, and raising awareness about responsible data and AI usage.</p>
+                    <p>The need to advance a bottom-up approach that highlights local experiences, community engagement, and inclusive practices in data collection and AI system development, addressing regional nuances, prioritizing gender perspectives and raising awareness about responsible data and AI usage.</p>
                 </div>
 
                 <div class="ab-why__card js-reveal-up">
@@ -119,7 +109,7 @@
                         </svg>
                     </div>
                     <h4>Stakeholder Focal Point</h4>
-                    <p>Connecting researchers, policymakers, entrepreneurs, civil society, educators, and beneficiaries — creating dynamic collaborative spaces that promote effective policy making and responsible AI use.</p>
+                    <p>The need to establish a focal point connecting various stakeholders—including researchers, policymakers, entrepreneurs, civil society, educators, and beneficiaries—by creating dynamic collaborative spaces that promote effective policy making and advance the responsible use of AI.</p>
                 </div>
 
                 <div class="ab-why__card js-reveal-up">
@@ -129,7 +119,7 @@
                         </svg>
                     </div>
                     <h4>Evidence-Based Research</h4>
-                    <p>Furthering innovative, evidence-based research designed to impact policy, practice, and people across the region.</p>
+                    <p>The need to further innovative evidence based research to impact policy, practice and people.</p>
                 </div>
 
                 <div class="ab-why__card js-reveal-up">
@@ -139,7 +129,7 @@
                         </svg>
                     </div>
                     <h4>Multistakeholder Collaboration</h4>
-                    <p>Promoting a multistakeholder approach to advance collaboration in responsible data and AI for development across the MENA region.</p>
+                    <p>The need to promote a multistakeholder approach to advance collaboration in responsible data and Artificial Intelligence for development.</p>
                 </div>
 
                 <div class="ab-why__card js-reveal-up">
@@ -149,7 +139,7 @@
                         </svg>
                     </div>
                     <h4>Global Visibility for MENA</h4>
-                    <p>Enhancing the visibility and impact of MENA research and experiences in global policy-making spaces, championing regional voices and standards.</p>
+                    <p>The need to enhance visibility and impact of MENA research and experiences in global policy-making spaces.</p>
                 </div>
 
             </div>
@@ -165,15 +155,7 @@
             <div class="ab-vision__inner">
                 <div class="ab-vision__tag js-reveal">Vision</div>
                 <blockquote class="ab-vision__quote js-reveal-up">
-                    @if(isset($vision) && $vision)
-                        @if(LaravelLocalization::getCurrentLocale() === 'ar' && $vision->ar_content)
-                            {!! $vision->ar_content !!}
-                        @else
-                            {!! $vision->content !!}
-                        @endif
-                    @else
-                        "A dynamic, inclusive and locally-driven platform on responsible AI in MENA — a catalyst for change: a tool for policy making, a hub for connecting stakeholders, and the go-to home for knowledge on responsible AI as it pertains to everyone in the region."
-                    @endif
+                    As a dynamic, inclusive and locally-driven platform on responsible AI in MENA, the Observatory is envisioned to serve as a catalyst for change by being a tool for policy making, a hub for connecting stakeholders and communities and the go-to home for any and all knowledge on responsible AI as it pertains to the lives of everyone in the region.
                 </blockquote>
             </div>
         </div>
@@ -194,23 +176,23 @@
                     <ul class="ab-mission__list">
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">01</span>
-                            <span>Inform, influence and monitor policy making and practice as it pertains to responsible AI for development and inclusion in MENA.</span>
+                            <span>To inform, influence and monitor policy making and practice as it pertains to responsible AI for development and inclusion in MENA.</span>
                         </li>
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">02</span>
-                            <span>Promote a grounds-up inclusive approach, emphasizing local experiences, community engagement, and inclusion in all aspects of data collection and AI systems development.</span>
+                            <span>To promote a grounds-up inclusive approach, emphasizing local experiences, community engagement, and inclusion in all aspects of data collection and AI systems development.</span>
                         </li>
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">03</span>
-                            <span>Raise awareness and fill gaps in knowledge on the responsible use of data and AI in a way that is in line with the nuances of the region.</span>
+                            <span>To raise awareness and fill gaps in knowledge on the responsible use of data and AI in a way that is in line with the nuances of the region.</span>
                         </li>
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">04</span>
-                            <span>Connect communities — researchers, policy makers, entrepreneurs, civil society, educators, students and beneficiaries — by creating dynamic collaborative spaces that foster engagement to promote responsible AI for development.</span>
+                            <span>To connect communities – researchers, policy makers, entrepreneurs, civil society, educators, students and beneficiaries, by creating dynamic collaborative spaces that foster engagement between the different stakeholders to promote policy making that fulfills the promise of responsible AI for development.</span>
                         </li>
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">05</span>
-                            <span>Champion MENA voices, values, and standards in responsible data and AI governance, regionally and globally.</span>
+                            <span>To champion MENA voices, values, and standards in responsible data and AI governance, regionally and globally and share experiences accordingly.</span>
                         </li>
                     </ul>
                 </div>
@@ -223,51 +205,70 @@
     {{-- ══════════════════════════════════════════════════ --}}
     <section class="ab-objectives" id="objectives">
         <div class="container">
-            <div class="ab-section__label ab-section__label--light js-reveal">Objectives</div>
-            <h2 class="ab-section__title ab-section__title--light js-reveal-up">Three Pillars of Impact</h2>
+            <div class="ab-obj__subtitle js-reveal">Three Pillars of Impact</div>
+            <h2 class="ab-section__title ab-section__title--light js-reveal-up">Objectives</h2>
+            <p class="ab-obj__intro js-reveal">Rooted in the above-mentioned vision and mission, the overarching objective of the MENA Observatory on Responsible AI can be broken down into three main categories.</p>
 
             <div class="ab-obj__grid">
-                <div class="ab-obj__card js-reveal-up" style="--obj-c:#FAAF1C;">
+                <div class="ab-obj__card js-obj-card" style="--obj-c:#FAAF1C;">
                     <div class="ab-obj__num">01</div>
                     <div class="ab-obj__bar"></div>
                     <h3 class="ab-obj__title">Responsible AI<br>for Policy</h3>
-                    <div class="ab-obj__desc">
-                        @if(isset($objective_1) && $objective_1)
-                            {!! LaravelLocalization::getCurrentLocale() === 'ar' && $objective_1->ar_content ? $objective_1->ar_content : $objective_1->content !!}
-                        @else
-                            Informing and influencing evidence-based policy making on responsible data and AI, ensuring MENA perspectives shape governance frameworks regionally and globally.
-                        @endif
-                    </div>
                 </div>
-                <div class="ab-obj__card js-reveal-up" style="--obj-c:#4EB89D;">
+                <div class="ab-obj__card js-obj-card" style="--obj-c:#4EB89D;">
                     <div class="ab-obj__num">02</div>
                     <div class="ab-obj__bar"></div>
                     <h3 class="ab-obj__title">Responsible AI<br>for Practice</h3>
-                    <div class="ab-obj__desc">
-                        @if(isset($objective_2) && $objective_2)
-                            {!! LaravelLocalization::getCurrentLocale() === 'ar' && $objective_2->ar_content ? $objective_2->ar_content : $objective_2->content !!}
-                        @else
-                            Advancing inclusive, community-driven approaches to AI development that reflect regional nuances, promote gender equity, and support sustainable development goals.
-                        @endif
-                    </div>
                 </div>
-                <div class="ab-obj__card js-reveal-up" style="--obj-c:#6B9FD4;">
+                <div class="ab-obj__card js-obj-card" style="--obj-c:#6B9FD4;">
                     <div class="ab-obj__num">03</div>
                     <div class="ab-obj__bar"></div>
                     <h3 class="ab-obj__title">Responsible AI<br>for People</h3>
-                    <div class="ab-obj__desc">
-                        @if(isset($objective_3) && $objective_3)
-                            {!! LaravelLocalization::getCurrentLocale() === 'ar' && $objective_3->ar_content ? $objective_3->ar_content : $objective_3->content !!}
-                        @else
-                            Connecting communities, raising awareness, and empowering individuals — from researchers and policymakers to civil society and beneficiaries — to engage with and benefit from responsible AI.
-                        @endif
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- Partners section moved to /en/collaborators --}}
+    {{-- ══════════════════════════════════════════════════ --}}
+    {{-- SEND A MESSAGE                                    --}}
+    {{-- ══════════════════════════════════════════════════ --}}
+    <section class="ab-section ab-contact" id="contact">
+        <div class="container">
+            <div class="ab-contact__wrap">
+                <div class="ab-contact__left">
+                    <div class="ab-section__label js-reveal">Get in Touch</div>
+                    <h2 class="ab-section__title js-reveal-up">Send Us<br>a Message</h2>
+                    <div class="ab-accent-bar js-reveal"></div>
+                    <p class="ab-contact__text js-reveal-up">Have a question, suggestion, or want to collaborate? We'd love to hear from you.</p>
+                </div>
+                <div class="ab-contact__right">
+                    <form class="ab-contact__form js-reveal-up" action="#" method="POST">
+                        @csrf
+                        <div class="ab-contact__row">
+                            <div class="ab-contact__field">
+                                <label for="contact-name">Name</label>
+                                <input type="text" id="contact-name" name="name" placeholder="Your name" required>
+                            </div>
+                            <div class="ab-contact__field">
+                                <label for="contact-email">Email</label>
+                                <input type="email" id="contact-email" name="email" placeholder="Your email" required>
+                            </div>
+                        </div>
+                        <div class="ab-contact__field">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message" placeholder="Your message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="ab-contact__btn">
+                            <span>Send Message</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </div>
 
@@ -276,21 +277,18 @@
 {{-- GSAP --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
 
 <script>
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ── Hero title word split ──────────────────────────────────────
+    // ── Hero title fade ────────────────────────────────────────────
     const heroTitle = document.querySelector('.ab-hero__title');
     if (heroTitle) {
-        const split = new SplitText(heroTitle, { type: 'words' });
-        gsap.from(split.words, {
+        gsap.from(heroTitle, {
             opacity: 0,
             y: 40,
-            stagger: 0.07,
             duration: 0.9,
             ease: 'power3.out',
             delay: 0.2
@@ -298,15 +296,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ── Generic fade-up helper ─────────────────────────────────────
-    function revealUp(selector, stagger) {
+    function revealUp(selector) {
         gsap.utils.toArray(selector).forEach(function (el) {
             gsap.from(el, {
                 scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
-                opacity: 0,
-                y: 30,
-                duration: 0.75,
-                ease: 'power2.out',
-                stagger: stagger || 0
+                opacity: 0, y: 30, duration: 0.75, ease: 'power2.out',
+                immediateRender: false
             });
         });
     }
@@ -315,16 +310,14 @@ document.addEventListener('DOMContentLoaded', function () {
     gsap.utils.toArray('.js-reveal').forEach(function (el) {
         gsap.from(el, {
             scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' },
-            opacity: 0,
-            duration: 0.6,
-            ease: 'power2.out'
+            opacity: 0, duration: 0.6, ease: 'power2.out',
+            immediateRender: false
         });
     });
 
     revealUp('.js-reveal-up');
 
     // ── Hero eyebrow + sub ─────────────────────────────────────────
-    gsap.from('.ab-hero__sub', { opacity: 0, y: 20, duration: 0.8, delay: 0.9, ease: 'power2.out' });
     gsap.from('.ab-hero__rule', { scaleX: 0, duration: 0.7, delay: 0.75, transformOrigin: 'left center', ease: 'power3.out' });
     gsap.from('.ab-hero__scroll-cue', { opacity: 0, duration: 0.6, delay: 1.3 });
 
@@ -342,13 +335,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // ── Why cards stagger ──────────────────────────────────────────
     gsap.from('.ab-why__card', {
         scrollTrigger: { trigger: '.ab-why__grid', start: 'top 85%' },
-        opacity: 0, y: 36, stagger: 0.1, duration: 0.65, ease: 'power2.out'
+        opacity: 0, y: 36, stagger: 0.1, duration: 0.65, ease: 'power2.out',
+        immediateRender: false
     });
 
     // ── Objectives stagger ─────────────────────────────────────────
     gsap.from('.ab-obj__card', {
-        scrollTrigger: { trigger: '.ab-obj__grid', start: 'top 85%' },
-        opacity: 0, y: 40, stagger: 0.15, duration: 0.7, ease: 'power2.out'
+        scrollTrigger: { trigger: '.ab-obj__grid', start: 'top 90%', toggleActions: 'play none none none' },
+        opacity: 0, y: 40, stagger: 0.15, duration: 0.7, ease: 'power2.out',
+        immediateRender: false
     });
 
     // ── Timeline line draw ─────────────────────────────────────────
@@ -357,13 +352,13 @@ document.addEventListener('DOMContentLoaded', function () {
         scaleY: 0, transformOrigin: 'top center'
     });
 
-    // ── Vision quote word reveal ───────────────────────────────────
+    // ── Vision quote fade ─────────────────────────────────────────
     const vq = document.querySelector('.ab-vision__quote');
     if (vq) {
-        const vSplit = new SplitText(vq, { type: 'words' });
-        gsap.from(vSplit.words, {
+        gsap.from(vq, {
             scrollTrigger: { trigger: vq, start: 'top 80%' },
-            opacity: 0, y: 20, stagger: 0.04, duration: 0.6, ease: 'power2.out'
+            opacity: 0, y: 20, duration: 0.8, ease: 'power2.out',
+            immediateRender: false
         });
     }
 
@@ -444,56 +439,6 @@ document.addEventListener('DOMContentLoaded', function () {
     width: 40px; height: 3px; border-radius: 2px;
     background: var(--gold); margin: .9rem auto 1.2rem;
 }
-.ab-hero__sub {
-    font-size: 1rem; color: rgba(255,255,255,.75);
-    max-width: 680px; margin: 0 auto; line-height: 1.8;
-    text-align: left;
-}
-.ab-hero__sub *,
-.ab-hero__sub p,
-.ab-hero__sub li,
-.ab-hero__sub span,
-.ab-hero__sub strong,
-.ab-hero__sub em,
-.ab-hero__sub a {
-    color: rgba(255,255,255,.85) !important;
-}
-.ab-hero__sub strong, .ab-hero__sub b {
-    color: #fff !important;
-    font-weight: 700;
-}
-.ab-hero__sub ul,
-.ab-hero__sub ol {
-    list-style: none;
-    padding: 0;
-    margin: 1.25rem 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: .85rem;
-}
-.ab-hero__sub ul li,
-.ab-hero__sub ol li {
-    display: flex;
-    align-items: flex-start;
-    gap: .75rem;
-    font-size: .96rem;
-    line-height: 1.7;
-    color: rgba(255,255,255,.75);
-    padding: .75rem 1rem;
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 10px;
-    transition: background .25s;
-}
-.ab-hero__sub ul li::before {
-    content: '';
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex-shrink: 0;
-    margin-top: .55rem;
-}
 .ab-hero__scroll-cue {
     margin-top: 3rem;
 }
@@ -539,7 +484,7 @@ document.addEventListener('DOMContentLoaded', function () {
     text-transform: uppercase; color: var(--gold-d);
     margin-bottom: .75rem;
 }
-.ab-section__label--light { color: rgba(255,255,255,.5); }
+.ab-section__label--light { color: rgba(255,255,255,.75); }
 .ab-section__title {
     font-size: clamp(1.6rem, 3vw, 2.4rem);
     font-weight: 800; color: var(--navy);
@@ -574,12 +519,13 @@ document.addEventListener('DOMContentLoaded', function () {
     position: relative; left: -2.5rem; margin-right: -20px; margin-top: 4px;
 }
 .ab-timeline__dot span {
-    position: absolute; left: calc(100% + 10px); top: 50%;
-    transform: translateY(-50%);
+    position: absolute; bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%);
     font-size: .7rem; font-weight: 700; color: var(--gold-d);
     white-space: nowrap; letter-spacing: .04em;
-    background: rgba(250,175,28,.08); border: 1px solid rgba(250,175,28,.18);
+    background: rgba(250,175,28,.12); border: 1px solid rgba(250,175,28,.3);
     padding: 2px 10px; border-radius: 100px;
+    z-index: 2;
 }
 .ab-timeline__card {
     background: #fff; border: 1px solid var(--border);
@@ -594,6 +540,10 @@ document.addEventListener('DOMContentLoaded', function () {
 /* ═══════════════════════════════════════════════════════════
    WHY
 ═══════════════════════════════════════════════════════════ */
+.ab-why__intro {
+    font-size: .95rem; color: var(--muted); line-height: 1.7;
+    margin: -1.5rem 0 2rem; max-width: 700px;
+}
 .ab-why__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -656,6 +606,12 @@ document.addEventListener('DOMContentLoaded', function () {
 .ab-two-col {
     display: grid; grid-template-columns: 280px 1fr; gap: 4rem; align-items: start;
 }
+.ab-mission .ab-section__label {
+    font-size: 1.1rem; letter-spacing: .08em;
+}
+.ab-mission .ab-section__title {
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+}
 .ab-mission__list {
     list-style: none; padding: 0; margin: 0;
     display: flex; flex-direction: column; gap: 1.5rem;
@@ -681,6 +637,15 @@ document.addEventListener('DOMContentLoaded', function () {
     background: var(--navy);
     padding: 5rem 0 6rem;
 }
+.ab-obj__intro {
+    font-size: .88rem; color: rgba(255,255,255,.65); line-height: 1.7;
+    margin: -1.5rem 0 2.5rem; max-width: 700px;
+}
+.ab-obj__subtitle {
+    font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: rgba(255,255,255,.5);
+    margin-bottom: .75rem;
+}
 .ab-obj__grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
     margin-top: 1rem;
@@ -697,7 +662,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 .ab-obj__num {
     font-size: 2.5rem; font-weight: 900; color: var(--obj-c);
-    opacity: .25; line-height: 1; margin-bottom: 1rem;
+    opacity: .55; line-height: 1; margin-bottom: 1rem;
     letter-spacing: -.04em;
 }
 .ab-obj__bar {
@@ -705,19 +670,63 @@ document.addEventListener('DOMContentLoaded', function () {
     background: var(--obj-c); margin-bottom: 1.25rem;
 }
 .ab-obj__title {
-    font-size: 1.1rem; font-weight: 700; color: #fff;
-    line-height: 1.3; margin: 0 0 .75rem;
+    font-size: 1.1rem; font-weight: 700; color: rgba(255,255,255,.95);
+    line-height: 1.3; margin: 0 0 .75rem; text-transform: uppercase; letter-spacing: .04em;
 }
-.ab-obj__desc {
-    font-size: .85rem; color: rgba(255,255,255,.85) !important; line-height: 1.7; margin: 0;
+/* ═══════════════════════════════════════════════════════════
+   CONTACT / SEND A MESSAGE
+═══════════════════════════════════════════════════════════ */
+.ab-contact { background: var(--bg) !important; }
+.ab-contact__wrap {
+    display: grid; grid-template-columns: 280px 1fr; gap: 4rem; align-items: start;
 }
-.ab-obj__desc *,
-.ab-obj__desc p,
-.ab-obj__desc li,
-.ab-obj__desc span {
-    color: rgba(255,255,255,.85) !important;
+.ab-contact__text {
+    font-size: .9rem; color: var(--muted); line-height: 1.7; margin: 0;
 }
-
+.ab-contact__form {
+    display: flex; flex-direction: column; gap: 1.25rem;
+}
+.ab-contact__row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+}
+.ab-contact__field {
+    display: flex; flex-direction: column; gap: .4rem;
+}
+.ab-contact__field label {
+    font-size: .75rem; font-weight: 600; color: var(--navy);
+    letter-spacing: .03em; text-transform: uppercase;
+}
+.ab-contact__field input,
+.ab-contact__field textarea {
+    font-family: inherit;
+    font-size: .9rem; color: var(--text);
+    padding: .75rem 1rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+    transition: border-color .25s, box-shadow .25s;
+}
+.ab-contact__field input:focus,
+.ab-contact__field textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(250,175,28,.12);
+}
+.ab-contact__field textarea { resize: vertical; min-height: 110px; }
+.ab-contact__btn {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: .6rem;
+    padding: .7rem 1.75rem;
+    font-family: inherit; font-size: .85rem; font-weight: 700;
+    color: #fff; background: var(--navy);
+    border: none; border-radius: 10px; cursor: pointer;
+    transition: background .25s, transform .2s, box-shadow .25s;
+}
+.ab-contact__btn:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250,175,28,.25);
+}
 
 /* ═══════════════════════════════════════════════════════════
    RESPONSIVE
@@ -727,6 +736,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 @media (max-width: 991px) {
     .ab-two-col { grid-template-columns: 1fr; gap: 2rem; }
+    .ab-contact__wrap { grid-template-columns: 1fr; gap: 2rem; }
     .ab-obj__grid { grid-template-columns: 1fr; gap: 1rem; }
     .ab-hero { padding: 50px 0 70px; }
 }
@@ -736,6 +746,7 @@ document.addEventListener('DOMContentLoaded', function () {
     .ab-timeline__dot { left: -1.5rem; }
     .ab-timeline__dot span { display: none; }
     .ab-hero { padding: 40px 0 60px; }
+    .ab-contact__row { grid-template-columns: 1fr; }
 }
 
 /* RTL adjustments */
@@ -745,6 +756,7 @@ document.addEventListener('DOMContentLoaded', function () {
 [dir="rtl"] .ab-timeline__dot span { left: auto; right: calc(100% + 10px); }
 [dir="rtl"] .ab-hero__rule { margin-left: auto; margin-right: auto; }
 [dir="rtl"] .ab-accent-bar { margin-left: 0; }
+[dir="rtl"] .ab-contact__btn { align-self: flex-end; }
 </style>
 
 @endsection
