@@ -25,7 +25,9 @@ class CommunityResource extends Resource
 {
     protected static ?string $model = Community::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationLabel = 'People / Community';
+    protected static ?string $navigationGroup = 'Content';
 
     public static function form(Form $form): Form
     {
@@ -46,7 +48,6 @@ class CommunityResource extends Resource
                         }),
                 FileUpload::make('thumbnail_image')->disk('public')->enableOpen()->image()->
                 directory('storage')
-                    ->required()
                     ->label('Thumbnail Image')->getUploadedFileNameForStorageUsing(
                         function (TemporaryUploadedFile $file): string {
                             $imgName = strtolower(md5($file->

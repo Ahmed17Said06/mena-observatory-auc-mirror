@@ -49,7 +49,6 @@ class NewsResource extends Resource
                     ->image()
                     ->directory('storage')
                     ->label('Image / Flyer')
-                    ->required()
                     ->getUploadedFileNameForStorageUsing(
                         function (TemporaryUploadedFile $file): string {
                             $imgName = strtolower(md5($file->getClientOriginalName() . time() . rand(1, 100))
