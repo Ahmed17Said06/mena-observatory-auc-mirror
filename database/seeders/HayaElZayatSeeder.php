@@ -9,7 +9,7 @@ class HayaElZayatSeeder extends Seeder
 {
     public function run(): void
     {
-        $communityId = DB::table('community')->insertGetId([
+        $communityId = DB::table('communities')->insertGetId([
             'name'            => 'Haya El Zayat',
             'description'     => 'Senior Researcher at the National Centre for Social Research (NatCen), UK. Research interests span informal labour, precarious work, gender and public policy, and social welfare. MPhil in International Development, University of Oxford.',
             'content'         => '',
