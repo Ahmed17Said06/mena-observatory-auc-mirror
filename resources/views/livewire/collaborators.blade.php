@@ -142,7 +142,7 @@
                     <div class="pt-logo"><img src="/img/partners/image1.png"  alt="A2KGA"></div>
                     <div class="pt-logo"><img src="/img/partners/image2.png"  alt="openAIR"></div>
                     <div class="pt-logo"><img src="/img/partners/image3.jpg"  alt="Fairwork"></div>
-                    <div class="pt-logo"><img src="/img/partners/image4.png"  alt="A+ Alliance"></div>
+                    <a class="pt-logo" href="https://aplusalliance.org/fair-middle-east-and-north-africa/" target="_blank" rel="noopener noreferrer"><img src="/img/partners/image4.png" alt="A+ Alliance MENA FAIR Hub"></a>
                     <div class="pt-logo"><img src="/img/partners/image5.png"  alt="CopyrightX"></div>
                     <div class="pt-logo"><img src="/img/partners/image6.png"  alt="D4D.net"></div>
                     <div class="pt-logo"><img src="/img/partners/image7.png"  alt="Feminist AI Research Network"></div>
