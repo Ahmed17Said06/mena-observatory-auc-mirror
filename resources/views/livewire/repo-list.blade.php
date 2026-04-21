@@ -76,6 +76,7 @@
 
             {{-- ═══ RESULTS ═══ --}}
             <div id='repos' class="rl-results">
+
                 @forelse($repos as $index => $r)
                     @php
                         $detailUrl = route('repo.single', $r->id);

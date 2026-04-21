@@ -1,3 +1,56 @@
+<style>
+    /* Community people — circular profile card layout */
+    #blogs .row.g-4 {
+        justify-content: center;
+        row-gap: 2.5rem !important;
+    }
+    .community-person-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0 0.5rem;
+    }
+    .community-circle {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 1rem;
+        flex-shrink: 0;
+    }
+    .community-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+    }
+    .community-name {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #022248;
+        margin-bottom: 0.4rem;
+    }
+    .community-name a {
+        color: #022248;
+        text-decoration: underline;
+    }
+    .community-name a:hover {
+        color: #c8870a;
+    }
+    .community-desc {
+        font-size: 0.82rem;
+        color: #555;
+        line-height: 1.55;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+
 <div class='col-12'>
     <div class='row' @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>
         <div class="col-9">
@@ -148,28 +201,21 @@
     </div>
     <div id="blogs" style=" overflow-y: auto; padding-bottom: 50px;">
     <div class="row g-4">
-        @foreach($blogs as $n)
-            <div class="col-12 col-md-6 col-lg-4 d-flex">
-                <div class="post-container w-100">
-                    <div class="post-loop-community position-relative overflow-hidden h-100">
-                        @php
-                            $thumbSrc = ($n->thumbnail_image && str_contains($n->thumbnail_image, '/'))
-                                ? Storage::url($n->thumbnail_image)
-                                : '/img/' . ($n->thumbnail_image ?: 'placeholder-featured.jpg');
-                        @endphp
-                        <img class="post-img w-100" src="{{ $thumbSrc }}">
-                        <div class="post-content" lang="en">
-                            <h4 style="color:#FFF;" class="slide_title">
-                                <a href="{{ route('community_single', ['id' => $n->id]) }}">{{ $n->name }}</a>
-                            </h4>
-                            <p style="color:#FFF;" class="slide_description">{{ $n->description }}</p>
-
-                            <a href="{{ route('community_single', ['id' => $n->id]) }}">
-                                <button class="btn learn_more"><i class="fas fa-plus"></i> Learn More</button>
-                            </a>
-                        </div>
-                        <div class="overlay-1"></div>
-                    </div>
+    @foreach($blogs as $n)
+            <div class="col-6 col-md-4 col-lg-3">
+                @php
+                    $thumbSrc = ($n->thumbnail_image && str_contains($n->thumbnail_image, '/'))
+                        ? Storage::url($n->thumbnail_image)
+                        : '/img/' . ($n->thumbnail_image ?: 'placeholder-featured.jpg');
+                @endphp
+                <div class="community-person-card">
+                    <a href="{{ route('community_single', ['id' => $n->id]) }}" class="community-circle">
+                        <img src="{{ $thumbSrc }}" alt="{{ $n->name }}">
+                    </a>
+                    <h4 class="community-name">
+                        <a href="{{ route('community_single', ['id' => $n->id]) }}">{{ $n->name }}</a>
+                    </h4>
+                    <p class="community-desc">{{ $n->description }}</p>
                 </div>
             </div>
         @endforeach

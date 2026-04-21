@@ -39,8 +39,10 @@
                     <div class="post-loop-events position-relative overflow-hidden">
                         @if(isset($n->is_static) && $n->is_static)
                             <img class="post-img" src="/{{$n->image}}" alt="{{$n->title}}">
-                        @else
+                        @elseif($n->image)
                             <img class="post-img" src="{{Storage::url($n->image)}}">
+                        @else
+                            <img class="post-img" src="/img/placeholder-featured.jpg" alt="{{$n->title}}">
                         @endif
                         <div class="post-content" lang="en">
                             <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
@@ -48,6 +50,10 @@
 
                             @if(isset($n->is_static) && $n->is_static)
                                 <a href='{{route("news.rai-cup")}}'>
+                                    <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
+                                </a>
+                            @elseif($n->data_link ?? null)
+                                <a href='{{$n->data_link}}' target='_blank'>
                                     <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
                                 </a>
                             @else

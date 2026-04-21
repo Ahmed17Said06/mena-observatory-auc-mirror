@@ -10,11 +10,17 @@
         <a class="btn-footer" href="{{route('contact_us')}}">@lang('translation.contact-us')</a>
     </div>
 
+    @php
+        $socialTwitter   = \App\Models\static_content::where('key', 'social_twitter')->value('content')   ?? 'https://x.com/MENAObs_AI';
+        $socialInstagram = \App\Models\static_content::where('key', 'social_instagram')->value('content') ?? 'https://www.instagram.com/menaobservatory.ai/';
+        $socialFacebook  = \App\Models\static_content::where('key', 'social_facebook')->value('content')  ?? 'https://www.facebook.com/a2k4d/';
+        $socialYoutube   = \App\Models\static_content::where('key', 'social_youtube')->value('content')   ?? 'https://www.youtube.com/@MENAObservatory.AI_';
+    @endphp
     <div class="d-flex justify-content-center" style='margin-top:30px;'>
-        <a href="#" class="fa-brands fa-x-twitter"></a>
-        <a href="#" class="fa fa-instagram"></a>
-{{--        <a href="#" class="fa fa-facebook"></a>--}}
-        <a href="#" class="fa fa-linkedin"></a>
+        <a href="{{ $socialTwitter }}" target="_blank" class="fa-brands fa-x-twitter"></a>
+        <a href="{{ $socialInstagram }}" target="_blank" class="fa-brands fa-instagram"></a>
+        <a href="{{ $socialFacebook }}" target="_blank" class="fa-brands fa-facebook"></a>
+        <a href="{{ $socialYoutube }}" target="_blank" class="fa-brands fa-youtube"></a>
     </div>
     <div style='margin-top:16px;'>
     <a href="mailto:info@menaobservatory.ai"
@@ -23,14 +29,9 @@
     <div class = 'line'></div>
 
 
-    <div style='width:100%;text-align:center;'>
-        <div >
-            <img src="{{ asset('/img/newLogo.png') }}" height='215;'>
-            <img src="{{ asset('/img/BZU_CCE_Logo.jpg') }}" height='105px;' style='margin-left:20px;margin-right:20px;'>
-        </div>
-        <div>
-            <img src="{{ asset('/img/logo2.png') }}" height='99px;'>
-        </div>
+    <div style='width:100%;text-align:center;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;'>
+        <img src="{{ asset('/img/newLogo.png') }}" height='160px'>
+        <img src="{{ asset('/img/logo2.png') }}" height='90px'>
     </div>
     <p id='privacy' style='margin-top:40px;color: #444444;'>@lang('translation.privacy')</p>
 

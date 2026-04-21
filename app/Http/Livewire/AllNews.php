@@ -86,3 +86,4 @@ class AllNews extends Component
         return view('livewire.news');
     }
 }
+

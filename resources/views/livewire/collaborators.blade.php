@@ -133,30 +133,16 @@
         </div>
     </div>
 
-    {{-- Quick-jump tabs --}}
-    <div class="container">
-        <div class="pt-tabs">
-            <a class="pt-tab" href="#networks">Networks &amp; Initiatives</a>
-            <a class="pt-tab" href="#national">National Partners</a>
-            <a class="pt-tab" href="#regional">Regional Partners</a>
-            <a class="pt-tab" href="#global">Global Research Partners</a>
-            <a class="pt-tab" href="#funding">Research Funding</a>
-        </div>
-    </div>
-
     <div class="pt-section">
         <div class="container">
 
-            {{-- ── Networks & Initiatives ─────────────────────── --}}
-            <div class="pt-group" id="networks">
-                <div class="pt-group__title-bar">
-                    <span class="pt-group__title">Networks &amp; Initiatives</span>
-                </div>
+            {{-- ── All Partners (flat grid) ───────────────────── --}}
+            <div class="pt-group">
                 <div class="pt-logos">
                     <div class="pt-logo"><img src="/img/partners/image1.png"  alt="A2KGA"></div>
                     <div class="pt-logo"><img src="/img/partners/image2.png"  alt="openAIR"></div>
                     <div class="pt-logo"><img src="/img/partners/image3.jpg"  alt="Fairwork"></div>
-                    <div class="pt-logo"><img src="/img/partners/image4.png"  alt="A+ Alliance"></div>
+                    <a class="pt-logo" href="https://aplusalliance.org/fair-middle-east-and-north-africa/" target="_blank" rel="noopener noreferrer"><img src="/img/partners/image4.png" alt="A+ Alliance MENA FAIR Hub"></a>
                     <div class="pt-logo"><img src="/img/partners/image5.png"  alt="CopyrightX"></div>
                     <div class="pt-logo"><img src="/img/partners/image6.png"  alt="D4D.net"></div>
                     <div class="pt-logo"><img src="/img/partners/image7.png"  alt="Feminist AI Research Network"></div>
@@ -169,15 +155,6 @@
                     <div class="pt-logo"><img src="/img/partners/image14.png" alt="IASEAI"></div>
                     <div class="pt-logo"><img src="/img/partners/image15.png" alt="NoC"></div>
                     <div class="pt-logo"><img src="/img/partners/image16.png" alt="iRAISE"></div>
-                </div>
-            </div>
-
-            {{-- ── National Partners ──────────────────────────── --}}
-            <div class="pt-group" id="national">
-                <div class="pt-group__title-bar">
-                    <span class="pt-group__title">National Partners</span>
-                </div>
-                <div class="pt-logos">
                     <div class="pt-logo"><img src="/img/partners/image17.png" alt="Synapse Analytics"></div>
                     <div class="pt-logo"><img src="/img/partners/image18.png" alt="Ideas GYM Studio"></div>
                     <div class="pt-logo"><img src="/img/partners/image19.png" alt="Shamseya"></div>
@@ -199,15 +176,6 @@
                     <div class="pt-logo"><img src="/img/partners/image35.jpg" alt="EntreprenElle"></div>
                     <div class="pt-logo"><img src="/img/partners/image36.png" alt="DevisionX"></div>
                     <div class="pt-logo"><img src="/img/partners/image37.png" alt="IBM"></div>
-                </div>
-            </div>
-
-            {{-- ── Regional Partners ──────────────────────────── --}}
-            <div class="pt-group" id="regional">
-                <div class="pt-group__title-bar">
-                    <span class="pt-group__title">Regional Partners</span>
-                </div>
-                <div class="pt-logos">
                     <div class="pt-logo"><img src="/img/partners/image38.png" alt="Knowledge to Policy Center"></div>
                     <div class="pt-logo"><img src="/img/partners/image39.png" alt="JOSA"></div>
                     <div class="pt-logo"><img src="/img/partners/image40.png" alt="Barralaman"></div>
@@ -227,15 +195,6 @@
                     <div class="pt-logo"><img src="/img/partners/image54.png" alt="NO2TA"></div>
                     <div class="pt-logo"><img src="/img/partners/image55.png" alt="Lebanese American University"></div>
                     <div class="pt-logo"><img src="/img/partners/image56.png" alt="InfoTimes"></div>
-                </div>
-            </div>
-
-            {{-- ── Global Research Partners ────────────────────── --}}
-            <div class="pt-group" id="global">
-                <div class="pt-group__title-bar">
-                    <span class="pt-group__title">Global Research Partners</span>
-                </div>
-                <div class="pt-logos">
                     <div class="pt-logo"><img src="/img/partners/image57.png" alt="CIPIT Strathmore"></div>
                     <div class="pt-logo"><img src="/img/partners/image58.png" alt="University of Johannesburg"></div>
                     <div class="pt-logo"><img src="/img/partners/image59.png" alt="UCT IP Unit"></div>
@@ -283,26 +242,5 @@
 
 </div>
 
-<script>
-// Highlight active tab on scroll
-(function () {
-    const tabs = document.querySelectorAll('.pt-tab');
-    const groups = document.querySelectorAll('.pt-group');
-    if (!tabs.length || !groups.length) return;
-
-    const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                const id = entry.target.id;
-                tabs.forEach(function (t) { t.classList.remove('active'); });
-                const active = document.querySelector('.pt-tab[href="#' + id + '"]');
-                if (active) active.classList.add('active');
-            }
-        });
-    }, { rootMargin: '-30% 0px -60% 0px' });
-
-    groups.forEach(function (g) { observer.observe(g); });
-})();
-</script>
 
 </div>
