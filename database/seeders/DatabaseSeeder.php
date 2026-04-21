@@ -67,6 +67,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             StaticContentSeeder::class,
+            StaticSettingsSeeder::class,
+            FeministAITalkSeeder::class,
+            ArabiFatsHubSeeder::class,
+            IrcaiTop100Seeder::class,
+            HayaElZayatSeeder::class,
         ]);
     }
 }
