@@ -10,7 +10,7 @@ class FeministAITalkSeeder extends Seeder
     public function run()
     {
         // Look up IDs by name so this works regardless of insertion order
-        $eventTypeId = DB::table('repo_types')->where('name', 'like', '%Event%')->value('id');
+        $eventTypeId = DB::table('repo_type')->where('name', 'like', '%Event%')->value('id');
         $countryId   = DB::table('countries')->where('name', 'Egypt')->value('id');
         $genderTagId = DB::table('repo_tags')->where('name', 'like', '%Gender%')->value('id');
 

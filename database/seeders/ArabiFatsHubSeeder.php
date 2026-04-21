@@ -9,7 +9,7 @@ class ArabiFatsHubSeeder extends Seeder
 {
     public function run(): void
     {
-        $eventTypeId = DB::table('repo_types')->where('name', 'like', '%Event%')->value('id');
+        $eventTypeId = DB::table('repo_type')->where('name', 'like', '%Event%')->value('id');
         $countryId   = DB::table('countries')->where('name', 'Egypt')->value('id');
 
         if (!$eventTypeId) {
