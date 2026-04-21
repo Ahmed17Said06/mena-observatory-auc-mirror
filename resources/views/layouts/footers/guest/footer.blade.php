@@ -11,10 +11,10 @@
     </div>
 
     <div class="d-flex justify-content-center" style='margin-top:30px;'>
-        <a href="#" class="fa-brands fa-x-twitter"></a>
-        <a href="#" class="fa fa-instagram"></a>
-{{--        <a href="#" class="fa fa-facebook"></a>--}}
-        <a href="#" class="fa fa-linkedin"></a>
+        <a href="https://x.com/MENAObs_AI" target="_blank" class="fa-brands fa-x-twitter"></a>
+        <a href="https://www.instagram.com/menaobservatory.ai/" target="_blank" class="fa-brands fa-instagram"></a>
+        <a href="https://www.facebook.com/a2k4d/" target="_blank" class="fa-brands fa-facebook"></a>
+        <a href="https://www.youtube.com/@MENAObservatory.AI_" target="_blank" class="fa-brands fa-youtube"></a>
     </div>
     <div style='margin-top:16px;'>
     <a href="mailto:info@menaobservatory.ai"
@@ -23,14 +23,9 @@
     <div class = 'line'></div>
 
 
-    <div style='width:100%;text-align:center;'>
-        <div >
-            <img src="{{ asset('/img/newLogo.png') }}" height='215;'>
-            <img src="{{ asset('/img/BZU_CCE_Logo.jpg') }}" height='105px;' style='margin-left:20px;margin-right:20px;'>
-        </div>
-        <div>
-            <img src="{{ asset('/img/logo2.png') }}" height='99px;'>
-        </div>
+    <div style='width:100%;text-align:center;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;'>
+        <img src="{{ asset('/img/newLogo.png') }}" height='160px'>
+        <img src="{{ asset('/img/logo2.png') }}" height='90px'>
     </div>
     <p id='privacy' style='margin-top:40px;color: #444444;'>@lang('translation.privacy')</p>
 

@@ -76,6 +76,91 @@
 
             {{-- ═══ RESULTS ═══ --}}
             <div id='repos' class="rl-results">
+
+                {{-- Hardcoded: Feminist AI Talk (Our Work / Gender / Events) --}}
+                @if($isOurWork === true)
+                <article class='rl-card' style="animation-delay: 0ms">
+                    <div class='row g-0'>
+                        <div class='col-md-3'>
+                            <a href="https://youtu.be/Agd7ETNsodA" target="_blank" class="rl-card-img-link">
+                                <div class="rl-card-img">
+                                    <img src="https://img.youtube.com/vi/Agd7ETNsodA/maxresdefault.jpg"
+                                         alt="Feminist AI Talk" loading="lazy">
+                                    <div class="rl-card-img-hover">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class='col-md-9'>
+                            <div class="rl-card-body">
+                                <a href="https://youtu.be/Agd7ETNsodA" target="_blank" class="rl-card-title">
+                                    "What is Feminist Artificial Intelligence? Perspectives from the Middle East and North Africa"
+                                </a>
+                                <p class="rl-card-desc">Johns Hopkins Berman Institute of Bioethics Seminar Series, Spring 2026 — February 9, 2026. A talk exploring the meaning and need for a feminist lens in addressing issues related to AI and inclusion, with examples from the MENA Observatory on Responsible AI at AUC.</p>
+                                <div class="rl-card-tags">
+                                    <span class="rl-tag">Gender</span>
+                                    <span class="rl-tag">Events</span>
+                                </div>
+                                <div class="rl-card-actions">
+                                    <a class="rl-dl" href="https://youtu.be/Agd7ETNsodA" target="_blank">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                                            <polyline points="15 3 21 3 21 9" />
+                                            <line x1="10" y1="14" x2="21" y2="3" />
+                                        </svg>
+                                        Watch Video
+                                    </a>
+                                    <a class="rl-dl" href="https://bioethics.jhu.edu/events/seminar-series-virtual-talk-with-nagla-rizk-phd/" target="_blank">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                                            <polyline points="15 3 21 3 21 9" />
+                                            <line x1="10" y1="14" x2="21" y2="3" />
+                                        </svg>
+                                        Event Page
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                @endif
+
+                {{-- Hardcoded: Arabi Facts Hub x MENA Observatory Webinar --}}
+                @if($isOurWork === true)
+                <article class='rl-card' style="animation-delay: 40ms">
+                    <div class='row g-0'>
+                        <div class='col-md-3'>
+                            <a href="#" class="rl-card-img-link">
+                                <div class="rl-card-img">
+                                    <div class="rl-card-img-placeholder">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                            <polyline points="14 2 14 8 20 8"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class='col-md-9'>
+                            <div class="rl-card-body">
+                                <span class="rl-card-title">Arabi Facts Hub x MENA Observatory Webinar</span>
+                                <p class="rl-card-desc">Wednesday, April 8, 2026 | 12:00 – 1:30 PM</p>
+                                <div class="rl-card-tags">
+                                    <span class="rl-tag">Webinar</span>
+                                    <span class="rl-tag">Events</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                @endif
+
                 @forelse($repos as $index => $r)
                     @php
                         $detailUrl = route('repo.single', $r->id);

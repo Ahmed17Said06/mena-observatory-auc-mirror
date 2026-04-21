@@ -51,30 +51,29 @@
     {{-- ══════════════════════════════════════════════════ --}}
     <section class="ab-section ab-story" id="our-story">
         <div class="container">
-            <div class="ab-section__label js-reveal">Our Story</div>
             <h2 class="ab-section__title js-reveal-up">Our Story</h2>
 
             <div class="ab-timeline">
                 <div class="ab-timeline__line"></div>
 
                 <div class="ab-timeline__item js-tl-item">
-                    <div class="ab-timeline__dot"><span>2010</span></div>
+                    <div class="ab-timeline__dot"><span>Feb 2010</span></div>
                     <div class="ab-timeline__card">
-                        <p>The <strong>Access to Knowledge for Development Center (A2K4D)</strong> based at The American University in Cairo's Onsi Sawiris School of Business operates the MENA Observatory on Responsible AI building on its history of advancing knowledge, technology and data for development in the region since inception in February 2010.</p>
+                        <p>Launch of the <strong>Access to Knowledge for Development Center (A2K4D)</strong> at The American University in Cairo's Onsi Sawiris School of Business is established.</p>
                     </div>
                 </div>
 
                 <div class="ab-timeline__item js-tl-item">
                     <div class="ab-timeline__dot"><span>Feb 2024</span></div>
                     <div class="ab-timeline__card">
-                        <p>The Observatory was initially developed by A2K4D and launched at the Center's 14th anniversary in February 2024 as the <strong>"MENA AI Observatory"</strong>. A2K4D established the Observatory as one of its outputs within the project <em>"Governing Responsible AI in the MENA Region"</em>, held in partnership with BirZeit University's Center for Continuing Education in Palestine and support from Canada's <strong>International Development Research Centre (IDRC)</strong>.</p>
+                        <p>Launch of the <strong>"MENA AI Observatory"</strong> by A2K4D, at the Center's 14th anniversary, building on a history of advancing knowledge, technology and data for development in the region. A2K4D built the observatory as part of the project <em>"Governing Responsible AI in the MENA Region"</em>, held in partnership with BirZeit University's Center for Continuing Education and supported by Canada's <strong>International Development Research Centre (IDRC)</strong>.</p>
                     </div>
                 </div>
 
                 <div class="ab-timeline__item js-tl-item">
                     <div class="ab-timeline__dot"><span>Dec 2024</span></div>
                     <div class="ab-timeline__card">
-                        <p>In December 2024, the Observatory became a standalone project at A2K4D, with support from IDRC, carrying its current name, <strong>"The MENA Observatory on Responsible AI"</strong>. Since then, A2K4D has been working through Observatory on initiatives that capitalize on responsible data and AI for inclusion and achievement of the sustainable development goals in MENA, in collaboration with a host of local, regional and global partners.</p>
+                        <p>Establishment of the Observatory by A2K4D as a standalone project with continued IDRC support, adopting its current name: <strong>"The MENA Observatory on Responsible AI"</strong> and working on initiatives that capitalize on responsible data and AI for inclusion and achievement of the SDGs across MENA in collaboration with local, regional, and global partners.</p>
                     </div>
                 </div>
             </div>
@@ -99,7 +98,6 @@
                         </svg>
                     </div>
                     <h4>Bottom-Up Approach</h4>
-                    <p>The need to advance a bottom-up approach that highlights local experiences, community engagement, and inclusive practices in data collection and AI system development, addressing regional nuances, prioritizing gender perspectives and raising awareness about responsible data and AI usage.</p>
                 </div>
 
                 <div class="ab-why__card js-reveal-up">
@@ -109,7 +107,6 @@
                         </svg>
                     </div>
                     <h4>Stakeholder Focal Point</h4>
-                    <p>The need to establish a focal point connecting various stakeholders—including researchers, policymakers, entrepreneurs, civil society, educators, and beneficiaries—by creating dynamic collaborative spaces that promote effective policy making and advance the responsible use of AI.</p>
                 </div>
 
                 <div class="ab-why__card js-reveal-up">
@@ -119,7 +116,6 @@
                         </svg>
                     </div>
                     <h4>Evidence-Based Research</h4>
-                    <p>The need to further innovative evidence based research to impact policy, practice and people.</p>
                 </div>
 
                 <div class="ab-why__card js-reveal-up">
@@ -129,7 +125,6 @@
                         </svg>
                     </div>
                     <h4>Multistakeholder Collaboration</h4>
-                    <p>The need to promote a multistakeholder approach to advance collaboration in responsible data and Artificial Intelligence for development.</p>
                 </div>
 
                 <div class="ab-why__card js-reveal-up">
@@ -139,7 +134,6 @@
                         </svg>
                     </div>
                     <h4>Global Visibility for MENA</h4>
-                    <p>The need to enhance visibility and impact of MENA research and experiences in global policy-making spaces.</p>
                 </div>
 
             </div>
@@ -153,8 +147,8 @@
         <div class="ab-vision__bg"></div>
         <div class="container position-relative" style="z-index:2">
             <div class="ab-vision__inner">
-                <div class="ab-vision__tag js-reveal">Vision</div>
-                <blockquote class="ab-vision__quote js-reveal-up">
+                <div class="ab-vision__tag">Vision</div>
+                <blockquote class="ab-vision__quote">
                     As a dynamic, inclusive and locally-driven platform on responsible AI in MENA, the Observatory is envisioned to serve as a catalyst for change by being a tool for policy making, a hub for connecting stakeholders and communities and the go-to home for any and all knowledge on responsible AI as it pertains to the lives of everyone in the region.
                 </blockquote>
             </div>
@@ -352,15 +346,7 @@ document.addEventListener('DOMContentLoaded', function () {
         scaleY: 0, transformOrigin: 'top center'
     });
 
-    // ── Vision quote fade ─────────────────────────────────────────
-    const vq = document.querySelector('.ab-vision__quote');
-    if (vq) {
-        gsap.from(vq, {
-            scrollTrigger: { trigger: vq, start: 'top 80%' },
-            opacity: 0, y: 20, duration: 0.8, ease: 'power2.out',
-            immediateRender: false
-        });
-    }
+
 
     // ── Hero rings float ──────────────────────────────────────────
     gsap.to('.ab-hero__ring--1', { y: -18, duration: 6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
@@ -480,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
 .ab-section { padding: 5rem 0; background: #fff; }
 .ab-section + .ab-section { border-top: 1px solid var(--border); }
 .ab-section__label {
-    font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+    font-size: 1.1rem; font-weight: 700; letter-spacing: .14em;
     text-transform: uppercase; color: var(--gold-d);
     margin-bottom: .75rem;
 }
@@ -586,7 +572,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 .ab-vision__inner { max-width: 800px; margin: 0 auto; text-align: center; }
 .ab-vision__tag {
-    font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+    font-size: 2.2rem; font-weight: 700; letter-spacing: .14em;
     text-transform: uppercase; color: var(--gold);
     display: inline-block; margin-bottom: 2rem;
     background: rgba(250,175,28,.1); border: 1px solid rgba(250,175,28,.2);
@@ -607,10 +593,10 @@ document.addEventListener('DOMContentLoaded', function () {
     display: grid; grid-template-columns: 280px 1fr; gap: 4rem; align-items: start;
 }
 .ab-mission .ab-section__label {
-    font-size: 1.1rem; letter-spacing: .08em;
+    font-size: 2.5rem; letter-spacing: .08em;
 }
 .ab-mission .ab-section__title {
-    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    font-size: clamp(0.85rem, 1.4vw, 1.1rem);
 }
 .ab-mission__list {
     list-style: none; padding: 0; margin: 0;

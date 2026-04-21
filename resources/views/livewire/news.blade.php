@@ -34,6 +34,22 @@
     flex-wrap: wrap;
     align-content: center;
     padding-bottom: 50px;'>
+            {{-- Hardcoded: IRCAI Top 100 2025 --}}
+            <div class="post-container lazy-item">
+                <div class="post-loop-events position-relative overflow-hidden">
+                    <img class="post-img" src="/img/placeholder-featured.jpg" alt="IRCAI Top 100 2025">
+                    <div class="post-content" lang="en">
+                        <h4 style='color:#FFF;' class='slide_title'>MENA AI Observatory Selected in IRCAI Top 100 2025</h4>
+                        <p style='color:#FFF;' class='slide_description'>Honored to be selected as an Early Stage project in the IRCAI Top 100 2025 – Global Index of AI Innovations. Recognized among outstanding initiatives advancing AI for sustainability and the UN SDGs.</p>
+                        <a href='https://ircai.org/top100/entry/mena-ai-observatory/' target='_blank'>
+                            <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
+                        </a>
+                    </div>
+                    <div class="overlay-1"></div>
+                    <div class="overlay-news"></div>
+                </div>
+            </div>
+
             @foreach($blogs as $index => $n)
                 <div class="post-container lazy-item">
                     <div class="post-loop-events position-relative overflow-hidden">

@@ -201,7 +201,18 @@
     </div>
     <div id="blogs" style=" overflow-y: auto; padding-bottom: 50px;">
     <div class="row g-4">
-        @foreach($blogs as $n)
+        {{-- Hardcoded: Haya El Zayat --}}
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="community-person-card">
+                <div class="community-circle">
+                    <img src="/img/placeholder-featured.jpg" alt="Haya El Zayat">
+                </div>
+                <h4 class="community-name">Haya El Zayat</h4>
+                <p class="community-desc">Senior Researcher at the National Centre for Social Research (NatCen), UK. Research interests span informal labour, precarious work, gender and public policy, and social welfare. MPhil in International Development, University of Oxford.</p>
+            </div>
+        </div>
+
+    @foreach($blogs as $n)
             <div class="col-6 col-md-4 col-lg-3">
                 @php
                     $thumbSrc = ($n->thumbnail_image && str_contains($n->thumbnail_image, '/'))

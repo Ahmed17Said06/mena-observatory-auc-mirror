@@ -911,9 +911,9 @@
     <div id="announcementBar" class="announcement-bar">
         <div class="announcement-content">
             <svg style="height:16px;width:16px;margin-right:8px;flex-shrink:0;color:var(--mena-gold);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span>Anah Exhibition at the AUC Tahrir Culture Fest — April 2 (6:00–10:00 PM) &amp; April 3–4 (10:00 AM–8:00 PM) | Future Gallery, Tahrir Campus</span>
-            <a href="https://tahrirculturefest.aucegypt.edu/?utm_source=several&utm_medium=partners&utm_campaign=tcf26" target="_blank" rel="noopener noreferrer"
-                class="announcement-link">For more information →</a>
+            <span>Coming Soon - Convergence Summit, May 2, 2026 | AUC Tahrir Campus | CONVERGENCE: Where Robotics Meets the Human Condition</span>
+            <a href="https://www.convergence-summit.com/" target="_blank" rel="noopener noreferrer"
+                class="announcement-link">Learn more →</a>
         </div>
         <button class="announcement-close" onclick="closeAnnouncement()">×</button>
     </div>
