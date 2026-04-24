@@ -31,7 +31,7 @@
 
         <!-- CTA Buttons -->
         <section class="fai-section fai-cta-buttons">
-            <a href="{{ route('regional') }}" class="fai-btn fai-btn--primary">Explore Knowledge Hub</a>
+            <a href="{{ route('regional.gender') }}" class="fai-btn fai-btn--primary">Explore Knowledge Hub</a>
             <a href="{{ route('collaborate') }}" class="fai-btn fai-btn--outline">Collaborate With Us</a>
         </section>
 

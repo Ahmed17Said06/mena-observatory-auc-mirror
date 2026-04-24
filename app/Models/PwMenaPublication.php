@@ -19,8 +19,11 @@ class PwMenaPublication extends Model
         'type',
         'tag',
         'link_en',
+        'file_en',
         'link_ar',
+        'file_ar',
         'link_fr',
+        'file_fr',
         'external_link',
         'sort_order',
     ];
@@ -37,9 +40,9 @@ class PwMenaPublication extends Model
         return Storage::disk('public')->url($path);
     }
 
-    public function getLinkEnUrlAttribute(): ?string   { return $this->resolveLink($this->link_en); }
-    public function getLinkArUrlAttribute(): ?string   { return $this->resolveLink($this->link_ar); }
-    public function getLinkFrUrlAttribute(): ?string   { return $this->resolveLink($this->link_fr); }
+    public function getLinkEnUrlAttribute(): ?string   { return $this->resolveLink($this->file_en ?? $this->link_en); }
+    public function getLinkArUrlAttribute(): ?string   { return $this->resolveLink($this->file_ar ?? $this->link_ar); }
+    public function getLinkFrUrlAttribute(): ?string   { return $this->resolveLink($this->file_fr ?? $this->link_fr); }
     public function getExternalUrlAttribute(): ?string { return $this->resolveLink($this->external_link); }
 
     public function scopeReports($query) { return $query->where('type', 'report'); }

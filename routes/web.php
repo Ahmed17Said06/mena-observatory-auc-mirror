@@ -139,6 +139,7 @@ Route::group([
     Route::get('/regional/global-other-work', [RegionalController::class, 'globalOtherWork'])->name('regional.global_other_work');
     // Keep old route as redirect to avoid broken links
     Route::get('/regional/other-work', function() { return redirect()->route('regional.regional_other_work'); })->name('regional.other_work');
+    Route::get('/regional/gender', [RegionalController::class, 'genderResources'])->name('regional.gender');
     Route::get('/regional/videos', [RegionalController::class, 'videos'])->name('regional.videos');
     Route::get('/regional/html_list', [RegionalController::class, 'js_list_view'])->name('regional.html_list');
     Route::get('/regional/{id}', [RegionalController::class, 'country'])->name('regional.country');

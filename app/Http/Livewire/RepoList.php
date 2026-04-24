@@ -43,6 +43,7 @@ class RepoList extends Component
     public $is_data_repo_page = false;
     public $isOurWork = null;
     public $isGlobal = null;
+    public $filterTag = null;
     
     // Lazy loading properties
     public $pageNumber = 1;
@@ -55,13 +56,14 @@ class RepoList extends Component
 
         // Load all repo types including Data Depository
         $this->repo_types = Repo_type::All();
-        // Default to RESEARCH OUTPUTS (ID 1)
-        $this->repo_type_ids = [1];
+        // Default to RESEARCH OUTPUTS (ID 1) unless a tag filter is active (show all types)
+        $this->repo_type_ids = $this->filterTag ? [] : [1];
 
         // Scope filter options to the current page context (isOurWork / isGlobal)
         $base = Repo::query()
             ->when(!is_null($this->isOurWork), fn($q) => $q->where('is_our_work', $this->isOurWork))
-            ->when(!is_null($this->isGlobal),  fn($q) => $q->where('is_global',   $this->isGlobal));
+            ->when(!is_null($this->isGlobal),  fn($q) => $q->where('is_global',   $this->isGlobal))
+            ->when($this->filterTag, fn($q) => $q->whereHas('tags', fn($tq) => $tq->where('name', $this->filterTag)));
 
         $this->authors = Author::whereHas('repos', function ($q) use ($base) {
             $q->when(!is_null($this->isOurWork), fn($q) => $q->where('is_our_work', $this->isOurWork))
@@ -140,6 +142,7 @@ class RepoList extends Component
             ->when(!is_null($this->isGlobal), function ($query) {
                 $query->where('is_global', $this->isGlobal);
             })
+            ->when($this->filterTag, fn($query) => $query->whereHas('tags', fn($tq) => $tq->where('name', $this->filterTag)))
             ->with('tags')
             ->latest();
     }
@@ -177,9 +180,9 @@ class RepoList extends Component
     {
         $this->reset('repo_type_ids', 'search', 'selectedAuthorsIds',
             'selectedFields', 'selectedSubjects', 'selectedProjects', 'selectedPublishDates', 'selectedCountryIds');
-        
-        // Re-set default type to RESEARCH OUTPUTS
-        $this->repo_type_ids = [1];
+
+        // Re-set default type: all types when tag-filtered, otherwise RESEARCH OUTPUTS (ID 1)
+        $this->repo_type_ids = $this->filterTag ? [] : [1];
         
         $this->resetItems();
     }
