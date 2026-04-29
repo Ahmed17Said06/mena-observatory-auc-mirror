@@ -154,7 +154,6 @@
                     <div class="pt-logo"><img src="/img/partners/image13.png" alt="Open for Good"></div>
                     <div class="pt-logo"><img src="/img/partners/image14.png" alt="IASEAI"></div>
                     <div class="pt-logo"><img src="/img/partners/image15.png" alt="NoC"></div>
-                    <div class="pt-logo"><img src="/img/partners/image16.png" alt="iRAISE"></div>
                     <div class="pt-logo"><img src="/img/partners/image17.png" alt="Synapse Analytics"></div>
                     <div class="pt-logo"><img src="/img/partners/image18.png" alt="Ideas GYM Studio"></div>
                     <div class="pt-logo"><img src="/img/partners/image19.png" alt="Shamseya"></div>
@@ -212,9 +211,7 @@
                     <div class="pt-logo"><img src="/img/partners/image71.png" alt="Meta"></div>
                     <div class="pt-logo"><img src="/img/partners/image72.png" alt="UNESCO IFAP"></div>
                     <div class="pt-logo"><img src="/img/partners/image73.jpg" alt="GIZ"></div>
-                    <div class="pt-logo"><img src="/img/partners/image74.jpg" alt="Friedrich Ebert Stiftung"></div>
                     <div class="pt-logo"><img src="/img/partners/image75.png" alt="Anna Lindh Foundation"></div>
-                    <div class="pt-logo"><img src="/img/partners/image76.png" alt="iRAISE"></div>
                 </div>
             </div>
 
@@ -224,6 +221,7 @@
                     <span class="pt-group__title">Research Funding Partners</span>
                 </div>
                 <div class="pt-logos">
+                    <div class="pt-logo"><img src="/img/partners/image74.jpg" alt="Friedrich Ebert Stiftung"></div>
                     <div class="pt-logo"><img src="/img/partners/image77.png" alt="IDRC"></div>
                     <div class="pt-logo"><img src="/img/partners/image78.png" alt="Birzeit University"></div>
                     <div class="pt-logo"><img src="/img/partners/image79.png" alt="WZB Berlin"></div>

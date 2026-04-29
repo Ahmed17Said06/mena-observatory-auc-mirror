@@ -12,7 +12,9 @@ use App\Models\Repo_theme;
 use App\Models\Repo_type;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
@@ -40,10 +42,10 @@ class RepoResource extends Resource
         return $form
             ->schema([
                 TextInput::make('title')->required(),
-                TextInput::make('description')
-                    ->hint(fn($state, $component) => 'left: ' . $component->getMaxLength() - strlen($state) . ' characters')
-                    ->maxlength(160)
-                    ->reactive(),
+                Textarea::make('description')
+                    ->hint('Short summary shown on cards and listings.')
+                    ->rows(4)
+                    ->nullable(),
                 TextInput::make('data_link')->label('link')->nullable(),
                 FileUpload::make('image')->disk('public')->enableOpen()->image()->
                 directory('storage')->required()
@@ -56,7 +58,11 @@ class RepoResource extends Resource
                         }),
 //                FileUpload::make('file')->acceptedFileTypes(['application/pdf']),
                 DatePicker::make('publish_date')->format('Y-m-d'),
-//                RichEditor::make('content'),
+                RichEditor::make('content')
+                    ->label('Full Content (Rich Text)')
+                    ->hint('Displayed on the resource detail page below the description.')
+                    ->nullable()
+                    ->columnSpanFull(),
 
                 Select::make('authors')
                     ->relationship('authors', 'name',)
@@ -100,6 +106,19 @@ class RepoResource extends Resource
                     ->helperText('For external "Other Work": enable if global scope, leave off for regional scope')
                     ->hidden(fn ($get) => (bool) $get('is_our_work')),
 
+                Toggle::make('is_research')
+                    ->label('Research')
+                    ->helperText('Original research output (papers, studies, datasets)')
+                    ->default(false),
+                Toggle::make('is_talk_webinar')
+                    ->label('Talks & Webinars')
+                    ->helperText('Recorded talks, webinars, or panel discussions')
+                    ->default(false),
+                Toggle::make('is_educational')
+                    ->label('Educational Resources')
+                    ->helperText('Tutorials, courses, guides, learning materials')
+                    ->default(false),
+
             ]);
     }
 
@@ -128,6 +147,18 @@ class RepoResource extends Resource
                     ->label('Global')
                     ->action(fn (Repo $record) => $record->update(['is_global' => ! $record->is_global]))
                     ->tooltip('Click to toggle'),
+                Tables\Columns\BooleanColumn::make('is_research')
+                    ->label('Research')
+                    ->action(fn (Repo $record) => $record->update(['is_research' => ! $record->is_research]))
+                    ->tooltip('Click to toggle'),
+                Tables\Columns\BooleanColumn::make('is_talk_webinar')
+                    ->label('Talk/Webinar')
+                    ->action(fn (Repo $record) => $record->update(['is_talk_webinar' => ! $record->is_talk_webinar]))
+                    ->tooltip('Click to toggle'),
+                Tables\Columns\BooleanColumn::make('is_educational')
+                    ->label('Educational')
+                    ->action(fn (Repo $record) => $record->update(['is_educational' => ! $record->is_educational]))
+                    ->tooltip('Click to toggle'),
             ])
             ->filters([
                 SelectFilter::make('classification')
@@ -155,6 +186,26 @@ class RepoResource extends Resource
                 SelectFilter::make('country_id')
                     ->label('Country')
                     ->options(countries::all()->pluck('name', 'id')),
+
+                SelectFilter::make('format')
+                    ->label('Format')
+                    ->options([
+                        'research'      => 'Research',
+                        'talk_webinar'  => 'Talks & Webinars',
+                        'educational'   => 'Educational Resources',
+                        'unclassified'  => 'Unclassified (none of the three)',
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return match ($data['value'] ?? null) {
+                            'research'     => $query->where('is_research', true),
+                            'talk_webinar' => $query->where('is_talk_webinar', true),
+                            'educational'  => $query->where('is_educational', true),
+                            'unclassified' => $query->where(fn ($q) => $q->where('is_research', false)->orWhereNull('is_research'))
+                                                    ->where(fn ($q) => $q->where('is_talk_webinar', false)->orWhereNull('is_talk_webinar'))
+                                                    ->where(fn ($q) => $q->where('is_educational', false)->orWhereNull('is_educational')),
+                            default        => $query,
+                        };
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -188,6 +239,50 @@ class RepoResource extends Resource
                     ->action(function (Collection $records): void {
                         $records->each(fn (Repo $r) => $r->update(['is_our_work' => false, 'is_global' => true]));
                         Notification::make()->title('Marked as Global Other Work')->send();
+                    }),
+
+                Tables\Actions\BulkAction::make('mark_research')
+                    ->label('Mark as Research')
+                    ->icon('heroicon-o-academic-cap')
+                    ->color('primary')
+                    ->requiresConfirmation()
+                    ->action(function (Collection $records): void {
+                        $records->each(fn (Repo $r) => $r->update(['is_research' => true]));
+                        Notification::make()->title('Marked as Research')->success()->send();
+                    }),
+
+                Tables\Actions\BulkAction::make('mark_talk_webinar')
+                    ->label('Mark as Talks & Webinars')
+                    ->icon('heroicon-o-microphone')
+                    ->color('primary')
+                    ->requiresConfirmation()
+                    ->action(function (Collection $records): void {
+                        $records->each(fn (Repo $r) => $r->update(['is_talk_webinar' => true]));
+                        Notification::make()->title('Marked as Talks & Webinars')->success()->send();
+                    }),
+
+                Tables\Actions\BulkAction::make('mark_educational')
+                    ->label('Mark as Educational Resources')
+                    ->icon('heroicon-o-book-open')
+                    ->color('primary')
+                    ->requiresConfirmation()
+                    ->action(function (Collection $records): void {
+                        $records->each(fn (Repo $r) => $r->update(['is_educational' => true]));
+                        Notification::make()->title('Marked as Educational Resources')->success()->send();
+                    }),
+
+                Tables\Actions\BulkAction::make('clear_format_flags')
+                    ->label('Clear Format Flags')
+                    ->icon('heroicon-o-x-circle')
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->action(function (Collection $records): void {
+                        $records->each(fn (Repo $r) => $r->update([
+                            'is_research'      => false,
+                            'is_talk_webinar'  => false,
+                            'is_educational'   => false,
+                        ]));
+                        Notification::make()->title('Format flags cleared')->send();
                     }),
 
                 Tables\Actions\DeleteBulkAction::make(),

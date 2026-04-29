@@ -7,17 +7,24 @@
 @section('content')
     @include('layouts.navbars.guest.navbar', ['title' => 'Videos'])
 
-    <div class="container my-3 my-lg-5">
-        <div class='row' @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>
-            <div class="col-12">
-                <h1 class="page-title" style="color: #1a1a2e; font-weight: 800; margin-bottom: 0.5rem;">
-                    @lang('translation.videos')
-                </h1>
-                <p style="color: #6b7280; font-size: 1.1rem; margin-bottom: 2rem;">
-                    @lang('translation.videos-subtitle')
-                </p>
+    <div class="vd-page" @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>
+
+        {{-- ═══ HERO ═══ --}}
+        <div class="vd-hero">
+            <div class="vd-hero-overlay"></div>
+            <div class="container vd-hero-content">
+                <h1 class="vd-hero-title">@lang('translation.videos')</h1>
+                <p class="vd-hero-sub">@lang('translation.videos-subtitle')</p>
+            </div>
+            <div class="vd-hero-wave">
+                <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
+                    <path fill="#f5f6f8" d="M0,35 C480,65 960,10 1440,40 L1440,70 L0,70 Z" opacity="0.5"/>
+                    <path fill="#f5f6f8" d="M0,45 C360,65 900,20 1440,45 L1440,70 L0,70 Z"/>
+                </svg>
             </div>
         </div>
+
+        <div class="container my-3 my-lg-5">
 
         @if($videos->count() > 0)
             <div class="row g-4">
@@ -69,11 +76,49 @@
                 <h4 style="color: #6b7280;">@lang('translation.no-videos')</h4>
             </div>
         @endif
+        </div>
     </div>
 
     @include('layouts.footers.guest.footer')
 
     <style>
+        .vd-page { background: #f5f6f8; min-height: 100vh; }
+        .vd-hero {
+            position: relative;
+            background: linear-gradient(135deg, #022248 0%, #0a4a6e 50%, #c8870a 100%);
+            background-size: 300% 300%;
+            animation: vd-grad 12s ease infinite;
+            padding: 3.5rem 0 0;
+            overflow: hidden;
+        }
+        @keyframes vd-grad {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .vd-hero-overlay {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 70% 40%, rgba(250,175,28,.25) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .vd-hero-content { position: relative; z-index: 2; padding-bottom: 3rem; }
+        .vd-hero-title {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 800; color: #fff; margin: 0 0 .6rem;
+            letter-spacing: -.01em; line-height: 1.2;
+        }
+        .vd-hero-sub {
+            font-size: 1rem;
+            color: rgba(255,255,255,.78);
+            margin: 0; max-width: 620px;
+        }
+        .vd-hero-wave { position: relative; z-index: 2; line-height: 0; margin-top: -1px; }
+        .vd-hero-wave svg { display: block; width: 100%; height: 70px; }
+        @media (max-width: 767px) {
+            .vd-hero { padding-top: 2.5rem; }
+            .vd-hero-title { font-size: 1.6rem; }
+        }
+
         .video-card {
             background: #fff;
             border-radius: 16px;

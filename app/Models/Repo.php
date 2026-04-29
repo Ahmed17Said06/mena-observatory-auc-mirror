@@ -33,7 +33,18 @@ class Repo extends Model
         'subject',
         'project',
         'is_our_work',
-        'is_global'
+        'is_global',
+        'is_research',
+        'is_talk_webinar',
+        'is_educational',
+    ];
+
+    protected $casts = [
+        'is_our_work' => 'boolean',
+        'is_global' => 'boolean',
+        'is_research' => 'boolean',
+        'is_talk_webinar' => 'boolean',
+        'is_educational' => 'boolean',
     ];
 
     protected $table = 'repo';

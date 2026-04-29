@@ -1,7 +1,7 @@
 <?php
 return [
     "about-us" => "About Us",
-    "posts" => "Posts",
+    "posts" => "Blog Posts",
     "researchers" => "People",
     "recent-posts" => "Recent Posts",
     "new_work" => "New Work",
@@ -9,7 +9,7 @@ return [
     "policy-briefs" => "Policy Briefs",
     "news-events" => "News & Events",
     "knowledge-hub" => "Knowledge Hub",
-    "our-work" => "Our Work",
+    "our-work" => "Observatory Outputs",
     "other-work" => "Other Work",
     "videos" => "Videos",
     "videos-subtitle" => "Watch our latest videos, talks, and presentations",
@@ -71,7 +71,7 @@ return [
     "subscribe-newsletter" => "RECEIVE NEWS AND UPDATES",
     "latest-updates" => "Latest Updates: MENA AI Observatory News & Research Now Available",
     "ai-indices" => "AI Indices",
-    "news" => "News",
+    "news" => "News & Events",
     "podcasts" => "Podcasts",
     "pw-mena" => "FUTURE OF WORK MENA",
     "pw-mena-title" => "Future of Work - MENA",
@@ -83,4 +83,7 @@ return [
     "pw-mena-blogposts" => "Blogposts",
     "pw-mena-visuals" => "Visuals",
     "pw-mena-institutions" => "Network Institutions",
+    "research" => "Research",
+    "talks-webinars" => "Talks & Webinars",
+    "educational-resources" => "Educational Resources",
 ];

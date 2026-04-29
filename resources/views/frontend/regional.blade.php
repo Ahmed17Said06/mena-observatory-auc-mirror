@@ -7,7 +7,7 @@
 @section('content')
     @include('layouts.navbars.guest.navbar', ['title' => 'Dashboard'])
 
-    @if (is_null($isOurWork))
+    @if (is_null($isOurWork) && !isset($filterTag))
         {{-- ═══════════════════════════════════════════════ --}}
         {{-- KNOWLEDGE HUB — LANDING PAGE                   --}}
         {{-- ═══════════════════════════════════════════════ --}}
@@ -99,7 +99,7 @@
                                     </svg>
                                 </div>
                                 <h3 class="kh-card-title">
-                                    @if (LaravelLocalization::getCurrentLocale() == 'ar') أعمال إقليمية أخرى @else Regional Other Work @endif
+                                    @if (LaravelLocalization::getCurrentLocale() == 'ar') الموارد الإقليمية @else Regional Resources @endif
                                 </h3>
                                 <p class="kh-card-desc">
                                     @php $kh_regional_work_desc = \App\Models\static_content::where('key','kh_regional_work_desc')->first() @endphp
@@ -141,7 +141,7 @@
                                     </svg>
                                 </div>
                                 <h3 class="kh-card-title">
-                                    @if (LaravelLocalization::getCurrentLocale() == 'ar') أعمال عالمية أخرى @else Global Other Work @endif
+                                    @if (LaravelLocalization::getCurrentLocale() == 'ar') الموارد العالمية @else Global Resources @endif
                                 </h3>
                                 <p class="kh-card-desc">
                                     @php $kh_global_work_desc = \App\Models\static_content::where('key','kh_global_work_desc')->first() @endphp
@@ -381,16 +381,20 @@
         {{-- LIST PAGES — TWO-COLUMN HEADER + CONTENT       --}}
         {{-- ═══════════════════════════════════════════════ --}}
         @php
-            if ($isOurWork) {
+            if (isset($filterTag) && $filterTag === 'Gender') {
+                $pageTitle    = 'Gender & AI Resources';
+                $pageSubtitle = 'Knowledge Hub resources on Gender and Artificial Intelligence';
+                $accentColor  = '#6d1b7b';
+            } elseif ($isOurWork) {
                 $pageTitle = __('translation.our-work');
                 $pageSubtitle = 'Research, publications, and reports produced by our team';
                 $accentColor = '#022448';
             } elseif (isset($isGlobal) && $isGlobal === true) {
-                $pageTitle = 'Global Other Work';
+                $pageTitle = 'Global Resources';
                 $pageSubtitle = 'International research and resources on responsible AI';
                 $accentColor = '#FAAF1C';
             } else {
-                $pageTitle = 'Regional Other Work';
+                $pageTitle = 'Regional Resources';
                 $pageSubtitle = 'External research and resources from the MENA region';
                 $accentColor = '#006644';
             }
@@ -439,7 +443,11 @@
             </div>
 
             <div class="container kh-list-content">
-                <livewire:repo-list :isOurWork="$isOurWork" :isGlobal="isset($isGlobal) ? $isGlobal : null" />
+                <livewire:repo-list
+                    :isOurWork="$isOurWork"
+                    :isGlobal="isset($isGlobal) ? $isGlobal : null"
+                    :filterTag="isset($filterTag) ? $filterTag : null"
+                />
             </div>
         </div>
 

@@ -67,6 +67,16 @@ class RegionalController extends Controller
             ]);
     }
 
+    public function genderResources()
+    {
+        return view('frontend.gender-resources');
+    }
+
+    public function futureOfWorkResources()
+    {
+        return view('frontend.pw-mena-resources');
+    }
+
     public function videos()
     {
         return view('frontend.videos')
