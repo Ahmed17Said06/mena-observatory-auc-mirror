@@ -1,7 +1,7 @@
 <?php
 return [
     "about-us" => "About Us",
-    "posts" => "Posts",
+    "posts" => "Blog Posts",
     "researchers" => "People",
     "recent-posts" => "Recent Posts",
     "new_work" => "New Work",
@@ -83,4 +83,7 @@ return [
     "pw-mena-blogposts" => "Blogposts",
     "pw-mena-visuals" => "Visuals",
     "pw-mena-institutions" => "Network Institutions",
+    "research" => "Research",
+    "talks-webinars" => "Talks & Webinars",
+    "educational-resources" => "Educational Resources",
 ];

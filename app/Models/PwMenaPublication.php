@@ -16,6 +16,8 @@ class PwMenaPublication extends Model
     protected $fillable = [
         'title',
         'ar_title',
+        'description',
+        'content',
         'type',
         'tag',
         'link_en',

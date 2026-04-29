@@ -32,7 +32,7 @@ padding-bottom: 50px;'>
                     <img class="post-img" src="{{Storage::url($n->thumbnail_image)}}">
                     <div class="post-content" lang="en">
                     @php $cardLink = $n->featured_type === 'feminist_ai' ? route('feminist_ai') : $n->link; @endphp
-                    <a href='{{ $cardLink }}'>  <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4></a>
+                    <a href='{{ $cardLink }}'><h4 style='color:#FFF;' class='slide_title'>{!! str_replace(' – ', '<br>', e($n->title)) !!}</h4></a>
 
                         <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 

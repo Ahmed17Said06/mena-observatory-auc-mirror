@@ -5,7 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PwMenaPublicationResource\Pages;
 use App\Models\PwMenaPublication;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -43,6 +45,19 @@ class PwMenaPublicationResource extends Resource
                     ->label('Title (AR)')
                     ->nullable()
                     ->columnSpan(2),
+
+                Textarea::make('description')
+                    ->label('Short Description')
+                    ->hint('Shown on the card listing. Keep under ~300 characters.')
+                    ->rows(3)
+                    ->nullable()
+                    ->columnSpan(2),
+
+                RichEditor::make('content')
+                    ->label('Full Content (Rich Text)')
+                    ->hint('Optional — for blog posts or detailed write-ups. Shown as an expandable section on the page.')
+                    ->nullable()
+                    ->columnSpanFull(),
 
                 Select::make('type')
                     ->options([

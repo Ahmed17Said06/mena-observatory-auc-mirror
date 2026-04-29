@@ -105,7 +105,8 @@ Route::group([
     // Add the new work blogs single view route
     Route::get('/new_work/blogs/{id}', [NewWorkController::class, 'newWorkBlogSingle'])->name('new-work-blogs.single');
 
-    // Future of Work MENA route
+    // Future of Work MENA routes
+    Route::get('/pw-mena/resources', [RegionalController::class, 'futureOfWorkResources'])->name('pw_mena.resources');
     Route::get('/pw-mena', [PwMenaController::class, 'index'])->name('pw_mena');
 
     // Feminist AI route

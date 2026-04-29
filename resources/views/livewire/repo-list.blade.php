@@ -1,606 +1,509 @@
-<div class='rl-wrap'>
-    <div class='row g-3 g-lg-4'>
-        <div class='col-lg-9'>
+<div class="rl-wrap">
 
-            {{-- ═══ SEARCH BAR ═══ --}}
-            <div class="rl-search-bar">
-                <div class="rl-search-row">
-                    <div class="rl-search-field">
-                        <svg class="rl-search-ico" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8" />
-                            <path d="M21 21l-4.35-4.35" />
-                        </svg>
-                        <input class="rl-search-input" wire:model.defer="search" wire:keydown.enter="filterUpdated()"
-                            placeholder="Search publications, reports, and data..." type="text">
-                        @if ($search)
-                            <button type="button" class="rl-search-clear" wire:click="clearSearch()">
-                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                            </button>
-                        @endif
-                        <button type="button" class="rl-search-btn" wire:click="filterUpdated()">Search</button>
-                    </div>
-                </div>
+    {{-- ════════════ SEARCH & FILTERS ════════════ --}}
+    <div class="kh-filter-bar">
+        <div class="kh-search-wrap">
+            <svg class="kh-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input wire:model.debounce.400ms="search"
+                   type="search"
+                   class="kh-search-input"
+                   placeholder="Search resources…">
+        </div>
 
-                {{-- Type pills + active filter count --}}
-                <div class="rl-toolbar">
-                    @if (!$is_data_repo_page && count($repo_types) > 0)
-                        <div class="rl-pills d-none d-lg-flex">
-                            @foreach ($repo_types as $type)
-                                <button wire:click="setType('{{ $type->id }}')"
-                                    class="rl-pill {{ in_array($type->id, $repo_type_ids) ? 'active' : '' }}">
-                                    {{ $type->name }}
-                                </button>
-                            @endforeach
-                        </div>
-                    @endif
+        <div class="kh-filters-row">
+            @if ($availableTags->isNotEmpty())
+                <select wire:model="selectedTag" class="kh-filter-select">
+                    <option value="">All Tags</option>
+                    @foreach ($availableTags as $tag)
+                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                    @endforeach
+                </select>
+            @endif
 
-                    <div class="rl-toolbar-right">
-                        @php
-                            $activeCount =
-                                count($selectedAuthorsIds ?? []) +
-                                count($selectedFields ?? []) +
-                                count($selectedSubjects ?? []) +
-                                count($selectedProjects ?? []) +
-                                count($selectedPublishDates ?? []) +
-                                count($selectedCountryIds ?? []);
-                        @endphp
-                        @if ($activeCount > 0)
-                            <button class="rl-active-tag" wire:click="clear">
-                                <span>{{ $activeCount }} filter{{ $activeCount > 1 ? 's' : '' }} active</span>
-                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" />
-                                </svg>
-                            </button>
-                        @endif
+            @if ($availableYears->isNotEmpty())
+                <select wire:model="selectedYear" class="kh-filter-select">
+                    <option value="">All Years</option>
+                    @foreach ($availableYears as $year)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endforeach
+                </select>
+            @endif
 
-                        {{-- Mobile filter toggle --}}
-                        <button class="rl-filter-toggle d-lg-none"
-                            onclick="document.querySelector('.rl-sidebar').classList.add('open')">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" />
-                            </svg>
-                            Filters
-                            @if ($activeCount > 0)
-                                <span class="rl-filter-badge">{{ $activeCount }}</span>
-                            @endif
-                        </button>
-                    </div>
-                </div>
-            </div>
+            @if ($availableTypes->isNotEmpty())
+                <select wire:model="selectedType" class="kh-filter-select">
+                    <option value="">All Types</option>
+                    @foreach ($availableTypes as $type)
+                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                    @endforeach
+                </select>
+            @endif
 
-            {{-- ═══ RESULTS ═══ --}}
-            <div id='repos' class="rl-results">
-
-                @forelse($repos as $index => $r)
-                    @php
-                        $detailUrl = route('repo.single', $r->id);
-                    @endphp
-                    <article class='rl-card' style="animation-delay: {{ $index * 40 }}ms">
-                        <div class='row g-0'>
-                            <div class='col-md-3'>
-                                <a href="{{ $detailUrl }}"
-                                    class="rl-card-img-link">
-                                    <div class="rl-card-img">
-                                        @if($r->image && Storage::exists($r->image))
-                                            <img src='{{ Storage::url($r->image) }}' alt="{{ $r->title }}"
-                                                loading="lazy">
-                                        @else
-                                            <div class="rl-card-img-placeholder">
-                                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-                                                    <polyline points="14 2 14 8 20 8"/>
-                                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                                    <polyline points="10 9 9 9 8 9"/>
-                                                </svg>
-                                            </div>
-                                        @endif
-                                        <div class="rl-card-img-hover">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class='col-md-9'>
-                                <div class="rl-card-body">
-                                    <a href="{{ $detailUrl }}"
-                                        class="rl-card-title">
-                                        {{ $r->title }}
-                                    </a>
-                                    <p class="rl-card-desc">{{ $r->description }}</p>
-
-                                    @if (count($r->tags) > 0)
-                                        <div class="rl-card-tags">
-                                            @foreach ($r->tags as $tag)
-                                                <a class="rl-tag"
-                                                    href="/search?tag={{ $tag->name }}">{{ $tag->name }}</a>
-                                            @endforeach
-                                        </div>
-                                    @endif
-
-                                    <div class="rl-card-actions">
-                                        @if ($r->data_link)
-                                            <a class="rl-dl" href="{{ $r->data_link }}" target="_blank">
-                                                <svg width="15" height="15" viewBox="0 0 24 24"
-                                                    fill="none" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                                                    <polyline points="15 3 21 3 21 9" />
-                                                    <line x1="10" y1="14" x2="21" y2="3" />
-                                                </svg>
-                                                Link
-                                            </a>
-                                        @endif
-                                        @if ($r->ar_pdf)
-                                            <a class="rl-dl" href="{{ Storage::url($r->ar_pdf) }}" target="_blank">
-                                                <svg width="15" height="15" viewBox="0 0 24 24"
-                                                    fill="none" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                                                    <polyline points="7 10 12 15 17 10" />
-                                                    <line x1="12" y1="15" x2="12"
-                                                        y2="3" />
-                                                </svg>
-                                                Arabic
-                                            </a>
-                                        @endif
-                                        @if ($r->en_pdf)
-                                            <a class="rl-dl" href="{{ Storage::url($r->en_pdf) }}" target="_blank">
-                                                <svg width="15" height="15" viewBox="0 0 24 24"
-                                                    fill="none" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                                                    <polyline points="7 10 12 15 17 10" />
-                                                    <line x1="12" y1="15" x2="12"
-                                                        y2="3" />
-                                                </svg>
-                                                English
-                                            </a>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                @empty
-                    <div class="rl-empty">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8" />
-                            <path d="M21 21l-4.35-4.35" />
-                            <path d="M8 8l6 6" />
-                        </svg>
-                        <p>No results found</p>
-                        <span>Try adjusting your search or filters</span>
-                    </div>
-                @endforelse
-            </div>
-
-            {{-- Load More --}}
-            @if ($hasMorePages)
-                <div class="rl-loadmore">
-                    <button type="button" class="rl-loadmore-btn" wire:click="loadMore"
-                        wire:loading.attr="disabled" wire:loading.class="loading">
-                        <span class="rl-lm-text">Load More</span>
-                        <span class="rl-lm-spin">
-                            <span class="spinner-border spinner-border-sm"></span>
-                            Loading…
-                        </span>
-                    </button>
-                </div>
-            @elseif($repos->count() > 0)
-                <div class="rl-end">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 6L9 17l-5-5" />
+            @if ($hasActiveFilters)
+                <button wire:click="clearFilters" class="kh-filter-clear">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.5" stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                     </svg>
-                    You've reached the end
-                </div>
+                    Clear filters
+                </button>
             @endif
         </div>
 
-        {{-- ═══ SIDEBAR — DYNAMIC FILTERS ═══ --}}
-        <div class='col-lg-3'>
-            <div class="rl-sidebar">
-                {{-- Mobile close --}}
-                <button class="rl-sidebar-close d-lg-none"
-                    onclick="document.querySelector('.rl-sidebar').classList.remove('open')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 6L6 18" />
-                        <path d="M6 6l12 12" />
-                    </svg>
-                </button>
-
-                <div class="rl-sidebar-head">
-                    <span class="rl-sidebar-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" />
-                        </svg>
-                        Filters
+        @if ($hasActiveFilters)
+            <div class="kh-active-chips">
+                @if ($search)
+                    <span class="kh-chip">
+                        "{{ $search }}"
+                        <button wire:click="$set('search', '')" class="kh-chip-x">×</button>
                     </span>
-                    @if ($activeCount > 0)
-                        <button class="rl-sidebar-clear" wire:click="clear">Clear all</button>
-                    @endif
-                </div>
-
-                <div class="rl-sidebar-body">
-
-                    {{-- Each filter group is collapsible via pure CSS --}}
-
-                    @if (count($authors) > 0)
-                        <details class="rl-fg" open>
-                            <summary class="rl-fg-title">Author</summary>
-                            <div class="rl-fg-opts">
-                                @foreach ($authors as $author)
-                                    <label class="rl-check">
-                                        <input type="checkbox" wire:model.live="selectedAuthorsIds"
-                                            wire:change="filterUpdated()" value='{{ $author->id }}'>
-                                        <span class="rl-check-box"></span>
-                                        <span class="rl-check-label">{{ $author->name }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </details>
-                    @endif
-
-                    @if (count($fields) > 0)
-                        <details class="rl-fg" open>
-                            <summary class="rl-fg-title">Field</summary>
-                            <div class="rl-fg-opts">
-                                @foreach ($fields as $field)
-                                    <label class="rl-check">
-                                        <input type="checkbox" wire:model.live="selectedFields"
-                                            wire:change="filterUpdated()" value='{{ $field }}'>
-                                        <span class="rl-check-box"></span>
-                                        <span class="rl-check-label">{{ $field }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </details>
-                    @endif
-
-                    @if (count($subjects) > 0)
-                        <details class="rl-fg">
-                            <summary class="rl-fg-title">Subject</summary>
-                            <div class="rl-fg-opts">
-                                @foreach ($subjects as $subject)
-                                    <label class="rl-check">
-                                        <input type="checkbox" wire:model.live="selectedSubjects"
-                                            wire:change="filterUpdated()" value='{{ $subject }}'>
-                                        <span class="rl-check-box"></span>
-                                        <span class="rl-check-label">{{ $subject }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </details>
-                    @endif
-
-                    @if (count($projects) > 0)
-                        <details class="rl-fg">
-                            <summary class="rl-fg-title">Project</summary>
-                            <div class="rl-fg-opts">
-                                @foreach ($projects as $project)
-                                    <label class="rl-check">
-                                        <input type="checkbox" wire:model.live="selectedProjects"
-                                            wire:change="filterUpdated()" value='{{ $project }}'>
-                                        <span class="rl-check-box"></span>
-                                        <span class="rl-check-label">{{ $project }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </details>
-                    @endif
-
-                    @if (count($publish_dates) > 0)
-                        <details class="rl-fg" open>
-                            <summary class="rl-fg-title">Year</summary>
-                            <div class="rl-fg-opts">
-                                @foreach ($publish_dates as $publish_date)
-                                    <label class="rl-check">
-                                        <input type="checkbox" wire:model.live="selectedPublishDates"
-                                            wire:change="filterUpdated()" value='{{ $publish_date }}'>
-                                        <span class="rl-check-box"></span>
-                                        <span class="rl-check-label">{{ $publish_date }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </details>
-                    @endif
-
-                    @if (!$is_data_repo_page && count($repo_types) > 0)
-                        <details class="rl-fg">
-                            <summary class="rl-fg-title">Type</summary>
-                            <div class="rl-fg-opts">
-                                @foreach ($repo_types as $type)
-                                    <label class="rl-check">
-                                        <input type="checkbox" wire:model.live="repo_type_ids"
-                                            wire:change="filterUpdated()" value='{{ $type->id }}'>
-                                        <span class="rl-check-box"></span>
-                                        <span class="rl-check-label">{{ $type->name }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </details>
-                    @endif
-
-                    @if (count($allCountries) > 0)
-                        <details class="rl-fg">
-                            <summary class="rl-fg-title">Country</summary>
-                            <div class="rl-fg-opts">
-                                @foreach ($allCountries as $country)
-                                    <label class="rl-check">
-                                        <input type="checkbox" wire:model.live="selectedCountryIds"
-                                            wire:change="filterUpdated()" value='{{ $country->id }}'>
-                                        <span class="rl-check-box"></span>
-                                        <span class="rl-check-label">{{ $country->name }}</span>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </details>
-                    @endif
-
-                </div>
+                @endif
+                @if ($selectedTag)
+                    <span class="kh-chip">
+                        {{ $availableTags->firstWhere('id', $selectedTag)?->name }}
+                        <button wire:click="$set('selectedTag', '')" class="kh-chip-x">×</button>
+                    </span>
+                @endif
+                @if ($selectedYear)
+                    <span class="kh-chip">
+                        {{ $selectedYear }}
+                        <button wire:click="$set('selectedYear', '')" class="kh-chip-x">×</button>
+                    </span>
+                @endif
+                @if ($selectedType)
+                    <span class="kh-chip">
+                        {{ $availableTypes->firstWhere('id', $selectedType)?->name }}
+                        <button wire:click="$set('selectedType', '')" class="kh-chip-x">×</button>
+                    </span>
+                @endif
             </div>
-            {{-- Mobile overlay --}}
-            <div class="rl-sidebar-overlay d-lg-none"
-                onclick="document.querySelector('.rl-sidebar').classList.remove('open')"></div>
-        </div>
+        @endif
     </div>
+
+    @php
+        $hasObservatory = $showObservatory && ($observatoryResearch->total() > 0 || $observatoryTalks->total() > 0 || $observatoryEducational->total() > 0);
+        $hasRegional    = $showRegional && $regionalRepos->total() > 0;
+        $hasGlobal      = $showGlobal   && $globalRepos->total() > 0;
+    @endphp
+
+    {{-- ════════════ 1. OBSERVATORY OUTPUTS ════════════ --}}
+    @if ($hasObservatory)
+        <section class="kh-sec kh-sec--observatory">
+            <header class="kh-sec-head">
+                <span class="kh-sec-num">1</span>
+                <div class="kh-sec-head-text">
+                    <h2 class="kh-sec-title">Observatory Outputs</h2>
+                    <p class="kh-sec-sub">Research, webinars and educational resources produced by the Observatory team.</p>
+                </div>
+            </header>
+
+            @php
+                $obsGroups = [
+                    ['letter' => 'a', 'key' => 'research',    'title' => __('translation.research'),              'repos' => $observatoryResearch],
+                    ['letter' => 'b', 'key' => 'talks',       'title' => __('translation.talks-webinars'),        'repos' => $observatoryTalks],
+                    ['letter' => 'c', 'key' => 'educational', 'title' => __('translation.educational-resources'), 'repos' => $observatoryEducational],
+                ];
+            @endphp
+
+            <div class="kh-subsections">
+                @foreach ($obsGroups as $group)
+                    @if ($group['repos']->total() > 0)
+                        <div class="kh-subsec kh-subsec--{{ $group['key'] }}">
+                            <header class="kh-subsec-head">
+                                <span class="kh-subsec-letter">{{ $group['letter'] }}</span>
+                                <h3 class="kh-subsec-title">{{ $group['title'] }}</h3>
+                                <span class="kh-subsec-count">{{ $group['repos']->total() }}</span>
+                            </header>
+
+                            <ul class="kh-cards">
+                                @foreach ($group['repos'] as $r)
+                                    @include('livewire.partials.repo-card', ['r' => $r])
+                                @endforeach
+                            </ul>
+
+                            @if ($group['repos']->hasPages())
+                                <div class="kh-pagination">
+                                    {{ $group['repos']->links() }}
+                                </div>
+                            @endif
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+    {{-- ════════════ 2. REGIONAL RESOURCES ════════════ --}}
+    @if ($hasRegional)
+        <section class="kh-sec kh-sec--regional">
+            <header class="kh-sec-head">
+                <span class="kh-sec-num">2</span>
+                <div class="kh-sec-head-text">
+                    <h2 class="kh-sec-title">Regional Resources</h2>
+                    <p class="kh-sec-sub">External research and resources from the MENA region.</p>
+                </div>
+                <span class="kh-sec-count">{{ $regionalRepos->total() }} {{ Str::plural('item', $regionalRepos->total()) }}</span>
+            </header>
+
+            <ul class="kh-cards kh-cards--flat">
+                @foreach ($regionalRepos as $r)
+                    @include('livewire.partials.repo-card', ['r' => $r])
+                @endforeach
+            </ul>
+
+            @if ($regionalRepos->hasPages())
+                <div class="kh-pagination">
+                    {{ $regionalRepos->links() }}
+                </div>
+            @endif
+        </section>
+    @endif
+
+    {{-- ════════════ 3. GLOBAL RESOURCES ════════════ --}}
+    @if ($hasGlobal)
+        <section class="kh-sec kh-sec--global">
+            <header class="kh-sec-head">
+                <span class="kh-sec-num">3</span>
+                <div class="kh-sec-head-text">
+                    <h2 class="kh-sec-title">Global Resources</h2>
+                    <p class="kh-sec-sub">International research and resources on responsible AI.</p>
+                </div>
+                <span class="kh-sec-count">{{ $globalRepos->total() }} {{ Str::plural('item', $globalRepos->total()) }}</span>
+            </header>
+
+            <ul class="kh-cards kh-cards--flat">
+                @foreach ($globalRepos as $r)
+                    @include('livewire.partials.repo-card', ['r' => $r])
+                @endforeach
+            </ul>
+
+            @if ($globalRepos->hasPages())
+                <div class="kh-pagination">
+                    {{ $globalRepos->links() }}
+                </div>
+            @endif
+        </section>
+    @endif
+
+    @if (!$hasObservatory && !$hasRegional && !$hasGlobal)
+        <div class="kh-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <p>No resources to display yet.</p>
+        </div>
+    @endif
 </div>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap');
 
-    /* ══════ TOKENS ══════ */
     .rl-wrap {
-        --rl-navy: #022448;
-        --rl-gold: #FAAF1C;
-        --rl-gold-dk: #d4940a;
-        --rl-text: #111827;
-        --rl-muted: #6b7280;
-        --rl-light: #f5f6f8;
-        --rl-border: #eef0f3;
-        --rl-surface: #ffffff;
-        --rl-radius: 10px;
-        --rl-serif: 'Instrument Serif', Georgia, serif;
-        --rl-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-family: var(--rl-sans);
-        padding-bottom: 2rem;
+        --kh-navy: #022448;
+        --kh-navy-mid: #0a3a6e;
+        --kh-gold: #FAAF1C;
+        --kh-gold-dk: #d4940a;
+        --kh-text: #111827;
+        --kh-muted: #6b7280;
+        --kh-light: #f5f6f8;
+        --kh-border: #eef0f3;
+        --kh-surface: #ffffff;
+        font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+        padding-bottom: 3rem;
     }
 
-    /* ══════ SEARCH BAR ══════ */
-    .rl-search-bar {
-        background: var(--rl-surface);
-        border: 1px solid var(--rl-border);
-        border-radius: var(--rl-radius);
-        padding: 1rem 1.15rem;
-        margin-bottom: 1rem;
-    }
-
-    .rl-search-field {
+    /* ═══ Filter bar ═══ */
+    .kh-filter-bar {
+        background: #fff;
+        border: 1px solid var(--kh-border);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 1.75rem;
+        box-shadow: 0 2px 12px rgba(0,0,0,.04);
         display: flex;
-        align-items: center;
-        background: var(--rl-light);
-        border: 1.5px solid var(--rl-border);
+        flex-direction: column;
+        gap: .75rem;
+    }
+
+    .kh-search-wrap {
+        position: relative;
+        flex: 1;
+    }
+
+    .kh-search-icon {
+        position: absolute;
+        inset-inline-start: .85rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--kh-muted);
+        pointer-events: none;
+    }
+
+    .kh-search-input {
+        width: 100%;
+        padding: .55rem .85rem .55rem 2.4rem;
+        border: 1px solid var(--kh-border);
         border-radius: 8px;
-        padding: .25rem .35rem;
+        font-size: .875rem;
+        font-family: inherit;
+        color: var(--kh-text);
+        background: var(--kh-light);
+        outline: none;
         transition: border-color .2s, box-shadow .2s;
     }
 
-    .rl-search-field:focus-within {
-        border-color: var(--rl-gold);
-        box-shadow: 0 0 0 3px rgba(250, 175, 28, .08);
+    .kh-search-input:focus {
+        border-color: var(--kh-gold);
+        box-shadow: 0 0 0 3px rgba(250,175,28,.12);
         background: #fff;
     }
 
-    .rl-search-ico {
-        color: #b0b7c3;
-        margin: 0 .55rem;
-        flex-shrink: 0;
-    }
+    .kh-search-input::placeholder { color: #9ca3af; }
 
-    .rl-search-input {
-        flex: 1;
-        border: none;
-        background: transparent;
-        padding: .45rem .3rem;
-        font-size: .88rem;
-        color: var(--rl-text);
-        outline: none;
-        font-family: var(--rl-sans);
-    }
-
-    .rl-search-input::placeholder {
-        color: #b0b7c3;
-    }
-
-    .rl-search-clear {
-        background: none;
-        border: none;
-        color: #9ca3af;
-        padding: .3rem;
-        cursor: pointer;
-        border-radius: 4px;
+    .kh-filters-row {
         display: flex;
-        align-items: center;
-        transition: all .2s;
-    }
-
-    .rl-search-clear:hover {
-        background: #fef2f2;
-        color: #ef4444;
-    }
-
-    .rl-search-btn {
-        background: var(--rl-gold);
-        color: #fff;
-        border: none;
-        padding: .5rem 1.15rem;
-        border-radius: 6px;
-        font-weight: 700;
-        font-size: .8rem;
-        cursor: pointer;
-        transition: all .2s;
-        margin-inline-start: .3rem;
-        font-family: var(--rl-sans);
-        letter-spacing: .01em;
-    }
-
-    .rl-search-btn:hover {
-        background: var(--rl-gold-dk);
-    }
-
-    /* ── Toolbar (pills + active tag) ── */
-    .rl-toolbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: .75rem;
-        margin-top: .75rem;
         flex-wrap: wrap;
-    }
-
-    .rl-toolbar-right {
-        display: flex;
-        align-items: center;
         gap: .5rem;
-        margin-inline-start: auto;
+        align-items: center;
     }
 
-    .rl-pills {
-        display: flex;
-        gap: .4rem;
-        flex-wrap: wrap;
-    }
-
-    .rl-pill {
-        padding: .35rem .85rem;
-        border-radius: 20px;
-        border: 1.5px solid var(--rl-border);
-        background: #fff;
-        color: #4b5563;
+    .kh-filter-select {
+        padding: .45rem .85rem;
+        border: 1px solid var(--kh-border);
+        border-radius: 8px;
+        font-size: .8rem;
+        font-family: inherit;
         font-weight: 600;
-        font-size: .76rem;
+        color: var(--kh-navy);
+        background: var(--kh-light);
+        outline: none;
         cursor: pointer;
-        transition: all .2s;
-        font-family: var(--rl-sans);
+        transition: border-color .2s;
+        min-width: 110px;
     }
 
-    .rl-pill:hover {
-        border-color: var(--rl-gold);
-        color: var(--rl-gold);
-    }
+    .kh-filter-select:focus { border-color: var(--kh-gold); }
 
-    .rl-pill.active {
-        background: var(--rl-gold);
-        border-color: var(--rl-gold);
-        color: #fff;
-        box-shadow: 0 2px 8px rgba(250, 175, 28, .25);
-    }
-
-    .rl-active-tag {
+    .kh-filter-clear {
         display: inline-flex;
         align-items: center;
         gap: .35rem;
-        padding: .3rem .65rem;
-        background: #fef9ee;
+        padding: .45rem .8rem;
+        border-radius: 8px;
         border: 1px solid #fde68a;
-        border-radius: 20px;
-        font-size: .74rem;
-        font-weight: 600;
-        color: #92400e;
+        background: #fef9ee;
+        color: var(--kh-gold-dk);
+        font-size: .78rem;
+        font-weight: 700;
+        font-family: inherit;
         cursor: pointer;
         transition: all .2s;
-        font-family: var(--rl-sans);
+        margin-inline-start: auto;
     }
 
-    .rl-active-tag:hover {
-        background: #fef2f2;
-        border-color: #fca5a5;
-        color: #dc2626;
+    .kh-filter-clear:hover {
+        background: var(--kh-gold);
+        border-color: var(--kh-gold);
+        color: #fff;
     }
 
-    .rl-active-tag svg {
-        opacity: .6;
+    .kh-active-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .4rem;
     }
 
-    .rl-filter-toggle {
+    .kh-chip {
         display: inline-flex;
         align-items: center;
-        gap: .4rem;
-        padding: .4rem .85rem;
-        background: #fff;
-        border: 1.5px solid var(--rl-border);
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: .8rem;
-        color: var(--rl-text);
-        cursor: pointer;
-        transition: all .2s;
-        font-family: var(--rl-sans);
-    }
-
-    .rl-filter-toggle:hover {
-        border-color: var(--rl-gold);
-        color: var(--rl-gold);
-    }
-
-    .rl-filter-badge {
-        background: var(--rl-gold);
+        gap: .35rem;
+        padding: .25rem .6rem;
+        border-radius: 20px;
+        background: var(--kh-navy);
         color: #fff;
-        font-size: .65rem;
-        font-weight: 700;
-        padding: .1rem .4rem;
+        font-size: .72rem;
+        font-weight: 600;
+    }
+
+    .kh-chip-x {
+        background: none;
+        border: none;
+        color: rgba(255,255,255,.7);
+        cursor: pointer;
+        font-size: .9rem;
+        line-height: 1;
+        padding: 0;
+        transition: color .15s;
+    }
+
+    .kh-chip-x:hover { color: #fff; }
+
+    /* ═══ Top-level section ═══ */
+    .kh-sec {
+        margin-bottom: 3rem;
+    }
+
+    .kh-sec-head {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: #fff;
+        border: 1px solid var(--kh-border);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 1.25rem;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, .04);
+    }
+
+    .kh-sec-num {
+        flex: 0 0 44px;
+        height: 44px;
         border-radius: 10px;
-        min-width: 18px;
-        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: #fff;
     }
 
-    /* ══════ RESULT CARDS ══════ */
-    .rl-results {
-        margin-bottom: 1rem;
+    .kh-sec--observatory .kh-sec-num { background: linear-gradient(135deg, var(--kh-gold) 0%, var(--kh-gold-dk) 100%); }
+    .kh-sec--regional    .kh-sec-num { background: linear-gradient(135deg, #4caf8a 0%, #006644 100%); }
+    .kh-sec--global      .kh-sec-num { background: linear-gradient(135deg, var(--kh-navy-mid) 0%, var(--kh-navy) 100%); }
+
+    .kh-sec-head-text {
+        flex: 1;
+        min-width: 0;
     }
 
-    .rl-card {
-        background: var(--rl-surface);
-        border: 1px solid var(--rl-border);
-        border-radius: var(--rl-radius);
-        overflow: hidden;
-        margin-bottom: .75rem;
-        transition: all .3s cubic-bezier(.22, .61, .36, 1);
+    .kh-sec-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--kh-navy);
+        margin: 0 0 .15rem;
+        letter-spacing: -.01em;
+        line-height: 1.2;
+    }
+
+    .kh-sec-sub {
+        font-size: .85rem;
+        color: var(--kh-muted);
+        margin: 0;
+    }
+
+    .kh-sec-count {
+        flex-shrink: 0;
+        padding: .35rem .8rem;
+        border-radius: 20px;
+        background: var(--kh-light);
+        border: 1px solid var(--kh-border);
+        font-size: .74rem;
+        font-weight: 700;
+        color: var(--kh-muted);
+        white-space: nowrap;
+    }
+
+    /* ═══ Nested sub-sections under Observatory ═══ */
+    .kh-subsections {
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+        padding-inline-start: 1.5rem;
+        border-inline-start: 2px dashed var(--kh-border);
+        margin-inline-start: 1.4rem;
+    }
+
+    .kh-subsec {
         position: relative;
-        animation: rl-fadeIn .4s ease both;
     }
 
-    @keyframes rl-fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(8px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .rl-card::after {
-        content: '';
+    .kh-subsec::before {
+        content: "";
         position: absolute;
-        left: 0;
+        inset-inline-start: -1.5rem;
+        top: 1.1rem;
+        width: 1.4rem;
+        height: 2px;
+        background: var(--kh-border);
+    }
+
+    .kh-subsec-head {
+        display: flex;
+        align-items: center;
+        gap: .65rem;
+        margin-bottom: .9rem;
+        padding-bottom: .6rem;
+        border-bottom: 2px solid var(--kh-light);
+    }
+
+    .kh-subsec-letter {
+        flex: 0 0 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #fef9ee;
+        color: var(--kh-gold-dk);
+        font-weight: 800;
+        font-size: .8rem;
+        line-height: 1;
+        text-transform: lowercase;
+    }
+
+    .kh-subsec-title {
+        font-size: .95rem;
+        font-weight: 700;
+        color: var(--kh-navy);
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        flex: 1;
+    }
+
+    .kh-subsec-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 24px;
+        height: 22px;
+        padding: 0 .55rem;
+        border-radius: 11px;
+        background: var(--kh-gold);
+        color: #fff;
+        font-size: .72rem;
+        font-weight: 800;
+    }
+
+    /* ═══ Card list ═══ */
+    .kh-cards {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: .75rem;
+    }
+
+    .kh-card {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        background: var(--kh-surface);
+        border: 1px solid var(--kh-border);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .25s ease, border-color .25s ease;
+        position: relative;
+    }
+
+    .kh-card::after {
+        content: "";
+        position: absolute;
+        inset-inline-start: 0;
         top: 0;
         bottom: 0;
         width: 3px;
@@ -608,33 +511,38 @@
         transition: background .25s;
     }
 
-    .rl-card:hover {
-        box-shadow: 0 6px 24px rgba(2, 36, 72, .06);
+    .kh-card:hover {
         transform: translateY(-2px);
         border-color: #e0e2e6;
+        box-shadow: 0 6px 22px rgba(2, 36, 72, .08);
     }
+    .kh-card:hover::after { background: var(--kh-gold); }
 
-    .rl-card:hover::after {
-        background: var(--rl-gold);
-    }
-
-    /* Card image */
-    .rl-card-img-link {
+    .kh-card-img-link {
         display: block;
         text-decoration: none;
         height: 100%;
     }
 
-    .rl-card-img {
+    .kh-card-img {
         position: relative;
         width: 100%;
         height: 100%;
         min-height: 140px;
         overflow: hidden;
-        background: var(--rl-light);
+        background: var(--kh-light);
     }
 
-    .rl-card-img-placeholder {
+    .kh-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .4s cubic-bezier(.22,.61,.36,1);
+    }
+
+    .kh-card:hover .kh-card-img img { transform: scale(1.05); }
+
+    .kh-card-img-placeholder {
         width: 100%;
         height: 100%;
         min-height: 140px;
@@ -645,494 +553,180 @@
         color: #b0b7c3;
     }
 
-    .rl-card-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform .4s cubic-bezier(.22, .61, .36, 1);
-    }
-
-    .rl-card-img-hover {
-        position: absolute;
-        inset: 0;
-        background: rgba(2, 36, 72, .5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity .25s;
-        color: #fff;
-    }
-
-    .rl-card-img:hover .rl-card-img-hover {
-        opacity: 1;
-    }
-
-    .rl-card-img:hover img {
-        transform: scale(1.05);
-    }
-
-    /* Card body */
-    .rl-card-body {
-        padding: 1.1rem 1.25rem;
+    .kh-card-body {
+        padding: .95rem 1.1rem;
         display: flex;
         flex-direction: column;
-        height: 100%;
+        gap: .45rem;
+        min-width: 0;
     }
 
-    .rl-card-title {
-        font-family: var(--rl-sans);
+    .kh-card-title {
         font-size: 1rem;
         font-weight: 700;
-        color: var(--rl-text);
+        color: var(--kh-text);
         text-decoration: none;
         line-height: 1.4;
-        margin-bottom: .4rem;
-        transition: color .2s;
         display: block;
+        transition: color .2s;
     }
 
-    .rl-card-title:hover {
-        color: var(--rl-gold);
-        text-decoration: none;
+    .kh-card-title:hover { color: var(--kh-gold-dk); text-decoration: none; }
+
+    .kh-card-date {
+        font-weight: 500;
+        color: var(--kh-muted);
+        font-size: .9em;
+        white-space: nowrap;
     }
 
-    .rl-card-desc {
+    .kh-card-desc {
         font-size: .82rem;
-        color: var(--rl-muted);
-        line-height: 1.6;
-        margin: 0 0 .6rem;
+        color: var(--kh-muted);
+        line-height: 1.55;
+        margin: 0;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        flex: 1;
     }
 
-    .rl-card-tags {
+    .kh-card-formats {
         display: flex;
         flex-wrap: wrap;
         gap: .3rem;
-        margin-bottom: .6rem;
     }
 
-    .rl-tag {
-        padding: .2rem .55rem;
-        background: var(--rl-light);
-        border: 1px solid var(--rl-border);
-        border-radius: 16px;
-        font-size: .7rem;
-        font-weight: 600;
-        color: #4b5563;
-        text-decoration: none;
-        transition: all .2s;
+    .kh-format-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: .18rem .5rem;
+        border-radius: 12px;
+        font-size: .65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+        border: 1px solid transparent;
+        line-height: 1;
     }
 
-    .rl-tag:hover {
-        background: var(--rl-navy);
-        border-color: var(--rl-navy);
-        color: #fff;
-        text-decoration: none;
-    }
+    .kh-format-badge--research { background: #fef9ee; border-color: #fde68a; color: #92400e; }
+    .kh-format-badge--talk     { background: #ecfeff; border-color: #a5f3fc; color: #155e75; }
+    .kh-format-badge--edu      { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
 
-    .rl-card-actions {
+    .kh-card-actions {
         display: flex;
-        gap: .4rem;
+        gap: .5rem;
         flex-wrap: wrap;
         margin-top: auto;
+        padding-top: .25rem;
     }
 
-    .rl-dl {
+    .kh-card-cta {
         display: inline-flex;
         align-items: center;
         gap: .3rem;
         padding: .35rem .7rem;
-        background: var(--rl-light);
-        border: 1px solid var(--rl-border);
         border-radius: 6px;
+        background: var(--kh-light);
+        border: 1px solid var(--kh-border);
         color: #374151;
-        font-weight: 600;
         font-size: .76rem;
+        font-weight: 600;
         text-decoration: none;
         transition: all .2s;
     }
 
-    .rl-dl:hover {
-        border-color: var(--rl-gold);
-        color: var(--rl-gold-dk);
-        background: #fffdf5;
+    .kh-card-cta:hover {
+        border-color: var(--kh-gold);
+        background: #fffdf6;
+        color: var(--kh-gold-dk);
         text-decoration: none;
     }
 
-    /* ── Empty state ── */
-    .rl-empty {
-        text-align: center;
-        padding: 3rem 1rem;
-        color: var(--rl-muted);
-    }
-
-    .rl-empty svg {
-        color: #d1d5db;
-        margin-bottom: .75rem;
-    }
-
-    .rl-empty p {
-        font-weight: 600;
-        font-size: 1rem;
-        color: var(--rl-text);
-        margin: 0 0 .25rem;
-    }
-
-    .rl-empty span {
-        font-size: .85rem;
-    }
-
-    /* ── Load more ── */
-    .rl-loadmore {
+    /* ═══ Pagination ═══ */
+    .kh-pagination {
         display: flex;
         justify-content: center;
-        padding: 1.25rem 0;
+        margin-top: 1.25rem;
     }
 
-    .rl-loadmore-btn {
-        padding: .6rem 2rem;
-        background: #fff;
-        border: 1.5px solid var(--rl-navy);
-        color: var(--rl-navy);
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: .85rem;
-        cursor: pointer;
-        transition: all .25s;
-        font-family: var(--rl-sans);
+    .kh-pagination .pagination {
+        display: flex;
+        gap: .3rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .rl-loadmore-btn .rl-lm-text {
-        display: inline;
-    }
-
-    .rl-loadmore-btn .rl-lm-spin {
-        display: none;
-        align-items: center;
-        gap: .4rem;
-    }
-
-    .rl-loadmore-btn.loading .rl-lm-text {
-        display: none;
-    }
-
-    .rl-loadmore-btn.loading .rl-lm-spin {
+    .kh-pagination .page-item .page-link {
         display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 34px;
+        height: 34px;
+        padding: 0 .55rem;
+        border-radius: 8px;
+        border: 1px solid var(--kh-border);
+        background: #fff;
+        color: var(--kh-navy);
+        font-size: .78rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all .2s;
+        line-height: 1;
     }
 
-    .rl-loadmore-btn:hover:not(:disabled):not(.loading) {
-        background: var(--rl-navy);
+    .kh-pagination .page-item .page-link:hover {
+        border-color: var(--kh-gold);
+        background: #fffdf6;
+        color: var(--kh-gold-dk);
+    }
+
+    .kh-pagination .page-item.active .page-link {
+        background: var(--kh-navy);
+        border-color: var(--kh-navy);
         color: #fff;
     }
 
-    .rl-loadmore-btn:disabled {
-        opacity: .5;
-        cursor: not-allowed;
+    .kh-pagination .page-item.disabled .page-link {
+        opacity: .4;
+        pointer-events: none;
     }
 
-    .rl-end {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: .5rem;
-        padding: 1.25rem;
-        color: #9ca3af;
-        font-size: .82rem;
-        font-weight: 500;
-    }
-
-    .rl-end svg {
-        color: #10b981;
-    }
-
-    /* ══════ SIDEBAR ══════ */
-    .rl-sidebar {
-        background: var(--rl-surface);
-        border: 1px solid var(--rl-border);
-        border-radius: var(--rl-radius);
-        position: sticky;
-        top: 1rem;
-        max-height: calc(100vh - 2rem);
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
-
-    .rl-sidebar-close {
-        position: absolute;
-        top: .75rem;
-        right: .75rem;
-        z-index: 2;
-        background: var(--rl-light);
-        border: none;
-        border-radius: 6px;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: var(--rl-muted);
-        transition: all .2s;
-    }
-
-    .rl-sidebar-close:hover {
-        background: #fef2f2;
-        color: #ef4444;
-    }
-
-    .rl-sidebar-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: .85rem 1.1rem;
-        border-bottom: 1px solid var(--rl-border);
-        background: #fafbfc;
-    }
-
-    .rl-sidebar-title {
-        display: flex;
-        align-items: center;
-        gap: .45rem;
-        font-size: .85rem;
-        font-weight: 700;
-        color: var(--rl-text);
-    }
-
-    .rl-sidebar-title svg {
-        color: var(--rl-gold);
-    }
-
-    .rl-sidebar-clear {
-        background: none;
-        border: none;
-        font-size: .74rem;
-        font-weight: 600;
-        color: #ef4444;
-        cursor: pointer;
-        padding: .2rem .4rem;
-        border-radius: 4px;
-        transition: all .2s;
-        font-family: var(--rl-sans);
-    }
-
-    .rl-sidebar-clear:hover {
-        background: #fef2f2;
-    }
-
-    .rl-sidebar-body {
-        flex: 1;
-        overflow-y: auto;
-        padding: .75rem 1.1rem;
-    }
-
-    /* Thin scrollbar */
-    .rl-sidebar-body::-webkit-scrollbar {
-        width: 4px;
-    }
-
-    .rl-sidebar-body::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .rl-sidebar-body::-webkit-scrollbar-thumb {
-        background: #e5e7eb;
-        border-radius: 4px;
-    }
-
-    /* ── Filter group (collapsible) ── */
-    .rl-fg {
-        border-bottom: 1px solid #f3f4f6;
-        padding-bottom: .65rem;
-        margin-bottom: .65rem;
-    }
-
-    .rl-fg:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-    }
-
-    .rl-fg-title {
-        font-size: .7rem;
-        font-weight: 800;
-        color: #9ca3af;
-        text-transform: uppercase;
-        letter-spacing: .08em;
-        cursor: pointer;
-        list-style: none;
-        padding: .35rem 0;
-        display: flex;
-        align-items: center;
-        user-select: none;
-        transition: color .2s;
-    }
-
-    .rl-fg-title:hover {
-        color: var(--rl-text);
-    }
-
-    .rl-fg-title::after {
-        content: '';
-        margin-inline-start: auto;
-        width: 0;
-        height: 0;
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-top: 5px solid #d1d5db;
-        transition: transform .2s;
-    }
-
-    .rl-fg[open]>.rl-fg-title::after {
-        transform: rotate(180deg);
-    }
-
-    .rl-fg-title::-webkit-details-marker {
-        display: none;
-    }
-
-    .rl-fg-opts {
-        display: flex;
-        flex-direction: column;
-        gap: .35rem;
-        padding-top: .4rem;
-        max-height: 180px;
-        overflow-y: auto;
-    }
-
-    .rl-fg-opts::-webkit-scrollbar {
-        width: 3px;
-    }
-
-    .rl-fg-opts::-webkit-scrollbar-thumb {
-        background: #e5e7eb;
-        border-radius: 3px;
-    }
-
-    /* ── Checkbox ── */
-    .rl-check {
-        display: flex;
-        align-items: center;
-        gap: .5rem;
-        cursor: pointer;
-        position: relative;
-        user-select: none;
-        padding: .2rem 0;
-    }
-
-    .rl-check input {
-        position: absolute;
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .rl-check-box {
-        width: 16px;
-        height: 16px;
-        flex-shrink: 0;
-        border: 1.5px solid #d1d5db;
-        border-radius: 3px;
+    /* ═══ Empty state ═══ */
+    .kh-empty {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--kh-muted);
         background: #fff;
-        transition: all .15s;
-        position: relative;
+        border: 1px dashed var(--kh-border);
+        border-radius: 12px;
     }
+    .kh-empty svg { color: #d1d5db; display: block; margin: 0 auto .6rem; }
+    .kh-empty p { margin: 0; font-weight: 600; }
 
-    .rl-check:hover .rl-check-box {
-        border-color: var(--rl-gold);
-    }
-
-    .rl-check input:checked~.rl-check-box {
-        background: var(--rl-gold);
-        border-color: var(--rl-gold);
-    }
-
-    .rl-check input:checked~.rl-check-box::after {
-        content: '';
-        position: absolute;
-        left: 4.5px;
-        top: 1.5px;
-        width: 4px;
-        height: 7px;
-        border: solid #fff;
-        border-width: 0 1.5px 1.5px 0;
-        transform: rotate(45deg);
-    }
-
-    .rl-check-label {
-        font-size: .8rem;
-        color: #4b5563;
-        line-height: 1.3;
-        transition: color .15s;
-    }
-
-    .rl-check:hover .rl-check-label {
-        color: var(--rl-text);
-    }
-
-    /* ══════ MOBILE SIDEBAR ══════ */
-    @media (max-width: 991px) {
-        .rl-sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 300px;
-            max-width: 85vw;
-            height: 100vh;
-            max-height: 100vh;
-            z-index: 9999;
-            border-radius: 0;
-            border: none;
-            box-shadow: -4px 0 24px rgba(0, 0, 0, .12);
-            transform: translateX(100%);
-            transition: transform .3s cubic-bezier(.22, .61, .36, 1);
+    /* ═══ Responsive ═══ */
+    @media (max-width: 768px) {
+        .kh-filter-bar { padding: .85rem 1rem; }
+        .kh-filter-select { min-width: 0; flex: 1; }
+        .kh-filter-clear { margin-inline-start: 0; }
+        .kh-sec-head { flex-wrap: wrap; padding: .85rem 1rem; }
+        .kh-sec-title { font-size: 1.1rem; }
+        .kh-sec-sub { font-size: .78rem; }
+        .kh-subsections {
+            padding-inline-start: 1rem;
+            margin-inline-start: .8rem;
+            gap: 1.4rem;
         }
-
-        .rl-sidebar.open {
-            transform: translateX(0);
+        .kh-subsec::before { inset-inline-start: -1rem; width: .9rem; }
+        .kh-card {
+            grid-template-columns: 110px 1fr;
         }
-
-        .rl-sidebar-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9998;
-            background: rgba(0, 0, 0, .4);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity .3s;
-        }
-
-        .rl-sidebar.open~.rl-sidebar-overlay {
-            opacity: 1;
-            visibility: visible;
-        }
-    }
-
-    /* ══════ SMALL SCREENS ══════ */
-    @media (max-width: 767px) {
-        .rl-search-bar {
-            padding: .75rem;
-        }
-
-        .rl-card-body {
-            padding: .85rem 1rem;
-        }
-
-        .rl-card-title {
-            font-size: .92rem;
-        }
-
-        .rl-card-img {
-            min-height: 120px;
-        }
-
-        .rl-dl {
-            font-size: .72rem;
-            padding: .3rem .55rem;
-        }
+        .kh-card-img, .kh-card-img-placeholder { min-height: 110px; }
+        .kh-card-body { padding: .75rem .85rem; }
+        .kh-card-title { font-size: .92rem; }
     }
 </style>

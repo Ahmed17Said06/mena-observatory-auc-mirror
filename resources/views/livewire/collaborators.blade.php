@@ -211,7 +211,6 @@
                     <div class="pt-logo"><img src="/img/partners/image71.png" alt="Meta"></div>
                     <div class="pt-logo"><img src="/img/partners/image72.png" alt="UNESCO IFAP"></div>
                     <div class="pt-logo"><img src="/img/partners/image73.jpg" alt="GIZ"></div>
-                    <div class="pt-logo"><img src="/img/partners/image74.jpg" alt="Friedrich Ebert Stiftung"></div>
                     <div class="pt-logo"><img src="/img/partners/image75.png" alt="Anna Lindh Foundation"></div>
                 </div>
             </div>
@@ -222,6 +221,7 @@
                     <span class="pt-group__title">Research Funding Partners</span>
                 </div>
                 <div class="pt-logos">
+                    <div class="pt-logo"><img src="/img/partners/image74.jpg" alt="Friedrich Ebert Stiftung"></div>
                     <div class="pt-logo"><img src="/img/partners/image77.png" alt="IDRC"></div>
                     <div class="pt-logo"><img src="/img/partners/image78.png" alt="Birzeit University"></div>
                     <div class="pt-logo"><img src="/img/partners/image79.png" alt="WZB Berlin"></div>

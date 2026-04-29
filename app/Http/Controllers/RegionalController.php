@@ -69,39 +69,12 @@ class RegionalController extends Controller
 
     public function genderResources()
     {
-        $repos = Repo::whereHas('tags', fn($q) => $q->where('name', 'Gender'))
-            ->with(['tags', 'repoType', 'pdfFiles', 'authors'])
-            ->latest()
-            ->get();
+        return view('frontend.gender-resources');
+    }
 
-        $sections = [
-            [
-                'key'      => 'observatory',
-                'title'    => 'Observatory Outputs',
-                'subtitle' => 'Research, publications, and reports produced by our team',
-                'color'    => '#022448',
-                'repos'    => $repos->where('is_our_work', true)
-                                   ->groupBy(fn($r) => optional($r->repoType)->name ?? 'Other'),
-            ],
-            [
-                'key'      => 'regional',
-                'title'    => 'Regional Resources',
-                'subtitle' => 'External research and resources from the MENA region',
-                'color'    => '#006644',
-                'repos'    => $repos->filter(fn($r) => !$r->is_our_work && !$r->is_global)
-                                   ->groupBy(fn($r) => optional($r->repoType)->name ?? 'Other'),
-            ],
-            [
-                'key'      => 'global',
-                'title'    => 'Global Resources',
-                'subtitle' => 'International research and resources on responsible AI',
-                'color'    => '#c8870a',
-                'repos'    => $repos->filter(fn($r) => !$r->is_our_work && $r->is_global)
-                                   ->groupBy(fn($r) => optional($r->repoType)->name ?? 'Other'),
-            ],
-        ];
-
-        return view('frontend.gender-resources', compact('sections'));
+    public function futureOfWorkResources()
+    {
+        return view('frontend.pw-mena-resources');
     }
 
     public function videos()

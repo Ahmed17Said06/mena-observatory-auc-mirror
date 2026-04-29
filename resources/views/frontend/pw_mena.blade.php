@@ -43,6 +43,16 @@
         </div>
     </div>
 
+    <!-- CTA to Knowledge Hub -->
+    <div class="mt-4 mb-2">
+        <a href="{{ route('pw_mena.resources') }}"
+           style="display:inline-block; padding:.75rem 1.75rem; background:#FAAF1C; color:#022248; border-radius:50px; font-weight:700; font-size:.95rem; text-decoration:none; transition:all .3s ease; border:2px solid #FAAF1C;"
+           onmouseover="this.style.background='#e09a10';this.style.borderColor='#e09a10';"
+           onmouseout="this.style.background='#FAAF1C';this.style.borderColor='#FAAF1C';">
+            Explore Knowledge Hub
+        </a>
+    </div>
+
     <!-- Separation Line -->
     <hr style="border: none; border-top: 2px solid #ccc; margin: 3rem 0; width: 100%; opacity: 1;">
 
@@ -180,6 +190,7 @@
                             <a href="{{ $singleUrl }}" target="_blank" class="resource-card resource-card--report">
                                 <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                                 <div class="resource-card__title">{{ $pubTitle }}</div>
+                                @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
                                 @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
                                 <span class="resource-card__external">@include('frontend.partials._icon-external')</span>
                             </a>
@@ -187,6 +198,7 @@
                             <div class="resource-card resource-card--report">
                                 <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                                 <div class="resource-card__title">{{ $pubTitle }}</div>
+                                @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
                                 @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
                                 @if($pub->link_en_url || $pub->link_ar_url || $pub->link_fr_url)
                                     <div class="resource-card__langs">
@@ -194,6 +206,12 @@
                                         @if($pub->link_ar_url)<a href="{{ $pub->link_ar_url }}" target="_blank" class="resource-card__lang-link">AR</a>@endif
                                         @if($pub->link_fr_url)<a href="{{ $pub->link_fr_url }}" target="_blank" class="resource-card__lang-link">FR</a>@endif
                                     </div>
+                                @endif
+                                @if($pub->content)
+                                    <details class="resource-card__expand">
+                                        <summary>Read more</summary>
+                                        <div class="resource-card__content">{!! $pub->content !!}</div>
+                                    </details>
                                 @endif
                             </div>
                         @endif
@@ -312,6 +330,7 @@
                             <a href="{{ $singleUrl }}" target="_blank" class="resource-card resource-card--brief">
                                 <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                                 <div class="resource-card__title">{{ $pubTitle }}</div>
+                                @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
                                 @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
                                 <span class="resource-card__external">@include('frontend.partials._icon-external')</span>
                             </a>
@@ -319,6 +338,7 @@
                             <div class="resource-card resource-card--brief">
                                 <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                                 <div class="resource-card__title">{{ $pubTitle }}</div>
+                                @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
                                 @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
                                 @if($pub->link_en_url || $pub->link_ar_url || $pub->link_fr_url)
                                     <div class="resource-card__langs">
@@ -326,6 +346,12 @@
                                         @if($pub->link_ar_url)<a href="{{ $pub->link_ar_url }}" target="_blank" class="resource-card__lang-link">AR</a>@endif
                                         @if($pub->link_fr_url)<a href="{{ $pub->link_fr_url }}" target="_blank" class="resource-card__lang-link">FR</a>@endif
                                     </div>
+                                @endif
+                                @if($pub->content)
+                                    <details class="resource-card__expand">
+                                        <summary>Read more</summary>
+                                        <div class="resource-card__content">{!! $pub->content !!}</div>
+                                    </details>
                                 @endif
                             </div>
                         @endif
@@ -422,12 +448,20 @@
                             <a href="{{ $blogUrl }}" target="_blank" class="resource-card resource-card--blog">
                                 <div class="resource-card__icon">@include('frontend.partials._icon-blog')</div>
                                 <div class="resource-card__title">{{ $pubTitle }}</div>
+                                @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
                                 <span class="resource-card__external">@include('frontend.partials._icon-external')</span>
                             </a>
                         @else
                             <div class="resource-card resource-card--blog">
                                 <div class="resource-card__icon">@include('frontend.partials._icon-blog')</div>
                                 <div class="resource-card__title">{{ $pubTitle }}</div>
+                                @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
+                                @if($pub->content)
+                                    <details class="resource-card__expand">
+                                        <summary>Read more</summary>
+                                        <div class="resource-card__content">{!! $pub->content !!}</div>
+                                    </details>
+                                @endif
                             </div>
                         @endif
                     @endforeach
@@ -548,6 +582,42 @@
         transition: background 0.2s;
     }
     .resource-card__lang-link:hover { background: #c7d2fe; text-decoration: none; color: #4338ca; }
+
+    .resource-card__desc {
+        font-size: 0.82rem;
+        color: #555;
+        line-height: 1.55;
+        margin: 0.5rem 0 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .resource-card__expand {
+        margin-top: 0.75rem;
+    }
+    .resource-card__expand summary {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #FAAF1C;
+        cursor: pointer;
+        list-style: none;
+        user-select: none;
+    }
+    .resource-card__expand summary::-webkit-details-marker { display: none; }
+    .resource-card__expand summary::before { content: '+ '; }
+    .resource-card__expand[open] summary::before { content: '− '; }
+    .resource-card__content {
+        margin-top: 0.6rem;
+        font-size: 0.85rem;
+        color: #444;
+        line-height: 1.65;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 0.6rem;
+    }
+    .resource-card__content p { margin-bottom: 0.5rem; }
+    .resource-card__content p:last-child { margin-bottom: 0; }
 
     .institution-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;

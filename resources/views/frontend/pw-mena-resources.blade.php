@@ -1,9 +1,9 @@
 @extends('layouts.frontend.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
-@section('title', 'Gender & AI Resources | MENA Observatory')
+@section('title', 'Future of Work Resources | MENA Observatory')
 
 @section('content')
-@include('layouts.navbars.guest.navbar', ['title' => 'Gender & AI Resources'])
+@include('layouts.navbars.guest.navbar', ['title' => 'Future of Work Resources'])
 
 <div class="gr-page">
 
@@ -12,22 +12,22 @@
         <div class="gr-hero-overlay"></div>
         <div class="container gr-hero-content">
             <nav class="gr-breadcrumb">
-                <a href="{{ route('feminist_ai') }}">
+                <a href="{{ route('pw_mena') }}">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         style="vertical-align:-1px; margin-inline-end:4px;">
                         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
                         <polyline points="9 22 9 12 15 12 15 22"/>
                     </svg>
-                    Feminist AI
+                    Future of Work MENA
                 </a>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M9 18l6-6-6-6"/>
                 </svg>
-                <span>Gender & AI Resources</span>
+                <span>Future of Work Resources</span>
             </nav>
-            <h1 class="gr-hero-title">Gender & AI Resources</h1>
-            <p class="gr-hero-sub">Knowledge Hub resources on Gender and Artificial Intelligence</p>
+            <h1 class="gr-hero-title">Future of Work Resources</h1>
+            <p class="gr-hero-sub">Knowledge Hub resources on the Future of Work in MENA</p>
         </div>
         <div class="gr-hero-wave">
             <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
@@ -39,7 +39,7 @@
 
     {{-- ═══ TABS + LIST ═══ --}}
     <div class="container gr-body">
-        <livewire:repo-list :filterTag="'Gender'" />
+        <livewire:repo-list :filterTag="'fow'" />
     </div>
 
 </div>
@@ -68,7 +68,7 @@
     /* ══════ HERO ══════ */
     .gr-hero {
         position: relative;
-        background: linear-gradient(135deg, #1a0a2e 0%, #6d1b7b 45%, #022248 100%);
+        background: linear-gradient(135deg, #022248 0%, #0a4a6e 45%, #c8870a 100%);
         background-size: 300% 300%;
         animation: gr-grad 10s ease infinite;
         padding: 3.5rem 0 0;
@@ -84,7 +84,7 @@
     .gr-hero-overlay {
         position: absolute;
         inset: 0;
-        background: radial-gradient(ellipse at 70% 40%, rgba(109,27,123,.35) 0%, transparent 65%);
+        background: radial-gradient(ellipse at 70% 40%, rgba(250,175,28,.25) 0%, transparent 65%);
         pointer-events: none;
     }
 
@@ -309,7 +309,7 @@
         color: #6b7280;
     }
 
-    /* ══════ CARDS (shared with repo-list) ══════ */
+    /* ══════ CARDS ══════ */
     .rl-card {
         background: var(--rl-surface);
         border: 1px solid var(--rl-border);
