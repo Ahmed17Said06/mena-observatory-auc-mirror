@@ -994,7 +994,7 @@
                         <a href="{{ route('pw_mena') }}">Future of Work MENA</a>
                     </li>
                     <li class="@if (str(Route::current()->getName())->contains('inclusive_ai')) active @endif">
-                        <a href="{{ route('coming-soon') }}">Inclusive AI Research Network</a>
+                        <a href="{{ route('inclusive_ai') }}">Inclusive AI Research Network</a>
                     </li>
                     <li class="@if (str(Route::current()->getName())->contains('news')) active @endif">
                         <a href="{{ route('news.index') }}">@lang('translation.news', ['default' => 'News'])</a>
@@ -1063,7 +1063,7 @@
                     <a href="{{ route('pw_mena') }}">Future of Work MENA</a>
                 </li>
                 <li class="@if (str(Route::current()->getName())->contains('inclusive_ai')) active @endif">
-                    <a href="{{ route('coming-soon') }}">Inclusive AI Research Network</a>
+                    <a href="{{ route('inclusive_ai') }}">Inclusive AI Research Network</a>
                 </li>
                 <li class="@if (str(Route::current()->getName())->contains('news')) active @endif">
                     <a href="{{ route('news.index') }}">@lang('translation.news', ['default' => 'News'])</a>

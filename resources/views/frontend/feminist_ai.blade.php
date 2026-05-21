@@ -31,8 +31,10 @@
 
         <!-- CTA Buttons -->
         <section class="fai-section fai-cta-buttons">
-            <a href="{{ route('regional.gender') }}" class="fai-btn fai-btn--primary">Explore Knowledge Hub</a>
-            <a href="{{ route('collaborate') }}" class="fai-btn fai-btn--outline">Collaborate With Us</a>
+            <a href="{{ route('regional.gender') }}" class="fai-btn fai-btn--primary">Observatory Outputs</a>
+            <a href="{{ route('regional.gender') }}#regional" class="fai-btn fai-btn--outline">Regional Resources</a>
+            <a href="{{ route('regional.gender') }}#global" class="fai-btn fai-btn--outline">Global Resources</a>
+            <a href="{{ route('collaborate') }}" class="fai-btn fai-btn--ghost">Collaborate With Us</a>
         </section>
 
     </div>
@@ -160,6 +162,17 @@
     .fai-btn--outline:hover {
         background: #022248;
         color: #fff;
+        text-decoration: none;
+    }
+
+    .fai-btn--ghost {
+        background: transparent;
+        color: #6b7280;
+        border-color: #d1d5db;
+    }
+    .fai-btn--ghost:hover {
+        background: #f3f4f6;
+        color: #374151;
         text-decoration: none;
     }
 </style>

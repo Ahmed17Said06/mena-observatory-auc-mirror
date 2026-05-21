@@ -63,9 +63,9 @@
                                     @if($kh_our_work_desc)
                                         {{ LaravelLocalization::getCurrentLocale() == 'ar' && $kh_our_work_desc->ar_content ? $kh_our_work_desc->ar_content : $kh_our_work_desc->content }}
                                     @elseif (LaravelLocalization::getCurrentLocale() == 'ar')
-                                        أبحاث ومنشورات وتقارير أنتجها فريقنا حول الذكاء الاصطناعي المسؤول في المنطقة.
+                                        أبحاث وندوات وموارد تعليمية أنتجها فريقنا حول الذكاء الاصطناعي المسؤول في المنطقة.
                                     @else
-                                        Research, publications, and reports produced by our team on responsible AI in the MENA region.
+                                        Research, webinars &amp; talks, and educational resources produced by our team on responsible AI in the MENA region.
                                     @endif
                                 </p>
                             </div>
@@ -387,7 +387,7 @@
                 $accentColor  = '#6d1b7b';
             } elseif ($isOurWork) {
                 $pageTitle = __('translation.our-work');
-                $pageSubtitle = 'Research, publications, and reports produced by our team';
+                $pageSubtitle = 'Research, Webinars & Talks, and Educational Resources produced by our team';
                 $accentColor = '#022448';
             } elseif (isset($isGlobal) && $isGlobal === true) {
                 $pageTitle = 'Global Resources';
@@ -413,7 +413,7 @@
                                 <a href="{{ route('regional') }}">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" style="margin-inline-end:4px;vertical-align:-1px;">
+                                        stroke-linejoin="round" style="margin-right:4px;vertical-align:-1px;">
                                         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                                         <polyline points="9 22 9 12 15 12 15 22" />
                                     </svg>
@@ -483,6 +483,7 @@
 
             .kh-list-header-grain {
                 position: absolute;
+                top: 0; right: 0; bottom: 0; left: 0;
                 inset: 0;
                 opacity: .35;
                 pointer-events: none;
@@ -492,6 +493,7 @@
 
             .kh-list-header-bg {
                 position: absolute;
+                top: 0; right: 0; bottom: 0; left: 0;
                 inset: 0;
                 background:
                     radial-gradient(circle at 12% 60%, rgba(250, 175, 28, .05) 0%, transparent 45%),

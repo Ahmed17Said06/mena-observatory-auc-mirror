@@ -19,6 +19,9 @@ class RepoList extends Component
 
     public int $perPage = 3;
 
+    // Research sub-tab: 'all' | 'reports' | 'briefs' | 'blogs'
+    public string $researchSubTab = 'all';
+
     // User-driven filters
     public string $search       = '';
     public string $selectedTag  = '';
@@ -35,10 +38,11 @@ class RepoList extends Component
         }
     }
 
-    public function updatingSearch(): void    { $this->resetAllPages(); }
-    public function updatedSelectedTag(): void  { $this->resetAllPages(); }
-    public function updatedSelectedYear(): void { $this->resetAllPages(); }
-    public function updatedSelectedType(): void { $this->resetAllPages(); }
+    public function updatingSearch(): void         { $this->resetAllPages(); }
+    public function updatedSelectedTag(): void     { $this->resetAllPages(); }
+    public function updatedSelectedYear(): void    { $this->resetAllPages(); }
+    public function updatedSelectedType(): void    { $this->resetAllPages(); }
+    public function updatingResearchSubTab(): void { $this->resetPage('research'); }
 
     public function clearFilters(): void
     {
@@ -84,12 +88,22 @@ class RepoList extends Component
 
         if ($showObservatory) {
             $obs = (clone $base)->where('is_our_work', true);
-            $observatoryResearch = (clone $obs)
+
+            $researchBase = (clone $obs)
                 ->where(fn($q) => $q->where('is_research', true)
                     ->orWhere(fn($qq) => $qq->where('is_research', false)
                         ->where('is_talk_webinar', false)
-                        ->where('is_educational', false)))
-                ->paginate($this->perPage, ['*'], 'research');
+                        ->where('is_educational', false)));
+
+            if ($this->researchSubTab === 'reports') {
+                $researchBase = $researchBase->whereHas('repoType', fn($q) => $q->where('name', 'like', '%report%'));
+            } elseif ($this->researchSubTab === 'briefs') {
+                $researchBase = $researchBase->whereHas('repoType', fn($q) => $q->where('name', 'like', '%brief%')->orWhere('name', 'like', '%policy%'));
+            } elseif ($this->researchSubTab === 'blogs') {
+                $researchBase = $researchBase->whereHas('repoType', fn($q) => $q->where('name', 'like', '%blog%'));
+            }
+
+            $observatoryResearch = $researchBase->paginate($this->perPage, ['*'], 'research');
 
             $observatoryTalks = (clone $obs)
                 ->where('is_talk_webinar', true)
@@ -141,6 +155,7 @@ class RepoList extends Component
             'availableYears'         => $availableYears,
             'availableTypes'         => $availableTypes,
             'hasActiveFilters'       => $hasActiveFilters,
+            'researchSubTab'         => $this->researchSubTab,
         ]);
     }
 }

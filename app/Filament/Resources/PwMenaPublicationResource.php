@@ -61,9 +61,11 @@ class PwMenaPublicationResource extends Resource
 
                 Select::make('type')
                     ->options([
-                        'report' => 'Report',
-                        'brief'  => 'Policy Brief',
-                        'blog'   => 'Blog Post',
+                        'report'      => 'Report',
+                        'brief'       => 'Policy Brief',
+                        'blog'        => 'Blog Post',
+                        'webinar'     => 'Webinar / Talk',
+                        'educational' => 'Educational Resource',
                     ])
                     ->required()
                     ->default('report'),
@@ -137,6 +139,8 @@ class PwMenaPublicationResource extends Resource
                         'warning' => 'report',
                         'primary' => 'brief',
                         'info'    => 'blog',
+                        'success' => 'webinar',
+                        'danger'  => 'educational',
                     ]),
                 TextColumn::make('title')->limit(60)->searchable(),
                 TextColumn::make('tag')->label('Country'),
@@ -146,9 +150,11 @@ class PwMenaPublicationResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
                     ->options([
-                        'report' => 'Reports',
-                        'brief'  => 'Policy Briefs',
-                        'blog'   => 'Blog Posts',
+                        'report'      => 'Reports',
+                        'brief'       => 'Policy Briefs',
+                        'blog'        => 'Blog Posts',
+                        'webinar'     => 'Webinars / Talks',
+                        'educational' => 'Educational Resources',
                     ]),
             ])
             ->actions([
