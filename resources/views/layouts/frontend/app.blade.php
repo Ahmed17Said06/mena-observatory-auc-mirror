@@ -124,18 +124,18 @@
                 // Add your static HTML content with the specified styles
                 const staticHTML = `
                 <style>
-span:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *):not(.slide_title):not(.slide_description),
-form:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
-ul:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
-img:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(.post-img):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
+span:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *):not(.slide_title):not(.slide_description):not(.subs *),
+form:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *):not(.subs *),
+ul:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *):not(.subs *),
+img:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(.post-img):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *):not(.subs *),
 .position-relative.overflow-hidden:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *)
 .post-container:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
-p:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(.slide_description):not(#repos *):not(.filter-container):not(#blogs *),
-a:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
-h1:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
-h3:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
-h4:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *),
-button:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(.search-box *):not(#subscribe-popup *):not(#repos *):not(.btn-mena-4):not(.filter-container):not(#blogs *){
+p:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(.slide_description):not(#repos *):not(.filter-container):not(#blogs *):not(.subs *),
+a:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *):not(.subs *),
+h1:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *):not(.subs *),
+h3:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *):not(.subs *),
+h4:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(#subscribe-popup *):not(#repos *):not(.filter-container):not(#blogs *):not(.subs *),
+button:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(.search-box *):not(#subscribe-popup *):not(#repos *):not(.btn-mena-4):not(.filter-container):not(#blogs *):not(.subs *){
     opacity: 1!important;
     transform: translateY(0px)!important;
     transition: background 0.3s, color 0.3s, opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
