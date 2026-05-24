@@ -48,7 +48,7 @@
                 <span class="iai-subsec__letter">a</span> Research
             </h3>
             @if($repoResearch->isEmpty())
-                <div class="iai-empty">No research outputs have been added yet. Tag Repo items with <code>inclusive_ai</code> and set <code>is_our_work = true</code>.</div>
+                <div class="iai-empty">No research outputs have been added yet.</div>
             @else
                 <div class="iai-cards-grid">
                     @foreach($repoResearch as $r)
@@ -120,7 +120,7 @@
             </div>
         </div>
         @if($regionalRepos->isEmpty())
-            <div class="iai-empty">No regional resources have been tagged yet. Tag Repo items with <code>inclusive_ai</code>, <code>is_our_work = false</code>, and <code>is_global = false</code>.</div>
+            <div class="iai-empty">No regional resources have been added yet.</div>
         @else
             <div class="iai-cards-grid">
                 @foreach($regionalRepos as $r)
@@ -146,7 +146,7 @@
             </div>
         </div>
         @if($globalRepos->isEmpty())
-            <div class="iai-empty">No global resources have been tagged yet. Tag Repo items with <code>inclusive_ai</code>, <code>is_our_work = false</code>, and <code>is_global = true</code>.</div>
+            <div class="iai-empty">No global resources have been added yet.</div>
         @else
             <div class="iai-cards-grid">
                 @foreach($globalRepos as $r)
