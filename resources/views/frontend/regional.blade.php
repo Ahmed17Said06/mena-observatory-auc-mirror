@@ -59,9 +59,9 @@
                                 </div>
                                 <h3 class="kh-card-title">@lang('translation.our-work')</h3>
                                 <p class="kh-card-desc">
-                                    @php $kh_our_work_desc = \App\Models\static_content::where('key','kh_our_work_desc')->first() @endphp
+                                    @php $kh_our_work_desc = \App\Models\static_content::where('key','kh_our_work_desc')->latest()->first() @endphp
                                     @if($kh_our_work_desc)
-                                        {{ LaravelLocalization::getCurrentLocale() == 'ar' && $kh_our_work_desc->ar_content ? $kh_our_work_desc->ar_content : $kh_our_work_desc->content }}
+                                        {{ strip_tags(LaravelLocalization::getCurrentLocale() == 'ar' && $kh_our_work_desc->ar_content ? $kh_our_work_desc->ar_content : $kh_our_work_desc->content) }}
                                     @elseif (LaravelLocalization::getCurrentLocale() == 'ar')
                                         أبحاث وندوات وموارد تعليمية أنتجها فريقنا حول الذكاء الاصطناعي المسؤول في المنطقة.
                                     @else
@@ -102,9 +102,9 @@
                                     @if (LaravelLocalization::getCurrentLocale() == 'ar') الموارد الإقليمية @else Regional Resources @endif
                                 </h3>
                                 <p class="kh-card-desc">
-                                    @php $kh_regional_work_desc = \App\Models\static_content::where('key','kh_regional_work_desc')->first() @endphp
+                                    @php $kh_regional_work_desc = \App\Models\static_content::where('key','kh_regional_work_desc')->latest()->first() @endphp
                                     @if($kh_regional_work_desc)
-                                        {{ LaravelLocalization::getCurrentLocale() == 'ar' && $kh_regional_work_desc->ar_content ? $kh_regional_work_desc->ar_content : $kh_regional_work_desc->content }}
+                                        {{ strip_tags(LaravelLocalization::getCurrentLocale() == 'ar' && $kh_regional_work_desc->ar_content ? $kh_regional_work_desc->ar_content : $kh_regional_work_desc->content) }}
                                     @elseif (LaravelLocalization::getCurrentLocale() == 'ar')
                                         أبحاث ومصادر خارجية من المنطقة تتناول الذكاء الاصطناعي والبيانات.
                                     @else
@@ -144,9 +144,9 @@
                                     @if (LaravelLocalization::getCurrentLocale() == 'ar') الموارد العالمية @else Global Resources @endif
                                 </h3>
                                 <p class="kh-card-desc">
-                                    @php $kh_global_work_desc = \App\Models\static_content::where('key','kh_global_work_desc')->first() @endphp
+                                    @php $kh_global_work_desc = \App\Models\static_content::where('key','kh_global_work_desc')->latest()->first() @endphp
                                     @if($kh_global_work_desc)
-                                        {{ LaravelLocalization::getCurrentLocale() == 'ar' && $kh_global_work_desc->ar_content ? $kh_global_work_desc->ar_content : $kh_global_work_desc->content }}
+                                        {{ strip_tags(LaravelLocalization::getCurrentLocale() == 'ar' && $kh_global_work_desc->ar_content ? $kh_global_work_desc->ar_content : $kh_global_work_desc->content) }}
                                     @elseif (LaravelLocalization::getCurrentLocale() == 'ar')
                                         مجموعة منسقة من الأبحاث والموارد الدولية حول الذكاء الاصطناعي المسؤول.
                                     @else

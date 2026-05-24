@@ -46,7 +46,12 @@ class FeaturedPage extends Component
             'featured_pw_mena_title', 'featured_pw_mena_desc',
             'featured_brochures_title', 'featured_brochures_desc',
         ];
-        $sc = static_content::whereIn('key', $keys)->get()->keyBy('key');
+        $sc = static_content::whereIn('key', $keys)->latest()->get()
+            ->each(function ($row) {
+                $row->content    = strip_tags($row->content ?? '');
+                $row->ar_content = strip_tags($row->ar_content ?? '');
+            })
+            ->keyBy('key');
 
         return view('livewire.featured-page', ['sc' => $sc]);
     }
