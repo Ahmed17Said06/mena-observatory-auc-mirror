@@ -221,6 +221,8 @@ class RegionalResearchAndNewsSeeder extends Seeder
             if (News::where('title', $data['title'])->exists()) {
                 continue;
             }
+            $data['content']    = $data['content'] ?? '';
+            $data['country_id'] = $data['country_id'] ?? null;
             News::create($data);
         }
     }
