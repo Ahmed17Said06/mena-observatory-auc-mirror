@@ -174,18 +174,18 @@
                                 {{ $eventDetails->start_date->format('d') }}
                             </p>
                             <div class="vl"></div>
-                            <p class="event_date">{{ $eventDetails->end_date->format('M') }}
+                            <p class="event_date">{{ $eventDetails->end_date?->format('M') }}
                                 <br class="d-none d-lg-block">
-                                {{ $eventDetails->end_date->format('d') }}
+                                {{ $eventDetails->end_date?->format('d') }}
                             </p>
                         </div>
-                        <p class="event-date">@ {{ $eventDetails->start_date->format('h:i') }} - {{ $eventDetails->end_date->format('h:i') }}</p>
+                        <p class="event-date">@ {{ $eventDetails->start_date->format('h:i') }} - {{ $eventDetails->end_date?->format('h:i') }}</p>
 
                         <p class="event-title">{{ $eventDetails->title }}</p>
                         <p class="event-description">{{ $eventDetails->description }}</p>
                     </div>
                     <div class="d-flex">
-                        <a class="notify_me btn" target="_blank"  href="http://www.google.com/calendar/event?action=TEMPLATE&text={{urlencode($eventDetails->title)}}&dates={{str_replace(' ', '', date('Y m d \T h m s Z', strtotime($eventDetails->start_date)))}}/{{str_replace(' ', '', date('Y m d \T h m s Z', strtotime($eventDetails->end_date)))}}&details={{urlencode($eventDetails->description)}}&location={{urlencode($eventDetails->gmaps_url)}}"><i class="fa fa-bell"></i></a>
+                        <a class="notify_me btn" target="_blank"  href="http://www.google.com/calendar/event?action=TEMPLATE&text={{urlencode($eventDetails->title)}}&dates={{str_replace(' ', '', date('Y m d \T h m s Z', strtotime($eventDetails->start_date)))}}/{{str_replace(' ', '', date('Y m d \T h m s Z', $eventDetails->end_date ? strtotime($eventDetails->end_date) : strtotime($eventDetails->start_date)))}}&details={{urlencode($eventDetails->description)}}&location={{urlencode($eventDetails->gmaps_url ?? '')}}"><i class="fa fa-bell"></i></a>
                         <livewire:save-event :eventId="$eventDetails->id"  :wire:key="'data1'.$eventDetails->id"/>
 
                     </div>
