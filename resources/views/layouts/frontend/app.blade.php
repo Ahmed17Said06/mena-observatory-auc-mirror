@@ -102,7 +102,7 @@
                 ];
 
                 const elements = document.querySelectorAll(
-                    selectorsToAnimate.map(selector => `${selector}:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(.search-box *):not(.slide_description):not(#repos *):not(.btn-mena-4):not(.filter-container):not(#blogs *)`).join(', ')
+                    selectorsToAnimate.map(selector => `${selector}:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *):not(dialog *):not(#map *):not(.search-box *):not(.slide_description):not(#repos *):not(.btn-mena-4):not(.filter-container):not(#blogs *):not(.subs *)`).join(', ')
                 );
 
                 const observer = new IntersectionObserver(entries => {
