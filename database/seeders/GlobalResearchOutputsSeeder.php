@@ -516,6 +516,7 @@ class GlobalResearchOutputsSeeder extends Seeder
         foreach ($publications as $data) {
             $tagNames = $data['tags'];
             unset($data['tags']);
+            $data['country_id'] = $data['country_id'] ?? null;
 
             if (Repo::where('title', $data['title'])->exists()) {
                 continue;
