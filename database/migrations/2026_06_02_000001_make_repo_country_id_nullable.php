@@ -11,11 +11,19 @@ return new class extends Migration
         Schema::table('repo', function (Blueprint $table) {
             $table->unsignedBigInteger('country_id')->nullable()->change();
         });
+
+        Schema::table('news', function (Blueprint $table) {
+            $table->unsignedBigInteger('country_id')->nullable()->change();
+        });
     }
 
     public function down(): void
     {
         Schema::table('repo', function (Blueprint $table) {
+            $table->unsignedBigInteger('country_id')->nullable(false)->change();
+        });
+
+        Schema::table('news', function (Blueprint $table) {
             $table->unsignedBigInteger('country_id')->nullable(false)->change();
         });
     }
