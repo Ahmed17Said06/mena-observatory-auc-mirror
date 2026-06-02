@@ -150,12 +150,20 @@
     <!-- Separation Line -->
     <hr style="border: none; border-top: 2px solid #ccc; margin: 3rem 0; width: 100%; opacity: 1;">
 
-    <!-- Section 2: Resources -->
+    <!-- Section 2: Observatory Outputs -->
     <div class="mb-5">
-        <h2 class="mb-4" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
+        <h2 class="mb-1" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
             style="color: #022248; font-weight: 700;">
-            @lang('translation.pw-mena-resources')
+            Observatory Outputs
         </h2>
+        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">Research, Webinars &amp; Talks, and Educational Resources produced by the team.</p>
+
+        <!-- a. Research -->
+        <div class="pw-subsec mb-4">
+            <h3 class="pw-subsec__heading" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+                <span class="pw-subsec__letter">a</span> Research
+            </h3>
+        </div>
 
         <!-- Reports -->
         <div class="resource-section mb-5">
@@ -492,7 +500,142 @@
             </div>
         </div>
 
+        <!-- b. Webinars and Talks -->
+        <div class="pw-subsec mb-5">
+            <h3 class="pw-subsec__heading" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+                <span class="pw-subsec__letter">b</span> Webinars and Talks
+            </h3>
+            @if($pubWebinars->isEmpty() && $repoWebinars->isEmpty())
+                <div class="pw-empty">No webinars or talks have been added yet.</div>
+            @else
+                <div class="resource-cards-grid" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+                    @foreach($pubWebinars as $pub)
+                        @php
+                            $isAr     = LaravelLocalization::getCurrentLocale() === 'ar';
+                            $pubTitle = ($isAr && $pub->ar_title) ? $pub->ar_title : $pub->title;
+                            $pubUrl   = $pub->external_url ?? $pub->link_en_url;
+                        @endphp
+                        @if($pubUrl)
+                            <a href="{{ $pubUrl }}" target="_blank" class="resource-card resource-card--webinar">
+                        @else
+                            <div class="resource-card resource-card--webinar">
+                        @endif
+                            <div class="resource-card__icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                            </div>
+                            <div class="resource-card__title">{{ $pubTitle }}</div>
+                            @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
+                            @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
+                            @if($pubUrl)<span class="resource-card__external">@include('frontend.partials._icon-external')</span>@endif
+                        @if($pubUrl)</a>@else</div>@endif
+                    @endforeach
+                    @foreach($repoWebinars as $r)
+                        <a href="{{ route('repo.single', $r->id) }}" class="resource-card resource-card--webinar">
+                            <div class="resource-card__icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                            </div>
+                            <div class="resource-card__title">{{ $r->title }}</div>
+                            @if($r->description)<p class="resource-card__desc">{{ Str::limit($r->description, 120) }}</p>@endif
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+
+        <!-- c. Educational Resources -->
+        <div class="pw-subsec mb-5">
+            <h3 class="pw-subsec__heading" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+                <span class="pw-subsec__letter">c</span> Educational Resources
+            </h3>
+            @if($pubEdu->isEmpty() && $repoEdu->isEmpty())
+                <div class="pw-empty">No educational resources have been added yet.</div>
+            @else
+                <div class="resource-cards-grid" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+                    @foreach($pubEdu as $pub)
+                        @php
+                            $isAr     = LaravelLocalization::getCurrentLocale() === 'ar';
+                            $pubTitle = ($isAr && $pub->ar_title) ? $pub->ar_title : $pub->title;
+                            $pubUrl   = $pub->external_url ?? $pub->link_en_url;
+                        @endphp
+                        @if($pubUrl)
+                            <a href="{{ $pubUrl }}" target="_blank" class="resource-card resource-card--edu">
+                        @else
+                            <div class="resource-card resource-card--edu">
+                        @endif
+                            <div class="resource-card__icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                            </div>
+                            <div class="resource-card__title">{{ $pubTitle }}</div>
+                            @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
+                            @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
+                            @if($pubUrl)<span class="resource-card__external">@include('frontend.partials._icon-external')</span>@endif
+                        @if($pubUrl)</a>@else</div>@endif
+                    @endforeach
+                    @foreach($repoEdu as $r)
+                        <a href="{{ route('repo.single', $r->id) }}" class="resource-card resource-card--edu">
+                            <div class="resource-card__icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                            </div>
+                            <div class="resource-card__title">{{ $r->title }}</div>
+                            @if($r->description)<p class="resource-card__desc">{{ Str::limit($r->description, 120) }}</p>@endif
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+
+    </div>{{-- end Observatory Outputs --}}
+
+    <!-- Separation Line -->
+    <hr style="border: none; border-top: 2px solid #e5e7eb; margin: 3rem 0; width: 100%; opacity: 1;">
+
+    <!-- Section 3: Regional Resources -->
+    <div class="mb-5">
+        <h2 class="mb-1" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
+            style="color: #006644; font-weight: 700;">
+            Regional Resources
+        </h2>
+        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">External research and resources from the MENA region related to Future of Work.</p>
+        @if($regionalRepos->isEmpty())
+            <div class="pw-empty">No regional resources have been tagged yet.</div>
+        @else
+            <div class="resource-cards-grid" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+                @foreach($regionalRepos as $r)
+                    <a href="{{ route('repo.single', $r->id) }}" class="resource-card resource-card--regional">
+                        <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
+                        <div class="resource-card__title">{{ $r->title }}</div>
+                        @if($r->description)<p class="resource-card__desc">{{ Str::limit($r->description, 120) }}</p>@endif
+                    </a>
+                @endforeach
+            </div>
+        @endif
     </div>
+
+    <!-- Separation Line -->
+    <hr style="border: none; border-top: 2px solid #e5e7eb; margin: 3rem 0; width: 100%; opacity: 1;">
+
+    <!-- Section 4: Global Resources -->
+    <div class="mb-5">
+        <h2 class="mb-1" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
+            style="color: #c8870a; font-weight: 700;">
+            Global Resources
+        </h2>
+        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">International research and resources on Future of Work and platform economies.</p>
+        @if($globalRepos->isEmpty())
+            <div class="pw-empty">No global resources have been tagged yet.</div>
+        @else
+            <div class="resource-cards-grid" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+                @foreach($globalRepos as $r)
+                    <a href="{{ route('repo.single', $r->id) }}" class="resource-card resource-card--global">
+                        <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
+                        <div class="resource-card__title">{{ $r->title }}</div>
+                        @if($r->description)<p class="resource-card__desc">{{ Str::limit($r->description, 120) }}</p>@endif
+                    </a>
+                @endforeach
+            </div>
+        @endif
+    </div>
+
 </div>
 
 <style>
@@ -525,17 +668,62 @@
         color: #022248;
     }
 
-    .resource-card--report { border-top: 3px solid #FAAF1C; }
-    .resource-card--brief  { border-top: 3px solid #022248; }
-    .resource-card--blog   { border-top: 3px solid #60a5fa; }
+    .resource-card--report   { border-top: 3px solid #FAAF1C; }
+    .resource-card--brief    { border-top: 3px solid #022248; }
+    .resource-card--blog     { border-top: 3px solid #60a5fa; }
+    .resource-card--webinar  { border-top: 3px solid #0d9488; }
+    .resource-card--edu      { border-top: 3px solid #7c3aed; }
+    .resource-card--regional { border-top: 3px solid #006644; }
+    .resource-card--global   { border-top: 3px solid #c8870a; }
 
     .resource-card__icon {
         font-size: 1.5rem;
         margin-bottom: 0.75rem;
     }
-    .resource-card--report .resource-card__icon { color: #FAAF1C; }
-    .resource-card--brief  .resource-card__icon { color: #022248; }
-    .resource-card--blog   .resource-card__icon { color: #60a5fa; }
+    .resource-card--report   .resource-card__icon { color: #FAAF1C; }
+    .resource-card--brief    .resource-card__icon { color: #022248; }
+    .resource-card--blog     .resource-card__icon { color: #60a5fa; }
+    .resource-card--webinar  .resource-card__icon { color: #0d9488; }
+    .resource-card--edu      .resource-card__icon { color: #7c3aed; }
+    .resource-card--regional .resource-card__icon { color: #006644; }
+    .resource-card--global   .resource-card__icon { color: #c8870a; }
+
+    /* Sub-section headings (a/b/c letters) */
+    .pw-subsec__heading {
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #022248;
+        margin-bottom: 1rem;
+        padding-bottom: .6rem;
+        border-bottom: 2px solid #f0f2f5;
+    }
+
+    .pw-subsec__letter {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #fef9ee;
+        color: #c8870a;
+        font-weight: 800;
+        font-size: .85rem;
+        flex-shrink: 0;
+    }
+
+    .pw-empty {
+        padding: 2rem;
+        text-align: center;
+        color: #9ca3af;
+        font-size: .9rem;
+        background: #f9fafb;
+        border: 1px dashed #e5e7eb;
+        border-radius: 10px;
+    }
 
     .resource-card__title {
         font-size: 0.95rem;

@@ -106,6 +106,38 @@ class RegionalController extends Controller
             ]);
     }
 
+    public function inclusiveAi()
+    {
+        $tag = 'inclusive_ai';
+
+        $repoResearch    = Repo::whereHas('tags', fn($q) => $q->where('name', $tag))
+                               ->where('is_our_work', true)
+                               ->where(fn($q) => $q->where('is_research', true)
+                                   ->orWhere(fn($qq) => $qq->where('is_research', false)
+                                       ->where('is_talk_webinar', false)
+                                       ->where('is_educational', false)))
+                               ->latest()->get();
+
+        $repoWebinars    = Repo::whereHas('tags', fn($q) => $q->where('name', $tag))
+                               ->where('is_talk_webinar', true)->latest()->get();
+
+        $repoEdu         = Repo::whereHas('tags', fn($q) => $q->where('name', $tag))
+                               ->where('is_educational', true)->latest()->get();
+
+        $regionalRepos   = Repo::whereHas('tags', fn($q) => $q->where('name', $tag))
+                               ->where('is_our_work', false)
+                               ->where(fn($q) => $q->where('is_global', false)->orWhereNull('is_global'))
+                               ->latest()->get();
+
+        $globalRepos     = Repo::whereHas('tags', fn($q) => $q->where('name', $tag))
+                               ->where('is_our_work', false)
+                               ->where('is_global', true)->latest()->get();
+
+        return view('frontend.inclusive_ai', compact(
+            'repoResearch', 'repoWebinars', 'repoEdu', 'regionalRepos', 'globalRepos'
+        ));
+    }
+
     public function js_list_view(Request $request)
     {
         if ($request->get('country_id'))

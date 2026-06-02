@@ -11,10 +11,10 @@
     </div>
 
     @php
-        $socialTwitter   = \App\Models\static_content::where('key', 'social_twitter')->value('content')   ?? 'https://x.com/MENAObs_AI';
-        $socialInstagram = \App\Models\static_content::where('key', 'social_instagram')->value('content') ?? 'https://www.instagram.com/menaobservatory.ai/';
-        $socialFacebook  = \App\Models\static_content::where('key', 'social_facebook')->value('content')  ?? 'https://www.facebook.com/a2k4d/';
-        $socialYoutube   = \App\Models\static_content::where('key', 'social_youtube')->value('content')   ?? 'https://www.youtube.com/@MENAObservatory.AI_';
+        $socialTwitter   = strip_tags(\App\Models\static_content::where('key', 'social_twitter')->latest()->value('content')   ?? 'https://x.com/MENAObs_AI');
+        $socialInstagram = strip_tags(\App\Models\static_content::where('key', 'social_instagram')->latest()->value('content') ?? 'https://www.instagram.com/menaobservatory.ai/');
+        $socialFacebook  = strip_tags(\App\Models\static_content::where('key', 'social_facebook')->latest()->value('content')  ?? 'https://www.facebook.com/a2k4d/');
+        $socialYoutube   = strip_tags(\App\Models\static_content::where('key', 'social_youtube')->latest()->value('content')   ?? 'https://www.youtube.com/@MENAObservatory.AI_');
     @endphp
     <div class="d-flex justify-content-center" style='margin-top:30px;'>
         <a href="{{ $socialTwitter }}" target="_blank" class="fa-brands fa-x-twitter"></a>

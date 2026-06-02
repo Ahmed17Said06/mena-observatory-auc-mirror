@@ -84,6 +84,6 @@ return [
     "pw-mena-visuals" => "Visuals",
     "pw-mena-institutions" => "Network Institutions",
     "research" => "Research",
-    "talks-webinars" => "Talks & Webinars",
+    "talks-webinars" => "Webinars and Talks",
     "educational-resources" => "Educational Resources",
 ];

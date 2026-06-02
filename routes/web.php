@@ -109,6 +109,9 @@ Route::group([
     Route::get('/pw-mena/resources', [RegionalController::class, 'futureOfWorkResources'])->name('pw_mena.resources');
     Route::get('/pw-mena', [PwMenaController::class, 'index'])->name('pw_mena');
 
+    // Inclusive AI Research Network
+    Route::get('/inclusive-ai', [RegionalController::class, 'inclusiveAi'])->name('inclusive_ai');
+
     // Feminist AI route
     Route::get('/feminist-ai', function () {
         $keys = [

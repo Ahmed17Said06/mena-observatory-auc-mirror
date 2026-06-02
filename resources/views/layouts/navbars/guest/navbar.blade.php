@@ -908,13 +908,14 @@
 
 <body>
     @php
-        $annText    = \App\Models\static_content::where('key', 'announcement_text')->value('content')
-                      ?? 'Coming Soon - Convergence Summit, May 2, 2026 | AUC Tahrir Campus | CONVERGENCE: Where Robotics Meets the Human Condition';
-        $annLink    = \App\Models\static_content::where('key', 'announcement_link')->value('content')
-                      ?? 'https://www.convergence-summit.com/';
-        $annEnabled = \App\Models\static_content::where('key', 'announcement_enabled')->value('content') ?? 'yes';
+        $annText    = strip_tags(\App\Models\static_content::where('key', 'announcement_text')->latest()->value('content')
+                      ?? 'Coming Soon - Convergence Summit, May 2, 2026 | AUC Tahrir Campus | CONVERGENCE: Where Robotics Meets the Human Condition');
+        $annLink    = strip_tags(\App\Models\static_content::where('key', 'announcement_link')->latest()->value('content')
+                      ?? 'https://www.convergence-summit.com/');
+        $annEnabled = \App\Models\static_content::where('key', 'announcement_enabled')->latest()->value('content') ?? 'yes';
+        $annEnabled = in_array(strtolower(trim(strip_tags($annEnabled))), ['yes', 'true', '1', 'on']);
     @endphp
-    @if($annEnabled === 'yes')
+    @if($annEnabled)
     <!-- Announcement Bar -->
     <div id="announcementBar" class="announcement-bar">
         <div class="announcement-content">
@@ -994,7 +995,7 @@
                         <a href="{{ route('pw_mena') }}">Future of Work MENA</a>
                     </li>
                     <li class="@if (str(Route::current()->getName())->contains('inclusive_ai')) active @endif">
-                        <a href="{{ route('coming-soon') }}">Inclusive AI Research Network</a>
+                        <a href="{{ route('inclusive_ai') }}">Inclusive AI Research Network</a>
                     </li>
                     <li class="@if (str(Route::current()->getName())->contains('news')) active @endif">
                         <a href="{{ route('news.index') }}">@lang('translation.news', ['default' => 'News'])</a>
@@ -1063,7 +1064,7 @@
                     <a href="{{ route('pw_mena') }}">Future of Work MENA</a>
                 </li>
                 <li class="@if (str(Route::current()->getName())->contains('inclusive_ai')) active @endif">
-                    <a href="{{ route('coming-soon') }}">Inclusive AI Research Network</a>
+                    <a href="{{ route('inclusive_ai') }}">Inclusive AI Research Network</a>
                 </li>
                 <li class="@if (str(Route::current()->getName())->contains('news')) active @endif">
                     <a href="{{ route('news.index') }}">@lang('translation.news', ['default' => 'News'])</a>
@@ -1144,19 +1145,19 @@
             bar.style.animation = 'slideDown 0.3s ease-in reverse';
             setTimeout(() => {
                 bar.style.display = 'none';
-                localStorage.setItem('announcementDismissed', 'true');
-                localStorage.setItem('announcementDismissedTime', Date.now().toString());
+                const currentText = bar.querySelector('span') ? bar.querySelector('span').textContent.trim() : '';
+                localStorage.setItem('announcementDismissedText', currentText);
             }, 300);
         }
 
-        // Check if announcement was dismissed
+        // Check if announcement was dismissed — only hide if the text matches what was dismissed
         document.addEventListener('DOMContentLoaded', function() {
-            const dismissed = localStorage.getItem('announcementDismissed');
-            const dismissedTime = localStorage.getItem('announcementDismissedTime');
-            const twentyFourHours = 24 * 60 * 60 * 1000;
-
-            if (dismissed && dismissedTime && (Date.now() - parseInt(dismissedTime)) < twentyFourHours) {
-                document.getElementById('announcementBar').style.display = 'none';
+            const bar = document.getElementById('announcementBar');
+            if (!bar) return;
+            const dismissedText = localStorage.getItem('announcementDismissedText');
+            const currentText = bar.querySelector('span') ? bar.querySelector('span').textContent.trim() : '';
+            if (dismissedText && dismissedText === currentText) {
+                bar.style.display = 'none';
             }
         });
 

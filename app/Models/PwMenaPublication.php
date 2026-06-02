@@ -47,7 +47,9 @@ class PwMenaPublication extends Model
     public function getLinkFrUrlAttribute(): ?string   { return $this->resolveLink($this->file_fr ?? $this->link_fr); }
     public function getExternalUrlAttribute(): ?string { return $this->resolveLink($this->external_link); }
 
-    public function scopeReports($query) { return $query->where('type', 'report'); }
-    public function scopeBriefs($query)  { return $query->where('type', 'brief'); }
-    public function scopeBlogs($query)   { return $query->where('type', 'blog'); }
+    public function scopeReports($query)      { return $query->where('type', 'report'); }
+    public function scopeBriefs($query)       { return $query->where('type', 'brief'); }
+    public function scopeBlogs($query)        { return $query->where('type', 'blog'); }
+    public function scopeWebinars($query)     { return $query->where('type', 'webinar'); }
+    public function scopeEducational($query)  { return $query->where('type', 'educational'); }
 }

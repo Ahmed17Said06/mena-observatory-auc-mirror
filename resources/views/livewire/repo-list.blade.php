@@ -117,6 +117,22 @@
                                 <span class="kh-subsec-count">{{ $group['repos']->total() }}</span>
                             </header>
 
+                            @if ($group['key'] === 'research')
+                                <div class="kh-research-tabs">
+                                    @foreach ([
+                                        'all'     => 'All',
+                                        'reports' => 'Reports',
+                                        'briefs'  => 'Policy Briefs',
+                                        'blogs'   => 'Blogposts',
+                                    ] as $tabKey => $tabLabel)
+                                        <button wire:click="$set('researchSubTab', '{{ $tabKey }}')"
+                                                class="kh-research-tab {{ $researchSubTab === $tabKey ? 'kh-research-tab--active' : '' }}">
+                                            {{ $tabLabel }}
+                                        </button>
+                                    @endforeach
+                                </div>
+                            @endif
+
                             <ul class="kh-cards">
                                 @foreach ($group['repos'] as $r)
                                     @include('livewire.partials.repo-card', ['r' => $r])
@@ -236,6 +252,7 @@
 
     .kh-search-icon {
         position: absolute;
+        left: .85rem;
         inset-inline-start: .85rem;
         top: 50%;
         transform: translateY(-50%);
@@ -302,6 +319,7 @@
         font-family: inherit;
         cursor: pointer;
         transition: all .2s;
+        margin-left: auto;
         margin-inline-start: auto;
     }
 
@@ -412,8 +430,11 @@
         display: flex;
         flex-direction: column;
         gap: 1.75rem;
+        padding-left: 1.5rem;
         padding-inline-start: 1.5rem;
+        border-left: 2px dashed var(--kh-border);
         border-inline-start: 2px dashed var(--kh-border);
+        margin-left: 1.4rem;
         margin-inline-start: 1.4rem;
     }
 
@@ -424,6 +445,7 @@
     .kh-subsec::before {
         content: "";
         position: absolute;
+        left: -1.5rem;
         inset-inline-start: -1.5rem;
         top: 1.1rem;
         width: 1.4rem;
@@ -503,6 +525,7 @@
     .kh-card::after {
         content: "";
         position: absolute;
+        left: 0;
         inset-inline-start: 0;
         top: 0;
         bottom: 0;
@@ -708,20 +731,62 @@
     .kh-empty svg { color: #d1d5db; display: block; margin: 0 auto .6rem; }
     .kh-empty p { margin: 0; font-weight: 600; }
 
+    /* ═══ Research sub-tabs ═══ */
+    .kh-research-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .4rem;
+        margin-bottom: .85rem;
+    }
+
+    .kh-research-tab {
+        padding: .3rem .85rem;
+        border-radius: 20px;
+        border: 1px solid var(--kh-border);
+        background: var(--kh-light);
+        color: var(--kh-muted);
+        font-size: .76rem;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all .2s;
+        line-height: 1.5;
+    }
+
+    .kh-research-tab:hover {
+        border-color: var(--kh-gold);
+        color: var(--kh-gold-dk);
+        background: #fffdf6;
+    }
+
+    .kh-research-tab--active {
+        background: var(--kh-navy);
+        border-color: var(--kh-navy);
+        color: #fff;
+    }
+
+    .kh-research-tab--active:hover {
+        background: var(--kh-navy-mid);
+        border-color: var(--kh-navy-mid);
+        color: #fff;
+    }
+
     /* ═══ Responsive ═══ */
     @media (max-width: 768px) {
         .kh-filter-bar { padding: .85rem 1rem; }
         .kh-filter-select { min-width: 0; flex: 1; }
-        .kh-filter-clear { margin-inline-start: 0; }
+        .kh-filter-clear { margin-left: 0; margin-inline-start: 0; }
         .kh-sec-head { flex-wrap: wrap; padding: .85rem 1rem; }
         .kh-sec-title { font-size: 1.1rem; }
         .kh-sec-sub { font-size: .78rem; }
         .kh-subsections {
+            padding-left: 1rem;
             padding-inline-start: 1rem;
+            margin-left: .8rem;
             margin-inline-start: .8rem;
             gap: 1.4rem;
         }
-        .kh-subsec::before { inset-inline-start: -1rem; width: .9rem; }
+        .kh-subsec::before { left: -1rem; inset-inline-start: -1rem; width: .9rem; }
         .kh-card {
             grid-template-columns: 110px 1fr;
         }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\FeaturedInitiativeCard;
 use App\Models\FeaturedPost;
-use App\Models\static_content;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
@@ -39,15 +39,10 @@ class FeaturedPage extends Component
 
     public function render()
     {
-        $keys = [
-            'featured_safe_ai_title', 'featured_safe_ai_desc',
-            'featured_rai_cup_title', 'featured_rai_cup_subtitle',
-            'featured_girai_title', 'featured_girai_desc',
-            'featured_pw_mena_title', 'featured_pw_mena_desc',
-            'featured_brochures_title', 'featured_brochures_desc',
-        ];
-        $sc = static_content::whereIn('key', $keys)->get()->keyBy('key');
+        $initiativeCards = FeaturedInitiativeCard::where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
 
-        return view('livewire.featured-page', ['sc' => $sc]);
+        return view('livewire.featured-page', ['initiativeCards' => $initiativeCards]);
     }
 }
