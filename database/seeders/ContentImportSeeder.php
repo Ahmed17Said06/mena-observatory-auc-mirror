@@ -360,7 +360,7 @@ class ContentImportSeeder extends Seeder
             unset($data['tags']);
             $data['content']    = $data['content'] ?? '';
             $data['image']      = $data['image'] ?? '';
-            $data['featured']   = $data['featured'] ?? 0;
+            $data['featured']   = $data['featured'] ?? 'no';
             $data['country_id'] = $data['country_id'] ?? null;
             if (News::where('title', $data['title'])->exists()) {
                 continue;
