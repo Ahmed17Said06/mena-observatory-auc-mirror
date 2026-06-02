@@ -160,13 +160,10 @@
     {{-- ══════════════════════════════════════════════════ --}}
     <section class="ab-section ab-mission" id="mission">
         <div class="container">
-            <div class="ab-two-col">
-                <div class="ab-two-col__left">
-                    <div class="ab-section__label js-reveal">Mission</div>
-                    <h2 class="ab-section__title js-reveal-up">What We<br>Set Out to Do</h2>
-                    <div class="ab-accent-bar js-reveal"></div>
-                </div>
-                <div class="ab-two-col__right">
+            <div class="ab-mission__header">
+                <div class="ab-section__label js-reveal">Mission</div>
+            </div>
+            <div class="ab-mission__body">
                     <ul class="ab-mission__list">
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">01</span>
@@ -189,7 +186,6 @@
                             <span>To champion MENA voices, values, and standards in responsible data and AI governance, regionally and globally and share experiences accordingly.</span>
                         </li>
                     </ul>
-                </div>
             </div>
         </div>
     </section>
@@ -199,9 +195,8 @@
     {{-- ══════════════════════════════════════════════════ --}}
     <section class="ab-objectives" id="objectives">
         <div class="container">
-            <div class="ab-obj__subtitle js-reveal">Three Pillars of Impact</div>
-            <h2 class="ab-section__title ab-section__title--light js-reveal-up">Objectives</h2>
-            <p class="ab-obj__intro js-reveal">Rooted in the above-mentioned vision and mission, the overarching objective of the MENA Observatory on Responsible AI can be broken down into three main categories.</p>
+            <h2 class="ab-section__title ab-section__title--light js-reveal-up" style="text-align:center;">Objectives</h2>
+            <p class="ab-obj__intro js-reveal">Rooted in the above-mentioned vision and mission, the overarching objective of the MENA Observatory on Responsible AI can be broken down to three main Pillars of Impact.</p>
 
             <div class="ab-obj__grid">
                 <div class="ab-obj__card js-obj-card" style="--obj-c:#FAAF1C;">
@@ -470,6 +465,9 @@ document.addEventListener('DOMContentLoaded', function () {
     text-transform: uppercase; color: var(--gold-d);
     margin-bottom: .75rem;
 }
+.ab-mission__header .ab-section__label {
+    font-size: 2rem;
+}
 .ab-section__label--light { color: rgba(255,255,255,.75); }
 .ab-section__title {
     font-size: clamp(1.6rem, 3vw, 2.4rem);
@@ -477,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function () {
     line-height: 1.15; margin: 0 0 2.5rem;
     letter-spacing: -.02em;
 }
-.ab-section__title--light { color: #fff; }
+.ab-section__title--light { color: var(--gold); }
 .ab-accent-bar {
     width: 36px; height: 3px; border-radius: 2px;
     background: var(--gold); margin-bottom: 2.5rem;
@@ -592,12 +590,6 @@ document.addEventListener('DOMContentLoaded', function () {
 .ab-two-col {
     display: grid; grid-template-columns: 280px 1fr; gap: 4rem; align-items: start;
 }
-.ab-mission .ab-section__label {
-    font-size: 2.5rem; letter-spacing: .08em;
-}
-.ab-mission .ab-section__title {
-    font-size: clamp(0.85rem, 1.4vw, 1.1rem);
-}
 .ab-mission__list {
     list-style: none; padding: 0; margin: 0;
     display: flex; flex-direction: column; gap: 1.5rem;
@@ -623,9 +615,19 @@ document.addEventListener('DOMContentLoaded', function () {
     background: var(--navy);
     padding: 5rem 0 6rem;
 }
+/* ── Mission centered ── */
+.ab-mission__header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+.ab-mission__header .ab-section__title { margin-bottom: 1rem; }
+.ab-accent-bar--center { margin-left: auto; margin-right: auto; margin-bottom: 0; }
+.ab-mission__body { max-width: 780px; margin: 0 auto; }
+
 .ab-obj__intro {
     font-size: .88rem; color: rgba(255,255,255,.65); line-height: 1.7;
-    margin: -1.5rem 0 2.5rem; max-width: 700px;
+    margin: -1.5rem auto 2.5rem; max-width: 700px;
+    text-align: center;
 }
 .ab-obj__subtitle {
     font-size: .7rem; font-weight: 700; letter-spacing: .14em;
@@ -647,13 +649,13 @@ document.addEventListener('DOMContentLoaded', function () {
     transform: translateY(-4px);
 }
 .ab-obj__num {
-    font-size: 2.5rem; font-weight: 900; color: var(--obj-c);
+    font-size: 2.5rem; font-weight: 900; color: var(--gold);
     opacity: .55; line-height: 1; margin-bottom: 1rem;
     letter-spacing: -.04em;
 }
 .ab-obj__bar {
     width: 30px; height: 3px; border-radius: 2px;
-    background: var(--obj-c); margin-bottom: 1.25rem;
+    background: var(--gold); margin-bottom: 1.25rem;
 }
 .ab-obj__title {
     font-size: 1.1rem; font-weight: 700; color: rgba(255,255,255,.95);

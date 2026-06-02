@@ -105,7 +105,8 @@ Route::group([
     // Add the new work blogs single view route
     Route::get('/new_work/blogs/{id}', [NewWorkController::class, 'newWorkBlogSingle'])->name('new-work-blogs.single');
 
-    // Future of Work MENA route
+    // Future of Work MENA routes
+    Route::get('/pw-mena/resources', [RegionalController::class, 'futureOfWorkResources'])->name('pw_mena.resources');
     Route::get('/pw-mena', [PwMenaController::class, 'index'])->name('pw_mena');
 
     // Feminist AI route
@@ -139,6 +140,7 @@ Route::group([
     Route::get('/regional/global-other-work', [RegionalController::class, 'globalOtherWork'])->name('regional.global_other_work');
     // Keep old route as redirect to avoid broken links
     Route::get('/regional/other-work', function() { return redirect()->route('regional.regional_other_work'); })->name('regional.other_work');
+    Route::get('/regional/gender', [RegionalController::class, 'genderResources'])->name('regional.gender');
     Route::get('/regional/videos', [RegionalController::class, 'videos'])->name('regional.videos');
     Route::get('/regional/html_list', [RegionalController::class, 'js_list_view'])->name('regional.html_list');
     Route::get('/regional/{id}', [RegionalController::class, 'country'])->name('regional.country');

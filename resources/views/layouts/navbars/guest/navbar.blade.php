@@ -982,8 +982,8 @@
                         <a href="{{ route('regional') }}" class="dropdown-toggle">@lang('translation.knowledge-hub')</a>
                         <div class="dropdown-menu">
                             <a href="{{ route('regional.our_work') }}">@lang('translation.our-work')</a>
-                            <a href="{{ route('regional.regional_other_work') }}">Regional Other Work</a>
-                            <a href="{{ route('regional.global_other_work') }}">Global Other Work</a>
+                            <a href="{{ route('regional.regional_other_work') }}">Regional Resources</a>
+                            <a href="{{ route('regional.global_other_work') }}">Global Resources</a>
                         </div>
                     </li>
 
@@ -1049,10 +1049,10 @@
                     <a href="{{ route('regional.our_work') }}">@lang('translation.our-work')</a>
                 </li>
                 <li class="@if (Route::current()->getName() === 'regional.regional_other_work') active @endif" style="padding-left: 1rem;">
-                    <a href="{{ route('regional.regional_other_work') }}">Regional Other Work</a>
+                    <a href="{{ route('regional.regional_other_work') }}">Regional Resources</a>
                 </li>
                 <li class="@if (Route::current()->getName() === 'regional.global_other_work') active @endif" style="padding-left: 1rem;">
-                    <a href="{{ route('regional.global_other_work') }}">Global Other Work</a>
+                    <a href="{{ route('regional.global_other_work') }}">Global Resources</a>
                 </li>
 
 

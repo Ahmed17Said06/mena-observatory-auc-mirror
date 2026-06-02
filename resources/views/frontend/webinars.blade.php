@@ -4,14 +4,24 @@
 @section('content')
     @include('layouts.navbars.guest.navbar', ['title' => 'Webinars'])
 
-    <div class="container my-4 my-lg-5" @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>
-        <div class="row mb-4">
-            <div class="col-12">
-                <h2 style="color:#022448; font-weight:800; margin-bottom:0.25rem;">Webinars</h2>
-                <div style="width:40px; height:3px; background:#c8870a; border-radius:2px; margin-bottom:0.75rem;"></div>
-                <p style="color:#6b7280;">Webinars and online sessions from the MENA Observatory on Responsible AI.</p>
+    <div class="wb-page" @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>
+
+        {{-- ═══ HERO ═══ --}}
+        <div class="wb-hero">
+            <div class="wb-hero-overlay"></div>
+            <div class="container wb-hero-content">
+                <h1 class="wb-hero-title">@lang('translation.talks-webinars')</h1>
+                <p class="wb-hero-sub">Webinars, talks and online sessions from the MENA Observatory on Responsible AI.</p>
+            </div>
+            <div class="wb-hero-wave">
+                <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
+                    <path fill="#f5f6f8" d="M0,35 C480,65 960,10 1440,40 L1440,70 L0,70 Z" opacity="0.5"/>
+                    <path fill="#f5f6f8" d="M0,45 C360,65 900,20 1440,45 L1440,70 L0,70 Z"/>
+                </svg>
             </div>
         </div>
+
+        <div class="container my-4 my-lg-5">
 
         @if($videos->count() > 0)
             <div class="row g-4">
@@ -90,11 +100,79 @@
                 @endforeach
             </div>
         @endif
+        </div>
     </div>
 
     @include('layouts.footers.guest.footer')
 
     <style>
+        .wb-page {
+            background: #f5f6f8;
+            min-height: 100vh;
+        }
+
+        .wb-hero {
+            position: relative;
+            background: linear-gradient(135deg, #022248 0%, #0a4a6e 50%, #c8870a 100%);
+            background-size: 300% 300%;
+            animation: wb-grad 12s ease infinite;
+            padding: 3.5rem 0 0;
+            overflow: hidden;
+        }
+
+        @keyframes wb-grad {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .wb-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 40%, rgba(250,175,28,.25) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .wb-hero-content {
+            position: relative;
+            z-index: 2;
+            padding-bottom: 3rem;
+        }
+
+        .wb-hero-title {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 800;
+            color: #fff;
+            margin: 0 0 .6rem;
+            letter-spacing: -.01em;
+            line-height: 1.2;
+        }
+
+        .wb-hero-sub {
+            font-size: 1rem;
+            color: rgba(255,255,255,.78);
+            margin: 0;
+            max-width: 620px;
+        }
+
+        .wb-hero-wave {
+            position: relative;
+            z-index: 2;
+            line-height: 0;
+            margin-top: -1px;
+        }
+
+        .wb-hero-wave svg {
+            display: block;
+            width: 100%;
+            height: 70px;
+        }
+
+        @media (max-width: 767px) {
+            .wb-hero { padding-top: 2.5rem; }
+            .wb-hero-title { font-size: 1.6rem; }
+        }
+
         .video-card {
             background: #fff;
             border-radius: 16px;

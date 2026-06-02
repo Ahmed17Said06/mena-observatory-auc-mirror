@@ -22,14 +22,14 @@ class EventsSection extends Component
     public function mount()
     {
         $this->events = new Collection();
-        $this->calendarEvents = Events::where('start_date','>',now())->get();
+        $this->calendarEvents = Events::all();
 
         $this->loadPosts();
-        $this->eventDetails = $this->calendarEvents->first();
+        $this->eventDetails = $this->calendarEvents->sortByDesc('start_date')->first();
     }
     public function loadPosts()
     {
-        $posts = Events::where('start_date','>',now())->orderBy('start_date')->when($this->searchInput!='', function ($q) {
+        $posts = Events::orderBy('start_date', 'desc')->when($this->searchInput!='', function ($q) {
             return $q->where('title','like','%'.$this->searchInput.'%');
         })->paginate(5, ['*'], 'page', $this->pageNumber);
         $this->pageNumber += 1;
@@ -64,11 +64,11 @@ class EventsSection extends Component
 
     public function search()
     {
-        $this->events = Events::where('start_date','>',now())->when($this->searchInput!='', function ($q) {
+        $this->events = Events::orderBy('start_date', 'desc')->when($this->searchInput!='', function ($q) {
         return $q->where('title','like','%'.$this->searchInput.'%');
     })->limit(5)->get();
         $this->pageNumber = 2;
-        $this->calendarEvents = Events::where('start_date','>',now())->when($this->searchInput!='', function ($q) {
+        $this->calendarEvents = Events::when($this->searchInput!='', function ($q) {
             return $q->where('title','like','%'.$this->searchInput.'%');
         })->get();
         $this->dispatchBrowserEvent('eventsUpdated',$this->calendarEvents);
