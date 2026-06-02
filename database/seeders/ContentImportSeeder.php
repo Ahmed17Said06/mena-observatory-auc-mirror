@@ -397,6 +397,11 @@ class ContentImportSeeder extends Seeder
         foreach ($publications as $data) {
             $tagNames = $data['tags'] ?? [];
             unset($data['tags']);
+            $data['image']      = $data['image'] ?? '';
+            $data['country_id'] = $data['country_id'] ?? null;
+            if (Repo::where('title', $data['title'])->exists()) {
+                continue;
+            }
             $repo = Repo::create($data);
             foreach ($tagNames as $name) {
                 $tag = Repo_tags::firstOrCreate(['name' => $name]);
