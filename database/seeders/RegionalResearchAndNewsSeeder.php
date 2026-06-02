@@ -222,6 +222,8 @@ class RegionalResearchAndNewsSeeder extends Seeder
                 continue;
             }
             $data['content']    = $data['content'] ?? '';
+            $data['image']      = $data['image'] ?? '';
+            $data['featured']   = $data['featured'] ?? 0;
             $data['country_id'] = $data['country_id'] ?? null;
             News::create($data);
         }
