@@ -14,7 +14,7 @@ class RaiCupSettings extends Page implements HasForms
 {
     use InteractsWithForms, SavesStaticContent;
 
-    protected static ?string $navigationIcon  = 'heroicon-o-trophy';
+    protected static ?string $navigationIcon  = 'heroicon-o-star';
     protected static ?string $navigationLabel = 'RAI Cup Page';
     protected static ?string $navigationGroup = 'Page Content';
     protected static ?int    $navigationSort  = 7;
