@@ -25,7 +25,7 @@
                 <div class="d-flex flex-column flex-lg-row">
                     <div class="col-12 col-lg-10 d-flex gap-3 flex-wrap">
                         @foreach($blog->tags as $tag)
-                            <a class="tag" href="/search?tag={{$tag->name}}">
+                            <a class="tag" href="/search?tag={{ urlencode($tag->name) }}">
                                 {{$tag->name}}
                             </a>
                         @endforeach

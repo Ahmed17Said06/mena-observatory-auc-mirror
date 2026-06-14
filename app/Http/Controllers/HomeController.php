@@ -150,36 +150,49 @@ class HomeController extends Controller
         $search = $request->input('search');
         $tag = $request->input('tag');
 
-        $blogs = Blogs::query()->when(isset($search), function ($query) use ($search) {
-            return $query->where('title', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')
-                ->orWhere('content', 'like', '%' . $search . '%');
+        // Group the search OR-conditions so they don't break the tag AND-filter (operator precedence).
+        $blogs = Blogs::query()->when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->orWhere('content', 'like', '%' . $search . '%');
+            });
         })
-            ->when(isset($tag), function ($query) use ($tag) {
+            ->when($tag, function ($query) use ($tag) {
                 $query->whereHas('tags', function ($query) use ($tag) {
-                    $query->where('name', $tag);
+                    $query->where('repo_tags.name', $tag);
                 });
             })->latest()->take(3)->get();
-        $news = News::query()->when(isset($search), function ($query) use ($search) {
-            return $query->where('title', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%')
-                ->orWhere('content', 'like', '%' . $search . '%');
-        })->when(isset($tag), function ($query) use ($tag) {
+        $news = News::query()->when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->orWhere('content', 'like', '%' . $search . '%');
+            });
+        })->when($tag, function ($query) use ($tag) {
             $query->whereHas('tags', function ($query) use ($tag) {
-                $query->where('name', $tag);
+                $query->where('repo_tags.name', $tag);
             });
         })->latest()->take(3)->get();
-        $events = Events::query()->when(isset($search), function ($query) use ($search) {
-            return $query->where('title', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%');
-        })->when(isset($tag), function ($query) use ($tag) {
+        $events = Events::query()->when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        })->when($tag, function ($query) use ($tag) {
             $query->whereHas('tags', function ($query) use ($tag) {
-                $query->where('name', $tag);
+                $query->where('repo_tags.name', $tag);
             });
         })->latest()->take(3)->get();
 
-        $projects = Repo::query()->when(isset($search), function ($query) use ($search) {
-            return $query->where('title', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%');
-        })->when(isset($tag), function ($query) use ($tag) {
+        $projects = Repo::query()->when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        })->when($tag, function ($query) use ($tag) {
             $query->whereHas('tags', function ($query) use ($tag) {
-                $query->where('name', $tag);
+                $query->where('repo_tags.name', $tag);
             });
         })->latest()->take(3)->get();
         $count = count($blogs) + count($news) + count($events) + count($projects);

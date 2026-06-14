@@ -81,7 +81,7 @@
                             @if(count($repo->tags) > 0)
                                 <div class="pub-tags">
                                     @foreach($repo->tags as $tag)
-                                        <a href="/search?tag={{ $tag->name }}" class="pub-tag">{{ $tag->name }}</a>
+                                        <a href="/search?tag={{ urlencode($tag->name) }}" class="pub-tag">{{ $tag->name }}</a>
                                     @endforeach
                                 </div>
                             @endif

@@ -44,7 +44,7 @@
                                     <div class="d-flex flex-column flex-lg-row">
                                         <div class="col-lg-11">
                                             @foreach($r->tags as $tag)
-                                                <a class="tag" href="/search?tag={{$tag->name}}">
+                                                <a class="tag" href="/search?tag={{ urlencode($tag->name) }}">
                                                     {{$tag->name}}
                                                 </a>
                                             @endforeach

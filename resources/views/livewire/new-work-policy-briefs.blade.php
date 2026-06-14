@@ -73,7 +73,7 @@
 
                         <div class="d-flex flex-row flex-wrap">
                             @foreach($brief->tags as $tag)
-                            <a class="tag" href="/search?tag={{ $tag->name }}">
+                            <a class="tag" href="/search?tag={{ urlencode($tag->name) }}">
                                 {{ $tag->name }}
                             </a>
                             @endforeach

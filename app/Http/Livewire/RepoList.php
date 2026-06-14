@@ -74,8 +74,8 @@ class RepoList extends Component
             ->when($this->search, fn($q) => $q->where(fn($qq) => $qq
                 ->where('title', 'like', '%' . $this->search . '%')
                 ->orWhere('description', 'like', '%' . $this->search . '%')))
-            // User tag filter
-            ->when($this->selectedTag, fn($q) => $q->whereHas('tags', fn($tq) => $tq->where('id', $this->selectedTag)))
+            // User tag filter (qualify repo_tags.id — `id` is ambiguous across the repo_tags/taggables join)
+            ->when($this->selectedTag, fn($q) => $q->whereHas('tags', fn($tq) => $tq->where('repo_tags.id', $this->selectedTag)))
             // User year filter
             ->when($this->selectedYear, fn($q) => $q->whereYear('publish_date', $this->selectedYear))
             // User type filter
