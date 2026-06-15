@@ -108,7 +108,7 @@
     <div class='subs'>
         <dotlottie-player autoplay loop src="/img/top_right.lottie" class="lottie_top_right"></dotlottie-player>
         <div class="container">
-            <h3 hreflang="{{ getLang() }}">@lang('translation.subscribe-newsletter')</h3>
+            <h3 hreflang="{{ getLang() }}" style="color: #FFFFFF !important; opacity: 1 !important;">@lang('translation.subscribe-newsletter')</h3>
             <div class='row'>
                 <div class='col-md-7'>
                     <form method="POST" action="{{ route('subscribe') }}" style="display: flex; gap: 20px;" class="newsletter-form">
