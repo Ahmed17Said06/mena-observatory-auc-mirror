@@ -11,7 +11,7 @@
             <div class="post-container lazy-item">
                 <a href='{{$n->link}}'>
                     <div class="post-loop position-relative overflow-hidden">
-                        <img class="post-img" src="{{Storage::url($n->thumbnail_image)}}">
+                        <img class="post-img" src="{{ $n->thumbnail_url }}">
                         <div class="post-content" lang="en">
                             <h4 style='color:#FFF;' class='slide_title' lang="en">{{$n->title}}</h4>
                             <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
