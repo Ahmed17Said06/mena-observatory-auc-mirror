@@ -204,9 +204,11 @@
     @foreach($blogs as $n)
             <div class="col-6 col-md-4 col-lg-3">
                 @php
-                    $thumbSrc = ($n->thumbnail_image && str_contains($n->thumbnail_image, '/'))
-                        ? Storage::url($n->thumbnail_image)
-                        : '/img/' . ($n->thumbnail_image ?: 'placeholder-featured.jpg');
+                    $thumbSrc = !$n->thumbnail_image
+                        ? '/img/placeholder-featured.jpg'
+                        : (\Illuminate\Support\Str::startsWith($n->thumbnail_image, ['http://', 'https://'])
+                            ? $n->thumbnail_image
+                            : Storage::url($n->thumbnail_image));
                 @endphp
                 <div class="community-person-card">
                     <a href="{{ route('community_single', ['id' => $n->id]) }}" class="community-circle">
