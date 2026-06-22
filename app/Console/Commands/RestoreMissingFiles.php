@@ -24,7 +24,8 @@ class RestoreMissingFiles extends Command
     protected $signature = 'files:restore-missing
         {--source=https://34.166.132.99/storage : Base URL the missing files are pulled from}
         {--dry-run : Only report what is missing, do not download}
-        {--only= : Comma-separated list of tables to limit the scan to}';
+        {--only= : Comma-separated list of tables to limit the scan to}
+        {--fix-prefixes : Strip a leading "storage/" from every mapped column and exit (fixes /storage/storage/ 404s)}';
 
     protected $description = 'Audit DB file/PDF/image paths and restore any missing from the legacy host';
 
@@ -57,6 +58,10 @@ class RestoreMissingFiles extends Command
         $only   = $this->option('only')
             ? array_map('trim', explode(',', $this->option('only')))
             : null;
+
+        if ($this->option('fix-prefixes')) {
+            return $this->fixPrefixes($only);
+        }
 
         $disk = Storage::disk('public');
 
@@ -142,6 +147,44 @@ class RestoreMissingFiles extends Command
                 $this->line("  - {$path}  ({$why})  [{$missing[$path]}]");
             }
         }
+
+        return self::SUCCESS;
+    }
+
+    /**
+     * Strip a leading "storage/" from every mapped column. Stored paths should
+     * be disk-relative (e.g. "abc.jpg"); a "storage/" prefix makes Storage::url
+     * produce "/storage/storage/abc.jpg" which 404s.
+     */
+    private function fixPrefixes(?array $only): int
+    {
+        $totalRows = 0;
+
+        foreach ($this->map as $table => $columns) {
+            if ($only && !in_array($table, $only, true)) {
+                continue;
+            }
+            if (!Schema::hasTable($table)) {
+                continue;
+            }
+            foreach ($columns as $col) {
+                if (!Schema::hasColumn($table, $col)) {
+                    continue;
+                }
+                $rows = DB::table($table)
+                    ->where($col, 'like', 'storage/%')
+                    ->update([$col => DB::raw('SUBSTRING(' . $col . ', 9)')]);
+
+                if ($rows > 0) {
+                    $totalRows += $rows;
+                    $this->line("  {$table}.{$col}: stripped 'storage/' from {$rows} row(s)");
+                }
+            }
+        }
+
+        $this->info($totalRows > 0
+            ? "Done. Removed the 'storage/' prefix from {$totalRows} value(s)."
+            : "No values had a leading 'storage/' prefix.");
 
         return self::SUCCESS;
     }
