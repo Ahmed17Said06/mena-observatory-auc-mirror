@@ -3,15 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\News;
-use Illuminate\Support\Collection;
 use Livewire\Component;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class AllNews extends Component
 {
-    public Collection $blogs;
     public $search = '';
-    
+
     // Lazy loading properties
     public $pageNumber = 1;
     public $perPage = 6;
@@ -37,53 +35,40 @@ class AllNews extends Component
         ];
     }
 
-    public function mount()
-    {
-        $this->blogs = new Collection();
-        $this->loadMore();
-    }
-
     public function updateSearch()
     {
-        $this->resetItems();
+        $this->pageNumber = 1;
     }
-    
+
     private function getQuery()
     {
         return News::where('title', 'like', '%' . $this->search . '%')
             ->orderBy('created_at', 'desc');
     }
-    
+
     public function loadMore(): void
     {
-        $paginated = $this->getQuery()->paginate($this->perPage, ['*'], 'page', $this->pageNumber);
-        
         $this->pageNumber++;
-        $this->hasMorePages = $paginated->hasMorePages();
-        
-        // Append new items to the collection
-        $newItems = collect($paginated->items());
-        
-        // Add static RAI Cup article at the beginning of first page only (if not searching)
-        if ($this->pageNumber === 2 && empty($this->search)) {
-            $staticArticle = $this->getStaticRaiCupArticle();
-            $newItems = collect([$staticArticle])->merge($newItems);
-        }
-        
-        $this->blogs = $this->blogs->merge($newItems);
-    }
-    
-    private function resetItems(): void
-    {
-        $this->blogs = new Collection();
-        $this->pageNumber = 1;
-        $this->hasMorePages = true;
-        $this->loadMore();
     }
 
     public function render()
     {
-        return view('livewire.news');
+        // Rebuild the full visible list from scalar state each render so we
+        // never persist (and serialize) model objects across Livewire
+        // requests — that is what turned items into arrays on "load more".
+        $total = $this->perPage * $this->pageNumber;
+        $paginated = $this->getQuery()->paginate($total, ['*'], 'page', 1);
+
+        $this->hasMorePages = $paginated->hasMorePages();
+
+        $blogs = collect($paginated->items());
+
+        // Pin the static RAI Cup article to the top (when not searching).
+        if (empty($this->search)) {
+            $blogs = collect([$this->getStaticRaiCupArticle()])->merge($blogs);
+        }
+
+        return view('livewire.news', ['blogs' => $blogs]);
     }
 }
 
