@@ -35,7 +35,7 @@ padding-bottom: 50px;'>
         @foreach($blogs as $index => $n)
             <div class="post-container lazy-item">
                 <div class="post-loop position-relative overflow-hidden">
-                    <img class="post-img" src="{{Storage::url($n->image)}}">
+                    <img class="post-img" src="{{ $n->image ? Storage::url($n->image) : '/img/card-placeholder.svg' }}" alt="{{ $n->title }}" onerror="this.onerror=null;this.src='/img/card-placeholder.svg'">
                     <div class="post-content" lang="en">
                         <h4 style='color:#FFF;' class='slide_title'>
                         <a href='{{route("blogs.single", ["id" => $n->id])}}'>{{$n->title}}</a>

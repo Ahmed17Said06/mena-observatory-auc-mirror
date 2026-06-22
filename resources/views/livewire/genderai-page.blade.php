@@ -54,7 +54,7 @@ padding-bottom: 50px;'>
                             <p class="sub-title">Future of Work MENA</p>
                         </div>
                     @endif
-                    <img class="post-img" src="{{Storage::url($n->thumbnail_image)}}">
+                    <img class="post-img" src="{{ $n->thumbnail_image ? Storage::url($n->thumbnail_image) : '/img/card-placeholder.svg' }}" onerror="this.onerror=null;this.src='/img/card-placeholder.svg'">
                     <div class="post-content" lang="en">
                     @php $cardLink = $n->featured_type === 'feminist_ai' ? route('feminist_ai') : $n->link; @endphp
                     <a href='{{ $cardLink }}'><h4 style='color:#FFF;' class='slide_title'>{!! str_replace(' – ', '<br>', e($n->title)) !!}</h4></a>

@@ -40,7 +40,7 @@
                     <a href="{{ $n->link }}" target="_blank" rel="noopener">
                 @endif
                     <div class="post-loop position-relative overflow-hidden">
-                        <img class="post-img" src="{{ $n->thumbnail_url }}">
+                        <img class="post-img" src="{{ $n->thumbnail_url ?: '/img/card-placeholder.svg' }}" onerror="this.onerror=null;this.src='/img/card-placeholder.svg'">
                         <div class="post-content" lang="en">
                             <h4 style='color:#FFF;' class='slide_title' lang="en">{{$n->title}}</h4>
                             <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
