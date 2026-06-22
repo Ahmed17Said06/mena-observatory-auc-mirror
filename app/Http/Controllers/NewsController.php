@@ -63,7 +63,13 @@ class NewsController extends Controller
             'news_card_3_title', 'news_card_3_desc', 'news_card_3_link', 'news_card_3_btn',
         ];
         $sc = static_content::whereIn('key', $keys)->get()->keyBy('key');
-        return view('frontend.news', ['sc' => $sc]);
+
+        // Curated external "Global AI News" items (imported from the spreadsheet).
+        $globalAiNews = News::where('featured', 'global_ai')
+            ->orderByDesc('date')
+            ->get();
+
+        return view('frontend.news', ['sc' => $sc, 'globalAiNews' => $globalAiNews]);
     }
 
     public function raiCup()

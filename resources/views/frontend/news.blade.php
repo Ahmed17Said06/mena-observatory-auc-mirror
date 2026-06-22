@@ -132,6 +132,43 @@
             </div>
             {{-- End Static News Items --}}
 
+            {{-- ─────────────── GLOBAL AI NEWS ─────────────── --}}
+            @if(isset($globalAiNews) && $globalAiNews->count())
+                <div class="col-12 mb-4">
+                    <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif
+                        style="color:#022448; font-weight:700; border-bottom:2px solid #e5e7eb; padding-bottom:.5rem; margin-bottom:1.5rem;">
+                        {{ tr('Global AI News','أخبار الذكاء الاصطناعي العالمية') }}
+                    </h3>
+                    <div class="flex-column flex-md-row"
+                        style="display: flex; flex-wrap: wrap; align-content: center; padding-bottom: 20px;">
+                        @foreach($globalAiNews as $n)
+                            @php
+                                $gimg = $n->image
+                                    ? (\Illuminate\Support\Str::startsWith($n->image, ['http://','https://']) ? $n->image : Storage::url($n->image))
+                                    : '/img/card-placeholder.svg';
+                            @endphp
+                            <div class="post-container lazy-item">
+                                <a href="{{ $n->data_link }}" target="_blank" rel="noopener">
+                                    <div class="post-loop-events position-relative overflow-hidden">
+                                        <img class="post-img" src="{{ $gimg }}" alt="{{ $n->title }}"
+                                             onerror="this.onerror=null;this.src='/img/card-placeholder.svg'">
+                                        <div class="post-content" lang="en">
+                                            <h4 style='color:#FFF;' class='slide_title'>{{ $n->title }}</h4>
+                                            <p style='color:#FFF;' class='slide_description'>
+                                                {{ $n->description }}@if($n->date) · {{ \Carbon\Carbon::parse($n->date)->format('M d, Y') }}@endif
+                                            </p>
+                                            <button class='btn learn_more'><i class="fas fa-external-link-alt"></i> {{ tr('Read Article','اقرأ المقال') }}</button>
+                                        </div>
+                                        <div class="overlay-1"></div>
+                                        <div class="overlay-news"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
             <livewire:all-news />
 
             {{-- ─────────────── EVENTS SECTION ─────────────── --}}
