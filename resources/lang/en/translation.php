@@ -44,6 +44,7 @@ return [
     "mena-regions" => "Regional",
     "featured" => "FEATURED",
     "search-posts" => "Search posts",
+    "no-results-found" => "No posts match your search.",
     "privacy" => "2024 | <span style='font-weight: 700'>PRIVACY - TERMS</span>",
     "gender-ai" => "GENDER ",
     "aswat" => "ASWAT: VOICES FROM MENA",

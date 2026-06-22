@@ -3,41 +3,51 @@
 namespace App\Http\Livewire;
 
 use App\Models\Blogs;
-use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class BlogsPage extends Component
 {
-    public Collection $blogs;
-    
+    public $search = '';
+
     // Lazy loading properties
     public $pageNumber = 1;
     public $perPage = 3;
     public $hasMorePages = true;
 
-    public function mount()
+    public function updatedSearch(): void
     {
-        $this->blogs = new Collection();
-        $this->loadMore();
+        // Reset paging whenever the search term changes so results start fresh.
+        $this->pageNumber = 1;
     }
-    
+
     private function getQuery()
     {
-        return Blogs::latest();
+        $term = trim($this->search);
+
+        return Blogs::query()
+            ->when($term !== '', function ($q) use ($term) {
+                $q->where(function ($sub) use ($term) {
+                    $sub->where('title', 'like', '%' . $term . '%')
+                        ->orWhere('description', 'like', '%' . $term . '%');
+                });
+            })
+            ->latest();
     }
-    
+
     public function loadMore(): void
     {
-        $paginated = $this->getQuery()->paginate($this->perPage, ['*'], 'page', $this->pageNumber);
-        
         $this->pageNumber++;
-        $this->hasMorePages = $paginated->hasMorePages();
-        
-        $this->blogs = $this->blogs->merge($paginated->items());
     }
 
     public function render()
     {
-        return view('livewire.blogs-page');
+        // Rebuild the visible list from scalar state each render so we never
+        // persist (and serialize) model objects across Livewire requests.
+        $total     = $this->perPage * $this->pageNumber;
+        $paginated = $this->getQuery()->paginate($total, ['*'], 'page', 1);
+
+        $this->hasMorePages = $paginated->hasMorePages();
+
+        return view('livewire.blogs-page', ['blogs' => collect($paginated->items())]);
     }
 }
