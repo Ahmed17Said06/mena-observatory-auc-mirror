@@ -25,6 +25,7 @@ class RestoreMissingFiles extends Command
         {--source=https://34.166.132.99/storage : Base URL the missing files are pulled from}
         {--dry-run : Only report what is missing, do not download}
         {--only= : Comma-separated list of tables to limit the scan to}
+        {--all-columns : Auto-discover every char/text column in every table (not just the curated map)}
         {--fix-prefixes : Strip a leading "storage/" from every mapped column and exit (fixes /storage/storage/ 404s)}';
 
     protected $description = 'Audit DB file/PDF/image paths and restore any missing from the legacy host';
@@ -58,9 +59,12 @@ class RestoreMissingFiles extends Command
         $only   = $this->option('only')
             ? array_map('trim', explode(',', $this->option('only')))
             : null;
+        $allColumns = (bool) $this->option('all-columns');
+
+        $map = $allColumns ? $this->discoverMap() : $this->map;
 
         if ($this->option('fix-prefixes')) {
-            return $this->fixPrefixes($only);
+            return $this->fixPrefixes($only, $map);
         }
 
         $disk = Storage::disk('public');
@@ -69,7 +73,7 @@ class RestoreMissingFiles extends Command
         $present = 0;
         $missing = [];      // path => true (deduped)
 
-        foreach ($this->map as $table => $columns) {
+        foreach ($map as $table => $columns) {
             if ($only && !in_array($table, $only, true)) {
                 continue;
             }
@@ -86,6 +90,11 @@ class RestoreMissingFiles extends Command
                 foreach ($columns as $col) {
                     $path = $this->normalize($row->$col ?? null);
                     if ($path === null) {
+                        continue;
+                    }
+                    // In auto-discovery mode only act on values that actually
+                    // look like a stored file (avoid titles, HTML, free text).
+                    if ($allColumns && !$this->looksLikeFile($path)) {
                         continue;
                     }
                     $checked++;
@@ -156,11 +165,11 @@ class RestoreMissingFiles extends Command
      * be disk-relative (e.g. "abc.jpg"); a "storage/" prefix makes Storage::url
      * produce "/storage/storage/abc.jpg" which 404s.
      */
-    private function fixPrefixes(?array $only): int
+    private function fixPrefixes(?array $only, array $map): int
     {
         $totalRows = 0;
 
-        foreach ($this->map as $table => $columns) {
+        foreach ($map as $table => $columns) {
             if ($only && !in_array($table, $only, true)) {
                 continue;
             }
@@ -187,6 +196,53 @@ class RestoreMissingFiles extends Command
             : "No values had a leading 'storage/' prefix.");
 
         return self::SUCCESS;
+    }
+
+    /**
+     * Build a map of every char/text column across all (non-system) tables.
+     * Used by --all-columns so we sweep file references in columns that aren't
+     * in the curated map.
+     */
+    private function discoverMap(): array
+    {
+        $deny = [
+            'migrations', 'password_resets', 'password_reset_tokens', 'failed_jobs',
+            'jobs', 'job_batches', 'sessions', 'cache', 'cache_locks',
+            'personal_access_tokens', 'subscribers', 'users', 'taggables',
+            'commutables', 'author_repo',
+        ];
+
+        $map = [];
+        foreach (DB::select('SHOW TABLES') as $row) {
+            $table = array_values((array) $row)[0];
+            if (in_array($table, $deny, true)) {
+                continue;
+            }
+            foreach (DB::select('SHOW COLUMNS FROM `' . $table . '`') as $col) {
+                // varchar/char/text/mediumtext/longtext can hold a path.
+                if (preg_match('/char|text/i', $col->Type)) {
+                    $map[$table][] = $col->Field;
+                }
+            }
+        }
+
+        return $map;
+    }
+
+    /**
+     * Whether a normalised value looks like an actual stored file path (a single
+     * token ending in a known media/document extension) rather than free text,
+     * a title, or an HTML blob.
+     */
+    private function looksLikeFile(string $value): bool
+    {
+        if (preg_match('/\s/', $value) || strlen($value) > 255) {
+            return false;
+        }
+        return (bool) preg_match(
+            '/^[A-Za-z0-9._\/=+-]+\.(jpe?g|png|gif|webp|svg|bmp|ico|pdf|docx?|pptx?|xlsx?|csv|txt|zip|rar|mp4|m4v|mov|webm|avi|mkv|mp3|wav)$/i',
+            $value
+        );
     }
 
     /**
