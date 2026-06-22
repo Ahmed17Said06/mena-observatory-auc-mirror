@@ -26,4 +26,29 @@ class Aswat extends Model
         }
         return Str::startsWith($val, ['http://', 'https://']) ? $val : Storage::url($val);
     }
+
+    /**
+     * Convert the stored link to an embeddable player URL for inline playback:
+     *   - YouTube watch/short links → youtube.com/embed/<id>
+     *   - Google Drive file links   → drive.google.com/file/d/<id>/preview
+     * Returns null when the link isn't a recognised embeddable video (the view
+     * then falls back to opening the link in a new tab).
+     */
+    public function getEmbedUrlAttribute(): ?string
+    {
+        $link = (string) $this->link;
+        if ($link === '') {
+            return null;
+        }
+
+        if (preg_match('~(?:youtube\.com/(?:watch\?v=|embed/)|youtu\.be/)([A-Za-z0-9_-]{11})~', $link, $m)) {
+            return 'https://www.youtube.com/embed/' . $m[1] . '?autoplay=1&rel=0';
+        }
+
+        if (preg_match('~drive\.google\.com/file/d/([A-Za-z0-9_-]+)~', $link, $m)) {
+            return 'https://drive.google.com/file/d/' . $m[1] . '/preview';
+        }
+
+        return null;
+    }
 }
