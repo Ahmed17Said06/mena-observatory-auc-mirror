@@ -749,15 +749,15 @@
                 <div class="hero-stats">
                     <div class="hero-stat animate-in" style="animation-delay: 0.1s;">
                         <span class="hero-stat-value" id="hero-indices-count">5</span>
-                        <span class="hero-stat-label">AI Indices</span>
+                        <span class="hero-stat-label">{{ tr('AI Indices','مؤشرات الذكاء الاصطناعي') }}</span>
                     </div>
                     <div class="hero-stat animate-in" style="animation-delay: 0.2s;">
                         <span class="hero-stat-value" id="hero-countries-count">20+</span>
-                        <span class="hero-stat-label">Countries</span>
+                        <span class="hero-stat-label">{{ tr('Countries','الدول') }}</span>
                     </div>
                     <div class="hero-stat animate-in" style="animation-delay: 0.3s;">
                         <span class="hero-stat-value" id="hero-years-count">4</span>
-                        <span class="hero-stat-label">Years of Data</span>
+                        <span class="hero-stat-label">{{ tr('Years of Data','أعوام البيانات') }}</span>
                     </div>
                 </div>
             </div>
@@ -766,7 +766,7 @@
         <div class="ai-container">
             <div class="map-controls">
                 <div class="control-group">
-                    <label for="index-select">Index:</label>
+                    <label for="index-select">{{ tr('Index:','المؤشر:') }}</label>
                     <select id="index-select">
                         <option value="globalAI">The Global AI Index (Tortoise Media)</option>
                         <option value="govReadiness">Government AI Readiness Index (Oxford Insights)</option>
@@ -776,19 +776,19 @@
                     </select>
                 </div>
                 <div class="control-group">
-                    <label for="year-select">Year:</label>
+                    <label for="year-select">{{ tr('Year:','السنة:') }}</label>
                     <select id="year-select">
                         <option value="2024">2024</option>
                     </select>
                 </div>
                 <div class="control-group">
-                    <button onclick="resetMap()">Reset View</button>
+                    <button onclick="resetMap()">{{ tr('Reset View','إعادة تعيين خاصية العرض') }}</button>
                 </div>
             </div>
 
             <!-- Index Explanation Links -->
             <div class="index-links-section">
-                <h4 class="index-links-title">Learn More About Each Index</h4>
+                <h4 class="index-links-title">{{ tr('Learn More About Each Index','اعرف المزيد عن كل مؤشر') }}</h4>
                 <div class="index-links-grid">
                     <a href="https://www.tortoisemedia.com/intelligence/global-ai/" target="_blank" class="index-link-card">
                         <div class="index-link-card__name">The Global AI Index</div>
@@ -822,7 +822,7 @@
                 <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">⛶</button>
                 <div id="ai-map"></div>
                 <div class="ai-legend">
-                    <h4>Score Range</h4>
+                    <h4>{{ tr('Score Range','نطاق الدرجات') }}</h4>
                     <div class="legend-item">
                         <div class="legend-color" style="background: #1a9850;"></div>
                         <span>High (80-100)</span>
@@ -854,7 +854,7 @@
             <!-- Data Table -->
             <div class="data-table-container">
                 <div class="table-header">
-                    <h3>Country Data</h3>
+                    <h3>{{ tr('Country Data','بيانات الدول') }}</h3>
                     <div class="table-actions">
                         <input type="text" class="table-search" id="table-search" placeholder="Search countries..." oninput="filterTable()">
                         <button class="export-btn" onclick="exportToCSV()">
@@ -874,29 +874,29 @@
 
             <!-- AIDV Info Box (shown only for AIDV index) -->
             <div class="aidv-info-box" id="aidv-info" style="display: none;">
-                <h5>About the AI and Democratic Values Index</h5>
+                <h5>{{ tr('About the AI and Democratic Values Index','حول الذكاء الاصطناعي ومؤشر القيم الديموقراطية') }}</h5>
                 <p>The Artificial Intelligence and Democratic Values Index (AIDV) assesses countries based on their commitment to responsible AI development aligned with democratic principles, human rights, and ethical governance. Countries are evaluated on their AI policies, regulatory frameworks, and alignment with international AI ethics standards.</p>
             </div>
 
             <div class="stats-panel">
                 <div class="stat-card">
 
-                    <h3>Average Score</h3>
+                    <h3>{{ tr('Average Score','متوسط الدرجات') }}</h3>
                     <div class="value" id="avg-index">--</div>
                 </div>
                 <div class="stat-card">
 
-                    <h3>Countries Tracked</h3>
+                    <h3>{{ tr('Countries Tracked','الدول التي خضعت للفحص') }}</h3>
                     <div class="value" id="country-count">--</div>
                 </div>
                 <div class="stat-card">
 
-                    <h3>Highest Score</h3>
+                    <h3>{{ tr('Highest Score','أعلى درجة') }}</h3>
                     <div class="value" id="highest-score">--</div>
                 </div>
                 <div class="stat-card">
 
-                    <h3>Top Performer</h3>
+                    <h3>{{ tr('Top Performer','أفضل أداء') }}</h3>
                     <div class="value" style="font-size: 1.5rem;" id="top-country">--</div>
                 </div>
             </div>

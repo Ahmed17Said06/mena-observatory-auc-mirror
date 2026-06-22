@@ -87,4 +87,5 @@ return [
     "research" => "Research",
     "talks-webinars" => "Webinars and Talks",
     "educational-resources" => "Educational Resources",
+    "back-to-news" => "Back to News",
 ];

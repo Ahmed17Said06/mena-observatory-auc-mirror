@@ -87,4 +87,5 @@ return [
     "research" => "البحوث",
     "talks-webinars" => "الندوات عبر الإنترنت والمحاضرات",
     "educational-resources" => "موارد تعليمية",
+    "back-to-news" => "العودة إلى الأخبار",
 ];
