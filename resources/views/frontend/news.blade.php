@@ -132,6 +132,9 @@
             </div>
             {{-- End Static News Items --}}
 
+            {{-- Main searchable news feed (continues the NEWS section) --}}
+            <livewire:all-news />
+
             {{-- ─────────────── GLOBAL AI NEWS ─────────────── --}}
             @if(isset($globalAiNews) && $globalAiNews->count())
                 <div class="col-12 mb-4">
@@ -168,8 +171,6 @@
                     </div>
                 </div>
             @endif
-
-            <livewire:all-news />
 
             {{-- ─────────────── EVENTS SECTION ─────────────── --}}
             <div class="col-12 mt-5">
