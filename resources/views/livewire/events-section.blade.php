@@ -217,17 +217,19 @@
                     center: 'prev title,next',
                     end: '' // will normally be on the right. if RTL, will be on the left
                 },
-                events: {!! $calendarEvents->map(function ($event) {
+                events: {!! $calendarEvents->filter(function ($event) {
+    return $event->start_date !== null;
+})->map(function ($event) {
     return [
         'id' => $event->id,
         'title' => $event->title,
         'start' => $event->start_date->toDateTimeString(),
-        'end' => $event->end_date->toDateTimeString(),
+        'end' => $event->end_date?->toDateTimeString(),
         'classNames' => $event->type,
          'allDay' => false
 
     ];
-})->toJson() !!},
+})->values()->toJson() !!},
                 eventContent: function (info) {
                     let eventEl = document.createElement('div');
                     eventEl.classList.add('w-100', 'px-2');
