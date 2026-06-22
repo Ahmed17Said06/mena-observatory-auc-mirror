@@ -14,9 +14,9 @@
         <div class="ab-hero__ring ab-hero__ring--1"></div>
         <div class="ab-hero__ring ab-hero__ring--2"></div>
         <div class="container position-relative" style="z-index:2">
-            <span class="ab-eyebrow js-reveal">About Us</span>
+            <span class="ab-eyebrow js-reveal">{{ tr('About Us','معلومات عنا') }}</span>
             <h1 class="ab-hero__title js-split-title">
-                MENA Observatory<br>on Responsible AI
+                {!! tr('MENA Observatory<br>on Responsible AI','مرصد الشرق الأوسط وشمال أفريقيا<br>للذكاء الاصطناعي المسؤول') !!}
             </h1>
             <div class="ab-hero__rule js-reveal"></div>
             <div class="ab-hero__scroll-cue js-reveal">
@@ -60,29 +60,29 @@
     {{-- ══════════════════════════════════════════════════ --}}
     <section class="ab-section ab-story" id="our-story">
         <div class="container">
-            <h2 class="ab-section__title js-reveal-up">Our Story</h2>
+            <h2 class="ab-section__title js-reveal-up">{{ tr('Our Story','قصتنا') }}</h2>
 
             <div class="ab-timeline">
                 <div class="ab-timeline__line"></div>
 
                 <div class="ab-timeline__item js-tl-item">
-                    <div class="ab-timeline__dot"><span>Feb 2010</span></div>
+                    <div class="ab-timeline__dot"><span>{{ tr('Feb 2010','فبراير 2010') }}</span></div>
                     <div class="ab-timeline__card">
-                        <p>Launch of the <strong>Access to Knowledge for Development Center (A2K4D)</strong> at The American University in Cairo's Onsi Sawiris School of Business is established.</p>
+                        <p>{!! tr('Launch of the <strong>Access to Knowledge for Development Center (A2K4D)</strong> at The American University in Cairo\'s Onsi Sawiris School of Business is established.','إنشاء <strong>مركز إتاحة المعرفة من أجل التنمية (A2K4D)</strong> في كلية أنسي ساويرس لإدارة الأعمال بالجامعة الأمريكية في القاهرة.') !!}</p>
                     </div>
                 </div>
 
                 <div class="ab-timeline__item js-tl-item">
-                    <div class="ab-timeline__dot"><span>Feb 2024</span></div>
+                    <div class="ab-timeline__dot"><span>{{ tr('Feb 2024','فبراير 2024') }}</span></div>
                     <div class="ab-timeline__card">
-                        <p>Launch of the <strong>"MENA AI Observatory"</strong> by A2K4D, at the Center's 14th anniversary, building on a history of advancing knowledge, technology and data for development in the region. A2K4D built the observatory as part of the project <em>"Governing Responsible AI in the MENA Region"</em>, held in partnership with BirZeit University's Center for Continuing Education and supported by Canada's <strong>International Development Research Centre (IDRC)</strong>.</p>
+                        <p>{!! tr('Launch of the <strong>"MENA AI Observatory"</strong> by A2K4D, at the Center\'s 14th anniversary, building on a history of advancing knowledge, technology and data for development in the region. A2K4D built the observatory as part of the project <em>"Governing Responsible AI in the MENA Region"</em>, held in partnership with BirZeit University\'s Center for Continuing Education and supported by Canada\'s <strong>International Development Research Centre (IDRC)</strong>.','أطلق مركز A2K4D <strong>"مرصد الشرق الأوسط وشمال أفريقيا للذكاء الاصطناعي"</strong>، في الذكرى السنوية الرابعة عشرة للمركز، استنادًا إلى تاريخ عريق في تطوير المعرفة والتكنولوجيا والبيانات من أجل التنمية في المنطقة. أنشأ مركز A2K4D المرصد كجزء من مشروع <em>"حوكمة الذكاء الاصطناعي المسؤول في منطقة الشرق الأوسط وشمال أفريقيا"</em> بمشاركة مركز التعليم المستمر في جامعة بيرزيت وبدعم من <strong>المركز الدولي لبحوث التنمية الكندي (IDRC)</strong>.') !!}</p>
                     </div>
                 </div>
 
                 <div class="ab-timeline__item js-tl-item">
-                    <div class="ab-timeline__dot"><span>Dec 2024</span></div>
+                    <div class="ab-timeline__dot"><span>{{ tr('Dec 2024','ديسمبر 2024') }}</span></div>
                     <div class="ab-timeline__card">
-                        <p>Establishment of the Observatory by A2K4D as a standalone project with continued IDRC support, adopting its current name: <strong>"The MENA Observatory on Responsible AI"</strong> and working on initiatives that capitalize on responsible data and AI for inclusion and achievement of the SDGs across MENA in collaboration with local, regional, and global partners.</p>
+                        <p>{!! tr('Establishment of the Observatory by A2K4D as a standalone project with continued IDRC support, adopting its current name: <strong>"The MENA Observatory on Responsible AI"</strong> and working on initiatives that capitalize on responsible data and AI for inclusion and achievement of the SDGs across MENA in collaboration with local, regional, and global partners.','أنشأ مركز A2K4D المرصد كمشروع مستقل بذاته، وبدعم متواصل من المركز الدولي لبحوث التنمية (IDRC)، ليصبح اسمه الحالي <strong>"مرصد الشرق الأوسط وشمال أفريقيا للذكاء الاصطناعي المسؤول"</strong>، مع تنفيذ المبادرات التي تستفيد من البيانات والذكاء الاصطناعي المسؤول، من أجل تضمين أهداف التنمية المستدامة في منطقة الشرق الأوسط وشمال أفريقيا وتحقيقها فيها بالتعاون مع الشركاء المحليين والإقليميين والدوليين.') !!}</p>
                     </div>
                 </div>
             </div>
@@ -94,9 +94,9 @@
     {{-- ══════════════════════════════════════════════════ --}}
     <section class="ab-section ab-why" id="why">
         <div class="container">
-            <div class="ab-section__label js-reveal">Our Purpose</div>
-            <h2 class="ab-section__title js-reveal-up">Why a MENA Observatory<br>on Responsible AI?</h2>
-            <p class="ab-why__intro js-reveal-up">The Observatory was developed to address the following:</p>
+            <div class="ab-section__label js-reveal">{{ tr('Our Purpose','غرضنا') }}</div>
+            <h2 class="ab-section__title js-reveal-up">{!! tr('Why a MENA Observatory<br>on Responsible AI?','لماذا أُنشئ مرصد الشرق الأوسط وشمال أفريقيا<br>للذكاء الاصطناعي المسؤول؟') !!}</h2>
+            <p class="ab-why__intro js-reveal-up">{{ tr('The Observatory was developed to address the following:','أُنشئ المرصد لتحقيق الأمور التالية:') }}</p>
 
             <div class="ab-why__grid">
 
@@ -106,7 +106,7 @@
                             <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
                         </svg>
                     </div>
-                    <h4>Bottom-Up Approach</h4>
+                    <h4>{{ tr('Bottom-Up Approach','اتباع النهج التصاعدي') }}</h4>
                 </div>
 
                 <div class="ab-why__card">
@@ -115,7 +115,7 @@
                             <circle cx="12" cy="12" r="10"/><path d="M12 2c0 0-4 5-4 10s4 10 4 10"/><path d="M12 2c0 0 4 5 4 10s-4 10-4 10"/><path d="M2 12h20"/>
                         </svg>
                     </div>
-                    <h4>Stakeholder Focal Point</h4>
+                    <h4>{{ tr('Stakeholder Focal Point','وجود مركز اتصال يخدم أصحاب المصالح') }}</h4>
                 </div>
 
                 <div class="ab-why__card">
@@ -124,7 +124,7 @@
                             <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
                         </svg>
                     </div>
-                    <h4>Evidence-Based Research</h4>
+                    <h4>{{ tr('Evidence-Based Research','إجراء بحوث مستندة إلى براهين') }}</h4>
                 </div>
 
                 <div class="ab-why__card">
@@ -133,7 +133,7 @@
                             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18"/><path d="M9 21V9"/>
                         </svg>
                     </div>
-                    <h4>Multistakeholder Collaboration</h4>
+                    <h4>{{ tr('Multistakeholder Collaboration','تيسير التعاون بين أصحاب المصلحة المتعددين') }}</h4>
                 </div>
 
                 <div class="ab-why__card">
@@ -142,7 +142,7 @@
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                         </svg>
                     </div>
-                    <h4>Global Visibility for MENA</h4>
+                    <h4>{{ tr('Global Visibility for MENA','بروز منطقة الشرق الأوسط وشمال أفريقيا على الساحة العالمية') }}</h4>
                 </div>
 
             </div>
@@ -156,9 +156,9 @@
         <div class="ab-vision__bg"></div>
         <div class="container position-relative" style="z-index:2">
             <div class="ab-vision__inner">
-                <div class="ab-vision__tag">Vision</div>
+                <div class="ab-vision__tag">{{ tr('Vision','الرؤية') }}</div>
                 <blockquote class="ab-vision__quote">
-                    As a dynamic, inclusive and locally-driven platform on responsible AI in MENA, the Observatory is envisioned to serve as a catalyst for change by being a tool for policy making, a hub for connecting stakeholders and communities and the go-to home for any and all knowledge on responsible AI as it pertains to the lives of everyone in the region.
+                    {{ tr('As a dynamic, inclusive and locally-driven platform on responsible AI in MENA, the Observatory is envisioned to serve as a catalyst for change by being a tool for policy making, a hub for connecting stakeholders and communities and the go-to home for any and all knowledge on responsible AI as it pertains to the lives of everyone in the region.','المرصد منصة ديناميكية وشمولية بقيادة محلية حول الذكاء الاصطناعي المسؤول في منطقة الشرق الأوسط وشمال أفريقيا، فهو يوفر حافزًا للتغيير من حيث أنه أداة لصنع السياسات، ومركزًا لربط أصحاب المصلحة بالمجتمعات، ومصدرًا شاملاً للحصول على كافة المعلومات حول الذكاء الاصطناعي المسؤول، إذ يتصل بحياة جميع من يعيشون في المنطقة.') }}
                 </blockquote>
             </div>
         </div>
@@ -170,29 +170,29 @@
     <section class="ab-section ab-mission" id="mission">
         <div class="container">
             <div class="ab-mission__header">
-                <div class="ab-section__label js-reveal">Mission</div>
+                <div class="ab-section__label js-reveal">{{ tr('Mission','الرسالة') }}</div>
             </div>
             <div class="ab-mission__body">
                     <ul class="ab-mission__list">
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">01</span>
-                            <span>To inform, influence and monitor policy making and practice as it pertains to responsible AI for development and inclusion in MENA.</span>
+                            <span>{{ tr('To inform, influence and monitor policy making and practice as it pertains to responsible AI for development and inclusion in MENA.','إرشاد عمليات صنع السياسات والممارسات والتأثير فيها ومراقبتها، إذ تتصل بالذكاء الاصطناعي المسؤول من أجل تحقيق التنمية والشمولية في منطقة الشرق الأوسط وشمال أفريقيا.') }}</span>
                         </li>
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">02</span>
-                            <span>To promote a grounds-up inclusive approach, emphasizing local experiences, community engagement, and inclusion in all aspects of data collection and AI systems development.</span>
+                            <span>{{ tr('To promote a grounds-up inclusive approach, emphasizing local experiences, community engagement, and inclusion in all aspects of data collection and AI systems development.','تعزيز النهج الشمولي التصاعدي عن طريق التركيز على الخبرات المحلية والمشاركة المجتمعية والشمولية في كافة جوانب جمع البيانات وتطوير نُظُم الذكاء الاصطناعي.') }}</span>
                         </li>
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">03</span>
-                            <span>To raise awareness and fill gaps in knowledge on the responsible use of data and AI in a way that is in line with the nuances of the region.</span>
+                            <span>{{ tr('To raise awareness and fill gaps in knowledge on the responsible use of data and AI in a way that is in line with the nuances of the region.','رفع الوعي وسد الثغرات المعرفية حول الاستخدام المسؤول للبيانات والذكاء الاصطناعي بما يتواكب مع المستجدات في المنطقة.') }}</span>
                         </li>
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">04</span>
-                            <span>To connect communities – researchers, policy makers, entrepreneurs, civil society, educators, students and beneficiaries, by creating dynamic collaborative spaces that foster engagement between the different stakeholders to promote policy making that fulfills the promise of responsible AI for development.</span>
+                            <span>{{ tr('To connect communities – researchers, policy makers, entrepreneurs, civil society, educators, students and beneficiaries, by creating dynamic collaborative spaces that foster engagement between the different stakeholders to promote policy making that fulfills the promise of responsible AI for development.','ربط مجتمعات الباحثين، وصناع السياسات، ورواد الأعمال، والمجتمع المدني، والمعلمين، والطلاب، والمستفيدين، عن طريق توفير مساحات تعاونية ديناميكية، من شأنها أن تعزز المشاركة بين مختلف أصحاب المصلحة لدعم صنع السياسات التي تفي بوعود الذكاء الاصطناعي المسؤول الرامية إلى تحقيق التنمية.') }}</span>
                         </li>
                         <li class="js-reveal-up">
                             <span class="ab-mission__num">05</span>
-                            <span>To champion MENA voices, values, and standards in responsible data and AI governance, regionally and globally and share experiences accordingly.</span>
+                            <span>{{ tr('To champion MENA voices, values, and standards in responsible data and AI governance, regionally and globally and share experiences accordingly.','رعاية الأصوات والقيم والمعايير في منطقة الشرق الأوسط وشمال أفريقيا في مجال الحوكمة المسؤولة للبيانات والذكاء الاصطناعي إقليميًا ودوليًا ومشاركة الخبرات تبعًا لذلك.') }}</span>
                         </li>
                     </ul>
             </div>
@@ -204,24 +204,24 @@
     {{-- ══════════════════════════════════════════════════ --}}
     <section class="ab-objectives" id="objectives">
         <div class="container">
-            <h2 class="ab-section__title ab-section__title--light js-reveal-up" style="text-align:center;">Objectives</h2>
-            <p class="ab-obj__intro js-reveal">Rooted in the above-mentioned vision and mission, the overarching objective of the MENA Observatory on Responsible AI can be broken down to three main Pillars of Impact.</p>
+            <h2 class="ab-section__title ab-section__title--light js-reveal-up" style="text-align:center;">{{ tr('Objectives','الأهداف') }}</h2>
+            <p class="ab-obj__intro js-reveal">{{ tr('Rooted in the above-mentioned vision and mission, the overarching objective of the MENA Observatory on Responsible AI can be broken down to three main Pillars of Impact.','ينبع الهدف الشامل لمرصد الشرق الأوسط وشمال أفريقيا للذكاء الاصطناعي المسؤول من الرؤية والرسالة السالفتين، ويمكن تقسيمه إلى ثلاث ركائز أساسية للتأثير.') }}</p>
 
             <div class="ab-obj__grid">
                 <div class="ab-obj__card js-obj-card" style="--obj-c:#FAAF1C;">
                     <div class="ab-obj__num">01</div>
                     <div class="ab-obj__bar"></div>
-                    <h3 class="ab-obj__title">Responsible AI<br>for Policy</h3>
+                    <h3 class="ab-obj__title">{!! tr('Responsible AI<br>for Policy','الذكاء الاصطناعي المسؤول<br>من أجل السياسات') !!}</h3>
                 </div>
                 <div class="ab-obj__card js-obj-card" style="--obj-c:#4EB89D;">
                     <div class="ab-obj__num">02</div>
                     <div class="ab-obj__bar"></div>
-                    <h3 class="ab-obj__title">Responsible AI<br>for Practice</h3>
+                    <h3 class="ab-obj__title">{!! tr('Responsible AI<br>for Practice','الذكاء الاصطناعي المسؤول<br>من أجل الممارسات') !!}</h3>
                 </div>
                 <div class="ab-obj__card js-obj-card" style="--obj-c:#6B9FD4;">
                     <div class="ab-obj__num">03</div>
                     <div class="ab-obj__bar"></div>
-                    <h3 class="ab-obj__title">Responsible AI<br>for People</h3>
+                    <h3 class="ab-obj__title">{!! tr('Responsible AI<br>for People','الذكاء الاصطناعي المسؤول<br>من أجل الأفراد') !!}</h3>
                 </div>
             </div>
         </div>
@@ -234,30 +234,30 @@
         <div class="container">
             <div class="ab-contact__wrap">
                 <div class="ab-contact__left">
-                    <div class="ab-section__label js-reveal">Get in Touch</div>
-                    <h2 class="ab-section__title js-reveal-up">Send Us<br>a Message</h2>
+                    <div class="ab-section__label js-reveal">{{ tr('Get in Touch','تواصل معنا') }}</div>
+                    <h2 class="ab-section__title js-reveal-up">{!! tr('Send Us<br>a Message','أرسل لنا<br>رسالة') !!}</h2>
                     <div class="ab-accent-bar js-reveal"></div>
-                    <p class="ab-contact__text js-reveal-up">Have a question, suggestion, or want to collaborate? We'd love to hear from you.</p>
+                    <p class="ab-contact__text js-reveal-up">{{ tr('Have a question, suggestion, or want to collaborate? We\'d love to hear from you.','هل لديك استفسار أو اقتراح، أو ترغب في التعاون معنا؟ نرحب بتواصلك معنا.') }}</p>
                 </div>
                 <div class="ab-contact__right">
                     <form class="ab-contact__form js-reveal-up" action="#" method="POST">
                         @csrf
                         <div class="ab-contact__row">
                             <div class="ab-contact__field">
-                                <label for="contact-name">Name</label>
-                                <input type="text" id="contact-name" name="name" placeholder="Your name" required>
+                                <label for="contact-name">{{ tr('Name','الاسم') }}</label>
+                                <input type="text" id="contact-name" name="name" placeholder="{{ tr('Your name','اسمك') }}" required>
                             </div>
                             <div class="ab-contact__field">
-                                <label for="contact-email">Email</label>
-                                <input type="email" id="contact-email" name="email" placeholder="Your email" required>
+                                <label for="contact-email">{{ tr('Email','البريد الإلكتروني') }}</label>
+                                <input type="email" id="contact-email" name="email" placeholder="{{ tr('Your email','بريدك الإلكتروني') }}" required>
                             </div>
                         </div>
                         <div class="ab-contact__field">
-                            <label for="contact-message">Message</label>
-                            <textarea id="contact-message" name="message" placeholder="Your message" rows="4" required></textarea>
+                            <label for="contact-message">{{ tr('Message','الرسالة') }}</label>
+                            <textarea id="contact-message" name="message" placeholder="{{ tr('Your message','رسالتك') }}" rows="4" required></textarea>
                         </div>
                         <button type="submit" class="ab-contact__btn">
-                            <span>Send Message</span>
+                            <span>{{ tr('Send Message','أرسل الرسالة') }}</span>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
                             </svg>
