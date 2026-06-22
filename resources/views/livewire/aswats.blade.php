@@ -44,15 +44,15 @@
     </div>
 
     <style>
-        .aswat-modal { position: fixed; inset: 0; z-index: 1050; display: none; }
+        .aswat-modal { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1050; display: none; }
         .aswat-modal.is-open { display: block; }
-        .aswat-modal__backdrop { position: absolute; inset: 0; background: rgba(1,16,38,.82); backdrop-filter: blur(3px); }
+        .aswat-modal__backdrop { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: rgba(1,16,38,.82); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
         .aswat-modal__dialog {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
             width: min(900px, 92vw);
         }
         .aswat-modal__frame { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
-        .aswat-modal__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .aswat-modal__frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .aswat-modal__close {
             position: absolute; top: -42px; right: 0; width: 36px; height: 36px;
             background: transparent; border: none; color: #fff; font-size: 34px; line-height: 1;

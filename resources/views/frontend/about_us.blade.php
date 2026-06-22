@@ -401,13 +401,13 @@ document.addEventListener('DOMContentLoaded', function () {
     overflow: hidden;
 }
 .ab-hero__bg {
-    position: absolute; inset: 0;
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0;
     background:
         radial-gradient(circle at 20% 70%, rgba(250,175,28,.06) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255,255,255,.03) 0%, transparent 45%);
 }
 .ab-hero__noise {
-    position: absolute; inset: 0; opacity: .3; pointer-events: none;
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0; opacity: .3; pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
     background-size: 256px;
 }
@@ -574,7 +574,7 @@ document.addEventListener('DOMContentLoaded', function () {
     overflow: hidden;
 }
 .ab-vision__bg {
-    position: absolute; inset: 0;
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0;
     background: radial-gradient(ellipse at 80% 50%, rgba(250,175,28,.07) 0%, transparent 60%);
 }
 .ab-vision__inner { max-width: 800px; margin: 0 auto; text-align: center; }

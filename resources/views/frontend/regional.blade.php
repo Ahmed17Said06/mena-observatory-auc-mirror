@@ -484,7 +484,7 @@
             .kh-list-header-grain {
                 position: absolute;
                 top: 0; right: 0; bottom: 0; left: 0;
-                inset: 0;
+                top: 0; right: 0; bottom: 0; left: 0;
                 opacity: .35;
                 pointer-events: none;
                 background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
@@ -494,7 +494,7 @@
             .kh-list-header-bg {
                 position: absolute;
                 top: 0; right: 0; bottom: 0; left: 0;
-                inset: 0;
+                top: 0; right: 0; bottom: 0; left: 0;
                 background:
                     radial-gradient(circle at 12% 60%, rgba(250, 175, 28, .05) 0%, transparent 45%),
                     radial-gradient(circle at 88% 30%, rgba(255, 255, 255, .03) 0%, transparent 40%);

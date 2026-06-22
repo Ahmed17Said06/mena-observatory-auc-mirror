@@ -201,7 +201,7 @@
     padding: 50px 0 30px; position: relative; overflow: hidden;
 }
 .pub-header-bg {
-    position: absolute; inset: 0;
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0;
     background-image: radial-gradient(circle at 20% 50%, rgba(250,175,28,.05), transparent 50%);
 }
 .pub-breadcrumb {

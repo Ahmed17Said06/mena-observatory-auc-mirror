@@ -83,7 +83,7 @@
 
     .gr-hero-overlay {
         position: absolute;
-        inset: 0;
+        top: 0; right: 0; bottom: 0; left: 0;
         background: radial-gradient(ellipse at 70% 40%, rgba(250,175,28,.25) 0%, transparent 65%);
         pointer-events: none;
     }
@@ -368,7 +368,7 @@
     }
 
     .rl-card-img-hover {
-        position: absolute; inset: 0;
+        position: absolute; top: 0; right: 0; bottom: 0; left: 0;
         background: rgba(2,36,72,.5);
         display: flex; align-items: center; justify-content: center;
         opacity: 0; transition: opacity .25s; color: #fff;

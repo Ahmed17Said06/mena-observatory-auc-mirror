@@ -21,6 +21,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link id="pagestyle" href="/assets/css/argon-dashboard.css" rel="stylesheet" />
     <link id="pagestyle" href="/assets/css/main.css?v=<?php echo rand();?>" rel="stylesheet" />
 
+    {{-- Cross-browser: detect flex `gap` support (Safari < 14.1 / iOS < 14.5)
+         and tag <html> so CSS can fall back to margins. --}}
+    <script>
+        (function () {
+            try {
+                var f = document.createElement('div');
+                f.style.display = 'flex';
+                f.style.flexDirection = 'column';
+                f.style.rowGap = '1px';
+                f.appendChild(document.createElement('div'));
+                f.appendChild(document.createElement('div'));
+                document.documentElement.appendChild(f);
+                var ok = f.scrollHeight === 1;
+                document.documentElement.removeChild(f);
+                document.documentElement.className += ok ? ' flexgap' : ' no-flexgap';
+            } catch (e) {
+                document.documentElement.className += ' flexgap';
+            }
+        })();
+    </script>
+
+    {{-- Cross-browser: <dialog> polyfill for Safari < 15.4 / older Android. --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dialog-polyfill@0.5.6/dist/dialog-polyfill.css">
+    <script src="https://cdn.jsdelivr.net/npm/dialog-polyfill@0.5.6/dist/dialog-polyfill.js"></script>
+    <script>
+        (function () {
+            function registerDialogs() {
+                if (!window.dialogPolyfill) return;
+                document.querySelectorAll('dialog:not([data-dp])').forEach(function (d) {
+                    try { dialogPolyfill.registerDialog(d); d.setAttribute('data-dp', '1'); } catch (e) {}
+                });
+            }
+            document.addEventListener('DOMContentLoaded', registerDialogs);
+            document.addEventListener('livewire:load', registerDialogs);
+            document.addEventListener('livewire:update', registerDialogs);
+        })();
+    </script>
+
 <link href="https://fonts.cdnfonts.com/css/montserrat" rel="stylesheet">
 
 <link href="https://fonts.cdnfonts.com/css/gotham" rel="stylesheet">

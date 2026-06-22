@@ -186,15 +186,18 @@
                     const dialog = document.getElementById("filters-popup");
 
                     // Update button opens a modal dialog
-                    updateButton.addEventListener("click", () => {
-                        dialog.showModal();
-                        openCheck(dialog);
-                    });
+                    if (updateButton && dialog) {
+                        updateButton.addEventListener("click", () => {
+                            dialog.showModal();
+                        });
+                    }
 
                     // Form close button closes the dialog box
-                    closeButton.addEventListener("click", () => {
-                        dialog.close();
-                    });
+                    if (closeButton && dialog) {
+                        closeButton.addEventListener("click", () => {
+                            dialog.close();
+                        });
+                    }
                 })();
             </script>
         </div>

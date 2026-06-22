@@ -174,7 +174,7 @@
 
     .iai-hero__overlay {
         position: absolute;
-        inset: 0;
+        top: 0; right: 0; bottom: 0; left: 0;
         background: radial-gradient(circle at 70% 40%, rgba(250,175,28,.06) 0%, transparent 50%);
     }
 
