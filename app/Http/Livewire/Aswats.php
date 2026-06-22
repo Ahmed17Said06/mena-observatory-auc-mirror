@@ -3,42 +3,51 @@
 namespace App\Http\Livewire;
 
 use App\Models\Aswat;
-use App\Models\Partner;
-use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class Aswats extends Component
 {
-    public Collection $aswats;
-    
+    public $search = '';
+
     // Lazy loading properties
     public $pageNumber = 1;
     public $perPage = 3;
     public $hasMorePages = true;
 
-    public function mount()
+    public function updatedSearch(): void
     {
-        $this->aswats = new Collection();
-        $this->loadMore();
+        // Reset paging whenever the search term changes so results start fresh.
+        $this->pageNumber = 1;
     }
-    
+
     private function getQuery()
     {
-        return Aswat::latest();
+        $term = trim($this->search);
+
+        return Aswat::query()
+            ->when($term !== '', function ($q) use ($term) {
+                $q->where(function ($sub) use ($term) {
+                    $sub->where('title', 'like', '%' . $term . '%')
+                        ->orWhere('description', 'like', '%' . $term . '%');
+                });
+            })
+            ->latest();
     }
-    
+
     public function loadMore(): void
     {
-        $paginated = $this->getQuery()->paginate($this->perPage, ['*'], 'page', $this->pageNumber);
-        
         $this->pageNumber++;
-        $this->hasMorePages = $paginated->hasMorePages();
-        
-        $this->aswats = $this->aswats->merge($paginated->items());
     }
 
     public function render()
     {
-        return view('livewire.aswats');
+        // Rebuild the visible list from scalar state each render so we never
+        // persist (and serialize) model objects across Livewire requests.
+        $total     = $this->perPage * $this->pageNumber;
+        $paginated = $this->getQuery()->paginate($total, ['*'], 'page', 1);
+
+        $this->hasMorePages = $paginated->hasMorePages();
+
+        return view('livewire.aswats', ['aswats' => collect($paginated->items())]);
     }
 }

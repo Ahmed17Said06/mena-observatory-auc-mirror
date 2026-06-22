@@ -3,41 +3,51 @@
 namespace App\Http\Livewire;
 
 use App\Models\GenderAi;
-use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class GenderaiPage extends Component
 {
-    public Collection $gender_ai;
-    
+    public $search = '';
+
     // Lazy loading properties
     public $pageNumber = 1;
     public $perPage = 3;
     public $hasMorePages = true;
 
-    public function mount()
+    public function updatedSearch(): void
     {
-        $this->gender_ai = new Collection();
-        $this->loadMore();
+        // Reset paging whenever the search term changes so results start fresh.
+        $this->pageNumber = 1;
     }
-    
+
     private function getQuery()
     {
-        return GenderAi::latest();
+        $term = trim($this->search);
+
+        return GenderAi::query()
+            ->when($term !== '', function ($q) use ($term) {
+                $q->where(function ($sub) use ($term) {
+                    $sub->where('title', 'like', '%' . $term . '%')
+                        ->orWhere('description', 'like', '%' . $term . '%');
+                });
+            })
+            ->latest();
     }
-    
+
     public function loadMore(): void
     {
-        $paginated = $this->getQuery()->paginate($this->perPage, ['*'], 'page', $this->pageNumber);
-        
         $this->pageNumber++;
-        $this->hasMorePages = $paginated->hasMorePages();
-        
-        $this->gender_ai = $this->gender_ai->merge($paginated->items());
     }
 
     public function render()
     {
-        return view('livewire.genderai-page');
+        // Rebuild the visible list from scalar state each render so we never
+        // persist (and serialize) model objects across Livewire requests.
+        $total     = $this->perPage * $this->pageNumber;
+        $paginated = $this->getQuery()->paginate($total, ['*'], 'page', 1);
+
+        $this->hasMorePages = $paginated->hasMorePages();
+
+        return view('livewire.genderai-page', ['gender_ai' => collect($paginated->items())]);
     }
 }
