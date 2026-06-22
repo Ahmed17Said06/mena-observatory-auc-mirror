@@ -3790,6 +3790,16 @@ body::before {
     }
 }
 
+/* Related lists in single-page sidebars: stack full-width instead of being
+   forced into the 3-up home grid (which collapsed them to tiny cards). */
+.related-list .post-loop-featured {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 auto !important;
+    margin: 0 0 20px 0 !important;
+    aspect-ratio: 16 / 9;
+}
+
 /* =====================================================
    PULSE & GLOW ANIMATIONS
    ===================================================== */

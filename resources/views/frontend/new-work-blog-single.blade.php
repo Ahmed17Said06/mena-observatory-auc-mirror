@@ -79,13 +79,14 @@
             </div>
             <div class='col-md-4'>
                 <h6>Related Posts</h6>
+                <div class="related-list">
                 @foreach($relatedBlogs as $post)
                     <div class="post-loop-featured position-relative"
                          style='background-image:url({{Storage::url($post->image)}});'>
 
                         <div class="post-content" lang="en">
                         <a href='{{route("new-work-blogs.single", ["id" => $post->id])}}'><h4 style='color:#FFF;' class='slide_title'>{{$post->title}}</h4></a>
-                            
+
                             <p style='color:#FFF;' class='slide_description'>{{$post->description}}</p>
                             <a href='{{route("new-work-blogs.single", ["id" => $post->id])}}'>
                                 <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
@@ -95,6 +96,7 @@
                         <div class="overlay-1"></div>
                     </div>
                 @endforeach
+                </div>
             </div>
         </div>
     </div>

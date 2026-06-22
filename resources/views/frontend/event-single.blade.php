@@ -39,6 +39,7 @@
             </div>
             <div class='col-md-4'>
                 <h6>Related Events</h6>
+                <div class="related-list">
                 @foreach($relatedEvents as $post)
                     <div class="post-loop-featured position-relative" style='background-image:url({{Storage::url($post->image)}});'>
 
@@ -53,6 +54,7 @@
                         <div class="overlay-news"></div>
                     </div>
                 @endforeach
+                </div>
             </div>
         </div>
     </div>
