@@ -14,7 +14,7 @@
             <div class="fai-hero__logo-wrap">
                 <img src="{{ asset('/img/Feminist_AI_Logo.png') }}" alt="Feminist AI Logo" class="fai-hero__logo">
             </div>
-            <h1 class="fai-hero__title">Feminist AI</h1>
+            <h1 class="fai-hero__title">{{ tr('Feminist AI','الذكاء الاصطناعي النسوي') }}</h1>
         </div>
     </div>
 
@@ -23,18 +23,16 @@
         <!-- Definition -->
         <section class="fai-section fai-definition">
             <p class="fai-definition__text">
-                Feminist AI refers to the act of deconstructing oppressive systems,
-                dismantling historic biases and engrained inequalities, then building inclusive AI structures
-                that are based on principles of justice, transparency, agency, pluralism and more...
+                {{ tr('Feminist AI refers to the act of deconstructing oppressive systems, dismantling historic biases and engrained inequalities, then building inclusive AI structures that are based on principles of justice, transparency, agency, pluralism and more...','يشير الذكاء الاصطناعي النسوي إلى عملية تفكيك النظم القمعية، وتفكيك التحيزات التاريخية وأوجه عدم المساواة الراسخة، ثم بناء هياكل شمولية للذكاء الاصطناعي تستند إلى مبادئ العدالة والشفافية، والقدرة على اتخاذ القرار، والتعددية وغيرها...') }}
             </p>
         </section>
 
         <!-- CTA Buttons -->
         <section class="fai-section fai-cta-buttons">
-            <a href="{{ route('regional.gender') }}" class="fai-btn fai-btn--primary">Observatory Outputs</a>
-            <a href="{{ route('regional.gender') }}#regional" class="fai-btn fai-btn--outline">Regional Resources</a>
-            <a href="{{ route('regional.gender') }}#global" class="fai-btn fai-btn--outline">Global Resources</a>
-            <a href="{{ route('collaborate') }}" class="fai-btn fai-btn--ghost">Collaborate With Us</a>
+            <a href="{{ route('regional.gender') }}" class="fai-btn fai-btn--primary">{{ tr('Observatory Outputs','مخرجات المرصد') }}</a>
+            <a href="{{ route('regional.gender') }}#regional" class="fai-btn fai-btn--outline">{{ tr('Regional Resources','الموارد الإقليمية') }}</a>
+            <a href="{{ route('regional.gender') }}#global" class="fai-btn fai-btn--outline">{{ tr('Global Resources','الموارد العالمية') }}</a>
+            <a href="{{ route('collaborate') }}" class="fai-btn fai-btn--ghost">{{ tr('Collaborate With Us','تعاون معنا') }}</a>
         </section>
 
     </div>

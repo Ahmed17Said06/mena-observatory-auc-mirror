@@ -9,9 +9,9 @@
 <div class="iai-hero">
     <div class="iai-hero__overlay"></div>
     <div class="iai-hero__content container">
-        <span class="iai-label">Inclusive AI Research Network</span>
-        <h1 class="iai-hero__title">Inclusive AI Research Network</h1>
-        <p class="iai-hero__sub">Building an inclusive, equitable AI research ecosystem across the MENA region.</p>
+        <span class="iai-label">{{ tr('Inclusive AI Research Network','الشبكة الشمولية لبحوث الذكاء الاصطناعي') }}</span>
+        <h1 class="iai-hero__title">{{ tr('Inclusive AI Research Network','الشبكة الشمولية لبحوث الذكاء الاصطناعي') }}</h1>
+        <p class="iai-hero__sub">{{ tr('Building an inclusive, equitable AI research ecosystem across the MENA region.','بناء نظام بيئي شمولي ومنصف لبحوث الذكاء الاصطناعي عبر منطقة الشرق الأوسط وشمال أفريقيا.') }}</p>
     </div>
     <div class="iai-hero__wave">
         <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
@@ -25,10 +25,10 @@
 
     {{-- ── Intro ── --}}
     <section class="iai-intro">
-        <p class="iai-intro__p">The <strong>Inclusive AI Research Network (IAIRN)</strong> is a global network supported by Canada's International Development Research Centre (IDRC), created with the goal of supporting community driven innovation and grounds up development of inclusive and human-centered AI technologies. In doing so, IAIRN aims to contribute to rectifying the biases and correcting inequities that are often reproduced and exacerbated by AI technologies, particularly towards women, youth and other marginalized groups. The network focuses on building scalable AI technologies that address local challenges with inclusion at the core of design, development and deployment.</p>
+        <p class="iai-intro__p">{!! tr('The <strong>Inclusive AI Research Network (IAIRN)</strong> is a global network supported by Canada\'s International Development Research Centre (IDRC), created with the goal of supporting community driven innovation and grounds up development of inclusive and human-centered AI technologies. In doing so, IAIRN aims to contribute to rectifying the biases and correcting inequities that are often reproduced and exacerbated by AI technologies, particularly towards women, youth and other marginalized groups. The network focuses on building scalable AI technologies that address local challenges with inclusion at the core of design, development and deployment.','<strong>الشبكة الشمولية لبحوث الذكاء الاصطناعي (IAIRN)</strong> هي شبكة عالمية يدعمها المركز الدولي لبحوث التنمية الكندي (IDRC)، وقد أُنشئت بغرض دعم الابتكار الذي تقوده المجتمعات، والتنمية القاعدية لتكنولوجيات الذكاء الاصطناعي الشمولية والتي ترتكز إلى البشر. ومن ثَم، تهدف شبكة IAIRN إلى المساهمة في تدارك التحيزات، وتعديل أوجه عدم المساواة التي كثيرًا ما تعيد إنتاجها تكنولوجيات الذكاء الاصطناعي وتؤدي إلى تفاقمها، وخاصةً تجاه النساء، والشباب والفئات المهمشة الأخرى. وتركز الشبكة على إرساء تكنولوجيات الذكاء الاصطناعي القابلة للتوسع والتي تواجه التحديات المحلية، بحيث تكون الشمولية هي أساس التصميم والتطوير والنشر.') !!}</p>
         <div class="iai-coming-soon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            Additional research content and network resources are <strong>coming soon</strong>. Check back for updates as the Network grows.
+            {!! tr('Additional research content and network resources are <strong>coming soon</strong>. Check back for updates as the Network grows.','محتوى البحوث الإضافية وموارد الشبكة <strong>ستصدر قريبًا</strong>. تابع المستجدات مع نمو الشبكة.') !!}
         </div>
     </section>
 
@@ -37,18 +37,18 @@
         <div class="iai-sec__head">
             <span class="iai-sec__num" style="background:linear-gradient(135deg,#FAAF1C 0%,#c8870a 100%);">1</span>
             <div>
-                <h2 class="iai-sec__title">Observatory Outputs</h2>
-                <p class="iai-sec__sub">Research, webinars &amp; talks, and educational resources produced by the Observatory team.</p>
+                <h2 class="iai-sec__title">{{ tr('Observatory Outputs','مخرجات المرصد') }}</h2>
+                <p class="iai-sec__sub">{{ tr('Research, webinars & talks, and educational resources produced by the Observatory team.','البحوث والندوات عبر الإنترنت، والمحاضرات والموارد التعليمية التي يُصدرها فريق المرصد.') }}</p>
             </div>
         </div>
 
         {{-- a. Research --}}
         <div class="iai-subsec">
             <h3 class="iai-subsec__heading">
-                <span class="iai-subsec__letter">a</span> Research
+                <span class="iai-subsec__letter">a</span> {{ tr('Research','البحوث') }}
             </h3>
             @if($repoResearch->isEmpty())
-                <div class="iai-empty">No research outputs have been added yet.</div>
+                <div class="iai-empty">{{ tr('No research outputs have been added yet.','لم تُضف أي مخرجات بحثية بعد.') }}</div>
             @else
                 <div class="iai-cards-grid">
                     @foreach($repoResearch as $r)
@@ -66,10 +66,10 @@
         {{-- b. Webinars and Talks --}}
         <div class="iai-subsec">
             <h3 class="iai-subsec__heading">
-                <span class="iai-subsec__letter">b</span> Webinars and Talks
+                <span class="iai-subsec__letter">b</span> {{ tr('Webinars and Talks','الندوات عبر الإنترنت والمحاضرات') }}
             </h3>
             @if($repoWebinars->isEmpty())
-                <div class="iai-empty">No webinars or talks have been added yet.</div>
+                <div class="iai-empty">{{ tr('No webinars or talks have been added yet.','لم تُضف أي ندوات عبر الإنترنت أو محاضرات بعد.') }}</div>
             @else
                 <div class="iai-cards-grid">
                     @foreach($repoWebinars as $r)
@@ -88,10 +88,10 @@
         {{-- c. Educational Resources --}}
         <div class="iai-subsec">
             <h3 class="iai-subsec__heading">
-                <span class="iai-subsec__letter">c</span> Educational Resources
+                <span class="iai-subsec__letter">c</span> {{ tr('Educational Resources','موارد تعليمية') }}
             </h3>
             @if($repoEdu->isEmpty())
-                <div class="iai-empty">No educational resources have been added yet.</div>
+                <div class="iai-empty">{{ tr('No educational resources have been added yet.','لم تُضف أي موارد تعليمية بعد.') }}</div>
             @else
                 <div class="iai-cards-grid">
                     @foreach($repoEdu as $r)
@@ -115,12 +115,12 @@
         <div class="iai-sec__head">
             <span class="iai-sec__num" style="background:linear-gradient(135deg,#4caf8a 0%,#006644 100%);">2</span>
             <div>
-                <h2 class="iai-sec__title" style="color:#006644;">Regional Resources</h2>
-                <p class="iai-sec__sub">External research and resources from the MENA region on inclusive AI.</p>
+                <h2 class="iai-sec__title" style="color:#006644;">{{ tr('Regional Resources','موارد إقليمية') }}</h2>
+                <p class="iai-sec__sub">{{ tr('External research and resources from the MENA region on inclusive AI.','البحوث والموارد الخارجية من منطقة الشرق الأوسط وشمال أفريقيا حول الذكاء الاصطناعي الشمولي.') }}</p>
             </div>
         </div>
         @if($regionalRepos->isEmpty())
-            <div class="iai-empty">No regional resources have been added yet.</div>
+            <div class="iai-empty">{{ tr('No regional resources have been added yet.','لم تُضف أي موارد إقليمية بعد.') }}</div>
         @else
             <div class="iai-cards-grid">
                 @foreach($regionalRepos as $r)
@@ -141,12 +141,12 @@
         <div class="iai-sec__head">
             <span class="iai-sec__num" style="background:linear-gradient(135deg,#e09a10 0%,#c8870a 100%);">3</span>
             <div>
-                <h2 class="iai-sec__title" style="color:#c8870a;">Global Resources</h2>
-                <p class="iai-sec__sub">International research and resources on inclusive AI worldwide.</p>
+                <h2 class="iai-sec__title" style="color:#c8870a;">{{ tr('Global Resources','الموارد العالمية') }}</h2>
+                <p class="iai-sec__sub">{{ tr('International research and resources on inclusive AI worldwide.','البحوث والموارد الدولية حول الذكاء الاصطناعي الشمولي حول العالم.') }}</p>
             </div>
         </div>
         @if($globalRepos->isEmpty())
-            <div class="iai-empty">No global resources have been added yet.</div>
+            <div class="iai-empty">{{ tr('No global resources have been added yet.','لم تُضف أي موارد عالمية بعد.') }}</div>
         @else
             <div class="iai-cards-grid">
                 @foreach($globalRepos as $r)
