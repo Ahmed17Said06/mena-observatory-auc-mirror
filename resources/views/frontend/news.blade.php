@@ -47,7 +47,9 @@
                     {{-- News 1: Final Call for Submissions --}}
                     @php
                         $c1 = $sc->get('news_card_1_title');
-                        $c1img = ($c1 && $c1->media) ? url($c1->media) : '/img/placeholder-featured.jpg';
+                        $c1img = ($c1 && $c1->media)
+                            ? (\Illuminate\Support\Str::startsWith($c1->media, ['http://','https://']) ? $c1->media : Storage::url($c1->media))
+                            : '/img/placeholder-featured.jpg';
                     @endphp
                     <div class="post-container lazy-item">
                         <div class="post-loop-events position-relative overflow-hidden">
@@ -72,7 +74,9 @@
                     {{-- News 2: Open Call for Responsible AI Use Cases --}}
                     @php
                         $c2 = $sc->get('news_card_2_title');
-                        $c2img = ($c2 && $c2->media) ? url($c2->media) : '/img/placeholder-featured.jpg';
+                        $c2img = ($c2 && $c2->media)
+                            ? (\Illuminate\Support\Str::startsWith($c2->media, ['http://','https://']) ? $c2->media : Storage::url($c2->media))
+                            : '/img/placeholder-featured.jpg';
                     @endphp
                     <div class="post-container lazy-item">
                         <div class="post-loop-events position-relative overflow-hidden">
@@ -100,7 +104,9 @@
                         $n3desc  = $sc->get('news_card_3_desc');
                         $n3link  = $sc->get('news_card_3_link');
                         $n3btn   = $sc->get('news_card_3_btn');
-                        $c3img   = ($n3title && $n3title->media) ? url($n3title->media) : '/img/placeholder-featured.jpg';
+                        $c3img   = ($n3title && $n3title->media)
+                            ? (\Illuminate\Support\Str::startsWith($n3title->media, ['http://','https://']) ? $n3title->media : Storage::url($n3title->media))
+                            : '/img/placeholder-featured.jpg';
                     @endphp
                     <div class="post-container lazy-item">
                         <div class="post-loop-events position-relative overflow-hidden">
