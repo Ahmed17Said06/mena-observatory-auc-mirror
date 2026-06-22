@@ -1,6 +1,7 @@
 <?php
 return [
     "about-us" => "About Us",
+    "events" => "Events",
     "posts" => "Blog Posts",
     "researchers" => "People",
     "recent-posts" => "Recent Posts",

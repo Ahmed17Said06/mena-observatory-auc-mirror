@@ -39,7 +39,8 @@
             </div>
 
             <div class='py-3'>
-                <h3>{{$count}} Results found for : {{old('search')}}</h3>
+                <h3>{{$count}} Results found for : {{ old('search') ?: old('tag') }}</h3>
+                @if(count($events) > 0)
                 <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
                     @endif hreflang="{{ getLang() }}">@lang('translation.events')</h3>
 
@@ -69,7 +70,9 @@
                             </div>
                             @endforeach
                 </div>
+                @endif
             <div class='py-3'>
+                @if(count($news) > 0)
                 <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
                     @endif hreflang="{{ getLang() }}">@lang('translation.articles')</h3>
                 <div class="flex-column flex-md-row" style='
@@ -95,8 +98,10 @@
                         </div>
                     @endforeach
                 </div>
+                @endif
             </div>
             <div class='py-3'>
+                @if(count($blogs) > 0)
                 <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
                     @endif hreflang="{{ getLang() }}">@lang('translation.posts')</h3>
                 <div class="flex-column flex-md-row" style='
@@ -120,8 +125,10 @@
                         </div>
                     @endforeach
                 </div>
+                @endif
             </div>
                 <div class='py-3'>
+                    @if(count($projects) > 0)
                     <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
                         @endif hreflang="{{ getLang() }}">@lang('translation.projects')</h3>
                     <div class="flex-column flex-md-row" style='
@@ -147,7 +154,13 @@
                             </div>
                         @endforeach
                     </div>
+                    @endif
                 </div>
+                @if($count == 0)
+                    <div class='py-5'>
+                        <h4 style="color:#6b7280;">No results found. Try a different keyword or tag.</h4>
+                    </div>
+                @endif
         </div>
     </div>
     @include('layouts.footers.guest.footer')
