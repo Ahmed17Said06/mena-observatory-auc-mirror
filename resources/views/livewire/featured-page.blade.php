@@ -17,10 +17,10 @@
                     : (Route::has($card->link) ? route($card->link) : $card->link);
                 $imgSrc = $card->image
                     ? Storage::url($card->image)
-                    : asset('/img/placeholder-featured.jpg');
+                    : asset('/img/card-placeholder.svg');
             @endphp
             <div class="post-loop-featured m-3 research-border-border position-relative overflow-hidden">
-                <img class="post-img" src="{{ $imgSrc }}" onerror="this.src='{{ asset('/img/placeholder-featured.jpg') }}'">
+                <img class="post-img" src="{{ $imgSrc }}" onerror="this.src='{{ asset('/img/card-placeholder.svg') }}'">
                 <div class="research-border">
                     <p>{{ strtoupper($label) }}</p>
                     @if($sub)<p class="sub-title">({{ strtoupper($sub) }})</p>@endif

@@ -42,7 +42,7 @@
                         @elseif($n->image)
                             <img class="post-img" src="{{Storage::url($n->image)}}">
                         @else
-                            <img class="post-img" src="/img/placeholder-featured.jpg" alt="{{$n->title}}">
+                            <img class="post-img" src="/img/card-placeholder.svg" alt="{{$n->title}}">
                         @endif
                         <div class="post-content" lang="en">
                             <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>

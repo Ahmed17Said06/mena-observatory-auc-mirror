@@ -208,7 +208,7 @@
             <div class="col-6 col-md-4 col-lg-3">
                 @php
                     $thumbSrc = !$n->thumbnail_image
-                        ? '/img/placeholder-featured.jpg'
+                        ? '/img/card-placeholder.svg'
                         : (\Illuminate\Support\Str::startsWith($n->thumbnail_image, ['http://', 'https://'])
                             ? $n->thumbnail_image
                             : Storage::url($n->thumbnail_image));
@@ -242,7 +242,7 @@
                 <div class="col-12 col-lg-3">
                     <div class="square-holder">
                      
-                            <img class="w-100" src='{{ $p->logo ? Storage::url($p->logo) : '/img/placeholder-featured.jpg' }}' alt="{{ $p->name }}" onerror="this.onerror=null;this.src='/img/placeholder-featured.jpg'">
+                            <img class="w-100" src='{{ $p->logo ? Storage::url($p->logo) : '/img/card-placeholder.svg' }}' alt="{{ $p->name }}" onerror="this.onerror=null;this.src='/img/card-placeholder.svg'">
                     </div>
                 </div>
                 @php $counter++; @endphp

@@ -30,7 +30,7 @@
                                 <div class="brochure-cover">
                                     <img src="{{ Storage::url($brochure->image) }}"
                                          alt="{{ $brochure->title }}"
-                                         onerror="this.src='/img/placeholder-featured.jpg'">
+                                         onerror="this.src='/img/card-placeholder.svg'">
                                 </div>
                             @else
                                 <div class="brochure-cover brochure-cover--placeholder">

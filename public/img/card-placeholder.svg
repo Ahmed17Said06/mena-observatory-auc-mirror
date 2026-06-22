@@ -1,0 +1,63 @@
+<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="MENA Observatory on Responsible AI">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="750" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#01162e"/>
+      <stop offset="0.55" stop-color="#022448"/>
+      <stop offset="1" stop-color="#0a3a6e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.18" r="0.7">
+      <stop offset="0" stop-color="#FAAF1C" stop-opacity="0.18"/>
+      <stop offset="0.45" stop-color="#FAAF1C" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#FAAF1C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" cx="0.5" cy="0.46" r="0.75">
+      <stop offset="0.55" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#01101f" stop-opacity="0.55"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Base -->
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <rect width="1200" height="750" fill="url(#glow)"/>
+
+  <!-- Faint observatory grid (longitude/latitude feel) -->
+  <g stroke="#9fc0e6" stroke-opacity="0.06" stroke-width="1">
+    <path d="M0 150 H1200 M0 300 H1200 M0 450 H1200 M0 600 H1200"/>
+    <path d="M150 0 V750 M350 0 V750 M550 0 V750 M750 0 V750 M950 0 V750 M1150 0 V750"/>
+  </g>
+
+  <!-- Signal / radar rings emanating from the emblem -->
+  <g fill="none" stroke="#FAAF1C" stroke-opacity="0.16">
+    <circle cx="600" cy="330" r="150" stroke-width="1.5"/>
+    <circle cx="600" cy="330" r="230" stroke-opacity="0.10"/>
+    <circle cx="600" cy="330" r="320" stroke-opacity="0.06"/>
+  </g>
+
+  <!-- Emblem: observatory lens -->
+  <g transform="translate(600 330)">
+    <circle r="92" fill="#01162e" stroke="#FAAF1C" stroke-opacity="0.85" stroke-width="2.5"/>
+    <circle r="62" fill="none" stroke="#9fc0e6" stroke-opacity="0.35" stroke-width="1.5"/>
+    <!-- crosshair -->
+    <line x1="-92" y1="0" x2="-26" y2="0" stroke="#FAAF1C" stroke-opacity="0.7" stroke-width="2"/>
+    <line x1="26" y1="0" x2="92" y2="0" stroke="#FAAF1C" stroke-opacity="0.7" stroke-width="2"/>
+    <line x1="0" y1="-92" x2="0" y2="-26" stroke="#FAAF1C" stroke-opacity="0.7" stroke-width="2"/>
+    <line x1="0" y1="26" x2="0" y2="92" stroke="#FAAF1C" stroke-opacity="0.7" stroke-width="2"/>
+    <!-- aperture -->
+    <circle r="13" fill="#FAAF1C"/>
+    <circle cx="-5" cy="-5" r="4" fill="#fff" fill-opacity="0.8"/>
+  </g>
+
+  <!-- Gold accent rule -->
+  <rect x="540" y="468" width="120" height="3" rx="1.5" fill="#FAAF1C"/>
+
+  <!-- Wordmark (letter-spaced caps; system sans is fine via slice/cover) -->
+  <text x="600" y="520" text-anchor="middle"
+        font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif"
+        font-size="42" font-weight="700" letter-spacing="8" fill="#ffffff">MENA OBSERVATORY</text>
+  <text x="600" y="566" text-anchor="middle"
+        font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif"
+        font-size="25" font-weight="500" letter-spacing="11" fill="#FAAF1C" fill-opacity="0.92">ON RESPONSIBLE AI</text>
+
+  <!-- Soft vignette to seat content under card overlays -->
+  <rect width="1200" height="750" fill="url(#vignette)"/>
+</svg>

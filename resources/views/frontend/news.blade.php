@@ -49,7 +49,7 @@
                         $c1 = $sc->get('news_card_1_title');
                         $c1img = ($c1 && $c1->media)
                             ? (\Illuminate\Support\Str::startsWith($c1->media, ['http://','https://']) ? $c1->media : Storage::url($c1->media))
-                            : '/img/placeholder-featured.jpg';
+                            : '/img/card-placeholder.svg';
                     @endphp
                     <div class="post-container lazy-item">
                         <div class="post-loop-events position-relative overflow-hidden">
@@ -76,7 +76,7 @@
                         $c2 = $sc->get('news_card_2_title');
                         $c2img = ($c2 && $c2->media)
                             ? (\Illuminate\Support\Str::startsWith($c2->media, ['http://','https://']) ? $c2->media : Storage::url($c2->media))
-                            : '/img/placeholder-featured.jpg';
+                            : '/img/card-placeholder.svg';
                     @endphp
                     <div class="post-container lazy-item">
                         <div class="post-loop-events position-relative overflow-hidden">
@@ -106,7 +106,7 @@
                         $n3btn   = $sc->get('news_card_3_btn');
                         $c3img   = ($n3title && $n3title->media)
                             ? (\Illuminate\Support\Str::startsWith($n3title->media, ['http://','https://']) ? $n3title->media : Storage::url($n3title->media))
-                            : '/img/placeholder-featured.jpg';
+                            : '/img/card-placeholder.svg';
                     @endphp
                     <div class="post-container lazy-item">
                         <div class="post-loop-events position-relative overflow-hidden">
