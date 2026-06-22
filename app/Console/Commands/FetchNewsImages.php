@@ -98,6 +98,12 @@ class FetchNewsImages extends Command
     /** Fetch the page and extract an og:image / twitter:image URL (absolute). */
     private function discoverImageUrl(string $pageUrl): ?string
     {
+        // YouTube links have no scrapable og:image on the watch page; use the
+        // video's generated thumbnail directly (hqdefault always exists).
+        if (preg_match('~(?:youtube\.com/(?:watch\?v=|embed/)|youtu\.be/)([A-Za-z0-9_-]{11})~', $pageUrl, $yt)) {
+            return 'https://img.youtube.com/vi/' . $yt[1] . '/hqdefault.jpg';
+        }
+
         try {
             $res = Http::withHeaders(['User-Agent' => 'Mozilla/5.0 (compatible; MENAObservatoryBot/1.0)'])
                 ->withOptions(['verify' => false, 'allow_redirects' => true])
