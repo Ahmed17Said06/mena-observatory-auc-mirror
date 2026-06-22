@@ -42,7 +42,13 @@ class AllNews extends Component
 
     private function getQuery()
     {
+        // Curated "Global AI News" items (featured='global_ai') have their own
+        // section on the news page, so exclude them here to avoid duplication.
         return News::where('title', 'like', '%' . $this->search . '%')
+            ->where(function ($q) {
+                $q->where('featured', '!=', 'global_ai')
+                  ->orWhereNull('featured');
+            })
             ->orderBy('created_at', 'desc');
     }
 
