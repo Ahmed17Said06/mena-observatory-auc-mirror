@@ -47,6 +47,7 @@ class RestoreMissingFiles extends Command
         'featured_initiative_cards' => ['image'],
         'new_work_blogs'        => ['image'],
         'seo'                   => ['image'],
+        'static_content'        => ['media', 'image'],
     ];
 
     public function handle(): int

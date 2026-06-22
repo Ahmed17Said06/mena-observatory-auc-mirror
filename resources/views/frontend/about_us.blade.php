@@ -35,14 +35,23 @@
     {{-- ══════════════════════════════════════════════════ --}}
     <section class="ab-video-section">
         <div class="container">
+            @if(!empty($video_content) && !empty($video_content->media))
+            @php
+                $videoSrc = \Illuminate\Support\Str::startsWith($video_content->media, ['http://', 'https://'])
+                    ? $video_content->media
+                    : (\Illuminate\Support\Str::startsWith($video_content->media, 'storage/')
+                        ? url($video_content->media)
+                        : Storage::url($video_content->media));
+            @endphp
             <div class="ab-video-wrap js-reveal-up">
                 <video controls muted autoplay class="ab-video">
-                    <source src="{{ url($video_content->media) }}" type="video/mp4">
+                    <source src="{{ $videoSrc }}" type="video/mp4">
                     Your browser does not support the video tag.
                     <track src="{{ asset('subtitle/A2K4D - Mena AI - About Us Video - Subs AR.vtt') }}" label="Arabic" kind="captions" srclang="ar" default>
                     <track src="{{ asset('subtitle/A2K4D - Mena AI - About Us Video - Subs ENG.vtt') }}" label="English" kind="captions" srclang="en">
                 </video>
             </div>
+            @endif
         </div>
     </section>
 
@@ -91,7 +100,7 @@
 
             <div class="ab-why__grid">
 
-                <div class="ab-why__card js-reveal-up">
+                <div class="ab-why__card">
                     <div class="ab-why__icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
@@ -100,7 +109,7 @@
                     <h4>Bottom-Up Approach</h4>
                 </div>
 
-                <div class="ab-why__card js-reveal-up">
+                <div class="ab-why__card">
                     <div class="ab-why__icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"/><path d="M12 2c0 0-4 5-4 10s4 10 4 10"/><path d="M12 2c0 0 4 5 4 10s-4 10-4 10"/><path d="M2 12h20"/>
@@ -109,7 +118,7 @@
                     <h4>Stakeholder Focal Point</h4>
                 </div>
 
-                <div class="ab-why__card js-reveal-up">
+                <div class="ab-why__card">
                     <div class="ab-why__icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
@@ -118,7 +127,7 @@
                     <h4>Evidence-Based Research</h4>
                 </div>
 
-                <div class="ab-why__card js-reveal-up">
+                <div class="ab-why__card">
                     <div class="ab-why__icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18"/><path d="M9 21V9"/>
@@ -127,7 +136,7 @@
                     <h4>Multistakeholder Collaboration</h4>
                 </div>
 
-                <div class="ab-why__card js-reveal-up">
+                <div class="ab-why__card">
                     <div class="ab-why__icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
