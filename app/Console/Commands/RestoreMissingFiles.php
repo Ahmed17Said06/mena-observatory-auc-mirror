@@ -40,6 +40,7 @@ class RestoreMissingFiles extends Command
         'news'                  => ['image'],
         'events'                => ['image'],
         'communities'           => ['image', 'thumbnail_image'],
+        'partners'              => ['logo'],
         'gender_ais'            => ['thumbnail_image'],
         'aswats'                => ['thumbnail_image'],
         'featured_posts'        => ['image'],

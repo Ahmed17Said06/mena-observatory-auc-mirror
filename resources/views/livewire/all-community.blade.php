@@ -239,7 +239,7 @@
                 <div class="col-12 col-lg-3">
                     <div class="square-holder">
                      
-                            <img class="w-100" src='{{Storage::url($p->logo)}}'>
+                            <img class="w-100" src='{{ $p->logo ? Storage::url($p->logo) : '/img/placeholder-featured.jpg' }}' alt="{{ $p->name }}" onerror="this.onerror=null;this.src='/img/placeholder-featured.jpg'">
                     </div>
                 </div>
                 @php $counter++; @endphp
