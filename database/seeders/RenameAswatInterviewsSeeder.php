@@ -6,10 +6,10 @@ use App\Models\Aswat;
 use Illuminate\Database\Seeder;
 
 /**
- * Rename the Aswat interview videos to their full titles. Idempotent:
- * matches the current title exactly; once renamed, re-running is a no-op.
- * Prints how many rows each mapping matched, then lists every Aswat row so
- * any unmatched/variant titles can be spotted and corrected.
+ * Rename the Aswat interview videos to their full titles. Keyed by id
+ * (the live titles were "Interview — Dr." / "Interview One…Five", so a
+ * title match was unreliable). Idempotent: re-running just re-sets the
+ * same titles. Prints every Aswat row afterward for verification.
  *
  *   php artisan db:seed --class=RenameAswatInterviewsSeeder --force
  */
@@ -17,18 +17,26 @@ class RenameAswatInterviewsSeeder extends Seeder
 {
     public function run(): void
     {
+        // id => new title  (current title shown for reference)
         $map = [
-            'Interview with Dr' => 'Interview with Dr. Marwa Seoudi',
-            'Interview 1'       => 'Interview 1 with Zaher AI',
-            'Interview 2'       => 'Interview 2 with Synqanun',
-            'Interview 3'       => 'Interview 3 with AgriCan',
-            'Interview 4'       => 'Interview 4 with Cloudilic',
-            'Interview 5'       => 'Interview 5 with Rology',
+            54 => 'Interview with Dr. Marwa Seoudi', // was "Interview — Dr."
+            55 => 'Interview 1 with Zaher AI',        // was "Interview One"
+            56 => 'Interview 2 with Synqanun',        // was "Interview Two"
+            57 => 'Interview 3 with AgriCan',         // was "Interview Three"
+            58 => 'Interview 4 with Cloudilic',       // was "Interview Four"
+            59 => 'Interview 5 with Rology',          // was "Interview Five"
         ];
 
-        foreach ($map as $old => $new) {
-            $matched = Aswat::where('title', $old)->update(['title' => $new]);
-            $this->command->line(sprintf('  "%s" → "%s"  (%d row%s)', $old, $new, $matched, $matched === 1 ? '' : 's'));
+        foreach ($map as $id => $new) {
+            $aswat = Aswat::find($id);
+            if (! $aswat) {
+                $this->command->warn("  #{$id} not found — skipped");
+                continue;
+            }
+            $old = $aswat->title;
+            $aswat->title = $new;
+            $aswat->save();
+            $this->command->line(sprintf('  #%d  "%s" → "%s"', $id, $old, $new));
         }
 
         $this->command->line('');
