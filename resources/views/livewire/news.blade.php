@@ -50,15 +50,15 @@
 
                             @if(isset($n->is_static) && $n->is_static)
                                 <a href='{{route("news.rai-cup")}}'>
-                                    <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
+                                    <button class='btn learn_more'><i class="fas fa-plus"></i> @lang('translation.learn-more')</button>
                                 </a>
                             @elseif($n->data_link ?? null)
                                 <a href='{{$n->data_link}}' target='_blank'>
-                                    <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
+                                    <button class='btn learn_more'><i class="fas fa-plus"></i> @lang('translation.learn-more')</button>
                                 </a>
                             @else
                                 <a href='{{route("blogs.single", ["id" => $n->id])}}'>
-                                    <button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button>
+                                    <button class='btn learn_more'><i class="fas fa-plus"></i> @lang('translation.learn-more')</button>
                                 </a>
                             @endif
                         </div>
@@ -80,17 +80,17 @@
                     wire:loading.attr="disabled"
                     wire:loading.class="loading"
                 >
-                    <span wire:loading.remove wire:target="loadMore">Load More</span>
+                    <span wire:loading.remove wire:target="loadMore">@lang('translation.load-more')</span>
                     <span wire:loading wire:target="loadMore" class="loading-state">
                         <span class="spinner"></span>
-                        Loading...
+                        @lang('translation.loading')
                     </span>
                 </button>
             </div>
         @else
             @if($blogs->count() > 0)
                 <div class="end-of-list">
-                    You've reached the end
+                    @lang('translation.reached-end')
                 </div>
             @endif
         @endif

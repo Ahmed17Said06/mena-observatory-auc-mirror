@@ -37,7 +37,7 @@
     <div class="container">
 
         <div class='row'>
-            <h3>News</h3>
+            <h3>@lang('translation.news-heading')</h3>
 
             {{-- Main searchable news feed (continues the NEWS section) --}}
             <livewire:all-news />
@@ -82,7 +82,7 @@
             {{-- ─────────────── EVENTS SECTION ─────────────── --}}
             <div class="col-12 mt-5">
                 <h3 style="color:#022448; font-weight:700; border-bottom:2px solid #e5e7eb; padding-bottom:.5rem; margin-bottom:1.5rem;">
-                    Events
+                    @lang('translation.events')
                 </h3>
                 <livewire:events-section />
             </div>

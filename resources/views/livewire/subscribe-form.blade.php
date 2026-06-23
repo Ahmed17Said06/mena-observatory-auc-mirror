@@ -2,7 +2,7 @@
     <div class="subscribe-popup" id="subscribe-popup">
     <a href="javascript:void(0)" class="closebtn" wire:click="close">&times;</a>
     <h3>
-        RECEIVE NEWS AND UPDATES
+        @lang('translation.subscribe-newsletter')
     </h3>
     @if (session()->has('message'))
         <div class="alert alert-success">
@@ -10,9 +10,9 @@
         </div>
     @endif
     <form wire:submit.prevent="subscribe" style="display: flex;gap: 20px;">
-        <input type="email" placeholder="Your email" wire:model="email_sub">
+        <input type="email" placeholder="@lang('translation.your-email')" wire:model="email_sub">
         @error('email_sub') <span class="error">{{ $message }}</span> @enderror
-        <button type="submit" class="btn btn-mena-2">SUBSCRIBE</button>
+        <button type="submit" class="btn btn-mena-2">@lang('translation.subscribe')</button>
     </form>
 </div>
 @endif

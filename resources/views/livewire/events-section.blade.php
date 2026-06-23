@@ -1,17 +1,17 @@
 <div class="container mt-4">
     <div class='row'>
         <div class='col-lg-5 col-md-8 py-3'>
-            <h3>Events</h3>
+            <h3>@lang('translation.events')</h3>
             <div class="d-none d-lg-flex">
-                <div class="align-self-center" style="margin-right: 20px">
-                    <span>VIEW AS</span>
+                <div class="align-self-center" style="margin-inline-end: 20px">
+                    <span>@lang('translation.view-as')</span>
                 </div>
                 <div class="event-switcher" wire:click="switchView">
                     <a class="list @if(!$isMonthView) active @endif">
-                        LIST
+                        @lang('translation.list-view')
                     </a>
                     <a class="month @if($isMonthView) active @endif">
-                        Month
+                        @lang('translation.month-view')
                     </a>
                 </div>
             </div>
@@ -19,7 +19,7 @@
         <div class='col-lg-7 col-md-4 d-flex justify-content-end align-items-center'>
             <div class="search-box">
                 <form>
-                    <input class="search" type="text" placeholder="Search Events" wire:model="searchInput" name="events_keywords" wire:keyup="search" id='events_keywords'>
+                    <input class="search" type="text" placeholder="@lang('translation.search-events')" wire:model="searchInput" name="events_keywords" wire:keyup="search" id='events_keywords'>
                     <button type="submit"><svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_703_6664)">
                                 <path d="M5.80292 11.413C2.62774 11.413 0 8.91304 0 5.76087C0 2.6087 2.62774 0 5.80292 0C8.9781 0 11.6058 2.6087 11.6058 5.76087C11.6058 8.91304 8.9781 11.413 5.80292 11.413ZM5.80292 1.08696C3.17518 1.08696 1.09489 3.15217 1.09489 5.76087C1.09489 8.36957 3.17518 10.4348 5.80292 10.4348C8.43066 10.4348 10.5109 8.36957 10.5109 5.76087C10.5109 3.15217 8.32117 1.08696 5.80292 1.08696Z" fill="#FAAF1C"/>

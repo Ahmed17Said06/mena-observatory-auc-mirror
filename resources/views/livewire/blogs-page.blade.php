@@ -42,7 +42,7 @@ padding-bottom: 50px;'>
                         </h4>
                         <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
                         <a href='{{route("blogs.single", ["id" => $n->id])}}'>
-                            <button class='btn learn_more'><i class="fas fa-plus"></i> Read More</button>
+                            <button class='btn learn_more'><i class="fas fa-plus"></i> @lang('translation.learn-more')</button>
                         </a>
                     </div>
 
@@ -61,10 +61,10 @@ padding-bottom: 50px;'>
                 wire:loading.attr="disabled"
                 wire:loading.class="loading"
             >
-                <span wire:loading.remove wire:target="loadMore">Load More</span>
+                <span wire:loading.remove wire:target="loadMore">@lang('translation.load-more')</span>
                 <span wire:loading wire:target="loadMore" class="loading-state">
                     <span class="spinner"></span>
-                    Loading...
+                    @lang('translation.loading')
                 </span>
             </button>
         </div>
