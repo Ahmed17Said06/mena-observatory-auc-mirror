@@ -19,6 +19,7 @@ class RenameAswatInterviewsSeeder extends Seeder
     {
         // id => new title  (current title shown for reference)
         $map = [
+            53 => 'RAI Cup Awards & 16 Years of A2K4D', // was "AUC AI Event"
             54 => 'Interview with Dr. Marwa Seoudi', // was "Interview — Dr."
             55 => 'Interview 1 with Zaher AI',        // was "Interview One"
             56 => 'Interview 2 with Synqanun',        // was "Interview Two"
