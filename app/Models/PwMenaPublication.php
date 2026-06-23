@@ -52,4 +52,19 @@ class PwMenaPublication extends Model
     public function scopeBlogs($query)        { return $query->where('type', 'blog'); }
     public function scopeWebinars($query)     { return $query->where('type', 'webinar'); }
     public function scopeEducational($query)  { return $query->where('type', 'educational'); }
+
+    /**
+     * Only rows that have at least one usable output (a file/link in any
+     * language, or an external link). Keeps placeholder rows with no PDF yet
+     * from rendering as broken cards.
+     */
+    public function scopeHasOutput($query)
+    {
+        $cols = ['link_en', 'file_en', 'link_ar', 'file_ar', 'link_fr', 'file_fr', 'external_link'];
+        return $query->where(function ($q) use ($cols) {
+            foreach ($cols as $c) {
+                $q->orWhereRaw("COALESCE(`$c`, '') <> ''");
+            }
+        });
+    }
 }

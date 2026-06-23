@@ -35,9 +35,9 @@ class PwMenaController extends Controller
         })->latest()->take(3)->get();
 
         try {
-            $reports     = PwMenaPublication::reports()->orderBy('sort_order')->get();
-            $briefs      = PwMenaPublication::briefs()->orderBy('sort_order')->get();
-            $blogs       = PwMenaPublication::blogs()->orderBy('sort_order')->get();
+            $reports     = PwMenaPublication::reports()->hasOutput()->orderBy('sort_order')->get();
+            $briefs      = PwMenaPublication::briefs()->hasOutput()->orderBy('sort_order')->get();
+            $blogs       = PwMenaPublication::blogs()->hasOutput()->orderBy('sort_order')->get();
             $pubWebinars = PwMenaPublication::webinars()->orderBy('sort_order')->get();
             $pubEdu      = PwMenaPublication::educational()->orderBy('sort_order')->get();
         } catch (\Exception $e) {
