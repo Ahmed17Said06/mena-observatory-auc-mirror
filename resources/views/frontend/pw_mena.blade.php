@@ -23,20 +23,20 @@
                 </p>
                 @else
                 <p @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif style="color: #333333 !important;">
-                    Fast and wide-ranging developments in technology have redefined employment relationships around the
-                    globe, giving rise to many new forms of work. Platform-mediated work emerged as a way to connect
-                    workers to buyers of a labor service— and indeed it has provided millions of individuals around the
-                    world with access to work, especially in developing countries— although often at a cost.
+                    {{ tr(
+                        'Fast and wide-ranging developments in technology have redefined employment relationships around the globe, giving rise to many new forms of work. Platform-mediated work emerged as a way to connect workers to buyers of a labor service— and indeed it has provided millions of individuals around the world with access to work, especially in developing countries— although often at a cost.',
+                        'أعادت التطورات التقنية السريعة والواسعة النطاق تعريف علاقات العمل حول العالم، مما أدى إلى ظهور أشكال جديدة عديدة من العمل. وقد برز العمل عبر المنصات كوسيلة لربط العمال بطالبي خدمات العمل، وأتاح بالفعل لملايين الأفراد حول العالم فرص الوصول إلى العمل، لا سيما في الدول النامية، وإن كان ذلك غالبًا بتكلفة معينة.'
+                    ) }}
                 </p>
                 <p @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif style="color: #333333 !important;">
-                    Our research on platform work in the MENA region aims to influence the global narrative on platform
-                    work by giving perspectives from MENA and the larger Global South. By identifying regional
-                    opportunities and challenges, we aim to promote inclusive policy making with regards to work and
-                    safety nets, and sustainable livelihoods for all.
+                    {{ tr(
+                        'Our research on platform work in the MENA region aims to influence the global narrative on platform work by giving perspectives from MENA and the larger Global South. By identifying regional opportunities and challenges, we aim to promote inclusive policy making with regards to work and safety nets, and sustainable livelihoods for all.',
+                        'تهدف أبحاثنا حول العمل عبر المنصات في منطقة الشرق الأوسط وشمال أفريقيا إلى التأثير في السرد العالمي حول العمل عبر المنصات من خلال تقديم وجهات نظر من المنطقة ومن الجنوب العالمي الأوسع. ومن خلال تحديد الفرص والتحديات الإقليمية، نسعى إلى تعزيز صنع سياسات شاملة فيما يتعلق بالعمل وشبكات الأمان وسبل العيش المستدامة للجميع.'
+                    ) }}
                 </p>
                 @endif
             </div>
-            <div class="flex-shrink-0" style="margin-left: auto;">
+            <div class="flex-shrink-0" style="margin-inline-start: auto;">
                 <img src="{{ asset('img/new_work.png') }}" alt="Future of Work MENA"
                     style="width: 25rem; height: auto; object-fit: contain;">
             </div>
@@ -49,7 +49,7 @@
            style="display:inline-block; padding:.75rem 1.75rem; background:#FAAF1C; color:#022248; border-radius:50px; font-weight:700; font-size:.95rem; text-decoration:none; transition:all .3s ease; border:2px solid #FAAF1C;"
            onmouseover="this.style.background='#e09a10';this.style.borderColor='#e09a10';"
            onmouseout="this.style.background='#FAAF1C';this.style.borderColor='#FAAF1C';">
-            Explore Knowledge Hub
+            {{ tr('Explore Knowledge Hub','استكشف مركز المعرفة') }}
         </a>
     </div>
 
