@@ -21,10 +21,31 @@ class Aswat extends Model
     public function getThumbnailUrlAttribute(): string
     {
         $val = $this->thumbnail_image;
-        if (!$val) {
-            return '';
+        if ($val) {
+            return Str::startsWith($val, ['http://', 'https://']) ? $val : Storage::url($val);
         }
-        return Str::startsWith($val, ['http://', 'https://']) ? $val : Storage::url($val);
+
+        // No uploaded thumbnail — derive one from the video link when possible
+        // (YouTube exposes a stable thumbnail URL by video id).
+        $ytId = $this->youtubeId();
+        if ($ytId) {
+            return 'https://img.youtube.com/vi/' . $ytId . '/hqdefault.jpg';
+        }
+
+        return '';
+    }
+
+    /** Extract the YouTube video id from the stored link, or null. */
+    private function youtubeId(): ?string
+    {
+        $link = (string) $this->link;
+        if ($link === '') {
+            return null;
+        }
+        if (preg_match('~(?:youtube\.com/(?:watch\?v=|embed/|shorts/)|youtu\.be/)([A-Za-z0-9_-]{11})~', $link, $m)) {
+            return $m[1];
+        }
+        return null;
     }
 
     /**
