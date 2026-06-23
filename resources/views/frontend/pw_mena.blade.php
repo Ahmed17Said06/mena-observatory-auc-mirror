@@ -154,14 +154,14 @@
     <div class="mb-5">
         <h2 class="mb-1" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
             style="color: #022248; font-weight: 700;">
-            Observatory Outputs
+            {{ tr('Observatory Outputs','مخرجات المرصد') }}
         </h2>
-        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">Research, Webinars &amp; Talks, and Educational Resources produced by the team.</p>
+        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">{{ tr('Research, Webinars & Talks, and Educational Resources produced by the team.','البحوث والمحاضرات والندوات والموارد التعليمية التي ينتجها الفريق.') }}</p>
 
         <!-- a. Research -->
         <div class="pw-subsec mb-4">
             <h3 class="pw-subsec__heading" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
-                <span class="pw-subsec__letter">a</span> Research
+                <span class="pw-subsec__letter">a</span> {{ tr('Research','البحوث') }}
             </h3>
         </div>
 
@@ -503,7 +503,7 @@
         <!-- b. Webinars and Talks -->
         <div class="pw-subsec mb-5">
             <h3 class="pw-subsec__heading" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
-                <span class="pw-subsec__letter">b</span> Webinars and Talks
+                <span class="pw-subsec__letter">b</span> {{ tr('Webinars and Talks','محاضرات وندوات عبر الإنترنت') }}
             </h3>
             @if($pubWebinars->isEmpty() && $repoWebinars->isEmpty())
                 <div class="pw-empty">No webinars or talks have been added yet.</div>
@@ -545,7 +545,7 @@
         <!-- c. Educational Resources -->
         <div class="pw-subsec mb-5">
             <h3 class="pw-subsec__heading" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
-                <span class="pw-subsec__letter">c</span> Educational Resources
+                <span class="pw-subsec__letter">c</span> {{ tr('Educational Resources','موارد تعليمية') }}
             </h3>
             @if($pubEdu->isEmpty() && $repoEdu->isEmpty())
                 <div class="pw-empty">No educational resources have been added yet.</div>
@@ -593,11 +593,11 @@
     <div class="mb-5">
         <h2 class="mb-1" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
             style="color: #006644; font-weight: 700;">
-            Regional Resources
+            {{ tr('Regional Resources','الموارد الإقليمية') }}
         </h2>
-        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">External research and resources from the MENA region related to Future of Work.</p>
+        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">{{ tr('External research and resources from the MENA region related to Future of Work.','بحوث وموارد خارجية من منطقة الشرق الأوسط وشمال أفريقيا تتعلق بمستقبل العمل.') }}</p>
         @if($regionalRepos->isEmpty())
-            <div class="pw-empty">No regional resources have been tagged yet.</div>
+            <div class="pw-empty">{{ tr('No regional resources have been tagged yet.','لم يتم وسم أي موارد إقليمية بعد.') }}</div>
         @else
             <div class="resource-cards-grid" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
                 @foreach($regionalRepos as $r)
@@ -618,11 +618,11 @@
     <div class="mb-5">
         <h2 class="mb-1" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
             style="color: #c8870a; font-weight: 700;">
-            Global Resources
+            {{ tr('Global Resources','الموارد العالمية') }}
         </h2>
-        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">International research and resources on Future of Work and platform economies.</p>
+        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">{{ tr('International research and resources on Future of Work and platform economies.','بحوث وموارد دولية حول مستقبل العمل واقتصادات المنصات.') }}</p>
         @if($globalRepos->isEmpty())
-            <div class="pw-empty">No global resources have been tagged yet.</div>
+            <div class="pw-empty">{{ tr('No global resources have been tagged yet.','لم يتم وسم أي موارد عالمية بعد.') }}</div>
         @else
             <div class="resource-cards-grid" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
                 @foreach($globalRepos as $r)

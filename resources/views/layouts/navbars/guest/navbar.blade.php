@@ -983,8 +983,8 @@
                         <a href="{{ route('regional') }}" class="dropdown-toggle">@lang('translation.knowledge-hub')</a>
                         <div class="dropdown-menu">
                             <a href="{{ route('regional.our_work') }}">@lang('translation.our-work')</a>
-                            <a href="{{ route('regional.regional_other_work') }}">Regional Resources</a>
-                            <a href="{{ route('regional.global_other_work') }}">Global Resources</a>
+                            <a href="{{ route('regional.regional_other_work') }}">{{ tr('Regional Resources','الموارد الإقليمية') }}</a>
+                            <a href="{{ route('regional.global_other_work') }}">{{ tr('Global Resources','الموارد العالمية') }}</a>
                         </div>
                     </li>
 
@@ -992,10 +992,10 @@
                         <a href="{{ route('ai_indices') }}">@lang('translation.ai-indices', ['default' => 'AI Indices'])</a>
                     </li>
                     <li class="@if (str(Route::current()->getName())->contains('pw_mena')) active @endif">
-                        <a href="{{ route('pw_mena') }}">Future of Work MENA</a>
+                        <a href="{{ route('pw_mena') }}">{{ tr('Future of Work MENA','مستقبل العمل - منطقة الشرق الأوسط وشمال أفريقيا') }}</a>
                     </li>
                     <li class="@if (str(Route::current()->getName())->contains('inclusive_ai')) active @endif">
-                        <a href="{{ route('inclusive_ai') }}">Inclusive AI Research Network</a>
+                        <a href="{{ route('inclusive_ai') }}">{{ tr('Inclusive AI Research Network','شبكة أبحاث الذكاء الاصطناعي الشامل') }}</a>
                     </li>
                     <li class="@if (str(Route::current()->getName())->contains('news')) active @endif">
                         <a href="{{ route('news.index') }}">@lang('translation.news', ['default' => 'News'])</a>
@@ -1050,10 +1050,10 @@
                     <a href="{{ route('regional.our_work') }}">@lang('translation.our-work')</a>
                 </li>
                 <li class="@if (Route::current()->getName() === 'regional.regional_other_work') active @endif" style="padding-left: 1rem;">
-                    <a href="{{ route('regional.regional_other_work') }}">Regional Resources</a>
+                    <a href="{{ route('regional.regional_other_work') }}">{{ tr('Regional Resources','الموارد الإقليمية') }}</a>
                 </li>
                 <li class="@if (Route::current()->getName() === 'regional.global_other_work') active @endif" style="padding-left: 1rem;">
-                    <a href="{{ route('regional.global_other_work') }}">Global Resources</a>
+                    <a href="{{ route('regional.global_other_work') }}">{{ tr('Global Resources','الموارد العالمية') }}</a>
                 </li>
 
 
@@ -1061,10 +1061,10 @@
                     <a href="{{ route('ai_indices') }}">@lang('translation.ai-indices', ['default' => 'AI Indices'])</a>
                 </li>
                 <li class="@if (str(Route::current()->getName())->contains('pw_mena')) active @endif">
-                    <a href="{{ route('pw_mena') }}">Future of Work MENA</a>
+                    <a href="{{ route('pw_mena') }}">{{ tr('Future of Work MENA','مستقبل العمل - منطقة الشرق الأوسط وشمال أفريقيا') }}</a>
                 </li>
                 <li class="@if (str(Route::current()->getName())->contains('inclusive_ai')) active @endif">
-                    <a href="{{ route('inclusive_ai') }}">Inclusive AI Research Network</a>
+                    <a href="{{ route('inclusive_ai') }}">{{ tr('Inclusive AI Research Network','شبكة أبحاث الذكاء الاصطناعي الشامل') }}</a>
                 </li>
                 <li class="@if (str(Route::current()->getName())->contains('news')) active @endif">
                     <a href="{{ route('news.index') }}">@lang('translation.news', ['default' => 'News'])</a>

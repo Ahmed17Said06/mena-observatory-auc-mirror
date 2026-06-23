@@ -10,13 +10,13 @@
             <input wire:model.debounce.400ms="search"
                    type="search"
                    class="kh-search-input"
-                   placeholder="Search resources…">
+                   placeholder="{{ tr('Search resources…','البحث في الموارد…') }}">
         </div>
 
         <div class="kh-filters-row">
             @if ($availableTags->isNotEmpty())
                 <select wire:model="selectedTag" class="kh-filter-select">
-                    <option value="">All Tags</option>
+                    <option value="">{{ tr('All Tags','كل الوسوم') }}</option>
                     @foreach ($availableTags as $tag)
                         <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                     @endforeach
@@ -25,7 +25,7 @@
 
             @if ($availableYears->isNotEmpty())
                 <select wire:model="selectedYear" class="kh-filter-select">
-                    <option value="">All Years</option>
+                    <option value="">{{ tr('All Years','كل السنوات') }}</option>
                     @foreach ($availableYears as $year)
                         <option value="{{ $year }}">{{ $year }}</option>
                     @endforeach
@@ -34,7 +34,7 @@
 
             @if ($availableTypes->isNotEmpty())
                 <select wire:model="selectedType" class="kh-filter-select">
-                    <option value="">All Types</option>
+                    <option value="">{{ tr('All Types','كل الأنواع') }}</option>
                     @foreach ($availableTypes as $type)
                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                     @endforeach
@@ -47,7 +47,7 @@
                          stroke-width="2.5" stroke-linecap="round">
                         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                     </svg>
-                    Clear filters
+                    {{ tr('Clear filters','مسح عوامل التصفية') }}
                 </button>
             @endif
         </div>
@@ -94,8 +94,8 @@
             <header class="kh-sec-head">
                 <span class="kh-sec-num">1</span>
                 <div class="kh-sec-head-text">
-                    <h2 class="kh-sec-title">Observatory Outputs</h2>
-                    <p class="kh-sec-sub">Research, webinars and educational resources produced by the Observatory team.</p>
+                    <h2 class="kh-sec-title">{{ tr('Observatory Outputs','مخرجات المرصد') }}</h2>
+                    <p class="kh-sec-sub">{{ tr('Research, webinars and educational resources produced by the Observatory team.','البحوث والندوات والموارد التعليمية التي ينتجها فريق المرصد.') }}</p>
                 </div>
             </header>
 
@@ -120,10 +120,10 @@
                             @if ($group['key'] === 'research')
                                 <div class="kh-research-tabs">
                                     @foreach ([
-                                        'all'     => 'All',
-                                        'reports' => 'Reports',
-                                        'briefs'  => 'Policy Briefs',
-                                        'blogs'   => 'Blogposts',
+                                        'all'     => tr('All','الكل'),
+                                        'reports' => tr('Reports','التقارير'),
+                                        'briefs'  => tr('Policy Briefs','موجزات السياسات'),
+                                        'blogs'   => tr('Blogposts','منشورات المدونات'),
                                     ] as $tabKey => $tabLabel)
                                         <button wire:click="$set('researchSubTab', '{{ $tabKey }}')"
                                                 class="kh-research-tab {{ $researchSubTab === $tabKey ? 'kh-research-tab--active' : '' }}">
@@ -157,8 +157,8 @@
             <header class="kh-sec-head">
                 <span class="kh-sec-num">2</span>
                 <div class="kh-sec-head-text">
-                    <h2 class="kh-sec-title">Regional Resources</h2>
-                    <p class="kh-sec-sub">External research and resources from the MENA region.</p>
+                    <h2 class="kh-sec-title">{{ tr('Regional Resources','الموارد الإقليمية') }}</h2>
+                    <p class="kh-sec-sub">{{ tr('External research and resources from the MENA region.','بحوث وموارد خارجية من منطقة الشرق الأوسط وشمال أفريقيا.') }}</p>
                 </div>
                 <span class="kh-sec-count">{{ $regionalRepos->total() }} {{ Str::plural('item', $regionalRepos->total()) }}</span>
             </header>
@@ -183,8 +183,8 @@
             <header class="kh-sec-head">
                 <span class="kh-sec-num">3</span>
                 <div class="kh-sec-head-text">
-                    <h2 class="kh-sec-title">Global Resources</h2>
-                    <p class="kh-sec-sub">International research and resources on responsible AI.</p>
+                    <h2 class="kh-sec-title">{{ tr('Global Resources','الموارد العالمية') }}</h2>
+                    <p class="kh-sec-sub">{{ tr('International research and resources on responsible AI.','بحوث وموارد دولية حول الذكاء الاصطناعي المسؤول.') }}</p>
                 </div>
                 <span class="kh-sec-count">{{ $globalRepos->total() }} {{ Str::plural('item', $globalRepos->total()) }}</span>
             </header>
@@ -210,7 +210,7 @@
                 <circle cx="11" cy="11" r="8"/>
                 <path d="M21 21l-4.35-4.35"/>
             </svg>
-            <p>No resources to display yet.</p>
+            <p>{{ tr('No resources to display yet.','لا توجد موارد لعرضها بعد.') }}</p>
         </div>
     @endif
 </div>
