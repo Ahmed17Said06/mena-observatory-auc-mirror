@@ -28,7 +28,7 @@
         <p class="iai-intro__p">{!! tr('The <strong>Inclusive AI Research Network (IAIRN)</strong> is a global network supported by Canada\'s International Development Research Centre (IDRC), created with the goal of supporting community driven innovation and grounds up development of inclusive and human-centered AI technologies. In doing so, IAIRN aims to contribute to rectifying the biases and correcting inequities that are often reproduced and exacerbated by AI technologies, particularly towards women, youth and other marginalized groups. The network focuses on building scalable AI technologies that address local challenges with inclusion at the core of design, development and deployment.','<strong>الشبكة الشمولية لبحوث الذكاء الاصطناعي (IAIRN)</strong> هي شبكة عالمية يدعمها المركز الدولي لبحوث التنمية الكندي (IDRC)، وقد أُنشئت بغرض دعم الابتكار الذي تقوده المجتمعات، والتنمية القاعدية لتكنولوجيات الذكاء الاصطناعي الشمولية والتي ترتكز إلى البشر. ومن ثَم، تهدف شبكة IAIRN إلى المساهمة في تدارك التحيزات، وتعديل أوجه عدم المساواة التي كثيرًا ما تعيد إنتاجها تكنولوجيات الذكاء الاصطناعي وتؤدي إلى تفاقمها، وخاصةً تجاه النساء، والشباب والفئات المهمشة الأخرى. وتركز الشبكة على إرساء تكنولوجيات الذكاء الاصطناعي القابلة للتوسع والتي تواجه التحديات المحلية، بحيث تكون الشمولية هي أساس التصميم والتطوير والنشر.') !!}</p>
         <div class="iai-coming-soon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            {!! tr('Additional research content and network resources are <strong>coming soon</strong>. Check back for updates as the Network grows.','محتوى البحوث الإضافية وموارد الشبكة <strong>ستصدر قريبًا</strong>. تابع المستجدات مع نمو الشبكة.') !!}
+            <span>{!! tr('More research and network resources are <strong>coming soon</strong>.','المزيد من الأبحاث وموارد الشبكة <strong>ستصدر قريبًا</strong>.') !!}</span>
         </div>
     </section>
 
@@ -252,7 +252,7 @@
 
     .iai-coming-soon {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         gap: .6rem;
         margin-top: 1.25rem;
         padding: .85rem 1.1rem;
@@ -266,7 +266,6 @@
 
     .iai-coming-soon svg {
         flex-shrink: 0;
-        margin-top: .1rem;
         color: #d97706;
     }
 
