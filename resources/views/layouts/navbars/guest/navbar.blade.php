@@ -903,6 +903,27 @@
                 display: none;
             }
         }
+
+        /* ── RTL (Arabic) overrides — mirror the navbar's positioned pieces.
+              Defined here (not in rtl.css) so they share this block's cascade. */
+        [dir="rtl"] .announcement-close { right: auto; left: 20px; }
+        [dir="rtl"] .announcement-bar { padding: 12px 20px; }
+        [dir="rtl"] .search-box button { right: auto; left: 5px; }
+        [dir="rtl"] .dropdown-toggle::after { margin-left: 0; margin-right: 5px; }
+        [dir="rtl"] .dropdown-menu { left: auto; right: 0; }
+        [dir="rtl"] .dropdown-menu a::before { content: '←'; left: auto; right: -20px; }
+        [dir="rtl"] .dropdown-menu a:hover { transform: translateX(-5px); padding-left: 16px; padding-right: 24px; }
+        [dir="rtl"] .dropdown-menu a:hover::before { right: 8px; left: auto; }
+
+        /* Mobile drawer slides in from the left in RTL */
+        [dir="rtl"] .mobile-menu { right: auto; left: -100%; transition: left 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        [dir="rtl"] .mobile-menu.open { left: 0; right: auto; }
+        [dir="rtl"] .mobile-nav-menu a::before { left: auto; right: 0; }
+        [dir="rtl"] .mobile-nav-menu a:hover { transform: translateX(-5px); }
+
+        @media (max-width: 768px) {
+            [dir="rtl"] .announcement-bar { padding: 10px 15px 10px 50px; }
+        }
     </style>
 </head>
 

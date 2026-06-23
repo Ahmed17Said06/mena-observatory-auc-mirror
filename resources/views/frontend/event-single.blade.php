@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-12 col-lg-2 d-flex pt-3 pt-lg-0 justify-content-end" style="gap: 20px">
                         <div class="d-flex align-items-center">
-                            <img style="object-fit: contain;max-width: 29px; margin-right: 15px"
+                            <img style="object-fit: contain;max-width: 29px; margin-inline-end: 15px"
                                  src="/img/Views_Icon.svg">
                             <span style="white-space: nowrap;">{{$event->views}} Views</span>
                         </div>

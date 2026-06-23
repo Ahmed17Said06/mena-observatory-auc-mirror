@@ -9,7 +9,7 @@
                 <div>
                     <a href="{{route('repo.single',$r->id)}}" class="event-title">{{$r->title}}
                     <span style='float:right;' class="country_tag">{{$r->country->name}}
-                        <img style="object-fit: contain;max-width: 46px;margin-left: 10px"  src="/img/egypt.svg">
+                        <img style="object-fit: contain;max-width: 46px;margin-inline-start: 10px"  src="/img/egypt.svg">
                     </span>
                 </a>
                 <p class="event-description">

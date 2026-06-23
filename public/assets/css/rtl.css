@@ -1,0 +1,70 @@
+/* ============================================================================
+   RTL overrides — loaded only when the locale is Arabic (see
+   resources/views/layouts/frontend/app.blade.php).
+
+   dir="rtl" on <html> already handles the bulk for free: text alignment
+   (start/end), inline flow, flex/grid order, list indentation and default
+   text-align. The rules below only fix components that use *physical*
+   (non-logical) CSS — absolutely/fixed-positioned elements and a few
+   left/right accents — that don't mirror on their own.
+   ============================================================================ */
+
+/* ── Close buttons (top-right in LTR → top-left in RTL) ───────────────────── */
+[dir="rtl"] .closebtn {
+    right: auto;
+    left: 21px;
+}
+
+/* ── Calendar attendance badge (fixed top-right) ─────────────────────────── */
+[dir="rtl"] .calendar-container .event-title .event_attendance {
+    right: auto;
+    left: 5px;
+}
+[dir="rtl"] .event_attendance {
+    float: left;
+}
+
+/* ── Generic right-floated helpers flip to the left in RTL ────────────────── */
+[dir="rtl"] .float-right,
+[dir="rtl"] [style*="float:right"],
+[dir="rtl"] [style*="float: right"] {
+    float: left !important;
+}
+
+/* ── Decorative corner animations: mirror to the opposite side ───────────── */
+[dir="rtl"] .about_top_left,
+[dir="rtl"] .about_bot_left,
+[dir="rtl"] .g_top_left,
+[dir="rtl"] .lottie_top_left {
+    left: auto;
+    right: 0;
+}
+[dir="rtl"] .about_top_right,
+[dir="rtl"] .g_top_right,
+[dir="rtl"] .lottie_top_right,
+[dir="rtl"] .subs .lottie_top_right {
+    right: auto;
+    left: 0;
+}
+
+/* ── Card overlays / play button are full-size (no flip needed); ensure the
+      card text content reads right-aligned even if a stray inline align exists ─ */
+[dir="rtl"] .post-content,
+[dir="rtl"] .slide_title,
+[dir="rtl"] .slide_description {
+    text-align: right;
+}
+
+/* ── Search box: it's a flex row, so input/button mirror automatically.
+      Just balance the button's inner padding. ──────────────────────────────── */
+[dir="rtl"] .search-box button {
+    padding-right: 0;
+    padding-left: 6px;
+}
+
+/* ── Knowledge Hub search icon (it already declares inset-inline-start, but a
+      stray physical `left` is also set on one breakpoint) ──────────────────── */
+[dir="rtl"] .kh-search-icon {
+    left: auto;
+    right: .85rem;
+}

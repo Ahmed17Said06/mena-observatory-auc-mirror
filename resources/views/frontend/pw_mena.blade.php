@@ -168,12 +168,12 @@
         <!-- Reports -->
         <div class="resource-section mb-5">
             <h3 class="mb-3" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
-                style="color: #FAAF1C; font-weight: 600; border-left: 4px solid #FAAF1C; padding-left: 1rem;">
+                style="color: #FAAF1C; font-weight: 600; border-inline-start: 4px solid #FAAF1C; padding-inline-start: 1rem;">
                 @lang('translation.pw-mena-reports')
             </h3>
             <!-- Disclaimer -->
             <div class="disclaimer-box mb-4" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
-                style="background: #fff8e6; border-left: 4px solid #FAAF1C; padding: 1rem 1.5rem; border-radius: 0 8px 8px 0; font-size: 0.9rem; color: #666;">
+                style="background: #fff8e6; border-inline-start: 4px solid #FAAF1C; padding: 1rem 1.5rem; border-radius: 0 8px 8px 0; font-size: 0.9rem; color: #666;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="#FAAF1C" style="margin-right: 0.5rem; flex-shrink: 0; vertical-align: middle;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                 @php $disclaimer = $sc->get('pw_mena_disclaimer') @endphp
                 @if($disclaimer)
@@ -321,7 +321,7 @@
         <!-- Policy Briefs -->
         <div class="resource-section mb-5">
             <h3 class="mb-3" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
-                style="color: #FAAF1C; font-weight: 600; border-left: 4px solid #FAAF1C; padding-left: 1rem;">
+                style="color: #FAAF1C; font-weight: 600; border-inline-start: 4px solid #FAAF1C; padding-inline-start: 1rem;">
                 @lang('translation.pw-mena-policy-briefs')
             </h3>
             <div class="resource-cards-grid" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
@@ -440,7 +440,7 @@
         <!-- Blogposts -->
         <div class="resource-section mb-5">
             <h3 class="mb-3" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
-                style="color: #FAAF1C; font-weight: 600; border-left: 4px solid #FAAF1C; padding-left: 1rem;">
+                style="color: #FAAF1C; font-weight: 600; border-inline-start: 4px solid #FAAF1C; padding-inline-start: 1rem;">
                 @lang('translation.pw-mena-blogposts')
             </h3>
             <div class="resource-cards-grid" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>

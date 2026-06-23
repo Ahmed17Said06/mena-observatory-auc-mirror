@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html @if(LaravelLocalization::getCurrentLocale() === 'ar') lang="ar" @endif>
+<html lang="{{ getLang() }}" dir="{{ getLang() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
 
     <meta charset="utf-8" />
@@ -20,6 +20,9 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link id="pagestyle" href="/assets/css/argon-dashboard.css" rel="stylesheet" />
     <link id="pagestyle" href="/assets/css/main.css?v=<?php echo rand();?>" rel="stylesheet" />
+    @if(getLang() === 'ar')
+        <link rel="stylesheet" href="/assets/css/rtl.css?v=<?php echo rand();?>" />
+    @endif
 
     {{-- Cross-browser: detect flex `gap` support (Safari < 14.1 / iOS < 14.5)
          and tag <html> so CSS can fall back to margins. --}}
