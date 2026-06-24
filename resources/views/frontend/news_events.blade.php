@@ -28,9 +28,9 @@
 <!--<img src="https://demobasics.pixienop.net/img/tweetcarts/fallingsand.gif" width='100%' style='z-index:99;position:absolute;top:0;left:0;'>-->
 @section('content')
     @include('layouts.navbars.guest.navbar', ['title' => 'Dashboard'])
-    <div class="container">
+    <div class="container" @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>
     <div class='row'>
-	<h3>Featured News</h3>
+	<h3>{{ tr('Featured News','أخبار مميزة') }}</h3>
         <livewire:featured-news  wire:key='data1'/>
     </div>
     </div>

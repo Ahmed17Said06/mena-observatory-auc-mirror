@@ -126,6 +126,7 @@
             position: absolute;
             top: -12px;
             left: 25px;
+            inset-inline-start: 25px;
             background: var(--ai-menablue);
             color: white;
             padding: 4px 15px;
@@ -133,6 +134,11 @@
             font-size: 0.8rem;
             font-weight: 600;
             letter-spacing: 0.5px;
+        }
+
+        [dir="rtl"] .map-controls::before {
+            content: 'اختر المؤشر والسنة';
+            left: auto;
         }
 
         .control-group {

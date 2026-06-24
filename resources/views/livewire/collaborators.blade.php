@@ -126,10 +126,10 @@
     {{-- Hero --}}
     <div class="pt-hero">
         <div class="container">
-            <span class="pt-hero__label">Network</span>
-            <h1 class="pt-hero__title">Our Collaborators &amp; Partners</h1>
+            <span class="pt-hero__label">{{ tr('Network','الشبكة') }}</span>
+            <h1 class="pt-hero__title">{{ tr('Our Collaborators & Partners','المتعاونون والشركاء') }}</h1>
             <div class="pt-hero__line"></div>
-            <p class="pt-hero__desc">We work with a wide network of national, regional, and global organisations committed to responsible AI and digital inclusion across the MENA region and beyond.</p>
+            <p class="pt-hero__desc">{{ tr('We work with a wide network of national, regional, and global organisations committed to responsible AI and digital inclusion across the MENA region and beyond.','نعمل مع شبكة واسعة من المؤسسات الوطنية والإقليمية والعالمية الملتزمة بالذكاء الاصطناعي المسؤول والشمول الرقمي في منطقة الشرق الأوسط وشمال أفريقيا وخارجها.') }}</p>
         </div>
     </div>
 
@@ -218,7 +218,7 @@
             {{-- ── Research Funding Partners ───────────────────── --}}
             <div class="pt-group" id="funding">
                 <div class="pt-group__title-bar">
-                    <span class="pt-group__title">Research Funding Partners</span>
+                    <span class="pt-group__title">{{ tr('Research Funding Partners','شركاء تمويل البحوث') }}</span>
                 </div>
                 <div class="pt-logos">
                     <div class="pt-logo"><img src="/img/partners/image74.jpg" alt="Friedrich Ebert Stiftung"></div>

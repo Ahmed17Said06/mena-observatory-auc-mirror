@@ -209,6 +209,8 @@
             let calendar = new FullCalendar.Calendar(calendarEl, {
                 rerenderDelay:200,
                 handleWindowResize:true,
+                locale: '{{ getLang() }}',
+                direction: '{{ getLang() === 'ar' ? 'rtl' : 'ltr' }}',
                 initialView: 'dayGridMonth',
                 fixedWeekCount: true,
                 headerToolbar:{

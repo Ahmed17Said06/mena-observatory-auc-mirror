@@ -35,10 +35,10 @@
                     wire:loading.attr="disabled"
                     wire:loading.class="loading"
                 >
-                    <span wire:loading.remove wire:target="loadMore">Load More</span>
+                    <span wire:loading.remove wire:target="loadMore">@lang('translation.load-more')</span>
                     <span wire:loading wire:target="loadMore" class="loading-state">
                         <span class="spinner"></span>
-                        Loading...
+                        @lang('translation.loading')
                     </span>
                 </button>
             </div>

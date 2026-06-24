@@ -16,12 +16,12 @@
         <img style="top: 317px;right: 0px;" src="/img/Vector-5.png">
     </div>
 
-    <div class="container py-3">
+    <div class="container py-3" @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>
         <div class="row">
             <div class="search-box w-100">
                 <form>
-                    <input class="search" type="text" value="{{ old('search') }}" placeholder="Search.." name="search">
-                    <input hidden class="search" type="text" value="{{ old('tag') }}" placeholder="Search.." name="tag">
+                    <input class="search" type="text" value="{{ old('search') }}" placeholder="@lang('translation.search').." name="search">
+                    <input hidden class="search" type="text" value="{{ old('tag') }}" placeholder="@lang('translation.search').." name="tag">
 
                     <button type="submit"><svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_703_6664)">
@@ -39,7 +39,7 @@
             </div>
 
             <div class='py-3'>
-                <h3>{{$count}} Results found for : {{ old('search') ?: old('tag') }}</h3>
+                <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>{{$count}} {{ tr('results found for:','نتيجة بحث عن:') }} {{ old('search') ?: old('tag') }}</h3>
                 @if(count($events) > 0)
                 <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
                     @endif hreflang="{{ getLang() }}">@lang('translation.events')</h3>
@@ -60,7 +60,7 @@
                                     <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 
                                                             <a href='{{route("events.single", ["id" => $n->id])}}'>
-                                                                <button class='btn learn_more'><i class="fas fa-plus"></i> Read More</button></a>
+                                                                <button class='btn learn_more'><i class="fas fa-plus"></i> @lang('translation.learn-more')</button></a>
 
                                             </div>
                                             <div class="overlay-1"></div>
@@ -89,7 +89,7 @@
                                     <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
                                     <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 
-                                    <a href='{{route("news", ["id" => $n->id])}}'><button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button></a>
+                                    <a href='{{route("news", ["id" => $n->id])}}'><button class='btn learn_more'><i class="fas fa-plus"></i> @lang('translation.learn-more')</button></a>
                                 </div>
 
                                 <div class="overlay-1"></div>
@@ -118,7 +118,7 @@
                                     <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
                                     <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 
-                                    <a href='{{route("blogs.single", ["id" => $n->id])}}'><button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button></a>
+                                    <a href='{{route("blogs.single", ["id" => $n->id])}}'><button class='btn learn_more'><i class="fas fa-plus"></i> @lang('translation.learn-more')</button></a>
                                 </div>
 
                             </div>
@@ -147,7 +147,7 @@
                                         
                                         <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
 
-                                        <a href='{{route("repo.single", ["id" => $n->id])}}'><button class='btn learn_more'><i class="fas fa-plus"></i> Learn More</button></a>
+                                        <a href='{{route("repo.single", ["id" => $n->id])}}'><button class='btn learn_more'><i class="fas fa-plus"></i> @lang('translation.learn-more')</button></a>
                                     </div>
 
                                 </div>
@@ -158,7 +158,7 @@
                 </div>
                 @if($count == 0)
                     <div class='py-5'>
-                        <h4 style="color:#6b7280;">No results found. Try a different keyword or tag.</h4>
+                        <h4 style="color:#6b7280;" @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>{{ tr('No results found. Try a different keyword or tag.','لا توجد نتائج. جرّب كلمة مفتاحية أو وسمًا مختلفًا.') }}</h4>
                     </div>
                 @endif
         </div>

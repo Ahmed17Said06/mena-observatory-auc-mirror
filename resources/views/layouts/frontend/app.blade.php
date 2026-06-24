@@ -263,6 +263,7 @@ button:not(header *):not(footer *):not(.map_container *):not(.dropdown-content *
     <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/index.global.min.js'></script>
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/locales-all.global.min.js'></script>
 
 
         @livewireScripts
