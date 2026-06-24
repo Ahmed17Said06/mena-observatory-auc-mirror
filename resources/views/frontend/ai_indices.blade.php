@@ -864,7 +864,7 @@
                 <div class="table-header">
                     <h3>{{ tr('Country Data','بيانات الدول') }}</h3>
                     <div class="table-actions">
-                        <input type="text" class="table-search" id="table-search" placeholder="Search countries..." oninput="filterTable()">
+                        <input type="text" class="table-search" id="table-search" placeholder="{{ tr('Search countries...','البحث عن دولة...') }}" oninput="filterTable()">
                         <button class="export-btn" onclick="exportToCSV()">
                             Export CSV
                         </button>
@@ -915,6 +915,34 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
+        // ── i18n: translate table headers, country names & source prefix in
+        //    Arabic. Numeric scores are never translated. ───────────────────
+        const AI_LOCALE = '{{ getLang() }}';
+        const AI_IS_AR  = AI_LOCALE === 'ar';
+        const AI_HEAD = {
+            'Country': 'الدولة', 'Total': 'الإجمالي', 'Total Score': 'النتيجة الإجمالية',
+            'Score': 'النتيجة', 'Tier': 'الفئة', 'Status': 'الحالة',
+            'Talent': 'المواهب', 'Infrastructure': 'البنية التحتية', 'Operating Env': 'بيئة التشغيل',
+            'Research': 'البحث', 'Development': 'التطوير', 'Gov Strategy': 'الاستراتيجية الحكومية',
+            'Commercial': 'التجاري', 'Vision': 'الرؤية', 'Gov & Ethics': 'الحوكمة والأخلاقيات',
+            'Adaptability': 'القابلية للتكيّف', 'Digital Cap': 'القدرة الرقمية', 'Maturity': 'النضج',
+            'Innovation': 'الابتكار', 'Human Cap': 'رأس المال البشري', 'Human Capital': 'رأس المال البشري',
+            'Gov Framework': 'الإطار الحوكمي', 'Discourse': 'الخطاب', 'Non-State': 'الفاعلون غير الحكوميين',
+            'Human Rights': 'حقوق الإنسان', 'RAI Cap': 'قدرات الذكاء الاصطناعي المسؤول',
+            'RAI Gov': 'حوكمة الذكاء الاصطناعي المسؤول', 'AI Prep': 'الجاهزية للذكاء الاصطناعي',
+            'Digital Infra': 'البنية التحتية الرقمية', 'Regulation': 'التنظيم'
+        };
+        const AI_COUNTRY = {
+            'Morocco': 'المغرب', 'Algeria': 'الجزائر', 'Tunisia': 'تونس', 'Libya': 'ليبيا',
+            'Egypt': 'مصر', 'Sudan': 'السودان', 'Jordan': 'الأردن', 'Lebanon': 'لبنان',
+            'Syria': 'سوريا', 'Palestine': 'فلسطين', 'Saudi Arabia': 'السعودية', 'Bahrain': 'البحرين',
+            'Kuwait': 'الكويت', 'UAE': 'الإمارات', 'Qatar': 'قطر', 'Oman': 'عُمان', 'Yemen': 'اليمن',
+            'Iraq': 'العراق', 'Somalia': 'الصومال', 'Iran': 'إيران', 'India': 'الهند', 'Indonesia': 'إندونيسيا'
+        };
+        function H(s)  { return AI_IS_AR && AI_HEAD[s]    ? AI_HEAD[s]    : s; }
+        function CT(s) { return AI_IS_AR && AI_COUNTRY[s] ? AI_COUNTRY[s] : s; }
+        function THs() { return Array.prototype.map.call(arguments, function (l) { return '<th>' + H(l) + '</th>'; }).join(''); }
+
         // Country coordinates
         const countryCoords = {
             'Morocco': [31.7917, -7.0926],
@@ -1263,7 +1291,7 @@
                     iconAnchor: [18, 18]
                 });
 
-                let popupContent = `<div class="popup-content"><h3>${country}</h3>`;
+                let popupContent = `<div class="popup-content"><h3>${CT(country)}</h3>`;
                 
                 if (currentIndex === 'aidv') {
                     if (info.score) {
@@ -1362,7 +1390,7 @@
                     // Find top country
                     const sorted = entries.sort((a, b) => (b[1].score || 0) - (a[1].score || 0));
                     if (sorted.length > 0) {
-                        document.getElementById('top-country').textContent = sorted[0][0];
+                        document.getElementById('top-country').textContent = CT(sorted[0][0]);
                     }
                 } else {
                     document.getElementById('avg-index').textContent = 'N/A';
@@ -1381,7 +1409,7 @@
                 // Find top country
                 const sorted = entries.sort((a, b) => (b[1].totalScore || 0) - (a[1].totalScore || 0));
                 if (sorted.length > 0) {
-                    document.getElementById('top-country').textContent = sorted[0][0];
+                    document.getElementById('top-country').textContent = CT(sorted[0][0]);
                 }
             }
             
@@ -1407,7 +1435,18 @@
                 methodologyUrl = aidvLinks[currentYear] || aidvLinks['2025'];
             }
             
-            footer.innerHTML = `${source} <a href="${methodologyUrl}" target="_blank">More information about the methodology details, visit here</a>.`;
+            // Localise the boilerplate prefix while keeping the index/org names.
+            if (AI_IS_AR) {
+                source = source
+                    .replace('Scores are sourced from the ', 'تستند الدرجات إلى ')
+                    .replace('Scores are sourced from ', 'تستند الدرجات إلى ')
+                    .replace(' by ', ' من إعداد ');
+            }
+            const moreText = AI_IS_AR
+                ? 'لمزيد من المعلومات حول تفاصيل المنهجية، اضغط هنا'
+                : 'More information about the methodology details, visit here';
+
+            footer.innerHTML = `${source} <a href="${methodologyUrl}" target="_blank">${moreText}</a>.`;
         }
 
         function updateDataTable() {
@@ -1417,22 +1456,22 @@
             const tbody = document.getElementById('table-body');
             
             // Build header
-            let headerHtml = '<tr><th>Country</th>';
+            let headerHtml = '<tr>' + THs('Country');
             if (currentIndex === 'globalAI') {
-                headerHtml += '<th>Total</th><th>Talent</th><th>Infrastructure</th><th>Operating Env</th><th>Research</th><th>Development</th><th>Gov Strategy</th><th>Commercial</th>';
+                headerHtml += THs('Total','Talent','Infrastructure','Operating Env','Research','Development','Gov Strategy','Commercial');
             } else if (currentIndex === 'govReadiness') {
-                headerHtml += '<th>Total</th><th>Vision</th><th>Gov & Ethics</th><th>Adaptability</th><th>Digital Cap</th><th>Maturity</th><th>Innovation</th><th>Human Cap</th>';
+                headerHtml += THs('Total','Vision','Gov & Ethics','Adaptability','Digital Cap','Maturity','Innovation','Human Cap');
             } else if (currentIndex === 'girai') {
-                headerHtml += '<th>Total</th><th>Gov Framework</th><th>Discourse</th><th>Non-State</th><th>Human Rights</th><th>RAI Cap</th><th>RAI Gov</th>';
+                headerHtml += THs('Total','Gov Framework','Discourse','Non-State','Human Rights','RAI Cap','RAI Gov');
             } else if (currentIndex === 'aipi') {
-                headerHtml += '<th>AI Prep</th><th>Digital Infra</th><th>Human Capital</th><th>Innovation</th><th>Regulation</th>';
+                headerHtml += THs('AI Prep','Digital Infra','Human Capital','Innovation','Regulation');
             } else if (currentIndex === 'aidv') {
-                headerHtml += '<th>Score</th><th>Tier</th>';
+                headerHtml += THs('Score','Tier');
                 if (currentYear === '2025') {
-                    headerHtml += '<th>Status</th>';
+                    headerHtml += THs('Status');
                 }
             } else {
-                headerHtml += '<th>Total Score</th>';
+                headerHtml += THs('Total Score');
             }
             headerHtml += '</tr>';
             headerRow.innerHTML = headerHtml;
@@ -1440,7 +1479,7 @@
             // Build body
             let bodyHtml = '';
             Object.entries(data).forEach(([country, info]) => {
-                bodyHtml += `<tr><td>${country}</td>`;
+                bodyHtml += `<tr><td>${CT(country)}</td>`;
                 if (currentIndex === 'globalAI') {
                     bodyHtml += `<td>${info.totalScore || '-'}</td><td>${info.talent || '-'}</td><td>${info.infrastructure || '-'}</td><td>${info.operatingEnv || '-'}</td><td>${info.research || '-'}</td><td>${info.development || '-'}</td><td>${info.govStrategy || '-'}</td><td>${info.commercial || '-'}</td>`;
                 } else if (currentIndex === 'govReadiness') {
@@ -1527,7 +1566,7 @@
             
             // Add data rows
             entries.forEach(([country, info]) => {
-                const row = [country, ...Object.values(info).map(v => v ?? 'N/A')];
+                const row = [CT(country), ...Object.values(info).map(v => v ?? 'N/A')];
                 csvContent += row.join(',') + '\n';
             });
             
