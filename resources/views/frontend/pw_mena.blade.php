@@ -95,9 +95,7 @@
 
             <!-- The Policy Hub, Lebanon -->
             <div class="institution-card" style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px; min-width: 250px; max-width: 300px;">
-                <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
-                    <span style="font-size: 2.5rem; color: #022248;">🏛️</span>
-                </div>
+                <img src="{{ asset('img/partners/image49.png') }}" alt="The Policy Hub" style="height: 80px; object-fit: contain; margin-bottom: 1rem;">
                 <h5 style="font-size: 0.9rem; color: #022248; margin: 0;">
                     @if($instPolicyName){{ $instPolicyName->content }}@else The Policy Hub @endif
                 </h5>
@@ -108,9 +106,7 @@
 
             <!-- Phenix Center, Jordan -->
             <div class="institution-card" style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px; min-width: 250px; max-width: 300px;">
-                <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
-                    <span style="font-size: 2.5rem; color: #022248;">🏛️</span>
-                </div>
+                <img src="{{ asset('img/partners/image50.png') }}" alt="Phenix Center" style="height: 80px; object-fit: contain; margin-bottom: 1rem;">
                 <h5 style="font-size: 0.9rem; color: #022248; margin: 0;">
                     @if($instPhenixName){{ $instPhenixName->content }}@else Phenix Center for Economic and Information Studies @endif
                 </h5>
@@ -121,9 +117,7 @@
 
             <!-- Tunisia Inclusive Labor Institute -->
             <div class="institution-card" style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px; min-width: 250px; max-width: 300px;">
-                <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
-                    <span style="font-size: 2.5rem; color: #022248;">🏛️</span>
-                </div>
+                <img src="{{ asset('img/partners/image47.jpg') }}" alt="Tunisia Inclusive Labor Institute" style="height: 80px; object-fit: contain; margin-bottom: 1rem;">
                 <h5 style="font-size: 0.9rem; color: #022248; margin: 0;">
                     @if($instTunisiaName){{ $instTunisiaName->content }}@else Tunisia Inclusive Labor Institute @endif
                 </h5>
@@ -134,9 +128,7 @@
 
             <!-- The Solidarity Center, Morocco -->
             <div class="institution-card" style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px; min-width: 250px; max-width: 300px;">
-                <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
-                    <span style="font-size: 2.5rem; color: #022248;">🏛️</span>
-                </div>
+                <img src="{{ asset('img/partners/image48.png') }}" alt="The Solidarity Center" style="height: 80px; object-fit: contain; margin-bottom: 1rem;">
                 <h5 style="font-size: 0.9rem; color: #022248; margin: 0;">
                     @if($instSolidName){{ $instSolidName->content }}@else The Solidarity Center @endif
                 </h5>
@@ -199,7 +191,7 @@
                                 <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                                 <div class="resource-card__title">{{ $pubTitle }}</div>
                                 @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
-                                @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
+                                @if($pub->tag)<div class="resource-card__tag">{{ countryLabel($pub->tag) }}</div>@endif
                                 <span class="resource-card__external">@include('frontend.partials._icon-external')</span>
                             </a>
                         @else
@@ -207,7 +199,7 @@
                                 <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                                 <div class="resource-card__title">{{ $pubTitle }}</div>
                                 @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
-                                @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
+                                @if($pub->tag)<div class="resource-card__tag">{{ countryLabel($pub->tag) }}</div>@endif
                                 @if($pub->link_en_url || $pub->link_ar_url || $pub->link_fr_url)
                                     <div class="resource-card__langs">
                                         @if($pub->link_en_url)<a href="{{ $pub->link_en_url }}" target="_blank" class="resource-card__lang-link">EN</a>@endif
@@ -229,28 +221,28 @@
                     <a href="#" class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">Cloudwork: Social Protection and Inclusion in the Digital Economy in Egypt</div>
-                        <div class="resource-card__tag">Egypt</div>
+                        <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                     </a>
                     <a href="{{ asset('docs/egypt/egypt-delivery-workers-policy-paper.pdf') }}" target="_blank" class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">Platform work, social protection and representation: a case of delivery workers in Egypt</div>
-                        <div class="resource-card__tag">Egypt</div>
+                        <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                         <span class="resource-card__external">@include('frontend.partials._icon-external')</span>
                     </a>
                     <a href="#" class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">Social Security Provisions for Workers in the Gig Economy: A Focus on Egypt</div>
-                        <div class="resource-card__tag">Egypt</div>
+                        <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                     </a>
                     <a href="#" class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">Reaction Note on the Draft Labor Law Regarding the New Forms of Labor</div>
-                        <div class="resource-card__tag">Egypt</div>
+                        <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                     </a>
                     <div class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">@if(LaravelLocalization::getCurrentLocale()==='ar') العمل الجديد - عمال المنصات الرقمية - حالة الأردن @else New Work, Data and Inclusion in the Digital Economy: Case Study Jordan @endif</div>
-                        <div class="resource-card__tag">Jordan</div>
+                        <div class="resource-card__tag">{{ countryLabel('Jordan') }}</div>
                         <div class="resource-card__langs">
                             <a href="{{ asset('docs/jordan/jordan-platform-workers-policy-paper-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
                             <a href="{{ asset('docs/jordan/jordan-platform-workers-policy-paper-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
@@ -259,12 +251,12 @@
                     <a href="#" class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">The perils of digital work in Lebanon: lessons from taxi and delivery workers</div>
-                        <div class="resource-card__tag">Lebanon</div>
+                        <div class="resource-card__tag">{{ countryLabel('Lebanon') }}</div>
                     </a>
                     <div class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">@if(LaravelLocalization::getCurrentLocale()==='ar') العمل الجديد - عمال المنصات الرقمية - حالة لبنان @else New Work: Platform Workers - Case of Lebanon @endif</div>
-                        <div class="resource-card__tag">Lebanon</div>
+                        <div class="resource-card__tag">{{ countryLabel('Lebanon') }}</div>
                         <div class="resource-card__langs">
                             <a href="{{ asset('docs/lebanon/lebanon-platform-workers-report-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
                             <a href="{{ asset('docs/lebanon/lebanon-platform-workers-report-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
@@ -273,7 +265,7 @@
                     <div class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">@if(LaravelLocalization::getCurrentLocale()==='ar') عمال المنصات الرقمية: دراسة حالة المغرب @else Platform Workers: a Morocco Case Study @endif</div>
-                        <div class="resource-card__tag">Morocco</div>
+                        <div class="resource-card__tag">{{ countryLabel('Morocco') }}</div>
                         <div class="resource-card__langs">
                             <a href="{{ asset('docs/morocco/morocco-platform-workers-policy-paper-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
                             <a href="{{ asset('docs/morocco/morocco-platform-workers-policy-paper-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
@@ -283,7 +275,7 @@
                     <div class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">@if(LaravelLocalization::getCurrentLocale()==='ar') أشكال جديدة من العمل، أشكال قديمة من الاستغلال: تحليل اقتصاد المنصات في تونس @else New Forms of Work, Old Forms of Exploitation: Tunisia's Platform and Informal Economies @endif</div>
-                        <div class="resource-card__tag">Tunisia</div>
+                        <div class="resource-card__tag">{{ countryLabel('Tunisia') }}</div>
                         <div class="resource-card__langs">
                             <a href="{{ asset('docs/tunisia/tunisia-platform-workers-policy-paper-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
                             <a href="{{ asset('docs/tunisia/tunisia-platform-workers-policy-paper-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
@@ -293,22 +285,22 @@
                     <a href="#" class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">Fairwork Egypt 2021: Towards Decent Work in a Highly Informal Economy</div>
-                        <div class="resource-card__tag">Egypt</div>
+                        <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                     </a>
                     <a href="#" class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">Domestic Platform Work in the Middle East and North Africa</div>
-                        <div class="resource-card__tag">MENA</div>
+                        <div class="resource-card__tag">{{ countryLabel('MENA') }}</div>
                     </a>
                     <a href="#" class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">Fairwork Egypt 2022: Platform Workers Amidst Egypt's Economic Crisis</div>
-                        <div class="resource-card__tag">Egypt</div>
+                        <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                     </a>
                     <div class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">@if(LaravelLocalization::getCurrentLocale()==='ar') العمل الجديد: عمال المنصات الرقمية في مصر 2025 @else New Work: Platform Workers in Egypt 2025 @endif</div>
-                        <div class="resource-card__tag">Egypt</div>
+                        <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                         <div class="resource-card__langs">
                             <a href="{{ asset('docs/egypt/egypt-2025-platform-workers-policy-paper-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
                             <a href="{{ asset('docs/egypt/egypt-2025-platform-workers-policy-paper-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
@@ -339,7 +331,7 @@
                                 <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                                 <div class="resource-card__title">{{ $pubTitle }}</div>
                                 @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
-                                @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
+                                @if($pub->tag)<div class="resource-card__tag">{{ countryLabel($pub->tag) }}</div>@endif
                                 <span class="resource-card__external">@include('frontend.partials._icon-external')</span>
                             </a>
                         @else
@@ -347,7 +339,7 @@
                                 <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                                 <div class="resource-card__title">{{ $pubTitle }}</div>
                                 @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
-                                @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
+                                @if($pub->tag)<div class="resource-card__tag">{{ countryLabel($pub->tag) }}</div>@endif
                                 @if($pub->link_en_url || $pub->link_ar_url || $pub->link_fr_url)
                                     <div class="resource-card__langs">
                                         @if($pub->link_en_url)<a href="{{ $pub->link_en_url }}" target="_blank" class="resource-card__lang-link">EN</a>@endif
@@ -369,18 +361,18 @@
                     <a href="{{ asset('docs/egypt/egypt-delivery-workers-policy-brief.pdf') }}" target="_blank" class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">Social protection and representation for delivery workers in Egypt</div>
-                        <div class="resource-card__tag">Egypt</div>
+                        <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                         <span class="resource-card__external">@include('frontend.partials._icon-external')</span>
                     </a>
                     <a href="#" class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">Social Security Provisions for Workers in the Platform Economy: Policy Options with Focus on Egypt</div>
-                        <div class="resource-card__tag">Egypt</div>
+                        <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                     </a>
                     <div class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">@if(LaravelLocalization::getCurrentLocale()==='ar') التنقل في الحدود الرقمية: إصلاحات السياسات لعمال المنصات في الأردن @else Navigating the Digital Frontier: Policy Reforms for Platform Workers in Jordan @endif</div>
-                        <div class="resource-card__tag">Jordan</div>
+                        <div class="resource-card__tag">{{ countryLabel('Jordan') }}</div>
                         <div class="resource-card__langs">
                             <a href="{{ asset('docs/jordan/jordan-platform-workers-policy-brief-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
                             <a href="{{ asset('docs/jordan/jordan-platform-workers-policy-brief-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
@@ -389,12 +381,12 @@
                     <a href="#" class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">Precarious freelancing: Lebanon's grim future of work</div>
-                        <div class="resource-card__tag">Lebanon</div>
+                        <div class="resource-card__tag">{{ countryLabel('Lebanon') }}</div>
                     </a>
                     <div class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">@if(LaravelLocalization::getCurrentLocale()==='ar') موجز سياسات - عمال المنصات الرقمية - حالة لبنان @else Policy Brief: Platform Workers - Case of Lebanon @endif</div>
-                        <div class="resource-card__tag">Lebanon</div>
+                        <div class="resource-card__tag">{{ countryLabel('Lebanon') }}</div>
                         <div class="resource-card__langs">
                             <a href="{{ asset('docs/lebanon/lebanon-platform-workers-policy-brief-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
                             <a href="{{ asset('docs/lebanon/lebanon-platform-workers-policy-brief-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
@@ -403,12 +395,12 @@
                     <a href="#" class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">Improving Inclusivity in the Platform Economy</div>
-                        <div class="resource-card__tag">MENA</div>
+                        <div class="resource-card__tag">{{ countryLabel('MENA') }}</div>
                     </a>
                     <div class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">Platform Workers in Morocco: a Policy Brief</div>
-                        <div class="resource-card__tag">Morocco</div>
+                        <div class="resource-card__tag">{{ countryLabel('Morocco') }}</div>
                         <div class="resource-card__langs">
                             <a href="{{ asset('docs/morocco/morocco-platform-workers-policy-brief-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
                             <a href="{{ asset('docs/morocco/morocco-platform-workers-policy-brief-fr.pdf') }}" target="_blank" class="resource-card__lang-link">FR</a>
@@ -417,7 +409,7 @@
                     <div class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">@if(LaravelLocalization::getCurrentLocale()==='ar') موجز سياسات - عمال المنصات الرقمية - حالة مصر @else Policy Brief: Platform Workers - Case of Egypt @endif</div>
-                        <div class="resource-card__tag">Egypt</div>
+                        <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                         <div class="resource-card__langs">
                             <a href="{{ asset('docs/egypt/egypt-platform-workers-policy-brief-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
                             <a href="{{ asset('docs/egypt/egypt-platform-workers-policy-brief-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
@@ -426,7 +418,7 @@
                     <div class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">@if(LaravelLocalization::getCurrentLocale()==='ar') موجز سياسات - عمال المنصات الرقمية - حالة تونس @else Policy Brief: Platform Workers - Case of Tunisia @endif</div>
-                        <div class="resource-card__tag">Tunisia</div>
+                        <div class="resource-card__tag">{{ countryLabel('Tunisia') }}</div>
                         <div class="resource-card__langs">
                             <a href="{{ asset('docs/tunisia/tunisia-platform-workers-policy-brief-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
                             <a href="{{ asset('docs/tunisia/tunisia-platform-workers-policy-brief-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
@@ -525,7 +517,7 @@
                             </div>
                             <div class="resource-card__title">{{ $pubTitle }}</div>
                             @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
-                            @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
+                            @if($pub->tag)<div class="resource-card__tag">{{ countryLabel($pub->tag) }}</div>@endif
                             @if($pubUrl)<span class="resource-card__external">@include('frontend.partials._icon-external')</span>@endif
                         @if($pubUrl)</a>@else</div>@endif
                     @endforeach
@@ -567,7 +559,7 @@
                             </div>
                             <div class="resource-card__title">{{ $pubTitle }}</div>
                             @if($pub->description)<p class="resource-card__desc">{{ $pub->description }}</p>@endif
-                            @if($pub->tag)<div class="resource-card__tag">{{ $pub->tag }}</div>@endif
+                            @if($pub->tag)<div class="resource-card__tag">{{ countryLabel($pub->tag) }}</div>@endif
                             @if($pubUrl)<span class="resource-card__external">@include('frontend.partials._icon-external')</span>@endif
                         @if($pubUrl)</a>@else</div>@endif
                     @endforeach

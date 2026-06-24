@@ -191,7 +191,7 @@
                     @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>
                     @lang('translation.join-the-conversation')
                 </h3>
-                <div class="col-lg-10" hreflang="{{ getLang() }}">
+                <div class="col-lg-10 collab-social" hreflang="{{ getLang() }}">
                     @if(LaravelLocalization::getCurrentLocale()=='ar')
                         {!!  $footer_collaboration->ar_content !!}
                     @else

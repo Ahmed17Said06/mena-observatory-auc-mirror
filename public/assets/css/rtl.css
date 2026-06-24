@@ -68,3 +68,22 @@
     left: auto;
     right: .85rem;
 }
+
+/* ── Future of Work: section headings & disclaimer align right in RTL ─────── */
+[dir="rtl"] .resource-section h3,
+[dir="rtl"] .pw-subsec__heading,
+[dir="rtl"] .disclaimer-box {
+    text-align: right;
+}
+
+/* ── AI Indices: keep the controls bar starting from the right in RTL ─────── */
+[dir="rtl"] .map-controls {
+    justify-content: flex-start;
+}
+
+/* ── Collaborate: isolate bidi so Latin @social-handles render LTR
+      (the "@" appears on the left, not flipped to the right) ──────────────── */
+[dir="rtl"] .collab-social,
+[dir="rtl"] .collab-social * {
+    unicode-bidi: plaintext;
+}

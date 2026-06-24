@@ -208,7 +208,7 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-            z-index: 1000;
+            z-index: 500; /* below the sticky navbar (999) so it doesn't overlap the header when scrolling */
             min-width: 220px;
         }
 
@@ -529,7 +529,7 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            z-index: 1001;
+            z-index: 501; /* below the sticky navbar (999) */
             padding: 12px 16px;
             background: white;
             border: none;
@@ -825,7 +825,9 @@
             </div>
 
             <div class="map-wrapper" id="map-wrapper">
-                <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">⛶</button>
+                <button class="fullscreen-btn" onclick="toggleFullscreen()" title="{{ tr('Toggle Fullscreen','تبديل ملء الشاشة') }}" aria-label="{{ tr('Toggle Fullscreen','تبديل ملء الشاشة') }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></svg>
+                </button>
                 <div id="ai-map"></div>
                 <div class="ai-legend">
                     <h4>{{ tr('Score Range','نطاق الدرجات') }}</h4>
