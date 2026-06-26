@@ -35,9 +35,7 @@ padding-bottom: 50px;'>
 
         @foreach($gender_ai as $index => $n)
             <div class="post-container lazy-item
-             @if($n->featured_type==='feminist_ai')
-             feminist-ai-border
-             @elseif($n->featured_type==='pw_mena')
+             @if($n->featured_type==='pw_mena')
              research-border-border
              @endif">
                 <div class="post-loop position-relative overflow-hidden ">

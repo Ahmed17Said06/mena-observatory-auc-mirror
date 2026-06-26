@@ -49,6 +49,79 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+
+    /* ── A–Z jump rail ─────────────────────────────────── */
+    html { scroll-behavior: smooth; }
+    .comm-az-wrap {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .comm-people { flex: 1 1 auto; min-width: 0; padding-bottom: 50px; }
+    .comm-letter-head {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #022248;
+        border-bottom: 2px solid #FAAF1C;
+        display: inline-block;
+        padding: 0 .35rem .15rem;
+        margin: 1.5rem 0 1rem;
+        scroll-margin-top: 90px;
+    }
+    .comm-people .comm-letter-head:first-child { margin-top: 0; }
+    .comm-az-rail {
+        position: sticky;
+        top: 90px;
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1px;
+        padding: .35rem .15rem;
+        background: #fff;
+        border: 1px solid #eef0f3;
+        border-radius: 999px;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+    }
+    .comm-az-rail a,
+    .comm-az-rail span {
+        font-size: .72rem;
+        font-weight: 700;
+        line-height: 1;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        text-decoration: none;
+    }
+    .comm-az-rail a {
+        color: #022248;
+        transition: background .15s, color .15s;
+    }
+    .comm-az-rail a:hover {
+        background: #FAAF1C;
+        color: #022248;
+    }
+    .comm-az-rail span {
+        color: #c7cbd1;
+        cursor: default;
+    }
+    @media (max-width: 575px) {
+        .comm-az-rail {
+            flex-direction: row;
+            flex-wrap: wrap;
+            position: static;
+            border-radius: 12px;
+            max-height: none;
+            order: -1;
+            width: 100%;
+            justify-content: center;
+        }
+        .comm-az-wrap { flex-direction: column; }
+    }
 </style>
 
 <div class='col-12'>
@@ -202,30 +275,55 @@
             </script>
         </div>
     </div>
-    <div id="blogs" style=" overflow-y: auto; padding-bottom: 50px;">
-    <div class="row g-4">
-    @foreach($blogs as $n)
-            <div class="col-6 col-md-4 col-lg-3">
-                @php
-                    $thumbSrc = !$n->thumbnail_image
-                        ? '/img/card-placeholder.svg'
-                        : (\Illuminate\Support\Str::startsWith($n->thumbnail_image, ['http://', 'https://'])
-                            ? $n->thumbnail_image
-                            : Storage::url($n->thumbnail_image));
-                @endphp
-                <div class="community-person-card">
-                    <a href="{{ route('community_single', ['id' => $n->id]) }}" class="community-circle">
-                        <img src="{{ $thumbSrc }}" alt="{{ $n->name }}">
-                    </a>
-                    <h4 class="community-name">
-                        <a href="{{ route('community_single', ['id' => $n->id]) }}">{{ $n->name }}</a>
-                    </h4>
-                    <p class="community-desc">{{ $n->description }}</p>
-                </div>
-            </div>
-        @endforeach
+    @php
+        $grouped = $blogs->groupBy(function ($p) {
+            $c = mb_strtoupper(mb_substr(trim($p->name), 0, 1));
+            return preg_match('/[A-Z]/', $c) ? $c : '#';
+        });
+        $letters = collect(range('A', 'Z'))->push('#');
+    @endphp
+
+    <div class="comm-az-wrap">
+        <div id="blogs" class="comm-people">
+            @foreach($letters as $L)
+                @if($grouped->has($L))
+                    <div id="ltr-{{ $L }}" class="comm-letter-head">{{ $L }}</div>
+                    <div class="row g-4 mb-4">
+                        @foreach($grouped[$L] as $n)
+                            <div class="col-6 col-md-4 col-lg-3">
+                                @php
+                                    $thumbSrc = !$n->thumbnail_image
+                                        ? '/img/card-placeholder.svg'
+                                        : (\Illuminate\Support\Str::startsWith($n->thumbnail_image, ['http://', 'https://'])
+                                            ? $n->thumbnail_image
+                                            : Storage::url($n->thumbnail_image));
+                                @endphp
+                                <div class="community-person-card">
+                                    <a href="{{ route('community_single', ['id' => $n->id]) }}" class="community-circle">
+                                        <img src="{{ $thumbSrc }}" alt="{{ $n->name }}">
+                                    </a>
+                                    <h4 class="community-name">
+                                        <a href="{{ route('community_single', ['id' => $n->id]) }}">{{ $n->name }}</a>
+                                    </h4>
+                                    <p class="community-desc">{{ $n->description }}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            @endforeach
+        </div>
+
+        <nav class="comm-az-rail" aria-label="A to Z">
+            @foreach($letters as $L)
+                @if($grouped->has($L))
+                    <a href="#ltr-{{ $L }}">{{ $L }}</a>
+                @else
+                    <span aria-disabled="true">{{ $L }}</span>
+                @endif
+            @endforeach
+        </nav>
     </div>
-</div>
 
 
         <div class='row' style='overflow-x: scroll; padding-bottom: 80px; padding-top: 40px;'>

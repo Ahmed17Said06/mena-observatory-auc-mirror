@@ -30,6 +30,16 @@ class RepoList extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    public function mount($isOurWork = null, $isGlobal = null, $filterTag = null, $is_data_repo_page = false): void
+    {
+        $this->isOurWork = $isOurWork;
+        $this->isGlobal  = $isGlobal;
+        $this->is_data_repo_page = $is_data_repo_page;
+        // An explicit parent-supplied scope (e.g. the Gender page) wins; otherwise
+        // honour a ?tag= query parameter so we can deep-link a pre-filtered list.
+        $this->filterTag = $filterTag ?: request('tag');
+    }
+
     // Reset all named paginators when filters change
     private function resetAllPages(): void
     {

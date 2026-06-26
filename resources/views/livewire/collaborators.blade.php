@@ -119,6 +119,61 @@
     .pt-logo { width: 110px; height: 64px; }
     .pt-tabs { padding-top: 1.5rem; }
 }
+
+/* ── Logo lightbox ────────────────────────────────────── */
+.pt-logo > img { cursor: zoom-in; }
+.pt-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(2,34,72,.82);
+    backdrop-filter: blur(2px);
+    animation: pt-lb-fade .2s ease;
+}
+.pt-lightbox.open { display: flex; }
+.pt-lightbox__card {
+    position: relative;
+    background: #fff;
+    border-radius: 14px;
+    padding: 2.5rem;
+    max-width: 90vw;
+    max-height: 85vh;
+    box-shadow: 0 24px 60px rgba(0,0,0,.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pt-lb-pop .22s ease;
+}
+.pt-lightbox__card img {
+    max-width: min(70vw, 520px);
+    max-height: 70vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+.pt-lightbox__close {
+    position: absolute;
+    top: -14px;
+    inset-inline-end: -14px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #FAAF1C;
+    color: #022248;
+    font-size: 1.3rem;
+    line-height: 1;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+.pt-lightbox__close:hover { background: #c8870a; color: #fff; }
+@keyframes pt-lb-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pt-lb-pop { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: scale(1); } }
 </style>
 
 <div class="pt-page">
@@ -239,6 +294,48 @@
     </div>
 
 </div>
+
+{{-- Logo lightbox --}}
+<div class="pt-lightbox" id="ptLightbox">
+    <div class="pt-lightbox__card">
+        <button type="button" class="pt-lightbox__close" aria-label="Close">&times;</button>
+        <img src="" alt="">
+    </div>
+</div>
+
+<script>
+(function () {
+    var lb = document.getElementById('ptLightbox');
+    if (!lb) return;
+    var lbImg = lb.querySelector('img');
+
+    function openLb(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || '';
+        lb.classList.add('open');
+    }
+    function closeLb() {
+        lb.classList.remove('open');
+        lbImg.src = '';
+    }
+
+    // Only bind logos that are NOT wrapped in a link (anchored logos keep navigating).
+    document.querySelectorAll('.pt-logo > img').forEach(function (img) {
+        img.addEventListener('click', function () {
+            openLb(img.src, img.alt);
+        });
+    });
+
+    lb.addEventListener('click', function (e) {
+        if (e.target === lb || e.target.classList.contains('pt-lightbox__close')) {
+            closeLb();
+        }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeLb();
+    });
+})();
+</script>
 
 
 </div>

@@ -581,56 +581,62 @@
     <!-- Separation Line -->
     <hr style="border: none; border-top: 2px solid #e5e7eb; margin: 3rem 0; width: 100%; opacity: 1;">
 
-    <!-- Section 3: Regional Resources -->
-    <div class="mb-5">
-        <h2 class="mb-1" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
-            style="color: #006644; font-weight: 700;">
-            {{ tr('Regional Resources','الموارد الإقليمية') }}
-        </h2>
-        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">{{ tr('External research and resources from the MENA region related to Future of Work.','بحوث وموارد خارجية من منطقة الشرق الأوسط وشمال أفريقيا تتعلق بمستقبل العمل.') }}</p>
-        @if($regionalRepos->isEmpty())
-            <div class="pw-empty">{{ tr('No regional resources have been tagged yet.','لم يتم وسم أي موارد إقليمية بعد.') }}</div>
-        @else
-            <div class="resource-cards-grid" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
-                @foreach($regionalRepos as $r)
-                    <a href="{{ route('repo.single', $r->id) }}" class="resource-card resource-card--regional">
-                        <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
-                        <div class="resource-card__title">{{ $r->title }}</div>
-                        @if($r->description)<p class="resource-card__desc">{{ Str::limit($r->description, 120) }}</p>@endif
-                    </a>
-                @endforeach
-            </div>
-        @endif
-    </div>
-
-    <!-- Separation Line -->
-    <hr style="border: none; border-top: 2px solid #e5e7eb; margin: 3rem 0; width: 100%; opacity: 1;">
-
-    <!-- Section 4: Global Resources -->
-    <div class="mb-5">
-        <h2 class="mb-1" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif
-            style="color: #c8870a; font-weight: 700;">
-            {{ tr('Global Resources','الموارد العالمية') }}
-        </h2>
-        <p class="mb-4" style="color:#6b7280; font-size:.9rem;">{{ tr('International research and resources on Future of Work and platform economies.','بحوث وموارد دولية حول مستقبل العمل واقتصادات المنصات.') }}</p>
-        @if($globalRepos->isEmpty())
-            <div class="pw-empty">{{ tr('No global resources have been tagged yet.','لم يتم وسم أي موارد عالمية بعد.') }}</div>
-        @else
-            <div class="resource-cards-grid" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
-                @foreach($globalRepos as $r)
-                    <a href="{{ route('repo.single', $r->id) }}" class="resource-card resource-card--global">
-                        <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
-                        <div class="resource-card__title">{{ $r->title }}</div>
-                        @if($r->description)<p class="resource-card__desc">{{ Str::limit($r->description, 120) }}</p>@endif
-                    </a>
-                @endforeach
-            </div>
-        @endif
+    <!-- External resources pointer (Knowledge Hub) -->
+    <div class="pw-external-box" @if(LaravelLocalization::getCurrentLocale()==='ar') dir="rtl" @endif>
+        <div class="pw-external-box__icon">@include('frontend.partials._icon-doc')</div>
+        <p class="pw-external-box__text">
+            @if(LaravelLocalization::getCurrentLocale()==='ar')
+                استكشف الأبحاث والموارد الخارجية من
+                <a href="{{ route('regional.regional_other_work', ['tag' => 'fow']) }}">منطقة الشرق الأوسط وشمال أفريقيا</a>
+                ومن
+                <a href="{{ route('regional.global_other_work', ['tag' => 'fow']) }}">جميع أنحاء العالم</a>
+                حول مستقبل العمل واقتصادات المنصات في مركز المعرفة.
+            @else
+                Explore external research and resources from the
+                <a href="{{ route('regional.regional_other_work', ['tag' => 'fow']) }}">MENA Region</a>
+                and
+                <a href="{{ route('regional.global_other_work', ['tag' => 'fow']) }}">worldwide</a>
+                on the Future of Work and platform economies in the Knowledge Hub.
+            @endif
+        </p>
     </div>
 
 </div>
 
 <style>
+    /* External resources pointer box */
+    .pw-external-box {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: #f8f9fb;
+        border: 1px solid #e5e7eb;
+        border-inline-start: 4px solid #FAAF1C;
+        border-radius: 12px;
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+    .pw-external-box__icon {
+        flex-shrink: 0;
+        color: #022248;
+        opacity: .7;
+    }
+    .pw-external-box__text {
+        margin: 0;
+        color: #022248;
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    .pw-external-box__text a {
+        color: #c8870a;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+    .pw-external-box__text a:hover { color: #022248; }
+    @media (max-width: 576px) {
+        .pw-external-box { flex-direction: column; align-items: flex-start; }
+    }
+
     /* Resource Cards Grid */
     .resource-cards-grid {
         display: grid;
