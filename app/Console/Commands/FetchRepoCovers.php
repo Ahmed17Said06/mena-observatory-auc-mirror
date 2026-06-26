@@ -147,6 +147,9 @@ class FetchRepoCovers extends Command
             $repo->en_pdf,
             $repo->ar_pdf,
             optional($repo->pdfFiles->first())->file,
+            // External resources are often linked as a direct PDF URL — render
+            // its first page too (non-.pdf links fall through to og:image below).
+            $repo->data_link,
         ]);
 
         foreach ($candidates as $p) {
