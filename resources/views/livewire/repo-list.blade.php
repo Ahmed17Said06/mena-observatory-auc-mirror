@@ -569,10 +569,29 @@
         height: 100%;
         min-height: 140px;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, #f0f2f5 0%, #e8ebf0 100%);
-        color: #b0b7c3;
+        gap: .5rem;
+        background:
+            radial-gradient(circle at 30% 20%, rgba(250,175,28,.08) 0%, transparent 55%),
+            linear-gradient(135deg, #eef1f6 0%, #e3e8f0 100%);
+        color: #022448;
+    }
+    .kh-card-img-placeholder svg { opacity: .55; }
+    .kh-ph-bar {
+        width: 26px;
+        height: 3px;
+        border-radius: 2px;
+        background: #FAAF1C;
+    }
+    .kh-ph-label {
+        font-size: .58rem;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: #022448;
+        opacity: .55;
     }
 
     .kh-card-body {
