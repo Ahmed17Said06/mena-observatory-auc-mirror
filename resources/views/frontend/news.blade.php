@@ -80,10 +80,8 @@
             @endif
 
             {{-- ─────────────── EVENTS SECTION ─────────────── --}}
+            {{-- (events-section renders its own "Events" heading, so none here to avoid a duplicate) --}}
             <div class="col-12 mt-5">
-                <h3 style="color:#022448; font-weight:700; border-bottom:2px solid #e5e7eb; padding-bottom:.5rem; margin-bottom:1.5rem;">
-                    @lang('translation.events')
-                </h3>
                 <livewire:events-section />
             </div>
 

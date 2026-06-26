@@ -40,7 +40,9 @@
 
             <div class='py-3'>
                 <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl" @endif>{{$count}} {{ tr('results found for:','نتيجة بحث عن:') }} {{ old('search') ?: old('tag') }}</h3>
-                @if(count($events) > 0)
+            </div>
+            @if(count($events) > 0)
+            <div class='py-3 w-100'>
                 <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
                     @endif hreflang="{{ getLang() }}">@lang('translation.events')</h3>
 
@@ -53,7 +55,7 @@
 
                         <div class="post-container">
                             <div class="post-loop-news position-relative overflow-hidden">
-                                <img class="post-img" src="{{Storage::url($n->image)}}">
+                                <img class="post-img" src="{{ $n->image ? Storage::url($n->image) : '/img/card-placeholder.svg' }}" onerror="this.onerror=null;this.src='/img/card-placeholder.svg'">
                                 <div class="overlay-1"></div>
                                 <div class="post-content" lang="en">
                                                 <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
@@ -70,7 +72,8 @@
                             </div>
                             @endforeach
                 </div>
-                @endif
+            </div>
+            @endif
             <div class='py-3'>
                 @if(count($news) > 0)
                 <h3 @if(LaravelLocalization::getCurrentLocale() === 'ar') dir="rtl"
@@ -84,7 +87,7 @@
                         <div class="post-container">
                             <div class="post-loop-events position-relative overflow-hidden">
                                 <div class="overlay-1"></div>
-                                <img class="post-img" src="{{Storage::url($n->image)}}">
+                                <img class="post-img" src="{{ $n->image ? Storage::url($n->image) : '/img/card-placeholder.svg' }}" onerror="this.onerror=null;this.src='/img/card-placeholder.svg'">
                                 <div class="post-content" lang="en">
                                     <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
                                     <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
@@ -113,7 +116,7 @@
                         <div class="post-container">
                             <div class="post-loop-events position-relative overflow-hidden">
                                 <div class="overlay-1"></div>
-                                <img class="post-img" src="{{Storage::url($n->image)}}">
+                                <img class="post-img" src="{{ $n->image ? Storage::url($n->image) : '/img/card-placeholder.svg' }}" onerror="this.onerror=null;this.src='/img/card-placeholder.svg'">
                                 <div class="post-content" lang="en">
                                     <h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4>
                                     <p style='color:#FFF;' class='slide_description'>{{$n->description}}</p>
@@ -140,7 +143,7 @@
                             <div class="post-container">
                                 <div class="post-loop-events position-relative overflow-hidden">
                                     <div class="overlay-1"></div>
-                                    <img class="post-img" src="{{Storage::url($n->image)}}">
+                                    <img class="post-img" src="{{ $n->image ? Storage::url($n->image) : '/img/card-placeholder.svg' }}" onerror="this.onerror=null;this.src='/img/card-placeholder.svg'">
 
                                     <div class="post-content" lang="en">
                                     <a href='{{route("repo.single", ["id" => $n->id])}}'><h4 style='color:#FFF;' class='slide_title'>{{$n->title}}</h4></a>

@@ -482,8 +482,7 @@
         font-weight: 700;
         color: var(--kh-navy);
         margin: 0;
-        text-transform: uppercase;
-        letter-spacing: .05em;
+        letter-spacing: .02em;
         flex: 1;
     }
 
@@ -627,8 +626,7 @@
         border-radius: 12px;
         font-size: .65rem;
         font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: .03em;
+        letter-spacing: .02em;
         border: 1px solid transparent;
         line-height: 1;
     }
