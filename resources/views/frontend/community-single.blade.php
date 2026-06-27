@@ -27,9 +27,13 @@
                         </div>
                     @endforeach
                 </div>
-                <p>
-                    {!! $community->content !!}
-                </p>
+                <div class="community-bio">
+                    @if(\Illuminate\Support\Str::contains($community->content, '<'))
+                        {!! $community->content !!}
+                    @else
+                        {!! nl2br(e($community->content)) !!}
+                    @endif
+                </div>
                 <div class="d-flex social-icons" style='margin-top:15px;'>
                     @if($community->twitter_link)
                         <a href="{{$community->twitter_link}}" class="fa fa-twitter"></a>
