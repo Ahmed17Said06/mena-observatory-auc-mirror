@@ -80,33 +80,48 @@ class ImportPeopleSeeder extends Seeder
     /** Download a Drive image to community_images/<slug>.<ext>; returns rel path or null. */
     private function fetchDrivePhoto(string $id, string $slug, $disk): ?string
     {
-        // Reuse an already-downloaded photo (idempotent re-runs).
+        // Reuse an already-downloaded, reasonably-sized photo (idempotent re-runs).
+        // Anything oversized (a full-res original) is dropped so we re-fetch a
+        // web-sized version below.
         foreach (['jpg', 'png', 'webp', 'jpeg'] as $ext) {
             $rel = "community_images/{$slug}.{$ext}";
-            if ($disk->exists($rel) && $disk->size($rel) > 2000) return $rel;
+            if ($disk->exists($rel)) {
+                $sz = $disk->size($rel);
+                if ($sz > 2000 && $sz < 3_000_000) return $rel;
+                $disk->delete($rel);
+            }
         }
 
-        $url = "https://drive.usercontent.google.com/download?id={$id}&export=download&confirm=t";
-        try {
-            $res = Http::withHeaders(['User-Agent' => 'Mozilla/5.0'])
-                ->withOptions(['verify' => false, 'allow_redirects' => true])
-                ->timeout(60)->get($url);
-        } catch (\Throwable $e) {
-            return null;
+        // Prefer Drive's thumbnail endpoint (returns a web-sized JPEG for public
+        // files); fall back to the full-file download endpoint.
+        $urls = [
+            "https://drive.google.com/thumbnail?id={$id}&sz=w1200",
+            "https://drive.usercontent.google.com/download?id={$id}&export=download&confirm=t",
+        ];
+        foreach ($urls as $url) {
+            try {
+                $res = Http::withHeaders(['User-Agent' => 'Mozilla/5.0'])
+                    ->withOptions(['verify' => false, 'allow_redirects' => true])
+                    ->timeout(60)->get($url);
+            } catch (\Throwable $e) {
+                continue;
+            }
+            if (!$res->successful()) continue;
+
+            $body = $res->body();
+            $type = strtolower($res->header('Content-Type') ?? '');
+            // A private file returns the Google sign-in HTML page — skip it.
+            if (!Str::startsWith($type, 'image/') || strlen($body) < 2000) continue;
+
+            $ext = match (true) {
+                str_contains($type, 'png')  => 'png',
+                str_contains($type, 'webp') => 'webp',
+                default                      => 'jpg',
+            };
+            $rel = "community_images/{$slug}.{$ext}";
+            $disk->put($rel, $body);
+            return $rel;
         }
-        if (!$res->successful()) return null;
-
-        $body = $res->body();
-        $type = strtolower($res->header('Content-Type') ?? '');
-        if (!Str::startsWith($type, 'image/') || strlen($body) < 2000) return null;
-
-        $ext = match (true) {
-            str_contains($type, 'png')  => 'png',
-            str_contains($type, 'webp') => 'webp',
-            default                      => 'jpg',
-        };
-        $rel = "community_images/{$slug}.{$ext}";
-        $disk->put($rel, $body);
-        return $rel;
+        return null;
     }
 }
