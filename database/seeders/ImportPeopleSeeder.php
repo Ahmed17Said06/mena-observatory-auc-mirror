@@ -50,16 +50,17 @@ class ImportPeopleSeeder extends Seeder
             if ($short !== '') $c->description = $short;
             if ($full  !== '') $c->content     = $full;
 
-            // Photo from Drive (skip re-download if we already have it locally).
-            if ($id !== '') {
-                $rel = $this->fetchDrivePhoto($id, Str::slug($name), $disk);
-                if ($rel) {
-                    $c->image = $rel;
-                    $c->thumbnail_image = $rel;
-                    $withPhoto++;
-                } else {
-                    $photoFailed[] = $name;
-                }
+            // Photo: prefer a committed local asset (extracted from the supplied
+            // photo set); fall back to downloading from the Drive link.
+            $slug = Str::slug($name);
+            $rel = $this->installAssetPhoto($slug, $disk)
+                ?: ($id !== '' ? $this->fetchDrivePhoto($id, $slug, $disk) : null);
+            if ($rel) {
+                $c->image = $rel;
+                $c->thumbnail_image = $rel;
+                $withPhoto++;
+            } elseif ($id !== '') {
+                $photoFailed[] = $name;
             }
 
             // NOT NULL columns must always have a value on insert.
@@ -75,6 +76,16 @@ class ImportPeopleSeeder extends Seeder
         $this->command->newLine();
         $this->command->info("Created: {$created}  |  Updated: {$updated}  |  Photos: {$withPhoto}  |  Photo failed: " . count($photoFailed));
         foreach ($photoFailed as $n) $this->command->warn("  - no photo: {$n}");
+    }
+
+    /** Copy a committed asset photo (assets/community_photos/<slug>.jpg) to the public disk. */
+    private function installAssetPhoto(string $slug, $disk): ?string
+    {
+        $src = database_path("seeders/assets/community_photos/{$slug}.jpg");
+        if (!is_file($src)) return null;
+        $rel = "community_images/{$slug}.jpg";
+        $disk->put($rel, file_get_contents($src));
+        return $rel;
     }
 
     /** Download a Drive image to community_images/<slug>.<ext>; returns rel path or null. */
