@@ -246,6 +246,7 @@
         line-height: 1.8;
         color: #374151;
         margin: 0 0 1rem;
+        text-align: justify;
     }
 
     .iai-intro__p:last-of-type { margin-bottom: 0; }

@@ -95,6 +95,7 @@ class RepoList extends Component
 
         $observatoryResearch = $observatoryTalks = $observatoryEducational = null;
         $regionalRepos = $globalRepos = null;
+        $researchTotalAll = 0;
 
         if ($showObservatory) {
             $obs = (clone $base)->where('is_our_work', true);
@@ -104,6 +105,10 @@ class RepoList extends Component
                     ->orWhere(fn($qq) => $qq->where('is_research', false)
                         ->where('is_talk_webinar', false)
                         ->where('is_educational', false)));
+
+            // Unfiltered research count (ignores the active sub-tab) so the tab bar
+            // stays visible even when the selected sub-tab (e.g. Blogposts) is empty.
+            $researchTotalAll = (clone $researchBase)->count();
 
             if ($this->researchSubTab === 'reports') {
                 $researchBase = $researchBase->whereHas('repoType', fn($q) => $q->where('name', 'like', '%report%'));
@@ -157,6 +162,7 @@ class RepoList extends Component
             'showRegional'           => $showRegional,
             'showGlobal'             => $showGlobal,
             'observatoryResearch'    => $observatoryResearch,
+            'observatoryResearchTotalAll' => $researchTotalAll,
             'observatoryTalks'       => $observatoryTalks,
             'observatoryEducational' => $observatoryEducational,
             'regionalRepos'          => $regionalRepos,

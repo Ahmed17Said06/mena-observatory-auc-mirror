@@ -89,9 +89,25 @@
 /* ── Logo grid ────────────────────────────────────────── */
 .pt-logos {
     display: flex; flex-wrap: wrap;
-    align-items: center; justify-content: center;
-    gap: 1.5rem 2.5rem;
+    align-items: flex-start; justify-content: center;
+    gap: 1.75rem 2.5rem;
 }
+/* Logo + name caption stacked as one grid cell */
+.pt-item {
+    display: flex; flex-direction: column; align-items: center;
+    gap: .55rem; width: 140px;
+}
+.pt-cap {
+    font-size: .72rem; line-height: 1.3; text-align: center;
+    color: #555; max-width: 140px;
+}
+a.pt-cap {
+    color: var(--p-navy); font-weight: 600; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 3px;
+    transition: color .2s;
+}
+a.pt-cap::after { content: '↗'; font-size: .68rem; opacity: .7; }
+a.pt-cap:hover { color: var(--p-gold-d); text-decoration: underline; }
 .pt-logo {
     display: flex; align-items: center; justify-content: center;
     width: 140px; height: 80px;
@@ -117,6 +133,8 @@
 
 @media (max-width: 576px) {
     .pt-logo { width: 110px; height: 64px; }
+    .pt-item { width: 110px; }
+    .pt-cap { max-width: 110px; }
     .pt-tabs { padding-top: 1.5rem; }
 }
 
@@ -197,7 +215,7 @@
                     <div class="pt-logo"><img src="/img/partners/image1.png"  alt="A2KGA"></div>
                     <div class="pt-logo"><img src="/img/partners/image2.png"  alt="openAIR"></div>
                     <div class="pt-logo"><img src="/img/partners/image3.jpg"  alt="Fairwork"></div>
-                    <a class="pt-logo" href="https://aplusalliance.org/fair-middle-east-and-north-africa/" target="_blank" rel="noopener noreferrer"><img src="/img/partners/image4.png" alt="A+ Alliance MENA FAIR Hub"></a>
+                    <div class="pt-logo" data-href="https://aplusalliance.org/fair-middle-east-and-north-africa/"><img src="/img/partners/image4.png" alt="A+ Alliance MENA FAIR Hub"></div>
                     <div class="pt-logo"><img src="/img/partners/image5.png"  alt="CopyrightX"></div>
                     <div class="pt-logo"><img src="/img/partners/image6.png"  alt="D4D.net"></div>
                     <div class="pt-logo"><img src="/img/partners/image7.png"  alt="Feminist AI Research Network"></div>
@@ -319,8 +337,36 @@
         lbImg.src = '';
     }
 
-    // Only bind logos that are NOT wrapped in a link (anchored logos keep navigating).
-    document.querySelectorAll('.pt-logo > img').forEach(function (img) {
+    // Build a name caption under every logo and wire the magnify (lightbox) click.
+    // A logo with a data-href gets a hyperlinked caption that opens the partner's
+    // site in a new tab; the logo image itself always opens the lightbox. The two
+    // actions are now separate elements, so nothing double-fires.
+    document.querySelectorAll('.pt-logo').forEach(function (logo) {
+        var img = logo.querySelector('img');
+        if (!img) return;
+
+        var item = document.createElement('div');
+        item.className = 'pt-item';
+        logo.parentNode.insertBefore(item, logo);
+        item.appendChild(logo);
+
+        var name = (img.getAttribute('alt') || '').trim();
+        if (name) {
+            var href = logo.getAttribute('data-href');
+            var cap;
+            if (href) {
+                cap = document.createElement('a');
+                cap.href = href;
+                cap.target = '_blank';
+                cap.rel = 'noopener noreferrer';
+            } else {
+                cap = document.createElement('span');
+            }
+            cap.className = 'pt-cap';
+            cap.textContent = name;
+            item.appendChild(cap);
+        }
+
         img.addEventListener('click', function () {
             openLb(img.src, img.alt);
         });

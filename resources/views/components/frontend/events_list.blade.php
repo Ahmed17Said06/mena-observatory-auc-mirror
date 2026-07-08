@@ -34,7 +34,8 @@
 
         <div class='col-lg-4'>
             <div class='col-lg-12'>
-                <img class="event_img" src = '{{Storage::url($event['image'])}}' width='100%;'>
+                @php $eimg = !empty($event['image']) ? Storage::url($event['image']) : asset('/img/card-placeholder.svg'); @endphp
+                <img class="event_img" src="{{ $eimg }}" onerror="this.onerror=null;this.src='{{ asset('/img/card-placeholder.svg') }}'" width='100%;'>
             </div>
         </div>
     </div>

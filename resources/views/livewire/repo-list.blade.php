@@ -36,7 +36,7 @@
                 <select wire:model="selectedType" class="kh-filter-select">
                     <option value="">{{ tr('All Types','كل الأنواع') }}</option>
                     @foreach ($availableTypes as $type)
-                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                        <option value="{{ $type->id }}">{{ Str::title(Str::lower($type->name)) }}</option>
                     @endforeach
                 </select>
             @endif
@@ -74,7 +74,7 @@
                 @endif
                 @if ($selectedType)
                     <span class="kh-chip">
-                        {{ $availableTypes->firstWhere('id', $selectedType)?->name }}
+                        {{ Str::title(Str::lower($availableTypes->firstWhere('id', $selectedType)?->name)) }}
                         <button wire:click="$set('selectedType', '')" class="kh-chip-x">×</button>
                     </span>
                 @endif
@@ -83,7 +83,7 @@
     </div>
 
     @php
-        $hasObservatory = $showObservatory && ($observatoryResearch->total() > 0 || $observatoryTalks->total() > 0 || $observatoryEducational->total() > 0);
+        $hasObservatory = $showObservatory && ($observatoryResearchTotalAll > 0 || $observatoryTalks->total() > 0 || $observatoryEducational->total() > 0);
         $hasRegional    = $showRegional && $regionalRepos->total() > 0;
         $hasGlobal      = $showGlobal   && $globalRepos->total() > 0;
     @endphp
@@ -101,7 +101,7 @@
 
             @php
                 $obsGroups = [
-                    ['letter' => 'a', 'key' => 'research',    'title' => __('translation.research'),              'repos' => $observatoryResearch],
+                    ['letter' => 'a', 'key' => 'research',    'title' => __('translation.research'),              'repos' => $observatoryResearch, 'totalAll' => $observatoryResearchTotalAll],
                     ['letter' => 'b', 'key' => 'talks',       'title' => __('translation.talks-webinars'),        'repos' => $observatoryTalks],
                     ['letter' => 'c', 'key' => 'educational', 'title' => __('translation.educational-resources'), 'repos' => $observatoryEducational],
                 ];
@@ -109,7 +109,7 @@
 
             <div class="kh-subsections">
                 @foreach ($obsGroups as $group)
-                    @if ($group['repos']->total() > 0)
+                    @if (($group['totalAll'] ?? $group['repos']->total()) > 0)
                         <div class="kh-subsec kh-subsec--{{ $group['key'] }}">
                             <header class="kh-subsec-head">
                                 <span class="kh-subsec-letter">{{ $group['letter'] }}</span>
@@ -133,16 +133,20 @@
                                 </div>
                             @endif
 
-                            <ul class="kh-cards">
-                                @foreach ($group['repos'] as $r)
-                                    @include('livewire.partials.repo-card', ['r' => $r])
-                                @endforeach
-                            </ul>
+                            @if ($group['repos']->total() > 0)
+                                <ul class="kh-cards">
+                                    @foreach ($group['repos'] as $r)
+                                        @include('livewire.partials.repo-card', ['r' => $r])
+                                    @endforeach
+                                </ul>
 
-                            @if ($group['repos']->hasPages())
-                                <div class="kh-pagination">
-                                    {{ $group['repos']->links() }}
-                                </div>
+                                @if ($group['repos']->hasPages())
+                                    <div class="kh-pagination">
+                                        {{ $group['repos']->links() }}
+                                    </div>
+                                @endif
+                            @else
+                                <p class="kh-subsec-empty">{{ tr('No items in this category yet.','لا توجد عناصر في هذه الفئة بعد.') }}</p>
                             @endif
                         </div>
                     @endif
@@ -786,6 +790,14 @@
         background: var(--kh-navy-mid);
         border-color: var(--kh-navy-mid);
         color: #fff;
+    }
+
+    .kh-subsec-empty {
+        margin: 0;
+        padding: 1.25rem 0 .5rem;
+        color: #6b7280;
+        font-size: .92rem;
+        font-style: italic;
     }
 
     /* ═══ Responsive ═══ */
