@@ -23,6 +23,7 @@ class AswatDedupe extends Command
     protected $signature = 'aswat:dedupe
         {--apply : Delete the duplicate "Student N" records}
         {--apply-all : Delete every same-video duplicate, keeping the best copy}
+        {--students : Target the "Student N"-titled records (report; add --apply to delete)}
         {--list : Just list all Aswat records (id, title, link)}';
     protected $description = 'Report (and optionally remove) duplicate Aswat videos that share the same video link';
 
@@ -33,6 +34,26 @@ class AswatDedupe extends Command
                 $this->line(sprintf('#%-4d [%s] %s  ->  %s',
                     $a->id, $a->thumbnail_image ? 'thumb' : 'no-thumb', $a->title, $a->link));
             }
+            return self::SUCCESS;
+        }
+
+        // Directly target the "Student N" records by title (they are standalone
+        // re-uploads, so link-grouping won't pair them with the renamed videos).
+        if ($this->option('students')) {
+            $apply = (bool) $this->option('apply');
+            $students = Aswat::orderBy('id')->get()->filter(fn($a) => $this->isStudent($a->title));
+            if ($students->isEmpty()) {
+                $this->info('No "Student N" records found.');
+                return self::SUCCESS;
+            }
+            foreach ($students as $s) {
+                $this->warn(($apply ? 'DELETE  ' : 'would delete ') . sprintf('#%-4d "%s"  ->  %s', $s->id, $s->title, $s->link));
+                if ($apply) $s->delete();
+            }
+            $this->newLine();
+            $this->info($apply
+                ? "Deleted {$students->count()} Student record(s)."
+                : "{$students->count()} Student record(s) above. Re-run with --students --apply to delete them.");
             return self::SUCCESS;
         }
 
