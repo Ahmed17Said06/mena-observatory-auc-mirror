@@ -73,7 +73,7 @@ class FetchNewsImages extends Command
                 continue;
             }
 
-            $stored = $this->downloadImage($imageUrl, $disk);
+            $stored = $this->downloadImage($imageUrl, $disk, $link);
             if (!$stored) {
                 $failed[$news->id] = 'image download failed';
                 $this->error("      download failed: {$imageUrl}");
@@ -153,10 +153,25 @@ class FetchNewsImages extends Command
     }
 
     /** Download an image to the public disk; returns the relative path or null. */
-    private function downloadImage(string $url, $disk): ?string
+    private function downloadImage(string $url, $disk, ?string $referer = null): ?string
     {
+        // Send a full browser-like header set — some CDNs (e.g. Microsoft) reject
+        // image requests that lack an Accept/Referer, returning 403 or an error page.
+        $headers = [
+            'User-Agent'      => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+            'Accept'          => 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+            'Accept-Language' => 'en-US,en;q=0.9',
+        ];
+        if ($referer) {
+            $parts = parse_url($referer);
+            if (isset($parts['scheme'], $parts['host'])) {
+                $headers['Referer'] = $referer;
+                $headers['Origin']  = $parts['scheme'] . '://' . $parts['host'];
+            }
+        }
+
         try {
-            $res = Http::withHeaders(['User-Agent' => 'Mozilla/5.0'])
+            $res = Http::withHeaders($headers)
                 ->withOptions(['verify' => false, 'allow_redirects' => true])
                 ->timeout(30)
                 ->get($url);
