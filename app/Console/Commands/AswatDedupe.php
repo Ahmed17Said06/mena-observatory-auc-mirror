@@ -20,12 +20,24 @@ use Illuminate\Support\Str;
  */
 class AswatDedupe extends Command
 {
-    protected $signature = 'aswat:dedupe {--apply : Delete the duplicate "Student N" records}';
+    protected $signature = 'aswat:dedupe
+        {--apply : Delete the duplicate "Student N" records}
+        {--apply-all : Delete every same-video duplicate, keeping the best copy}
+        {--list : Just list all Aswat records (id, title, link)}';
     protected $description = 'Report (and optionally remove) duplicate Aswat videos that share the same video link';
 
     public function handle(): int
     {
-        $apply = (bool) $this->option('apply');
+        if ($this->option('list')) {
+            foreach (Aswat::orderBy('id')->get() as $a) {
+                $this->line(sprintf('#%-4d [%s] %s  ->  %s',
+                    $a->id, $a->thumbnail_image ? 'thumb' : 'no-thumb', $a->title, $a->link));
+            }
+            return self::SUCCESS;
+        }
+
+        $apply    = (bool) $this->option('apply');
+        $applyAll = (bool) $this->option('apply-all');
 
         $groups = Aswat::orderBy('id')->get()->groupBy(fn($a) => $this->videoKey($a->link));
 
@@ -45,9 +57,18 @@ class AswatDedupe extends Command
             $students = $rows->filter(fn($r) => $this->isStudent($r->title));
             $named     = $rows->reject(fn($r) => $this->isStudent($r->title));
 
-            // Only auto-remove when there is a clear named keeper AND student dupes.
-            if ($named->isNotEmpty() && $students->isNotEmpty()) {
-                // Prefer a keeper that has a thumbnail, else the lowest id.
+            if ($applyAll) {
+                // Keep the best copy of the whole group, delete the rest.
+                $keeper = $this->bestKeeper($rows);
+                $this->info("   keep    #{$keeper->id}  \"{$keeper->title}\"");
+                foreach ($rows as $r) {
+                    if ($r->id === $keeper->id) continue;
+                    $this->warn("   DELETE  #{$r->id}  \"{$r->title}\"");
+                    $r->delete();
+                    $deleted++;
+                }
+            } elseif ($named->isNotEmpty() && $students->isNotEmpty()) {
+                // Only auto-remove when there is a clear named keeper AND student dupes.
                 $keeper = $named->sortByDesc(fn($r) => $r->thumbnail_image ? 1 : 0)->first();
                 $this->info("   keep    #{$keeper->id}  \"{$keeper->title}\"");
                 foreach ($students as $s) {
@@ -58,19 +79,32 @@ class AswatDedupe extends Command
                     }
                 }
             } else {
-                $this->line('   (no clear "Student N" duplicate here — left untouched)');
+                $this->line('   (no clear "Student N" duplicate — re-run with --apply-all to keep one copy)');
             }
         }
 
         $this->newLine();
         if ($dupGroups === 0) {
             $this->info('No duplicate video groups found.');
+        } elseif ($apply || $applyAll) {
+            $this->info("Removed {$deleted} duplicate record(s) across {$dupGroups} group(s).");
         } else {
-            $this->info(($apply ? "Removed {$deleted} duplicate record(s) across {$dupGroups} group(s)."
-                                : "Found {$dupGroups} duplicate group(s). Re-run with --apply to remove the Student duplicates."));
+            $this->info("Found {$dupGroups} duplicate group(s). Re-run with --apply (Student dupes) or --apply-all (keep one copy of each).");
         }
 
         return self::SUCCESS;
+    }
+
+    /** Pick the record to keep in a same-video group: prefer a thumbnail, then a
+     *  clean (no stray whitespace) and more descriptive title, then lowest id. */
+    private function bestKeeper($rows)
+    {
+        return $rows->sortBy(fn($r) => [
+            $r->thumbnail_image ? 0 : 1,          // has thumbnail first
+            $r->title === trim($r->title) ? 0 : 1, // no stray leading/trailing space
+            -Str::length(trim((string) $r->title)),// longer/more descriptive
+            $r->id,                                // stable tiebreak
+        ])->first();
     }
 
     private function isStudent(?string $title): bool
