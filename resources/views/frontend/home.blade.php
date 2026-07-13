@@ -59,7 +59,8 @@
 
                 <div class="post-container">
                     <div class="post-loop-news position-relative overflow-hidden">
-                        <img class="post-img" src="{{Storage::url($n->image)}}">
+                        @php $nimg = !empty($n->image) ? Storage::url($n->image) : asset('/img/card-placeholder.svg'); @endphp
+                        <img class="post-img" src="{{ $nimg }}" onerror="this.onerror=null;this.src='{{ asset('/img/card-placeholder.svg') }}'">
                         @if ($n instanceof App\Models\News)
                             <div class="category-stamp news">
                                 <span>NEWS</span>

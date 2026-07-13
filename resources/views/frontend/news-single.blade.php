@@ -4,6 +4,25 @@
     #map_outer{
         display:none !important;
     }
+
+    /* Article body — supports rich press-release markup (headings, quotes,
+       lists) and Arabic RTL blocks embedded in an otherwise LTR page. */
+    .news-body { line-height: 1.9; color: #333; }
+    .news-body h3, .news-body h4 { color: #022448; font-weight: 700; margin: 1.75rem 0 .75rem; }
+    .news-body p { margin-bottom: 1rem; }
+    .news-body ul { padding-inline-start: 1.25rem; margin-bottom: 1rem; }
+    .news-body li { margin-bottom: .5rem; }
+    .news-body blockquote {
+        margin: 1.25rem 0;
+        padding: .85rem 1.15rem;
+        border-inline-start: 3px solid #FAAF1C;
+        background: #f8f9fb;
+        color: #022448;
+        font-style: italic;
+    }
+    .news-body hr { margin: 2rem 0; border: 0; border-top: 1px solid #e8eaed; }
+    .news-body [dir="rtl"] { text-align: right; }
+    .news-body a { color: #022448; text-decoration: underline; }
 </style>
 @section('content')
     @include('layouts.navbars.guest.navbar', ['title' => 'Dashboard'])
@@ -36,7 +55,9 @@
                     </div>
                 </div>
                 <div class='blog-content'>
-                    <p>{!! $news->content !!}</p>
+                    {{-- Block-level markup (headings, lists, blockquotes, RTL wrappers)
+                         must not be nested inside a <p>, or the browser closes it early. --}}
+                    <div class="news-body">{!! $news->content !!}</div>
                 </div>
             </div>
             <div class='col-md-4'>
