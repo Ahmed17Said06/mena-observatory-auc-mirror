@@ -297,15 +297,19 @@
                                         : (\Illuminate\Support\Str::startsWith($n->thumbnail_image, ['http://', 'https://'])
                                             ? $n->thumbnail_image
                                             : Storage::url($n->thumbnail_image));
+                                    // Show approved Arabic name/bio in AR locale; fall back to English.
+                                    $isAr = getLang() === 'ar';
+                                    $displayName = $isAr && $n->name_ar ? $n->name_ar : $n->name;
+                                    $displayDesc = $isAr && $n->description_ar ? $n->description_ar : $n->description;
                                 @endphp
                                 <div class="community-person-card">
                                     <a href="{{ route('community_single', ['id' => $n->id]) }}" class="community-circle">
-                                        <img src="{{ $thumbSrc }}" alt="{{ $n->name }}">
+                                        <img src="{{ $thumbSrc }}" alt="{{ $displayName }}">
                                     </a>
                                     <h4 class="community-name">
-                                        <a href="{{ route('community_single', ['id' => $n->id]) }}">{{ $n->name }}</a>
+                                        <a href="{{ route('community_single', ['id' => $n->id]) }}">{{ $displayName }}</a>
                                     </h4>
-                                    <p class="community-desc">{{ $n->description }}</p>
+                                    <p class="community-desc" @if($isAr && $n->description_ar) dir="rtl" @endif>{{ $displayDesc }}</p>
                                 </div>
                             </div>
                         @endforeach

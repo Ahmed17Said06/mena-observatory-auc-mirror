@@ -12,12 +12,20 @@
             <div class="col-lg-4">
                 <img class="community-img" src="{{Storage::url($community->image)}}">
             </div>
+            @php
+                // Show approved Arabic name/bio in AR locale; fall back to English.
+                $isAr = LaravelLocalization::getCurrentLocale() === 'ar';
+                $displayName = $isAr && $community->name_ar ? $community->name_ar : $community->name;
+                $displayDesc = $isAr && $community->description_ar ? $community->description_ar : $community->description;
+                $displayContent = $isAr && $community->content_ar ? $community->content_ar : $community->content;
+                $bioIsAr = $isAr && $community->content_ar;
+            @endphp
             <div class="col-lg-8">
-                <h3 class="mt-3 mt-lg-0">
-                    {{$community->name}}
+                <h3 class="mt-3 mt-lg-0" @if($isAr && $community->name_ar) dir="rtl" @endif>
+                    {{$displayName}}
                 </h3>
-                <p>
-                    {{$community->description}}
+                <p @if($isAr && $community->description_ar) dir="rtl" @endif>
+                    {{$displayDesc}}
 
                 </p>
                 <div class="d-flex flex-column flex-lg-row my-3">
@@ -27,11 +35,11 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="community-bio">
-                    @if(\Illuminate\Support\Str::contains($community->content, '<'))
-                        {!! $community->content !!}
+                <div class="community-bio" @if($bioIsAr) dir="rtl" @endif>
+                    @if(\Illuminate\Support\Str::contains($displayContent, '<'))
+                        {!! $displayContent !!}
                     @else
-                        {!! nl2br(e($community->content)) !!}
+                        {!! nl2br(e($displayContent)) !!}
                     @endif
                 </div>
                 <div class="d-flex social-icons" style='margin-top:15px;'>
