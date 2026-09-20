@@ -50,8 +50,12 @@ class AiVideoSeriesSeeder extends Seeder
             $thumbRel = 'aswat_thumbs/' . $ep['thumb'];
             $src = database_path('seeders/assets/aswat/' . $ep['thumb']);
             $hasThumb = is_file($src);
-            if ($hasThumb) {
-                $disk->put($thumbRel, file_get_contents($src));
+            if ($hasThumb && !$disk->put($thumbRel, file_get_contents($src))) {
+                // The public disk swallows write failures (no 'throw'), so
+                // surface them: usually a permissions issue when artisan is
+                // not run as the web user.
+                $this->command->error("  Could not write {$disk->path($thumbRel)} — run as the web user (e.g. sudo -u www-data).");
+                $hasThumb = false;
             }
 
             $attrs = [
