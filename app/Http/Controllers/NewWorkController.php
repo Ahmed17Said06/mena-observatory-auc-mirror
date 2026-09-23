@@ -33,8 +33,11 @@ class NewWorkController extends Controller
     {
         $newWorkBlogs = NewWorkBlog::published()->orderBy('publish_date', 'desc')->paginate(3);
         
+        // The view is the Livewire component's template, so it also expects
+        // $hasMorePages for its Load More button.
         return view('livewire.new-work-blogs', [
-            'newWorkBlogs' => $newWorkBlogs
+            'newWorkBlogs' => $newWorkBlogs,
+            'hasMorePages' => $newWorkBlogs->hasMorePages(),
         ])->render();
     }
 

@@ -25,7 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Paginator::defaultView('default');
+        // 'default' resolves to resources/views/default.blade.php, which does
+        // not exist — every ->links() call threw "View [default] not found".
+        // The published paginator view lives at views/vendor/pagination.
+        Paginator::defaultView('pagination::default');
 
         if(config('app.env') === 'production') {
             URL::forceScheme('https');
