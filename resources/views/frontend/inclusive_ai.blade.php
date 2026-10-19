@@ -26,6 +26,11 @@
     {{-- ── Intro ── --}}
     <section class="iai-intro">
         <p class="iai-intro__p">{!! tr('The <strong>Inclusive AI Research Network (IAIRN)</strong> is a global network supported by Canada\'s International Development Research Centre (IDRC), created with the goal of supporting community driven innovation and grounds up development of inclusive and human-centered AI technologies. In doing so, IAIRN aims to contribute to rectifying the biases and correcting inequities that are often reproduced and exacerbated by AI technologies, particularly towards women, youth and other marginalized groups. The network focuses on building scalable AI technologies that address local challenges with inclusion at the core of design, development and deployment.','<strong>الشبكة الشمولية لبحوث الذكاء الاصطناعي (IAIRN)</strong> هي شبكة عالمية يدعمها المركز الدولي لبحوث التنمية الكندي (IDRC)، وقد أُنشئت بغرض دعم الابتكار الذي تقوده المجتمعات، والتنمية القاعدية لتكنولوجيات الذكاء الاصطناعي الشمولية والتي ترتكز إلى البشر. ومن ثَم، تهدف شبكة IAIRN إلى المساهمة في تدارك التحيزات، وتعديل أوجه عدم المساواة التي كثيرًا ما تعيد إنتاجها تكنولوجيات الذكاء الاصطناعي وتؤدي إلى تفاقمها، وخاصةً تجاه النساء، والشباب والفئات المهمشة الأخرى. وتركز الشبكة على إرساء تكنولوجيات الذكاء الاصطناعي القابلة للتوسع والتي تواجه التحديات المحلية، بحيث تكون الشمولية هي أساس التصميم والتطوير والنشر.') !!}</p>
+        <a href="{{ route('news.iairn-cohort') }}" class="iai-announce">
+            <span class="iai-announce__badge">{{ tr('News','خبر') }}</span>
+            <span class="iai-announce__text">{!! tr('<strong>The IAIRN MENA Hub cohort has been announced.</strong> Meet the eight teams building inclusive AI pilots and prototypes for the region.','<strong>أُعلن عن المشاريع المختارة لمركز الشبكة في منطقة الشرق الأوسط وشمال أفريقيا.</strong> تعرّف على الفرق الثمانية التي تطوّر نماذج تجريبية للذكاء الاصطناعي الشمولي في المنطقة.') !!}</span>
+            <svg class="iai-announce__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
         <div class="iai-coming-soon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             <span>{!! tr('More research and network resources are <strong>coming soon</strong>.','المزيد من الأبحاث وموارد الشبكة <strong>ستصدر قريبًا</strong>.') !!}</span>
@@ -268,6 +273,54 @@
     .iai-coming-soon svg {
         flex-shrink: 0;
         color: #d97706;
+    }
+
+    .iai-announce {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        padding: 1rem 1.25rem;
+        background: linear-gradient(135deg, #01162e 0%, #0a3a6e 100%);
+        border-radius: 10px;
+        color: #fff;
+        text-decoration: none;
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .iai-announce:hover,
+    .iai-announce:focus-visible {
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(1,22,46,.25);
+    }
+
+    .iai-announce__badge {
+        flex-shrink: 0;
+        padding: .3rem .65rem;
+        border-radius: 999px;
+        background: #FAAF1C;
+        color: #01162e;
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+    }
+
+    .iai-announce__text {
+        flex: 1;
+        font-size: .93rem;
+        line-height: 1.5;
+    }
+
+    .iai-announce__text strong { color: #FAAF1C; }
+
+    .iai-announce__arrow { flex-shrink: 0; color: #FAAF1C; }
+    [dir="rtl"] .iai-announce__arrow { transform: scaleX(-1); }
+
+    @media (max-width: 575px) {
+        .iai-announce { flex-wrap: wrap; }
+        .iai-announce__arrow { display: none; }
     }
 
     /* ── Section ── */

@@ -85,6 +85,9 @@ Route::group([
             'ocruc_body'          => static_content::where('key', 'ocruc_body')->first(),
         ]);
     })->name('news.open-call-rai-use-cases');
+    Route::get('/news/iairn-cohort', function () {
+        return view('frontend.news.iairn-cohort');
+    })->name('news.iairn-cohort');
     Route::get('/safe-ai-children', function () {
         return view('frontend.coming-soon'); })->name('safe_ai_children');
     Route::get('/news/{id}', [NewsController::class, 'single'])->name('news');
