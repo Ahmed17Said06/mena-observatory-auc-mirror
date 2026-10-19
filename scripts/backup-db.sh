@@ -68,9 +68,11 @@ printf '[client]\nuser=%s\npassword=%s\nhost=%s\nport=%s\n' \
     "$DB_USER" "$DB_PASS" "$DB_HOST" "$DB_PORT" > "$CNF"
 
 echo "Dumping database '$DB_NAME' from $DB_HOST:$DB_PORT ..."
-# --single-transaction keeps InnoDB consistent without locking the live site.
+# --single-transaction keeps InnoDB consistent without locking the live site;
+# --no-tablespaces avoids needing the PROCESS privilege the app user lacks.
 mysqldump --defaults-extra-file="$CNF" \
     --single-transaction \
+    --no-tablespaces \
     --quick \
     --routines --triggers --events \
     --default-character-set=utf8mb4 \
