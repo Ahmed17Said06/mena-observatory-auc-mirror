@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Storage;
  *     php artisan db:seed --class=Database\Seeders\AiVideoSeriesSeeder --force
  *
  * Planned (not yet finalised):
- *   EP02: How AI Learns – Machine Learning Explained
  *   EP04: The Responsible AI Challenge – Ethics, Bias & Fairness
  *   EP05: Governing AI – Frameworks, Policy & Our Collective Future
  */
@@ -32,6 +31,12 @@ class AiVideoSeriesSeeder extends Seeder
             'title'       => 'AI Video Series – EP01: What Is Artificial Intelligence?',
             'description' => 'Defining AI · A brief history from Turing to today · AI vs. human intelligence · AI in everyday life',
             'thumb'       => 'ai-video-series-ep1.jpg',
+        ],
+        [
+            'link'        => 'https://drive.google.com/file/d/12DwD7QizDlXe7Dz2hPfCYsRELjjvBNSH/view',
+            'title'       => 'AI Video Series – EP02: How AI Learns – Machine Learning Explained',
+            'description' => 'Episode 2 of the MENA Observatory AI Video Series: how AI systems learn, with machine learning explained.',
+            'thumb'       => 'ai-video-series-ep2.jpg',
         ],
         [
             'link'        => 'https://drive.google.com/file/d/1YtE6wnitZaOegxT5fa9_jGehbjVByjpQ/view',
@@ -70,6 +75,27 @@ class AiVideoSeriesSeeder extends Seeder
             $this->command->info('  ' . $ep['title'] . ($hasThumb ? '' : '  (no card found, thumbnail unchanged)'));
         }
 
+        $this->keepSeriesOrder();
+
         $this->command->info('AI Video Series: ' . count($this->episodes) . ' episode(s) published to Aswat.');
+    }
+
+    /**
+     * Aswat lists newest first. Episodes published out of order (EP02 after
+     * EP03) would jump ahead of their successors, so give each episode a
+     * created_at just before the next one's: the tab then reads EP03, EP02, EP01.
+     */
+    private function keepSeriesOrder(): void
+    {
+        $rows = array_map(fn ($ep) => Aswat::where('link', $ep['link'])->first(), $this->episodes);
+
+        for ($i = count($rows) - 2; $i >= 0; $i--) {
+            $cur = $rows[$i];
+            $next = $rows[$i + 1];
+            if ($cur && $next && $cur->created_at >= $next->created_at) {
+                Aswat::whereKey($cur->id)->update(['created_at' => $next->created_at->copy()->subMinute()]);
+                $cur->created_at = $next->created_at->copy()->subMinute();
+            }
+        }
     }
 }
