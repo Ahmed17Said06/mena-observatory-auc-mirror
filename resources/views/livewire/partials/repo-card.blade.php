@@ -1,4 +1,8 @@
-@php $detailUrl = route('repo.single', $r->id); @endphp
+@php
+    // Also renders Observatory blog posts (App\Models\Blogs) in the Blogposts tab.
+    $isBlog    = $r instanceof \App\Models\Blogs;
+    $detailUrl = $isBlog ? route('blogs.single', $r->id) : route('repo.single', $r->id);
+@endphp
 
 <li class="kh-card">
     <a href="{{ $detailUrl }}" class="kh-card-img-link">
@@ -28,7 +32,7 @@
         </a>
 
         @if ($r->description)
-            <p class="kh-card-desc">{{ $r->description }}</p>
+            <p class="kh-card-desc">{{ $isBlog ? Str::limit($r->description, 220) : $r->description }}</p>
         @endif
 
         @if ($r->is_research || $r->is_talk_webinar || $r->is_educational)
@@ -79,7 +83,9 @@
                     Arabic
                 </a>
             @endif
-            @if (!$r->data_link && !$r->en_pdf && !$r->ar_pdf)
+            @if ($isBlog)
+                <a class="kh-card-cta" href="{{ $detailUrl }}">{{ tr('Read blog post','اقرأ المقال') }} &rarr;</a>
+            @elseif (!$r->data_link && !$r->en_pdf && !$r->ar_pdf)
                 <a class="kh-card-cta" href="{{ $detailUrl }}">View details &rarr;</a>
             @endif
         </div>

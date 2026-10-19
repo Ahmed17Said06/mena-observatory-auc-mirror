@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Blogs;
 use App\Models\Repo;
 use App\Models\Repo_tags;
 use App\Models\Repo_type;
@@ -114,11 +115,13 @@ class RepoList extends Component
                 $researchBase = $researchBase->whereHas('repoType', fn($q) => $q->where('name', 'like', '%report%'));
             } elseif ($this->researchSubTab === 'briefs') {
                 $researchBase = $researchBase->whereHas('repoType', fn($q) => $q->where('name', 'like', '%brief%')->orWhere('name', 'like', '%policy%'));
-            } elseif ($this->researchSubTab === 'blogs') {
-                $researchBase = $researchBase->whereHas('repoType', fn($q) => $q->where('name', 'like', '%blog%'));
             }
 
-            $observatoryResearch = $researchBase->paginate($this->perPage, ['*'], 'research');
+            // The Observatory's blog posts live in the `blogs` table (the /blogs
+            // section), not in `repo`, so the Blogposts tab lists those instead.
+            $observatoryResearch = $this->researchSubTab === 'blogs'
+                ? $this->observatoryBlogs()->paginate($this->perPage, ['*'], 'research')
+                : $researchBase->paginate($this->perPage, ['*'], 'research');
 
             $observatoryTalks = (clone $obs)
                 ->where('is_talk_webinar', true)
@@ -173,5 +176,24 @@ class RepoList extends Component
             'hasActiveFilters'       => $hasActiveFilters,
             'researchSubTab'         => $this->researchSubTab,
         ]);
+    }
+
+    /** Blog posts, narrowed by the same user filters as the repo lists. */
+    private function observatoryBlogs()
+    {
+        $selectedTypeIsBlog = $this->selectedType
+            && Repo_type::where('id', $this->selectedType)->where('name', 'like', '%blog%')->exists();
+
+        return Blogs::query()
+            ->when($this->filterTag, fn($q) => $q->whereHas('tags', fn($tq) => $tq->where('name', $this->filterTag)))
+            ->when($this->search, fn($q) => $q->where(fn($qq) => $qq
+                ->where('title', 'like', '%' . $this->search . '%')
+                ->orWhere('description', 'like', '%' . $this->search . '%')))
+            ->when($this->selectedTag, fn($q) => $q->whereHas('tags', fn($tq) => $tq->where('repo_tags.id', $this->selectedTag)))
+            ->when($this->selectedYear, fn($q) => $q->whereYear('publish_date', $this->selectedYear))
+            // Blog posts have no repo type; any non-blog type filter excludes them all.
+            ->when($this->selectedType && ! $selectedTypeIsBlog, fn($q) => $q->whereRaw('1 = 0'))
+            ->orderByDesc('publish_date')
+            ->orderByDesc('id');
     }
 }
