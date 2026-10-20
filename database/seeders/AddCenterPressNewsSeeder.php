@@ -45,6 +45,14 @@ class AddCenterPressNewsSeeder extends Seeder
             'date'        => '2026-09-30',
             'thumb'       => 'egypt-ai-day-al-fanar.jpg',
         ],
+        [
+            'data_link'   => 'https://auctoday.aucegypt.edu/news/balancing-bias-feminist-ai',
+            'title'       => 'Nagla Rizk featured in AUC Today on feminist AI',
+            'description' => 'AUC Today profiles Nagla Rizk and the Center\'s feminist AI research, and how the MENA hub of the Feminist AI Research Network works to correct bias at the level of data and algorithm design.',
+            'content'     => "AUC Today's \"Balancing Bias in Feminist AI\" profiles Nagla Rizk, professor of economics and founding director of the Access to Knowledge for Development Center (A2K4D) at the Onsi Sawiris School of Business, who leads the Feminist AI Research Network's MENA hub through A2K4D and its flagship initiative, the MENA Observatory on Responsible AI. The article sets out what feminist AI means in practice: rather than simply identifying bias, it seeks to address injustices at the level of data and algorithm design, building systems grounded in justice, transparency, agency and pluralism. It connects this to intersectionality — the idea that social categorisations such as race, class and gender overlap to create interconnected systems of discrimination — and looks at where biased data disadvantages women, from image search and hiring tools to credit scoring and health diagnostics. Read the full feature in AUC Today.",
+            'date'        => '2026-05-01',
+            'thumb'       => 'feminist-ai-auc-today.jpg',
+        ],
     ];
 
     public function run(): void
