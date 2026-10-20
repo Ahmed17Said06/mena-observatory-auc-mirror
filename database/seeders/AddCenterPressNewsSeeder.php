@@ -37,6 +37,14 @@ class AddCenterPressNewsSeeder extends Seeder
             'date'        => '2026-09-21',
             'thumb'       => 'digital-id-el-taher.jpg',
         ],
+        [
+            'data_link'   => 'https://al-fanarmedia.org/2026/09/egypt-ai-day-at-the-american-university-in-cairo-brings-together-experts-and-students/',
+            'title'       => 'Egypt AI Day featured on Al-Fanar Media',
+            'description' => 'Al-Fanar Media, our media partner for Egypt AI Day, covers the 30 September 2026 event at AUC on "Responsible AI in Practice".',
+            'content'     => "We're pleased to highlight Al-Fanar Media, our media partner for Egypt AI Day! Held on 30 September 2026 under the theme \"Responsible AI in Practice,\" Egypt AI Day brought together entrepreneurs, businesses, researchers, practitioners, and students for a day of interactive discussions, hands-on workshops, and knowledge exchange focused on AI literacy and the responsible adoption of artificial intelligence in Egypt. The event was organized by the MENA Observatory on Responsible AI, the Access to Knowledge for Development Center (A2K4D) at the American University in Cairo's Onsi Sawiris School of Business, and Arabi Facts Hub (AFH). We thank Al-Fanar Media for its media partnership and for helping amplify conversations around responsible AI. Read the full article on Al-Fanar Media.",
+            'date'        => '2026-09-30',
+            'thumb'       => 'egypt-ai-day-al-fanar.jpg',
+        ],
     ];
 
     public function run(): void
