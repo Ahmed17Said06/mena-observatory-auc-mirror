@@ -60,6 +60,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Trusted Proxies
+    |--------------------------------------------------------------------------
+    |
+    | Comma-separated IPs (or '*') whose X-Forwarded-* headers this app should
+    | believe. Empty by default, so nothing is trusted and behaviour is
+    | unchanged. Set TRUSTED_PROXIES while the site sits behind a proxy — for
+    | example the old server bridging traffic during the AWS account move —
+    | so the app sees the real client IP and knows the request was HTTPS.
+    |
+    */
+
+    'trusted_proxies' => env('TRUSTED_PROXIES'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |
