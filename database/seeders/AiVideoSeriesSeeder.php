@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Storage;
  *     php artisan db:seed --class=Database\Seeders\AiVideoSeriesSeeder --force
  *
  * Planned (not yet finalised):
- *   EP04: The Responsible AI Challenge – Ethics, Bias & Fairness
  *   EP05: Governing AI – Frameworks, Policy & Our Collective Future
  */
 class AiVideoSeriesSeeder extends Seeder
@@ -43,6 +42,12 @@ class AiVideoSeriesSeeder extends Seeder
             'title'       => 'AI Video Series – EP03: AI in Our World – Real Applications Across Sectors',
             'description' => 'AI in healthcare & education · AI in content and media · AI in robotics & automation · Opportunities for the MENA region',
             'thumb'       => 'ai-video-series-ep3.jpg',
+        ],
+        [
+            'link'        => 'https://drive.google.com/file/d/1dd6IAVBvZp3yY8DK0q1pyFq9JEjoKQ9m/view',
+            'title'       => 'AI Video Series – EP04: The Responsible AI Challenge – Ethics, Bias & Fairness',
+            'description' => 'Algorithmic bias and fairness · Transparency and explainability · AI misinformation and deepfakes · Principles of Responsible AI',
+            'thumb'       => 'ai-video-series-ep4.jpg',
         ],
     ];
 
