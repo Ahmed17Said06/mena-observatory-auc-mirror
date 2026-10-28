@@ -11,9 +11,12 @@ use Illuminate\Support\Facades\Storage;
  * Adds external-link cards to the regular News section (featured='no': not
  * Global AI News, not pinned to the homepage) for press/media coverage
  * related to the Center. "Learn More" opens data_link in a new tab. Each
- * item is keyed on data_link, so re-running is idempotent, and its branded
- * cover (committed under seeders/assets/news) is installed onto the public
- * disk. Run as the web user so the cover can be written:
+ * item is keyed on data_link, so re-running is idempotent, and its cover
+ * (committed under seeders/assets/news) is installed onto the public disk.
+ * Covers are a real image of the story: the article's own lead image where
+ * the source allows fetching it, otherwise our own photo of the same subject
+ * (Mark Morad and Egypt AI Day are from our Egypt AI Day footage). Run as the
+ * web user so the cover can be written:
  *
  *     sudo -u www-data php artisan db:seed --class=Database\Seeders\AddCenterPressNewsSeeder --force
  */

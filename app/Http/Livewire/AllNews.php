@@ -29,7 +29,7 @@ class AllNews extends Component
             'description' => $isArabic
                 ? 'سيستضيف مركز إتاحة المعرفة من أجل التنمية (A2K4D) بكلية أنسي ساويرس لإدارة الأعمال بالجامعة الأمريكية بالقاهرة حفل ختام النسخة الأولى من مسابقة كأس الذكاء الاصطناعي المسؤول يوم الأحد 18 يناير 2026.'
                 : 'The American University in Cairo (AUC) represented by Access to Knowledge for Development (A2K4D) will host the Inaugural Responsible AI Cup Awards Ceremony on Sunday, January 18, 2026.',
-            'image' => 'img/AUCLogo_BUS_A2K4D_blueCMYK_High-01 (1).png',
+            'image' => 'img/news/rai-cup-ceremony.jpg', // still from the ceremony video
             'date' => '2026-01-18',
             'created_at' => now(),
         ];
