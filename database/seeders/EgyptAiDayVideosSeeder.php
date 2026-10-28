@@ -34,7 +34,7 @@ class EgyptAiDayVideosSeeder extends Seeder
         [
             'link'        => 'https://drive.google.com/file/d/1uzhJu_G01ZvMi1eoLAE2HUKN1lMmzU4Q/view',
             'title'       => 'Egypt AI Day 2026 – Interview with Mark Morad',
-            'description' => "At Egypt AI Day 2026, Mark Morad, the blind developer behind ScribeMe, explains how the AI app helps blind and visually impaired people study and get through daily life, why user feedback shapes every feature, and how his team tests for accuracy and protects users' data.",
+            'description' => "Mark Morad, the blind developer behind ScribeMe, on how the AI app helps visually impaired people study and get through daily life, why user feedback shapes every feature, and how his team tests for accuracy and protects users' data.",
             'thumb'       => 'egypt-ai-day-2026-mark-morad.jpg',
         ],
     ];
@@ -44,10 +44,7 @@ class EgyptAiDayVideosSeeder extends Seeder
         $disk = Storage::disk('public');
         $disk->makeDirectory('aswat_thumbs');
 
-        // Newest first on the tab, so stamp them a minute apart: first in the
-        // list gets the latest created_at.
-        $now = now();
-        foreach ($this->videos as $i => $v) {
+        foreach ($this->videos as $v) {
             $thumbRel = 'aswat_thumbs/' . $v['thumb'];
             $src = database_path('seeders/assets/aswat/' . $v['thumb']);
             $hasThumb = is_file($src);
@@ -67,14 +64,32 @@ class EgyptAiDayVideosSeeder extends Seeder
             } elseif (!$aswat->exists) {
                 $aswat->thumbnail_image = '';
             }
-            if (!$aswat->exists) {
-                $aswat->created_at = $now->copy()->subMinutes($i);
-            }
             $aswat->save();
 
             $this->command->info('  ' . $v['title'] . ($hasThumb ? '' : '  (no thumbnail found)'));
         }
 
+        $this->keepListedOrder();
+
         $this->command->info('Egypt AI Day: ' . count($this->videos) . ' video(s) published to Aswat.');
+    }
+
+    /**
+     * Aswat lists newest first. Give each video a created_at just before the
+     * one listed above it, so the tab reads in $videos order even when a row
+     * is added on a later run.
+     */
+    private function keepListedOrder(): void
+    {
+        $rows = array_map(fn ($v) => Aswat::where('link', $v['link'])->first(), $this->videos);
+
+        for ($i = 1; $i < count($rows); $i++) {
+            $prev = $rows[$i - 1];
+            $cur = $rows[$i];
+            if ($prev && $cur && $cur->created_at >= $prev->created_at) {
+                $cur->created_at = $prev->created_at->copy()->subMinute();
+                Aswat::whereKey($cur->id)->update(['created_at' => $cur->created_at]);
+            }
+        }
     }
 }
