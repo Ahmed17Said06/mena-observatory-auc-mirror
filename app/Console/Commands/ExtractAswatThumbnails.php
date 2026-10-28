@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Storage;
  *
  *     php artisan aswat:extract-thumbs                 # all Drive aswats
  *     php artisan aswat:extract-thumbs --only=<fileid> # one
- *     php artisan aswat:extract-thumbs --force         # re-extract even if present
+ *     php artisan aswat:extract-thumbs --force         # re-extract even if present,
+ *                                                      # including hand-picked thumbnails
  */
 class ExtractAswatThumbnails extends Command
 {
@@ -66,6 +67,15 @@ class ExtractAswatThumbnails extends Command
 
             if (!$force && $a->thumbnail_image === $thumbRel && $disk->exists($thumbRel) && filesize($thumbAbs) > 15000) {
                 $this->line("  skip (already good): {$a->title}");
+                $skipped++;
+                continue;
+            }
+
+            // A thumbnail stored under any other name was picked by hand (the
+            // seeders install chosen frames, e.g. aswat_thumbs/ai-video-series-ep1.jpg);
+            // the automatic pick tends to land on intro slates, so keep it.
+            if (!$force && $a->thumbnail_image && $a->thumbnail_image !== $thumbRel && $disk->exists($a->thumbnail_image)) {
+                $this->line("  skip (hand-picked thumbnail): {$a->title}");
                 $skipped++;
                 continue;
             }

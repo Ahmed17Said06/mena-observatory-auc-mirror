@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Storage;
 
 /**
  * Publishes the MENA Observatory "AI Video Series" episodes to the Aswat tab
- * and installs their branded cards (committed under seeders/assets/aswat)
- * onto the public disk. Each episode is keyed on its Drive link so the
+ * and installs their thumbnails, a still from each episode (committed under
+ * seeders/assets/aswat), onto the public disk. Each episode is keyed on its Drive link so the
  * seeder is idempotent: re-running updates titles/descriptions/thumbnails in
  * place. The Drive links play inline via the model's embed_url (/preview).
  *
  * To publish a new episode, add it to $episodes (link = the "HD with sub"
- * cut from the series Drive folder) and commit its card, then run:
+ * cut from the series Drive folder) and commit a still from it, then run:
  *
  *     php artisan db:seed --class=Database\Seeders\AiVideoSeriesSeeder --force
  *
