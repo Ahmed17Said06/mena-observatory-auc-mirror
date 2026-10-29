@@ -40,7 +40,7 @@
                         @if(isset($n->is_static) && $n->is_static)
                             <img class="post-img" src="/{{$n->image}}" alt="{{$n->title}}">
                         @elseif($n->image)
-                            <img class="post-img" src="{{Storage::url($n->image)}}">
+                            <img class="post-img" src="{{ storage_url_versioned($n->image) }}">
                         @else
                             <img class="post-img" src="/img/card-placeholder.svg" alt="{{$n->title}}">
                         @endif

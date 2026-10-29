@@ -16,7 +16,7 @@
                     ? $card->link
                     : (Route::has($card->link) ? route($card->link) : $card->link);
                 $imgSrc = $card->image
-                    ? Storage::url($card->image)
+                    ? storage_url_versioned($card->image)
                     : asset('/img/card-placeholder.svg');
             @endphp
             <div class="post-loop-featured m-3 research-border-border position-relative overflow-hidden">

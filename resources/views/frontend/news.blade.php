@@ -54,7 +54,7 @@
                         @foreach($globalAiNews as $n)
                             @php
                                 $gimg = $n->image
-                                    ? (\Illuminate\Support\Str::startsWith($n->image, ['http://','https://']) ? $n->image : Storage::url($n->image))
+                                    ? (\Illuminate\Support\Str::startsWith($n->image, ['http://','https://']) ? $n->image : storage_url_versioned($n->image))
                                     : '/img/card-placeholder.svg';
                             @endphp
                             <div class="post-container lazy-item">

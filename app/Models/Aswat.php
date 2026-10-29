@@ -22,7 +22,7 @@ class Aswat extends Model
     {
         $val = $this->thumbnail_image;
         if ($val) {
-            return Str::startsWith($val, ['http://', 'https://']) ? $val : Storage::url($val);
+            return Str::startsWith($val, ['http://', 'https://']) ? $val : storage_url_versioned($val);
         }
 
         // No uploaded thumbnail — derive one from the video link when possible
