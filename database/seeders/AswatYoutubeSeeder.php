@@ -38,8 +38,18 @@ class AswatYoutubeSeeder extends Seeder
         ];
 
         foreach ($videos as $v) {
+            $link = 'https://www.youtube.com/watch?v=' . $v['id'];
+
+            // Skip videos already on the tab under another link form
+            // (youtu.be/<id>, ...&t=3s): keying on this link would add a
+            // second card for the same video.
+            $id = str_replace('_', '\_', $v['id']);
+            if (Aswat::where('link', '!=', $link)->where('link', 'like', '%' . $id . '%')->exists()) {
+                continue;
+            }
+
             Aswat::updateOrCreate(
-                ['link' => 'https://www.youtube.com/watch?v=' . $v['id']],
+                ['link' => $link],
                 [
                     'title'           => $v['title'],
                     'description'     => '',
