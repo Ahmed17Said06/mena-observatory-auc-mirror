@@ -25,7 +25,8 @@ class AddRaiCup2McitNewsSeeder extends Seeder
 
         $country = countries::where('name', 'Egypt')->first() ?? countries::first();
 
-        // Install the committed branded thumbnail onto the public disk.
+        // Install the committed cover (the MCIT announcement's own header and
+        // headline; the page has no photo) onto the public disk.
         $thumbSrc = database_path('seeders/assets/news/rai-cup-2-mcit.jpg');
         $thumbRel = 'news_images/rai-cup-2-mcit.jpg';
         if (is_file($thumbSrc)) {
@@ -40,7 +41,7 @@ class AddRaiCup2McitNewsSeeder extends Seeder
                 'description' => "Under the auspices of Egypt's Ministry of Communications and Information Technology (MCIT), the Access to Knowledge for Development Center (A2K4D) at AUC launches Responsible AI Cup 2.0 with the MENA Observatory on Responsible AI.",
                 'content'     => 'The Ministry of Communications and Information Technology (MCIT) is sponsoring the Responsible AI Cup 2.0, a competition organized by the Access to Knowledge for Development Center (A2K4D) at The American University in Cairo\'s Onsi Sawiris School of Business, in partnership with the MENA Observatory on Responsible AI. The initiative supports SMEs and startups building AI systems grounded in transparency, fairness, and accountability. Read the full announcement on the MCIT website.',
                 'date'        => '2026-08-09',
-                'image'       => is_file($thumbSrc) ? $thumbRel : '',  // branded thumbnail
+                'image'       => is_file($thumbSrc) ? $thumbRel : '',
                 'featured'    => 'no',    // regular news, not Global AI News, not homepage
                 'country_id'  => $country?->id,
             ]
