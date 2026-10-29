@@ -302,6 +302,9 @@ class ContentImportSeeder extends Seeder
             $tagNames = $data['tags'] ?? [];
             unset($data['tags']);
             $data['image'] = $data['image'] ?? '';
+            if (Events::where('title', $data['title'])->whereDate('start_date', $data['start_date'])->exists()) {
+                continue;
+            }
             $event = Events::create($data);
             foreach ($tagNames as $name) {
                 $tag = Repo_tags::firstOrCreate(['name' => $name]);

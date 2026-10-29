@@ -9,6 +9,11 @@ class EventsController extends Controller
 {
     public function single($id)
     {
+        // Merged duplicate events: send old links to the copy that was kept.
+        if ($keep = config('event_redirects.' . $id)) {
+            return redirect()->route('events.single', ['id' => $keep], 301);
+        }
+
         $event = Events::query()->with('tags')->findOrFail($id);
         $event->views+=1;
         $event->save();
