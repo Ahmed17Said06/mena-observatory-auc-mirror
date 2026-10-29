@@ -25,12 +25,11 @@ class EventsSection extends Component
         $this->calendarEvents = Events::all();
 
         $this->loadPosts();
-        // Earliest first, like the list.
-        $this->eventDetails = $this->calendarEvents->sortBy('start_date')->first();
+        $this->eventDetails = $this->calendarEvents->sortByDesc('start_date')->first();
     }
     public function loadPosts()
     {
-        $posts = Events::orderBy('start_date')->orderBy('id')->when($this->searchInput!='', function ($q) {
+        $posts = Events::orderBy('start_date', 'desc')->when($this->searchInput!='', function ($q) {
             return $q->where('title','like','%'.$this->searchInput.'%');
         })->paginate(5, ['*'], 'page', $this->pageNumber);
         $this->pageNumber += 1;
@@ -65,7 +64,7 @@ class EventsSection extends Component
 
     public function search()
     {
-        $this->events = Events::orderBy('start_date')->orderBy('id')->when($this->searchInput!='', function ($q) {
+        $this->events = Events::orderBy('start_date', 'desc')->when($this->searchInput!='', function ($q) {
         return $q->where('title','like','%'.$this->searchInput.'%');
     })->limit(5)->get();
         $this->pageNumber = 2;

@@ -75,7 +75,7 @@ class EgyptAiDayVideosSeeder extends Seeder
     }
 
     /**
-     * Aswat lists earliest first. Give each video a created_at just after the
+     * Aswat lists newest first. Give each video a created_at just before the
      * one listed above it, so the tab reads in $videos order even when a row
      * is added on a later run.
      */
@@ -86,8 +86,8 @@ class EgyptAiDayVideosSeeder extends Seeder
         for ($i = 1; $i < count($rows); $i++) {
             $prev = $rows[$i - 1];
             $cur = $rows[$i];
-            if ($prev && $cur && $cur->created_at <= $prev->created_at) {
-                $cur->created_at = $prev->created_at->copy()->addMinute();
+            if ($prev && $cur && $cur->created_at >= $prev->created_at) {
+                $cur->created_at = $prev->created_at->copy()->subMinute();
                 Aswat::whereKey($cur->id)->update(['created_at' => $cur->created_at]);
             }
         }

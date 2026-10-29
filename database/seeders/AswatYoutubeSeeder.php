@@ -12,7 +12,7 @@ use Illuminate\Database\Seeder;
  *
  * Idempotent: keyed on the video link, so re-running updates rather than
  * duplicating. created_at is set to the video's publish date so the
- * section (ordered earliest-first) shows them in publishing order.
+ * section (ordered latest-first) shows newest videos first.
  *
  * Thumbnails use YouTube's auto-generated image; the Aswat::thumbnail_url
  * accessor returns full URLs as-is (admin-uploaded thumbnails still work).

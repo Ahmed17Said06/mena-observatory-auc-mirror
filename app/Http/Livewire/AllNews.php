@@ -49,10 +49,10 @@ class AllNews extends Component
                 $q->where('featured', '!=', 'global_ai')
                   ->orWhereNull('featured');
             })
-            // Earliest first, by the item's own date (or when it was added,
-            // if it has none); id keeps same-day items in a stable order.
-            ->orderByRaw('COALESCE(`date`, `created_at`)')
-            ->orderBy('id');
+            // Newest first, by the item's own date (or when it was added, if
+            // it has none): items seeded together share a created_at.
+            ->orderByRaw('COALESCE(`date`, `created_at`) DESC')
+            ->orderByDesc('id');
     }
 
     /** The date a news item sorts by, matching getQuery()'s ordering. */
@@ -84,8 +84,8 @@ class AllNews extends Component
         if (empty($this->search)) {
             $raiCup = $this->getStaticRaiCupArticle();
             $last = $blogs->last();
-            if (!$this->hasMorePages || ($last && $this->sortDate($last) >= $raiCup->date)) {
-                $blogs = $blogs->push($raiCup)->sortBy(fn ($n) => $this->sortDate($n))->values();
+            if (!$this->hasMorePages || ($last && $this->sortDate($last) <= $raiCup->date)) {
+                $blogs = $blogs->push($raiCup)->sortByDesc(fn ($n) => $this->sortDate($n))->values();
             }
         }
 

@@ -31,9 +31,7 @@ class Aswats extends Component
                         ->orWhere('description', 'like', '%' . $term . '%');
                 });
             })
-            // Earliest first; id keeps rows added together in a stable order.
-            ->oldest()
-            ->orderBy('id');
+            ->latest();
     }
 
     public function loadMore(): void
