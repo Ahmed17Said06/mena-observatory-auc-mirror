@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Storage;
  * hosted on Google Drive (folder "AUC AI VER3").
  *
  * Idempotent: keyed on the video link, so re-running updates rather than
- * duplicating. created_at is staggered (newest first) so the section, which
- * is ordered latest-first, shows these in the intended order.
+ * duplicating. created_at is staggered (oldest first) so the section, which
+ * is ordered earliest-first, shows these in the intended order.
  *
  * Links open the Drive player; thumbnails use Drive's generated image. The
  * Aswat::thumbnail_url accessor returns full URLs as-is. The Drive files must
@@ -48,8 +48,8 @@ class AswatDriveSeeder extends Seeder
                     'title'           => $v['title'],
                     'description'     => '',
                     'thumbnail_image' => $this->localThumbnail($v['id']),
-                    // Stagger newest-first so list order matches the array order.
-                    'created_at'      => $base->copy()->subMinutes($i),
+                    // Stagger oldest-first so list order matches the array order.
+                    'created_at'      => $base->copy()->addMinutes($i),
                     'updated_at'      => now(),
                 ]
             );

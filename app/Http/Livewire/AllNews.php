@@ -49,7 +49,16 @@ class AllNews extends Component
                 $q->where('featured', '!=', 'global_ai')
                   ->orWhereNull('featured');
             })
-            ->orderBy('created_at', 'desc');
+            // Earliest first, by the item's own date (or when it was added,
+            // if it has none); id keeps same-day items in a stable order.
+            ->orderByRaw('COALESCE(`date`, `created_at`)')
+            ->orderBy('id');
+    }
+
+    /** The date a news item sorts by, matching getQuery()'s ordering. */
+    private function sortDate($n): string
+    {
+        return substr((string) ($n->date ?: $n->created_at), 0, 10);
     }
 
     public function loadMore(): void
@@ -69,9 +78,15 @@ class AllNews extends Component
 
         $blogs = collect($paginated->items());
 
-        // Pin the static RAI Cup article to the top (when not searching).
+        // Slot the static RAI Cup article in by its date (when not searching),
+        // once the loaded items reach that date, so "load more" only ever
+        // appends and never reshuffles what is already on screen.
         if (empty($this->search)) {
-            $blogs = collect([$this->getStaticRaiCupArticle()])->merge($blogs);
+            $raiCup = $this->getStaticRaiCupArticle();
+            $last = $blogs->last();
+            if (!$this->hasMorePages || ($last && $this->sortDate($last) >= $raiCup->date)) {
+                $blogs = $blogs->push($raiCup)->sortBy(fn ($n) => $this->sortDate($n))->values();
+            }
         }
 
         return view('livewire.news', ['blogs' => $blogs]);

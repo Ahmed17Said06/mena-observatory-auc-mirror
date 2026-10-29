@@ -86,9 +86,9 @@ class AiVideoSeriesSeeder extends Seeder
     }
 
     /**
-     * Aswat lists newest first. Episodes published out of order (EP02 after
-     * EP03) would jump ahead of their successors, so give each episode a
-     * created_at just before the next one's: the tab then reads EP03, EP02, EP01.
+     * Aswat lists earliest first. Episodes published out of order (EP02 after
+     * EP03) would land after their successors, so give each episode a
+     * created_at just before the next one's: the tab then reads EP01, EP02, EP03.
      */
     private function keepSeriesOrder(): void
     {
