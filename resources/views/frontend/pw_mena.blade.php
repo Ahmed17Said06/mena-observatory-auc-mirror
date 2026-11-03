@@ -294,7 +294,7 @@
                     </a>
                     <a href="#" class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
-                        <div class="resource-card__title">Fairwork Egypt 2022: Platform Workers Amidst Egypt's Economic Crisis</div>
+                        <div class="resource-card__title">Fairwork (2023) Fairwork Egypt Ratings 2022/23: Platform Workers Amidst Egypt’s Economic Crisis</div>
                         <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
                     </a>
                     <div class="resource-card resource-card--report">
