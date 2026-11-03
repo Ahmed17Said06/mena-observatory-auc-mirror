@@ -5,7 +5,8 @@
 @php
     /*
      * The cohort. `logo` is a file under public/img/iairn/logos/ (the `mono`
-     * monogram is shown until one is supplied); `social` lists [platform key from
+     * monogram is shown until one is supplied); `desc` is one paragraph or a
+     * list of paragraphs; `social` lists [platform key from
      * $platforms, URL, optional button text] rendered as buttons under the
      * project name; the text defaults to the platform name.
      */
@@ -16,7 +17,11 @@
             'mono'    => 'GAIN',
             'country' => 'Lebanon/Morocco',
             'sector'  => 'Gender/Healthcare',
-            'desc'    => 'A pilot AI-powered, gamified mobile learning app adapted from Lebanon to Morocco to strengthen the knowledge of obstetricians and midwives in maternal healthcare. It is gender transformative by empowering the predominantly female maternal health workforce with equitable access to personalized digital learning, ultimately improving the quality of care for women.',
+            'desc'    => [
+                'Led by the Global Health Institute (GHI) at the American University of Beirut (AUB), the project aims to adapt and scale up the healthcare workforce capacity-building component of the Gamification, Artificial Intelligence and mHealth Network for Maternal Health Improvement (GAIN MHI) in Morocco, building on its implementation in Lebanon. In partnership with Mohammed VI University of Health and Sciences (UM6SS), and with support from the MENA Observatory on Responsible AI, the project will introduce the GAIN MHI mobile application to maternal health healthcare providers (HCPs) in Morocco.',
+                'Combining artificial intelligence (AI) and gamification, the application offers an engaging and personalized approach to professional development, supporting healthcare providers in strengthening their maternal health knowledge and skills.',
+                'By contextualizing this approach to Morocco, the project seeks to expand opportunities for healthcare workforce development and demonstrate the potential of digital health solutions to support learning in low-resource settings.',
+            ],
             'logo'    => null,
             'social'  => [
                 ['instagram', 'https://www.instagram.com/ghiaub/'],
@@ -74,7 +79,13 @@
             'mono'    => 'CHIFAA',
             'country' => 'Tunisia',
             'sector'  => 'Gender/Healthcare',
-            'desc'    => 'An open-source, survivor-led AI companion prototype that provides culturally grounded health information and psychosocial support for women living with breast and cervical cancer in North Africa. By positioning women survivors as co-designers and governance partners, the project challenges gender bias in health AI, centers women\'s lived experiences in technology development, and transforms how women access and shape digital healthcare.',
+            'desc'    => [
+                'CHIFAA (شفاء, meaning “healing” in Arabic) is a survivor-led, open-source conversational AI initiative operating under ITAUN – La Plateforme Africaine de Réseautage et d’Innovation (African Networking and Innovation Platform), with funding and support from the MENA Observatory on Responsible AI.',
+                'Designed for women affected by breast and cervical cancer in North Africa, CHIFAA addresses inequalities in access to reliable health information, emotional support, and culturally appropriate digital healthcare.',
+                'Unlike conventional AI health tools built primarily around Western languages and datasets, CHIFAA adopts a dialect-first, culturally grounded approach that recognises African languages, local knowledge, and women\'s lived experiences.',
+                'The initiative places cancer survivors at the centre of AI design and governance, prioritising privacy, human dignity, and medical oversight. Its non-diagnostic AI companion aims to provide accessible educational and psychosocial support while encouraging appropriate professional healthcare.',
+                'CHIFAA advances health equity, linguistic sovereignty, and responsible AI innovation across North Africa and the wider MENA region.',
+            ],
             'logo'    => null,
             'social'  => [
                 ['website',  'https://www.chifaa.org'],
@@ -82,13 +93,17 @@
             ],
         ],
         [
-            'name'    => 'A Woman Framed',
-            'short'   => 'A Woman Framed',
-            'mono'    => 'AWF',
+            'name'    => 'Women, Framed',
+            'short'   => 'Women, Framed',
+            'mono'    => 'WF',
             'country' => 'Egypt/Lebanon/Jordan',
             'sector'  => 'Media/Journalism',
-            'desc'    => 'A pilot developing open, Arabic-language AI and data infrastructure across Egypt, Lebanon, and Jordan, with datasets and rule libraries to identify gendered narratives and harmful framing in media. By involving feminist practitioners alongside journalists and researchers in data collection, validation, and use, the project aims to address gender stereotypes and victim-blaming framing in Arabic-language reporting and support more transparent, evidence-based scrutiny of gendered media narratives.',
-            'logo'    => null,
+            'desc'    => [
+                'News coverage shapes how societies see women: which roles they are given, which issues are linked to them, and whose voices are heard. These patterns are often subtle and hard to notice through reading alone.',
+                '"Women, Framed," led by Anmat, a computational media lab, examines how news media portray women and the topics associated with them. The project aims to make these portrayals visible and measurable so journalists, researchers, and the public can discuss them with evidence rather than impressions.',
+                'By supporting more informed and balanced reporting, the project contributes to wider conversations about gender, media, and the responsible use of data.',
+            ],
+            'logo'    => 'anmat.png',   // Anmat, the lab that leads the project
             'social'  => [],
         ],
         [
@@ -310,6 +325,9 @@
         line-height: 1.7;
         margin: 0;
     }
+    .iairn-project p + p {
+        margin-top: .75rem;
+    }
 
     /* Experts */
     .iairn-experts {
@@ -463,7 +481,9 @@
                         <span class="iairn-tag"><i class="fas fa-globe-africa" aria-hidden="true"></i> {{ $project['country'] }}</span>
                         <span class="iairn-tag"><i class="fas fa-tag" aria-hidden="true"></i> {{ $project['sector'] }}</span>
                     </div>
-                    <p>{{ $project['desc'] }}</p>
+                    @foreach((array) $project['desc'] as $para)
+                        <p>{{ $para }}</p>
+                    @endforeach
                 </article>
             @endforeach
         </div>
