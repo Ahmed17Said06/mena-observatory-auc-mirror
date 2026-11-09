@@ -282,21 +282,31 @@
                             <a href="{{ asset('docs/tunisia/tunisia-platform-workers-policy-paper-fr.pdf') }}" target="_blank" class="resource-card__lang-link">FR</a>
                         </div>
                     </div>
-                    <a href="#" class="resource-card resource-card--report">
+                    <div class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
-                        <div class="resource-card__title">Fairwork Egypt 2021: Towards Decent Work in a Highly Informal Economy</div>
+                        <div class="resource-card__title">Fairwork (2021) Fairwork Egypt Ratings 2021: Labour Standards in the Gig Economy</div>
+                        <p class="resource-card__desc">Authors: Nagla Rizk, Nagham ElHoussamy, Nadine Weheba, Khadiga Hassan, Haya El Zayat, and Adel Osama. Cairo, Egypt; Oxford, United Kingdom.</p>
                         <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
-                    </a>
+                        <div class="resource-card__langs">
+                            <a href="{{ asset('docs/egypt/fairwork-egypt-2021-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
+                            <a href="{{ asset('docs/egypt/fairwork-egypt-2021-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
+                        </div>
+                    </div>
                     <a href="#" class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">Domestic Platform Work in the Middle East and North Africa</div>
                         <div class="resource-card__tag">{{ countryLabel('MENA') }}</div>
                     </a>
-                    <a href="#" class="resource-card resource-card--report">
+                    <div class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">Fairwork (2023) Fairwork Egypt Ratings 2022/23: Platform Workers Amidst Egypt’s Economic Crisis</div>
+                        <p class="resource-card__desc">Authors: Nagla Rizk, Batoul AlMehdar, Khadiga Hassan, Eisha Afifi, Farah Galal, and Dana ElBashbishy. Cairo, Egypt; Oxford, United Kingdom.</p>
                         <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
-                    </a>
+                        <div class="resource-card__langs">
+                            <a href="{{ asset('docs/egypt/fairwork-egypt-2022-23-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
+                            <a href="{{ asset('docs/egypt/fairwork-egypt-2022-23-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
+                        </div>
+                    </div>
                     <div class="resource-card resource-card--report">
                         <div class="resource-card__icon">@include('frontend.partials._icon-doc')</div>
                         <div class="resource-card__title">@if(LaravelLocalization::getCurrentLocale()==='ar') العمل الجديد: عمال المنصات الرقمية في مصر 2025 @else New Work: Platform Workers in Egypt 2025 @endif</div>
@@ -358,16 +368,20 @@
                     @endforeach
                 @else
                     {{-- Hardcoded fallback (shown until seeder is run) --}}
-                    <a href="{{ asset('docs/egypt/egypt-delivery-workers-policy-brief.pdf') }}" target="_blank" class="resource-card resource-card--brief">
+                    <div class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">Social protection and representation for delivery workers in Egypt</div>
                         <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
-                        <span class="resource-card__external">@include('frontend.partials._icon-external')</span>
-                    </a>
-                    <a href="#" class="resource-card resource-card--brief">
+                        <div class="resource-card__langs">
+                            <a href="{{ asset('docs/egypt/egypt-platform-workers-policy-brief-en.pdf') }}" target="_blank" class="resource-card__lang-link">EN</a>
+                            <a href="{{ asset('docs/egypt/egypt-platform-workers-policy-brief-ar.pdf') }}" target="_blank" class="resource-card__lang-link">AR</a>
+                        </div>
+                    </div>
+                    <a href="{{ asset('docs/egypt/egypt-delivery-workers-policy-brief.pdf') }}" target="_blank" class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
                         <div class="resource-card__title">Social Security Provisions for Workers in the Platform Economy: Policy Options with Focus on Egypt</div>
                         <div class="resource-card__tag">{{ countryLabel('Egypt') }}</div>
+                        <span class="resource-card__external">@include('frontend.partials._icon-external')</span>
                     </a>
                     <div class="resource-card resource-card--brief">
                         <div class="resource-card__icon">@include('frontend.partials._icon-brief')</div>
@@ -775,7 +789,7 @@
         line-height: 1.55;
         margin: 0.5rem 0 0;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 6;   /* room for a Fairwork author list in the 3-column grid */
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
