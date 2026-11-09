@@ -37,7 +37,10 @@
             'country' => 'Morocco',
             'sector'  => 'Healthcare/Accessibility',
             'desc'    => 'An open-source AI-powered smart glasses system that helps blind and visually impaired individuals navigate their surroundings, read text, and access real-time audio guidance. To be developed as a functional prototype, the solution is co-designed and tested with women and youth with visual impairments, advancing gender-equitable access to assistive technology while promoting greater autonomy and social inclusion.',
-            'logo'    => null,
+            // The team asked for the university's logo (Université Mohammed
+            // Premier, Oujda); their Drive file is private, so this is the
+            // official logo from Wikimedia Commons.
+            'logo'    => 'ump-oujda.png',
             'social'  => [
                 ['linkedin', 'https://www.linkedin.com/school/ump-oujda', 'UMP Oujda'],
                 ['linkedin', 'https://www.linkedin.com/in/zkaddari', 'Zakaria Kaddari'],
