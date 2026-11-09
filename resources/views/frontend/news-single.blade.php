@@ -23,6 +23,7 @@
     .news-body hr { margin: 2rem 0; border: 0; border-top: 1px solid #e8eaed; }
     .news-body [dir="rtl"] { text-align: right; }
     .news-body a { color: #022448; text-decoration: underline; }
+    .news-body img { display: block; max-width: 100%; height: auto; border-radius: 8px; margin: .25rem 0 1.25rem; }
 </style>
 @section('content')
     @include('layouts.navbars.guest.navbar', ['title' => 'Dashboard'])

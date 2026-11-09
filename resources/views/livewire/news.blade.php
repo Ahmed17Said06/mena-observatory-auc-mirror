@@ -57,7 +57,7 @@
                                     <button class='btn learn_more'><i class="fas fa-plus"></i> @lang('translation.learn-more')</button>
                                 </a>
                             @else
-                                <a href='{{route("blogs.single", ["id" => $n->id])}}'>
+                                <a href='{{route("news", ["id" => $n->id])}}'>
                                     <button class='btn learn_more'><i class="fas fa-plus"></i> @lang('translation.learn-more')</button>
                                 </a>
                             @endif
