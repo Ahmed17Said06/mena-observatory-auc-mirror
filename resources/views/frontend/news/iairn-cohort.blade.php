@@ -90,6 +90,8 @@
             'social'  => [
                 ['website',  'https://www.chifaa.org'],
                 ['linkedin', 'https://www.linkedin.com/company/chifaa-ai/'],
+                ['linkedin', 'https://www.linkedin.com/in/maha-jouini/', 'Maha Jouini'],
+                ['linkedin', 'https://www.linkedin.com/company/itaun/', 'ITAUN'],
             ],
         ],
         [
@@ -104,7 +106,13 @@
                 'By supporting more informed and balanced reporting, the project contributes to wider conversations about gender, media, and the responsible use of data.',
             ],
             'logo'    => 'anmat.png',   // Anmat, the lab that leads the project
-            'social'  => [],
+            'social'  => [
+                // The sheet's LinkedIn link (linkedin.com/anmat-project) is
+                // malformed; this is the page anmat.media links to.
+                ['linkedin', 'https://www.linkedin.com/company/anmatproject/'],
+                ['x',        'https://x.com/anmatmedia'],
+                ['bluesky',  'https://bsky.app/profile/anmat-media.bsky.social'],
+            ],
         ],
         [
             'name'    => 'Adala-AI',
@@ -140,6 +148,7 @@
         'youtube'   => ['YouTube',   'fa-brands fa-youtube'],
         'tiktok'    => ['TikTok',    'fa-brands fa-tiktok'],
         'github'    => ['GitHub',    'fa-brands fa-github'],
+        'bluesky'   => ['Bluesky',   null],   // not in Font Awesome 6.5; drawn inline below
     ];
 
     $experts = [
@@ -296,6 +305,11 @@
         font-weight: 600;
         text-decoration: none;
         transition: background .2s ease, color .2s ease;
+    }
+    .iairn-social__svg {
+        width: 1em;
+        height: 1em;
+        flex: none;
     }
     .iairn-social:hover,
     .iairn-social:focus-visible {
@@ -470,7 +484,12 @@
                                         @endphp
                                         <a class="iairn-social" href="{{ $url }}" target="_blank" rel="noopener noreferrer"
                                            aria-label="{{ isset($link[2]) ? $text . ' on ' . $label : $project['short'] . ' on ' . $label }}">
-                                            <i class="{{ $icon }}" aria-hidden="true"></i> {{ $text }}
+                                            @if($platform === 'bluesky')
+                                                <svg class="iairn-social__svg" viewBox="0 0 600 530" aria-hidden="true" focusable="false"><path fill="currentColor" d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg>
+                                            @else
+                                                <i class="{{ $icon }}" aria-hidden="true"></i>
+                                            @endif
+                                            {{ $text }}
                                         </a>
                                     @endforeach
                                 </div>
