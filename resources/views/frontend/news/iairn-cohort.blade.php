@@ -86,7 +86,7 @@
                 'The initiative places cancer survivors at the centre of AI design and governance, prioritising privacy, human dignity, and medical oversight. Its non-diagnostic AI companion aims to provide accessible educational and psychosocial support while encouraging appropriate professional healthcare.',
                 'CHIFAA advances health equity, linguistic sovereignty, and responsible AI innovation across North Africa and the wider MENA region.',
             ],
-            'logo'    => null,
+            'logo'    => 'chifaa.png',   // from chifaa.org; the team's Drive folder is private
             'social'  => [
                 ['website',  'https://www.chifaa.org'],
                 ['linkedin', 'https://www.linkedin.com/company/chifaa-ai/'],
